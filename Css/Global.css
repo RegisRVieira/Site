@@ -1,0 +1,730 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+}
+/* = = = = = = = = = Home = = = = = = = = = */
+
+/* * * * *  N A V  * * * * */
+.navHome {
+    background-color: #22396f;
+    width: 100%;
+    height: 104px;
+    margin: 0;
+    padding: 0;
+    
+}
+.navHome-Internas {
+    height: 52px;
+    background-color: #22396f;    
+}
+.navHome-Internas p{
+    margin: 0;
+    padding: 0;
+    padding-top: 11px;    
+    text-align: center;
+}
+
+.navHome-Container {
+    background-color: #22396f;
+    width: 100%;
+    height: 34px
+}
+
+.navHome-Box {
+    float: left;
+    width: 10%;
+    height: 100%;
+    border-left: none;
+    border-bottom: 1px solid #8ba1d3;
+    box-sizing: border-box;
+    border-top: 2px solid #8ba1d3;
+}
+
+.navHome-Box p,a{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding-top: 6px;
+    font-size: .9em;
+    color: #8ba1d3;
+    text-decoration: none;
+}
+
+.navHome-Box2 {
+    float: left;
+    width: 5%;
+    height: 100%;
+    margin-left: -1px;
+    border: 1px solid #8ba1d3;
+    box-sizing: border-box;
+    border-top: 2px solid #8ba1d3;    
+}
+
+.navHome-Box2 p {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    padding-top: 2px;
+    font-size: .9em;
+    color: #8ba1d3;
+}
+
+.navHome-Box2 img {
+    width: 25px;
+}
+
+.navHome-Box3 {    
+    float: left;
+    width: 5%;
+    height: 100%;
+    margin-left: -1px;
+    border: 1px solid #8ba1d3;
+    box-sizing: border-box;
+    border-top: 2px solid #8ba1d3;    
+}
+.navHome-Box3 p{
+    margin: 0; 
+    padding: 0; 
+    font-family: Arial, Helvetica, sans-serif; 
+    text-align: center; 
+    padding-top: 5px; 
+    font-size: .9em; 
+    color: #8ba1d3;
+}
+
+.navHome-Box3 img {
+    width: 20px;
+}
+
+.navHome-Box4 {
+    float: left; 
+    min-width: 80%; 
+    margin-left: -1px; 
+    height: 100%; 
+    border-bottom: 1px solid #8ba1d3; 
+    border-top: 2px solid #8ba1d3; 
+    box-sizing: border-box;        
+}
+.navHome-Box4 div{
+    float: right; 
+    height: 100%; 
+    position: relative; 
+    min-width: 300px;     
+}
+.navHome-Box4 img{
+    margin: 0; 
+    padding: 0; 
+    padding-top: 6px; 
+    width: 20px; 
+    float: left
+}
+.navHome-Box4 p{
+    margin: 0; 
+    padding:0; 
+    margin-right: 100px; 
+    text-align: right; 
+    font-size: 1em; 
+    color: #8ba1d3; 
+    float: left;  
+    margin-top: 8px; 
+    margin-left: 2px;
+    text-decoration: none;
+}
+
+.logohome {
+    width: 30%;
+    height: 70px;
+    float: left;
+    margin-right: 15px;
+}
+
+.logohome img {
+    position: relative;
+    float: right;
+    color: white;
+    font-size: 30px;
+    margin-top: 20px;
+}
+.navmenu {
+    width: 37%;
+    height: 70px;
+    float: left;
+    display: inline-block;
+}
+
+.navlista {
+    margin-left: 20px;
+    margin-top: 35px;
+}
+
+.navlista ul {
+    margin: 0;
+    padding: 0;
+}
+.navlista li {
+    list-style: none;
+    display: inline-block;
+    margin-top: 0px;    
+}
+.navlista li a {
+    text-decoration: none;
+    color: #8ba1d3;
+    font-size: .9em;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 0px 16px 0 0px;    
+    font-weight: 600;        
+}
+.navlista li a:hover {
+    color: white;
+}
+.navlista li a.voceonlinejs{    
+    cursor: pointer;
+    display: none;    
+}
+.navlista li.treeline-icon {
+    display: none;
+    color: #cac0e5;
+    
+}
+.navlista li.treeline-icon:hover {
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
+
+.navlista li a.treeline-closeicon {
+    display: none;
+    color: #cac0e5;
+}
+
+.navlista li a.treeline-closeicon:hover {
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
+
+.navbarra {
+    margin-top: 1%;
+    position: absolute;
+    color: #8ba1d3;
+    font-size: 35px;
+    font-weight: 100;
+    width: 10px;
+    text-align: center;
+}
+/* * * * * Fim NAV * * * * */
+
+/* * * * *  C O R P O  * * * * */
+
+.corpoHome {
+    margin: 0px auto;
+    width: 1165px;
+    width: 100%;
+    padding: 0;        
+}
+
+/* * * * *  Fim CORPO  * * * * */
+
+/* * * * *  S E S S Õ E S  * * * * */
+
+/* - - BOX SLIDER - - - */
+.BoxSlider {
+    margin: 0;
+    padding: 0;
+    margin-top: 1px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 300px;
+    /*background-color: #cac0e5;    */
+}
+.BoxSlider-Interno {
+    margin: 0 auto;
+    width: 85%;
+    width: 1200px;
+    height: 100%;    
+}
+
+.BoxSlider-Propaganda {
+    width: 65%;    
+    height: 300px;
+    float: left;
+    box-sizing: border-box;
+}
+
+.slider {
+    width: 630px;
+    width: 99.5%;
+    height: 258px;
+    height: 99%;
+    border: 2px solid #4f405f;
+    border: none;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;    
+}
+
+.slider a {
+    text-decoration: none;
+}
+
+.slider img {
+    /*position: absolute; */
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid #ddd;*/
+}
+
+.slider p {
+    font-size: 12px;
+    padding-left: 10px;
+    margin: 0;
+    color: #3c865d;
+    text-align: left;
+    position: absolute;
+    top: 250px;
+}
+
+/* - - - Box Você On Line - - - */
+
+.BoxSlider-VoceOnLine {
+    width: 33.5%;
+    height: 300px;
+    margin-left: 1.2%;
+    border: 1px solid #8ba1d3;
+    border: 0px solid #8ba1d3;        
+    float: left;
+    box-sizing: border-box;
+}
+
+.BoxSlider-VoceOnLine p{
+    margin: 0;
+    padding: 21px 10px 10px 20px;
+    color: #8ba1d3;
+    color: white;
+    font-size: 2.2em; 
+    font-style: italic; 
+    text-shadow: 2px 1px 1.5px #8ba1d3;    
+    background-color:#22396f;
+    background-color: #8ba1d3;
+}
+
+.BoxVOTitulo {
+    margin-left: .4%;
+    width: 49.1%;
+    text-align: center;
+    color: #22396f;
+    background-color: #22396f;
+    background-color: #8ba1d3;
+    margin-top: 5px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom: 1px solid #8ba1d3;
+    float: left;
+    margin-right: 2px;
+}
+.BoxVOTitulo p{
+    font-size: 1.6em;    
+    text-align: center;
+    padding: 8px 0 6px 0;
+}
+.BoxVOFundo {
+    background-color: #22396f;
+    height: auto;
+}
+.BoxVOBotao {
+    margin: 0;
+    margin-bottom: 1px;
+    padding: 9.3px 0 9.3px 0;
+    width: 100%;
+    height: auto;
+    font-size: 2em;
+    color: #8ba1d3;
+    text-align: center;
+}
+.BoxVOBotao:hover{
+    background-color: #39579f;
+    color: #22396f;
+    cursor: pointer;
+    font-size: 2.2em;
+    padding: 7.5px 0 7.5px 0;
+}
+.BoxVOGuia {
+    width: 100%;
+    height: auto;
+    color: #8ba1d3;
+    background-color: #22396f;
+    text-align: center;
+    margin-top: 4px; 
+    padding:14px 0 14px 0;
+    font-size: 1.8em;
+    float: left;
+}
+.BoxVOGuia:hover {
+    background-color: #39579f;
+    color: #22396f;
+    cursor: pointer;
+    padding: 8px 0 8px 0;
+    font-size: 2.5em;
+}
+.BoxVOImg{
+    width: 412px;
+    height: 231px;     
+}
+
+.BoxVOImg a img{    
+    margin-left: .8px;
+    width: 28.2%; 
+    width: 400px;
+    height: auto;
+}
+
+/* - - - - - - - - - - - - - - - - */
+
+/* - - - B O X  M A T É R I A - - - */
+
+.BoxMaterias {
+    margin: 0;
+    padding: 0;
+    margin-top: 1px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 505px;
+    /* background-color: #44356f;  */
+}
+.BoxMaterias-Interno {
+    margin: 0 auto; 
+    width: 65%;
+    width: 1200px;
+    height: 100%;         
+}
+.HomeMateria {
+    width: 29.5%;
+    height: 100%;
+    margin-left: 1.9%;
+    margin-right: 1.7%;    
+    float: left;        
+}
+.HomeMateria img{
+    width: 100%;
+    height: 55%;
+}
+.HomeMateriaTitulo {
+    margin: 0;
+    padding: 0 3px;    
+    font-size: 1.2em;   
+    font-family: 'Book Antiqua'
+}
+.HomeMateriaCategoria {
+    margin: 0;
+    padding: 0 15px 5px;    
+    font-size: .8em;
+    text-align: justify;    
+}
+.HomeMateriaTexto {
+    margin: 0;
+    margin-top: 1px;
+    margin-bottom: 12px;
+    padding: 0 3px;
+    width: 98%;
+    text-align: justify;    
+}
+.HomeMateriaData {
+    margin: 0;
+    padding: 0 3px;
+    width: 98%;
+    font-size: .6em;
+    font-style: oblique;
+    font-family: 'Futura Bk BT';
+    text-transform: uppercase;
+    text-align: justify;
+}
+.HomeMateriaMais {
+    margin: 0;
+    padding: 2px 0 0 0;
+    color: #602b99; font-size: .8em;
+    font-weight: 700;    
+}
+.HomeMateriaMais a,p{
+    margin: 0;
+    padding:0;
+    text-decoration: none;
+}
+
+.HomeMateria-Guia {
+    margin:0; 
+    margin-top: -30px; 
+    padding:0; 
+    width: 100%; 
+    height: 100%;
+}
+.HomeMateria-Guia-Tit {
+    width: 100%; 
+    height: 10%;
+}
+.HomeMateria-Guia-Tit p {
+    margin: 0;
+    padding: 5px 0 5px;
+    font-size: 2em;
+    text-align: center;    
+    color: #f26907;
+    color: #524f4f;
+}
+.HomeMateria-Guia-Img {
+    width: 100%;
+    height: 85%;
+}
+/* Títulos */
+.tituloBox-1 {
+    font-size: 2.8em;
+    margin: 15px 0 5px;
+    color: #524f4f;
+    text-align: center;
+    font-family: 'Cormorant', serif;
+}
+
+.tituloBox-2 {
+    font-size: 1.8em;
+    text-decoration: underline;
+    margin-bottom: 5px;
+    color: #524f4f;
+}
+
+/* - - - FIM - - - */
+.BoxServicos {
+    margin: 0;
+    padding: 0;
+    margin-top: 1px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 505px;
+    background-color: #ffd800;
+}
+
+.BoxGaleria33 {
+    width: 100%;
+    height: 490px;
+    margin-bottom: 15px;
+    z-index: -10;
+    background-color: #ff6a00;
+}
+
+.Boxgaleria100 {
+    margin: 0 auto;
+    width: 100%;
+    height: 660px;
+    margin: 10px 0 0px 0;
+    background-color: #808080;
+}
+
+#margemRodape {
+    width: 100%;
+    height: 9px;
+    margin-bottom: 34px;
+    
+}
+
+/* * * * * Fim SESSÕES * * * * */
+
+/* - - - -  Conteúdo Matéria - - - - */
+
+.corpoContMateria {
+    margin: 0 auto;
+    padding-top: 5px;
+    margin-bottom: 48px;
+    width: 70%;
+    width: 1200px;    
+}
+
+/* - - Lista - - */
+.montaMateria {
+    /*background-color: #2a4370;*/
+    padding: 2px;
+    overflow: hidden;
+}
+
+.montaMateria {
+    margin: 0 auto;
+    padding: 0;
+    width: 84.5%;
+    display: inline-block;
+}
+
+.public-lateral {
+    margin: 0;
+    padding: 0;
+    padding-top: 5px;
+    /*background-color: aqua;*/
+    width: 15%;
+    min-height: 875px;
+    display: inline-block;
+    float: right;
+    /*visibility: hidden;*/    
+}
+
+
+.public-lateral a {
+    text-decoration: none;
+}
+
+.public-lateral img {
+    width: 100%
+}
+
+.pl-Titulo {
+    margin: 0;
+    padding: 0;
+    padding-left: 5px;
+    color: #373737;
+}
+
+.pl-Data {
+    margin: 0;
+    padding: 0;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    font-size: .7em;
+}
+
+/* - - Matéria - - */
+publicidade {
+    margin: 0 auto;
+    margin-top: 5px;
+    padding: 0px;
+    text-align: center;
+    width: 98%;
+    height: 120px;
+    height: auto;
+    /*border: 2px solid #f26907;*/
+}
+
+.publicidade img {
+    width: 100%;
+}
+
+.matImg {
+    width: 100%;
+    height: inherit;
+    margin-top: 10px;
+}
+
+.matImg img {
+    margin: 2px 15px;
+    padding: 2px;
+    border: 2px solid #ddd;
+}
+
+.texto p {
+    margin: 0;
+    padding: 5px 20px;
+    text-align: justify;
+    text-indent: 30px;
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+    line-height: 30px;
+    /*font-family: 'Noto Sans TC', sans-serif;
+            font-family: 'Pacifico', cursive;*/
+}
+
+.titulo {
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 0px;
+    text-align: center;
+    width: 98%;
+    /*border: 2px solid #f26907;*/
+    overflow: hidden;
+}
+
+.titulo p {
+    padding: 4px 0 2px;
+    margin: 0;
+    font-size: 2.4em;
+    color: #22396f;
+}
+
+.introducao {
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 0px;
+    text-align: center;
+    width: 98%;
+    height: 240px;
+    height: auto;
+    /*border: 2px solid #f26907;*/
+    overflow: hidden;
+}
+
+.contexto {
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 0px;
+    text-align: center;
+    width: 98%;
+    height: 240px;
+    height: auto;
+    /*border: 2px solid #f26907;*/
+    overflow: hidden;
+}
+
+.complemento {
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 0px;
+    text-align: center;
+    width: 98%;
+    height: 240px;
+    height: auto;
+    overflow: hidden;
+    /*border: 2px solid #f26907;*/
+}
+
+.conclusao {
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 0px;
+    text-align: center;
+    width: 98%;
+    height: 140px;
+    height: auto;
+    overflow: hidden;
+    /*border: 2px solid #f26907;*/
+}
+
+
+/* - - - - Fim C. Matéria - - - - */
+
+
+/* * * * *  F O O T E R  * * * * */
+
+.footerHome {
+    font-size: 14px;
+    width: 100%;
+    height: 38px;
+    height: auto;
+    color: #f26907;
+    text-align: center;
+    margin-top: 0 auto;
+    background-color: #2b2b2b;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.footerHome-Dados {
+    width:95%; box-sizing: border-box; float:left;
+}
+.footerHome-Img {
+    float: left; width: 5%; margin-top: 1.5px; box-sizing: border-box
+}
+
+.footerHome img{
+    width: 50px;
+}
+
+/* * * * * Fim FOOTER * * * * */
+
+/* = = = = = = = = = Fim Home = = = = = = = = = */

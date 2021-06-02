@@ -1,0 +1,87 @@
+﻿@media( max-width: 1000px ){
+html, body{
+    
+}
+.publiPrincipal{
+    min-height: 610px;
+}
+.margem-guia-principal {
+    width: 5%;
+    margin-left: 0;
+}
+.div-guia-principal{    
+    width: 89%;
+    height: 600px;
+}
+.div-guia{
+    width: 920px;
+    min-height: 220px;    
+}
+.publiLogo{    
+    width: 30%;
+    min-height: 215px;
+    box-sizing: border-box;
+}
+.publiTexto{
+    width: 68%;
+    box-sizing: border-box;        
+    min-height: 215px;
+}
+.linha-convenio{
+    font: bold 1.5em verdana;
+}
+.linha-dadosconvramo{
+    font: bold 1.2em 'Futura Bk BT';        
+}
+.linha-dadosconv{
+    font: italic 1.3em arial;    
+    margin: 10px 0 10px 0;        
+}
+.guiaImg {
+    width: 100%;
+    height: 450px;
+    
+}
+
+.retDados{
+    background-color: red;    
+}
+.formGuia {
+    width: 85%;
+}
+
+input[id=iBuscar]{
+    height: 90px;
+    width: 96%;
+    font-size: 2em;
+}
+
+input[type=submit] {        
+    width: 98%;
+    font-size: 2em;
+    height: 90px;
+}
+
+input:focus {
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+
+
+}
+
+@media( min-width: 1050px ) {
+
+.margem-guia-principal {
+    width: 30.6%;    
+}
+}
+@media( min-width: 1920px ) {
+
+.margem-guia-principal {
+    width: 35.5%;
+    min-height: 410px;
+    float: left;
+}
+}

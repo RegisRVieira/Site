@@ -1,0 +1,311 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.navegation {
+    padding-top: 5px;
+    background-color: #22396f;
+}
+.navegation a{        
+    margin-left: 47.2%;
+}
+
+.corpo{
+    background-color: aqua;
+}
+
+.lateral {
+    width: 15%;    
+    float: left;    
+}
+
+.conteudo {
+    width: 85%;
+    float: left;
+    height: 872px;
+    overflow: auto;        
+}
+
+.contassoc {
+    margin-top: 1px;
+    margin-bottom: 1px;
+    text-align: center;
+    margin-right: 20%;
+    margin-left: 1%;
+    display: block;
+    height: 99.8%;        
+}
+
+.menuflutua {    
+    font-size: 18px;
+}
+.menuflutua ul{
+    padding: 5px;
+    margin: 0;
+    text-align: center;        
+}
+.menuflutua li{
+    text-decoration: none;
+    background-color: #2a4370;
+    color: #f26907;
+    margin: 2px auto;
+    margin-bottom: 8px;   
+    width: 85%;    
+    height: 50px;
+    list-style: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.menuflutua a{    
+    display: block;    
+    text-decoration: none;
+    color: #7495d0;        
+    padding-top: 14px;
+    padding-bottom: 12px;
+}
+.menuflutua li:hover{
+    background-color: #7495d0;
+    color: #22396f;
+}
+.menuflutua a:hover{
+    color: #22396f;   
+    
+}
+.menuflutua li.treeline-icon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menuflutua li.treeline-icon:hover{
+    margin: 18px;        
+    background-color: #2a4370;       
+    color: #44356f;
+    cursor: pointer;
+}
+.menuflutua li.treeline-closeicon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menuflutua li.treeline-closeicon:hover {
+    margin: 18px;
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
+
+
+/* - - - - Extrato do Associado - - - - */
+
+.extratoassoc {    
+    margin: 0 auto;    
+    width: 100%;        
+}
+.elinhaid {        
+    float: left;
+    width: 6.51%;    
+}
+.elinhamom {    
+    float: left;
+    width: 15.03%;
+}
+.elinhaconvenio {
+    float: left;
+    width: 25.05%;    
+}
+.elinhacartao {
+    float: left;
+    width: 10.02%;
+}
+.elinhacomprador {    
+    float: left;
+    width: 30.06%;
+}
+.elinhaparc {
+    float: left;
+    width: 6.01%;
+}
+.elinhavalor {    
+    float: left;
+    width: 7.31%;
+}
+.elinhatotal{
+    margin: 0 auto;
+    padding: 8px 0px 8px 0;    
+    /*width:93.6%;    */
+    width:100%;
+    background-color: #22396f;
+    color: white;
+}
+
+
+.extratolinha {
+    float: left;
+    width: 150px auto;    
+}
+
+.saldoassoc{   
+    width: 100% auto;
+    height:50px;
+    display: block;        
+}
+
+.labellimite {    
+    width: 120px;    
+    float: left;
+}
+slinhalimete {
+    float: left;    
+}
+.labelsaldo {
+    width: 50px; 
+    padding-top: 4px;
+    float: left;        
+}
+.slinhasaldo{
+    font-size: 20px;
+    float: left;    
+}
+/* - - - - Fim Extrato Associado - - - - */
+.footervoce {
+    font-size: 14px;
+    width: 100%;
+    height: 38px;
+    color: #f26907;
+    text-align: center;
+    margin-top: 5px auto;
+    padding-top: 10px;
+    background-color: #2b2b2b;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+/* - - - - Tornando o Site Responsivo - - - - */
+
+@media (max-width: 1921px) { /*Monitor de 20'*/
+    .contassoc {        
+        /*background-color: #b200ff;*/
+    }
+}
+
+@media (max-width: 1825px) { /*Monitor de 19'*/
+    .contassoc {
+        margin-right: 18%;
+        
+    }
+}
+
+@media (max-width: 1633px) { /*Monitor de 17'*/
+    .contassoc {
+        margin-right: 15%;        
+    }
+    .lateral {
+        width: 17%;        
+    }
+
+    .conteudo {
+        width: 82%
+    }
+}
+@media (max-width: 1441px) { /*Monitor de 15'*/
+    .contassoc {
+        margin-right: 10%;        
+    }
+    .lateral {
+        width: 25%;
+    }
+
+    .conteudo {
+        width: 75%
+    }
+}
+@media (max-width: 1345px) { /*Monitor de 14'*/
+    .contassoc {
+        margin-right: 5%;        
+    }
+    .lateral{
+        width:25%;
+    }
+    .conteudo{
+        width: 75%
+    }
+    
+}
+
+@media (max-width: 1000px) {/*Tela de Celular*/
+
+/*Master Page*/
+.navegation a {
+    /*margin-left: 44.5%;*/
+    margin-left: 39%;
+}
+.lateral {
+    width: 100%;     
+    background-color: #2a4370;
+}
+.conteudo{
+    width: 100%;
+    
+}
+.contassoc {
+    margin-right: 2%;    
+    width: 98%;
+}
+
+/* - - - - - - - - Menu Lateral - - - - - - - - - - */
+.menuflutua {            
+    text-align: center;         
+    animation-name: testeanimar;
+    animation-duration: 3s;    
+} 
+.menuflutua li{
+    display: none;  
+    margin: 0.5%;
+    width: 98%;
+    height: 65px;    
+}
+.menuflutua a{
+    font-size: 30px;    
+}
+.menuflutua li.treeline-icon{
+    display: inline;        
+}
+.menuflutua li.treeline-closeicon{
+    display: inline;        
+}
+ /* - - - - - - - Extrato Associado - - - - - -*/
+
+ .extratoassoc, .elinhatotal, .divsaldo {
+     display: none;
+     float: none;
+ }
+ .labelsaldo{
+     float: none;
+     width: 100%;
+     background-color: none;
+     margin: 0 auto;
+ }
+
+ .slinhasaldo{
+     margin: 0 auto;
+     background-color: #cac0e5;
+     width: 100%;
+     font-size: 40px;
+ }
+
+ 
+/*Menu Java*/
+.menujs{
+    
+}
+.menujs ul{
+    text-align: center;
+}
+.menujs li{
+    display: block;
+}
+/*Fim do Menu*/
+
+}

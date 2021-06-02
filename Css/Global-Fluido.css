@@ -1,0 +1,416 @@
+﻿@media( max-width: 1000px) {
+
+html, body{
+    min-width: 1000px;    
+}
+
+.corpoHome{
+    width: 100%;
+    clear: both;    
+}
+
+
+/* * * * *  N A V  * * * * */
+.navHome {
+    height: 100px;       
+}
+.navHome-Internas{    
+    height: 104px;   
+}
+.navHome-Internas img{
+    margin-top: 12px;
+    width: 180px;
+}
+
+.navHome-Container{
+    display: none;
+}
+
+.logohome{    
+    width: 30%;
+}
+
+.logohome img {
+    margin: 25px;
+    width: 180px;
+    float: none;
+    margin-left: 25px;    
+}
+
+
+
+.btnvoceonline {
+    display: none;
+}
+
+.navmenu {
+    width: 65%;
+    height: 60px;
+    float: left;       
+    margin-top: 0px;    
+}
+
+.navlista {
+    margin-top: 0;
+    width: 58%;
+    float: right;    
+    height: auto;    
+    position: absolute;
+}
+.navlista ul {
+    padding: 0;    
+    margin: 0px;
+    height: auto;                    
+    margin-top: 0px;
+}
+
+.navlista li a{    
+    font-size: 2em;
+    text-transform: capitalize;    
+}
+
+.navlista li {    
+    display: none;    
+}
+
+.navbarra {
+    display: none;
+}
+
+.navlista li.treeline-icon {
+    display: inline;
+    font-size: 75px;    
+    padding-left: 0px;    
+    margin-left: 400px;
+}
+
+.navlista li a.treeline-closeicon {    
+    display: inline;
+    font-size: 75px;
+    cursor: pointer;    
+}
+
+.ativa-CloseIcon{
+    display: inline;
+}
+.desativa-TreeLineIcon{
+    display: none;
+}
+
+.menujs ul {
+    text-align: center;
+}
+.menujs li {
+    display: block;
+    border-bottom: 1px solid #cac0e5;
+    padding: 15px 0px 15px 0px;
+    background-color: #44356f;
+}
+
+.menujs li:hover{
+    background-color: #cac0e5;
+
+}
+.navlista li a.voceonlinejs{
+    display: inline-block;
+    width: 100%;    
+}
+
+/* * * * * Fim NAV * * * * */
+
+/* * * * *  C O R P O  * * * * */
+
+article {
+    width: 96%;
+    height: 100%;
+    padding: 0;
+}
+
+article p {
+    margin: 0;
+    padding: 0;
+}
+
+.noticias {
+    width: 100%;
+    float: none;
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+}
+
+.slider img {
+    width: 100%;
+    height: 100%
+}
+
+.slider p {
+    margin: -55px 0 0 20px;
+    padding: 0;
+}
+
+.materia {
+    width: 100%;
+}
+
+.materia img {
+    width: 50%;
+    height: 50%;
+}
+
+.menubanner {
+    float: none;
+    width: 100%;
+    height: auto;
+}
+
+.menubanner ul a {
+    padding: 0;
+    margin: 0;
+}
+
+.menubanner ul a li {
+    width: 99%;
+    padding: 0;
+    margin: 0;
+    height: 85px;
+}
+
+.menubanner ul a li p {
+    margin-top: -22px;
+}
+
+.rodape {
+    display: none;
+}
+
+/* Sessões*/
+
+/* - - - BoxSlider - - - */
+.BoxSlider{    
+height: 920px;
+float: none;
+
+}
+.BoxSlider img{
+    height: 100%;
+}
+
+/* - - - Galeria - - - */
+.BoxSlider-Interno {
+    width: 99%;           
+    height: 300px;
+}
+
+.BoxSlider-Propaganda {
+    margin: 0 auto;
+    float: none;
+    width: 98%;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+/* - - - Box Você On Line - - - */
+
+.BoxSlider-VoceOnLine {    
+    float: none;    
+    height: 45%;
+    width: 97.9%;
+}
+.BoxSlider-VoceOnLine p{    
+    font-size: 2em;    
+}
+.BoxVOImg{    
+    width: 100%;
+    height: 525px;    
+}
+.BoxVOImg a img{
+    width: 99.2%;        
+    margin-left: 0;    
+    background-size: contain;
+}
+
+#margemRodape {
+    width: 100%;
+    height: 9px;
+    margin-bottom: 99px;    
+    
+}
+
+/* - - - B O X  M A T E R I A - - - */
+
+
+.BoxMaterias {
+    height: 100%;
+    margin-bottom: 5px;
+}
+
+.BoxMaterias-Interno {
+    width: 99%;
+}
+
+.BoxServicos {
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.BoxS-Interno {
+    width: 100%;
+}
+
+.HomeMateria {
+    float: none;
+    width: 96%;
+    margin-bottom: 15px;    
+}
+.HomeMateriaTitulo {    
+    font-size: 2.2em;       
+}
+.HomeMateriaCategoria {
+    font-size: 1.5em;    
+}
+.HomeMateriaTexto {
+    font-size: 2em;    
+}
+.HomeMateriaData {    
+    font-size: 1.6em;    
+}
+.HomeMateriaMais {    
+    font-size: 2.8em;
+    float: right;
+    margin-right: 30px;
+    margin-bottom: 30px;       
+}
+.HomeMateria-Guia {
+    margin-top: 45px;    
+}
+.HomeMateria-Guia {
+
+}
+.HomeMateria-Guia-Tit {
+    font-size: 1.4em;
+    padding-left: 100px;    
+}
+.HomeMateria-Guia-Tit p {
+    margin: 0;
+    padding: 5px 0 5px;
+    font-size: 2em;
+    text-align: center;    
+    color: #f26907;
+    color: #524f4f;
+}
+.HomeMateria-Guia-Img { 
+ width: 75%;
+ margin: 0 auto;
+ padding: 8px;
+ border: 2px solid #d8d8d8;
+ border-radius: 16px 16px 5px 5px;
+}
+
+
+/* Títulos */
+.tituloBox-1 {
+ 
+}
+
+.tituloBox-2 {    
+    font-size: 3.2em;    
+    padding-top: 20px;
+}
+
+ /* - - FIM - - */
+
+ /* - - Conteúdo Matéria - - */
+
+
+ .corpoContMateria {     
+     width: 100%;
+ }
+
+.montaMateria{
+    padding: 0;        
+    margin: 0;
+    width: 99%;
+    float: none;
+    margin-left: 5px;
+}
+.lateral{    
+    width: 100%;        
+}
+.conteudo {
+    width: 100%;       
+    height: 0 auto;
+    background-color: #fff;
+}
+
+.conteudo div{    
+    margin-left: 1%;
+    margin-right: 1%;
+    padding-left: 2%;
+    padding-right: 2%;    
+}
+.conteudo img{
+    border: none;
+    margin: 2%;
+    /*border: 1px solid #808080;
+    background-color: #cac0e5*/
+}
+.imgcen, .imggal, .imglef, .imgrig{
+    margin-left: auto;
+    margin-right: auto
+}
+
+/* - - Lista - - */
+
+.public-lateral {
+    float: none;    
+    width: 70%;
+    margin-left: 140px;
+    min-height: 0px;
+}
+
+/* - - Matéria - - */
+.publicidade {
+    width: 99%;
+}
+.publicidade img {
+    width: 100%;
+}
+
+.pl-Titulo {
+ font-size: 2em;
+ text-align: justify;
+}
+
+.pl-Data {
+    font-size: 1.5em;
+    text-align: left;
+}
+
+/* - - Fim C. Matéria - - */
+
+
+/* - - - - - F O O T E R - - - - - - */
+
+.footerHome {
+    font-size: 1.8em;    
+    height: 98px;            
+}
+.footerHome-Dados{
+    margin-top: 20px;    
+    width: 85%;
+}
+.footerHome-Img{
+    width: 15%;
+}
+
+.footerHome img{
+    width: 80px;
+    margin-top: 25px;    
+}
+/* - - - - - - - */
+
+
+}
