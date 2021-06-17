@@ -14,7 +14,7 @@
 <body>
     <nav class="navHome-Internas">
         <p><a href="Home.aspx">
-            <img src="Img/Logo ASU-White-Espaçado.png" /></a></p>
+            <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a></p>
     </nav>
     <main class="corpoContMateria">        
         <div class="montaMateria">            

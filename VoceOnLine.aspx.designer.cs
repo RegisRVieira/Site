@@ -15,13 +15,13 @@ namespace Site
     {
 
         /// <summary>
-        /// Controle vcLogin.
+        /// Controle form1.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl vcLogin;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
         /// Controle lblUsuLogado.
@@ -33,13 +33,13 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblUsuLogado;
 
         /// <summary>
-        /// Controle form1.
+        /// Controle lbtDeslogar.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.LinkButton lbtDeslogar;
 
         /// <summary>
         /// Controle mwVoceOnLine.
@@ -94,6 +94,15 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtAlteraSenha;
+
+        /// <summary>
+        /// Controle lbtFazerLogof.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtFazerLogof;
 
         /// <summary>
         /// Controle vwConvênio.

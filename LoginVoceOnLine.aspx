@@ -15,22 +15,23 @@
     <nav class="navHome-Internas">
         <p>
             <a href="Home.aspx">
-                <img src="Img/Logo ASU-White-Espaçado.png" /></a>
+                <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
         </p>
     </nav>
     <main>
         <form id="form1" runat="server">
-            <div id="vcLogin" runat="server">
+            <div class="BoxLogin">
                 <h1>Você OnLine</h1>
-                <input id="iCpf" runat="server" type="text" placeholder="CPF ou CNPJ" />
+                <input id="iCpf" runat="server" type="text" placeholder="CPF ou CNPJ" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
                 <input id="iSenha" runat="server" type="password" placeholder="Senha" />
-                <asp:Button ID="btnLogin" runat="server" Text="Acessar" OnClick="LogarVoceOnLine" />
-                <asp:Label ID="lblResult" runat="server"></asp:Label>
+                <asp:Button ID="btnLogin" runat="server" Text="Acessar" OnClick="LogarVoceOnLine" />                
             </div>
+            <div style="width: 600px; margin: 0 auto;">
+                <asp:Label ID="lblResult" runat="server" CssClass="lblMsg"></asp:Label>
+            </div>
+            
         </form>
     </main>
-
-
     <footer class="footerHome">
         <div class="footerHome-Dados">
             <small>&reg; 1969 -

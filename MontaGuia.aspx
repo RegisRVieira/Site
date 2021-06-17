@@ -11,20 +11,45 @@
     <link rel="stylesheet" href="Css/Global.css" />
     <link rel="stylesheet" href="Css/Global-Fluido.css" />    
     <script src="Js/Apoio.js"></script>
-    <script src="Js/jQuery 3.4.1.js"></script>
+    <script src="Js/jQuery 3.4.1.js"></script>     
 </head>
 <body>
    <nav class="navHome-Internas">
         <p><a href="Home.aspx">
-            <img src="Img/Logo ASU-White-Espaçado.png" /></a></p>
+            <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a></p>
     </nav>
     <section class="buscaConv" >
         <form class="formGuia" id="form1" runat="server">
             <input id="iBuscar" runat="server" type="text" placeholder="Digite o que você procura..." />                     
             <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="buscarConvenios" />            
         </form>        
-    </section>
+    </section>    
     <div style="">        
+        <script>
+            $(function () {
+                var curSlider = 0;
+                var maxSlider = $('.Slider').length - 1;
+                var delay = 1;
+                initSlider();
+                changeSlide();
+
+                function initSlider() {
+                    $('.Slider').hide(); //apaga todos os sliders
+                    $('.Slider').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0
+                    //percorre a qtde de slider para adicionar o botão de navegação do slider
+                }
+                function changeSlide() {
+                    setInterval(function () {
+                        $('.Slider').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+                        curSlider++;
+                        if (curSlider > maxSlider)
+                            curSlider = 0;
+                        $('.Slider').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+                    }, delay * 10000);
+                }
+            })
+
+        </script>
         <asp:Label ID="lblResult" runat="server" ></asp:Label>
         <asp:Label ID="lblMsgErro" runat="server"></asp:Label>        
     </div>

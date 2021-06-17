@@ -38,7 +38,7 @@
     color: #f26907;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;    
+    text-overflow: ellipsis;
 }
 
 .div-guia { /*Este para quando houver Imagem*/
@@ -71,7 +71,13 @@
     padding-left: 12px;
     font: italic 13px arial;
     color: #145381;
-    word-wrap: break-word;
+    word-wrap: break-word;    
+}
+
+.linha-dadosconv a{    
+    margin: 0;
+    padding: 0;    
+    font-size: 2em;    
 }
 
 .linha-dadosconvramo {
@@ -112,7 +118,7 @@
     border-top-right-radius: 6px;
     z-index: 1;
     background-size: cover;
-    background-position: center;    
+    background-position: center;
 }
 
 .guiaImg img {
@@ -128,10 +134,11 @@
 }
 
 .publiLogo {
-    margin-left: 2px;
-    width: 30%;
-    height: 120px;
-    float: left;    
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 25%;
+    height: 100px;
+    float: left;       
 }
 
 .publiLogo img {
@@ -154,7 +161,7 @@
     width: 100%;
     min-height: 410px;
     margin-top: 10px;
-    margin-left: 5px;        
+    margin-left: 5px;    
 }
 
 .div-guia-principal {
@@ -169,8 +176,9 @@
     color: #22396f;
     float: left;
     position: absolute;
-    background-color: white; 
+    background-color: white;
 }
+
 .margem-guia-principal {
     width: 30.5%;
     min-height: 410px;
@@ -197,11 +205,11 @@ input {
     margin-bottom: 15px;
     border: 1px solid #999;
     padding: 8px;
-    border-radius: 3px;
+    border-radius: 8px;    
 }
 
 input[type=checkbox] {
-    margin: 1px 1px;
+    margin: 1px 1px;    
 }
 
 input[type=radio] {
@@ -209,10 +217,30 @@ input[type=radio] {
     display: inline-block;
     margin-bottom: 8px;
     width: 30px;
+    color: red;
+}
+
+input[id=iBuscar]{ /*MontaGuia*/
+    width: 520px;
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 8px;  
+}
+
+input[id=btnBuscar]{
+    background-color: #22396f;
+    width: 96%;
+    color: #FFF;
+    background: linear-gradient(top, #F33, #933 );
+    border: 1px solid #333;
+    cursor: pointer;
+    background-color: violet;
 }
 
 input[type=submit] {
-/*background-color: #3f63b6;*/
+    /*background-color: #3f63b6;*/
     background-color: #22396f;
     width: 96%;
     color: #FFF;
@@ -225,42 +253,111 @@ input:focus {
     border: 1px solid #ccc;
     outline: none;
 }
-#vcLogin{
+
+#vcLogin {
     margin: 0 auto;
     width: 580px;
-    height: 200px;    
+    height: 200px;
     border: 1px solid #ddd;
     border-radius: 6px;
     margin-top: 20px;
 }
 
-input[id=iCpf], input[id=iSenha], input[id=btnLogin] {
+input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], input[id=iNumCartao] {
     margin: 0 auto;
     margin-top: 10px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
     border-radius: 6px;
     border: 1px solid #ddd;
+    color: #22396f;
 }
 
-input[id=iCpf]:hover, input[id=iSenha]:hover{
+input[id=iCpf]:hover, input[id=iSenha]:hover {
     color: #22396f;
     border: 1px solid #999;
 }
 
-input[id=btnLogin]{
+input[id=btnLogin] {
     width: 93%;
+    color: #8ba1d3;
 }
 
-/* Ver onde estoura para reativar, ou APAGAR
-.form-guia {
-    width: 98%;
+input[id=btnLogin]:hover {
+    background-color: #8ba1d3;
+    color: #22396f;
+}
+
+/* # # # Login # # # */
+
+@media( max-width: 1000px) {
+
+#vcLogin {
+    width: 82%;
+    height: auto;
+}
+
+#vcLogin h1 {
+    font-size: 4em
+}
+
+input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], input[id=iNumCartao] {
+    padding: 30px 5px 30px 5px;
+    font-size: 3em;
+    width: 90%;
+}
+
+#stParcelas {
+    width: 200px;
+    height: 80px;
+    margin-left: 40px;
+    font-size: 2.5em;
+    color: #22396f;
+    background: linear-gradient(top, #F33, #933 );
+}
+
+input[id=iCpf]:hover, input[id=iSenha]:hover {
+}
+}
+/* - - - */
+
+.corpoFaleConsoco {
+    margin: 0 auto;
+    margin-top: 150px;
+    width: 560px;
     border: 1px solid #ddd;
     margin: 10px auto;
-    background-color: #f26907;
+    background-color: #FFF;
     padding: 10px 30px;
     border-radius: 5px;
 }
-*/
+
+.stAssunto {
+    border-radius: 6px;
+    margin-bottom: 15px;
+    padding: 5px 20px 5px 10px;
+    font-size: 1em;    
+}
+
+.taMensagem {
+    width: 95%;
+    height: 200px;
+    resize: none;
+    outline: none;
+    margin-bottom: 15px;
+}
+/* Ver onde estoura para reativar, ou APAGAR*/
+.form-guia {
+    width: 58%;
+    border: 1px solid #ddd;
+    margin: 30px auto;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+
+.form-guia h1 {
+    font-size: 3.5em;
+}
+
 .formGuia {
     width: 560px;
     border: 1px solid #ddd;
@@ -289,9 +386,9 @@ h1, h2 {
     margin: 0;
 }
 
-h2 a {
-    text-decoration: none;
-}
+    h2 a {
+        text-decoration: none;
+    }
 
 select {
     display: block;

@@ -14,17 +14,32 @@
 .corpo{
     background-color: aqua;
 }
+extAssocNormal{    
+    width: 1100px;
+    min-height: 500px;    
+}
+
+.extAssocFluido {
+    display: none;
+}
+
+.ddlVcOnLine{        
+    font-size: 2em;    
+    border-radius: 3px;
+}
 
 .lateral {
-    width: 15%;    
+    width: 250px;
     float: left;    
+    margin-top: 20px;
+    box-sizing: border-box;
 }
 
 .conteudo {
-    width: 85%;
+    width: 1150px;
     float: left;
-    height: 872px;
-    overflow: auto;        
+    height: 872px;        
+    box-sizing: border-box;
 }
 
 .contassoc {
@@ -38,7 +53,7 @@
 }
 
 .menuflutua {    
-    font-size: 18px;
+    font-size: 18px;   
 }
 .menuflutua ul{
     padding: 5px;
@@ -200,37 +215,18 @@ slinhalimete {
 @media (max-width: 1633px) { /*Monitor de 17'*/
     .contassoc {
         margin-right: 15%;        
-    }
-    .lateral {
-        width: 17%;        
-    }
+    }    
 
-    .conteudo {
-        width: 82%
-    }
 }
 @media (max-width: 1441px) { /*Monitor de 15'*/
     .contassoc {
         margin-right: 10%;        
     }
-    .lateral {
-        width: 25%;
-    }
-
-    .conteudo {
-        width: 75%
-    }
 }
 @media (max-width: 1345px) { /*Monitor de 14'*/
     .contassoc {
         margin-right: 5%;        
-    }
-    .lateral{
-        width:25%;
-    }
-    .conteudo{
-        width: 75%
-    }
+    }    
     
 }
 
@@ -244,6 +240,8 @@ slinhalimete {
 .lateral {
     width: 100%;     
     background-color: #2a4370;
+    background-color: #22396f;    
+    margin-top: 0px;    
 }
 .conteudo{
     width: 100%;
@@ -255,6 +253,17 @@ slinhalimete {
 }
 
 /* - - - - - - - - Menu Lateral - - - - - - - - - - */
+
+
+.extAssocNormal{
+    display: none;
+
+}
+.extAssocFluido{
+    display: inline;    
+    height: auto;    
+}
+
 .menuflutua {            
     text-align: center;         
     animation-name: testeanimar;

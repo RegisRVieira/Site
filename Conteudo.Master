@@ -1,0 +1,68 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Conteudo.master.cs" Inherits="Site.Conteudo" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Conteúdo</title>
+    <link rel="stylesheet" href="Css/Menus.css" />
+    <link rel="stylesheet" href="Css/Global.css" />
+    <link rel="stylesheet" href="Css/Global-Fluido.css" />
+    <link rel="stylesheet" href="Css/Botoes.css" />
+    <link rel="stylesheet" href="Css/Botoes-Fluido.css" />
+    <script src="Js/Apoio.js"></script>
+    <script src="Js/jQuery 3.4.1.js"></script>
+</head>
+<body>
+     <nav>
+        <asp:ContentPlaceHolder ID="cpHeader" runat="server"></asp:ContentPlaceHolder>
+        <nav class="navHome-Internas">
+            <div>
+                <p>
+                    <a href="Home.aspx">
+                        <img  class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
+                </p>
+            </div>
+            <div runat="server" class="BoxVOLogin">
+                <div style=" color: white; float: right">
+                    <img  src="Img/icon/usuLogin.svg"/>                    
+                    <div class="BoxVOLoginMenu">
+                        <ul>
+                            <li><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label> 
+                                <ul>                                    
+                                    <li>Sobre</li>
+                                    <li>Voltar à Home</li>                                    
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </div>    
+                </div>
+            </div>            
+        </nav>
+    </nav>
+    <main class="corpoMpConteudo">
+        <section id="lateral" class="lateralMpConteudo">
+            <asp:ContentPlaceHolder ID="CpLateral" runat="server"></asp:ContentPlaceHolder>
+        </section>
+        <section id="conteudo" class="dadosMpConteudo">
+            <asp:ContentPlaceHolder ID="cpContent" runat="server"></asp:ContentPlaceHolder>
+        </section>        
+        <footer class="footerHome">
+            <asp:ContentPlaceHolder ID="cpFooter" runat="server"></asp:ContentPlaceHolder>
+            <div class="footerHome-Dados">
+                    <small>&reg; 1969 -
+                <script type="text/javascript">document.write(agora.getFullYear() + ". Todos os direitos reservados")</script>
+                    </small>
+                    <address>
+                        <script type="text/javascript">document.write(ano + " Anos")</script>
+                    </address>
+                </div>
+                <div class="footerHome-Img">
+                    <img src="../Img/Icon/Logo2 Régis-ASU.png" />
+                </div>
+        </footer>
+    </main>
+</body>
+</html>

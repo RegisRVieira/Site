@@ -16,27 +16,33 @@
     <script type="text/javascript" src="Js/jQuery 3.4.1.js"></script>
 </head>
 <body>
-    <nav class="navegation">
-        <div>
-            <a href="Home.aspx">
-                <img src="Img/Logo ASU-White-Espaçado.png" /></a>
-            <div id="vcLogin" runat="server" style="height: 20px;">
-                <div style="width: 250px; float: right; color: white;">
-                    <img src="Img/icon/usuLogin.svg" />
-                    <style>
-                        .lblUsuLogado {
-                            margin-left: 5px;
-                            margin-top: -.5px;
-                            position: absolute;
-                        }
-                    </style>
-                    <asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label>
-                </div>
+    <form id="form1" runat="server">
+        <nav class="navHome-Internas">
+            <div>
+                <p>
+                    <a href="Home.aspx">
+                        <img  class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
+                </p>
             </div>
-        </div>
-    </nav>
-    <main class="corpo">
-        <form id="form1" runat="server">
+            <div runat="server" class="BoxVOLogin">
+                <div style=" color: white; float: right">
+                    <img  src="Img/icon/usuLogin.svg"/>                    
+                    <div class="BoxVOLoginMenu">
+                        <ul>
+                            <li><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label> 
+                                <ul>                                    
+                                    <li>Sobre</li>
+                                    <li>Voltar à Home</li>
+                                    <asp:LinkButton ID="lbtDeslogar" runat="server" Text="Sair" OnClick="fazerLogof"><li>Sair</li></asp:LinkButton>
+                                </ul>
+                            </li>
+                            
+                        </ul>
+                    </div>    
+                </div>
+            </div>            
+        </nav>
+        <main>
             <div class="lateral">
                 <div id="menuflutua" class="menuflutua">
                     <asp:MultiView ID="mwVoceOnLine" runat="server">
@@ -44,15 +50,16 @@
                             <div>
                                 <ul>
                                     <li>
-                                        <asp:LinkButton ID="lbtDadosAssociado" runat="server" Text="Dados Cadatsrais" OnClick="ativarAssocDados"></asp:LinkButton></li>
+                                        <asp:LinkButton ID="lbtDadosAssociado" runat="server" Text="Dados Cadastrais" OnClick="ativarAssocDados"></asp:LinkButton></li>
                                     <li>
                                         <asp:LinkButton ID="lbtExtratoSocio" runat="server" Text="Extrato" OnClick="ativarAssocExtrato"></asp:LinkButton></li>
                                     <li>
                                         <asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
                                     <li>
                                         <asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
-                                    <li id="treeline-icon" class="treeline-icon" onclick="openNav()">&#9776;</li>
-                                    <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeNav()">&cross;</li>
+                                    <li><asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
+                                    <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
+                                    <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
                                 </ul>
                             </div>
                         </asp:View>
@@ -83,7 +90,7 @@
                     </asp:MultiView>
                 </div>
             </div>
-            <div class="conteudo">
+            <div class="conteudo" >
                 <div class="contassoc">
                     <asp:MultiView ID="mwContAssoc" runat="server">
                         <asp:View ID="vwAssocDados" runat="server">
@@ -122,41 +129,49 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwAssocExtrato" runat="server">
-                            <div style="width: 100%; font-size: 0.8em;">
-                                <div style="width: 200px; float: left">
-                                    <asp:DropDownList ID="ddlMesExtratoAssoc" runat="server">
-                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
-                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                                <div style="width: 150px; float: left">
-                                    <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server">
-                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                                <div style="width: 250px; font-size: 20px;">
-                                    <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                            <section style="min-height: 900px;">
+                                <div style="width: 100%; font-size: 0.8em;">
+                                    <table style="width: 80%;">
+                                        <caption>Período</caption>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlMesExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
+                                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
+                                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
+                                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
+                                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
+                                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td>
+                                                    <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
+                                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
+                                                    </asp:DropDownList></td>
+                                                <td>
+                                                    <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                     <asp:Label ID="lblPeriodoAssoc" runat="server"></asp:Label>
                                 </div>
-                            </div>
-                            <div style="width: 77.8%;">
-                                <%# extratoAssociado() %>
-                                <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" />
-                            </div>
+                                <div style="width: 77.8%;">
+                                    <%# extratoAssociado() %>
+                                    <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
+                                    <section id="margemRodape"></section>
+                                </div>
+                            </section>
                         </asp:View>
                         <asp:View ID="vwAssocCartoes" runat="server">
                             <p>Cartões</p>
@@ -218,7 +233,7 @@
                                     <option value="10"></option>
                                 </select>
                                 <input id="iSenha" runat="server" type="password" placeholder="Senha do cartão" />
-                                <asp:Button ID="btnVender" runat="server" Text="Realizar Venda" OnClick="realizaVenda" />                                
+                                <asp:Button ID="btnVender" runat="server" Text="Realizar Venda" OnClick="realizaVenda" />
                                 <a href="VoceOnLineComprovante.aspx">Comprovante</a>
                             </div>
                             <div>
@@ -294,7 +309,7 @@
                                 <div style="width: 250px; font-size: 20px;">
                                     <asp:Button ID="btnGerarData" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
                                 </div>
-                            </div>                            
+                            </div>
                             <style>
                                 .lblperiodo {
                                     text-align: left;
@@ -351,20 +366,20 @@
                 </div>
             </div>
             <asp:Label ID="lblResult" runat="server"></asp:Label>
-        </form>
-        <footer class="footerHome">
-            <div class="footerHome-Dados">
-                <small>&reg; 1969 -
+            <footer class="footerHome">
+                <div class="footerHome-Dados">
+                    <small>&reg; 1969 -
                 <script type="text/javascript">document.write(agora.getFullYear() + ". Todos os direitos reservados")</script>
-                </small>
-                <address>
-                    <script type="text/javascript">document.write(ano + " Anos")</script>
-                </address>
-            </div>
-            <div class="footerHome-Img">
-                <img src="../Img/Icon/Logo2 Régis-ASU.png" />
-            </div>
-        </footer>
-    </main>
+                    </small>
+                    <address>
+                        <script type="text/javascript">document.write(ano + " Anos")</script>
+                    </address>
+                </div>
+                <div class="footerHome-Img">
+                    <img src="../Img/Icon/Logo2 Régis-ASU.png" />
+                </div>
+            </footer>
+        </main>
+    </form>
 </body>
 </html>

@@ -1,0 +1,82 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.btns{
+    margin: 0 auto;
+    margin-top: 30px;
+}
+.efeito {    
+    border: none;
+    color: white;
+    padding: 14px;
+    margin: 10px;    
+    font-size: 1.4em;
+    line-height: 24px;
+    border-radius: 6px;
+    position: relative;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 400ms ease;
+    text-decoration: none;
+}
+
+
+.efeito-1{
+    background-color: #f26907;
+}
+.efeito-1:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 54px;
+    background:  rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    transition: all 2s ease;
+
+}
+
+.efeito-1:hover:before{
+    width: 100%;
+}
+
+/* ###### Botões BOX ###### */
+
+.botaoSaibaMais{    
+    position: absolute;
+    margin-left: 180px;
+    margin-top: 190px;
+}
+.botaoSaibaMais a{
+    padding: 8px 12px;
+    text-decoration: none;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+.botaoSaibaMais a:hover{
+    background-color: #e7e9ea;
+}
+
+.botaoSaibaMais2 {    
+    position: absolute;
+    margin-left: 128px;
+    margin-top: -40px;    
+}
+.botaoSaibaMais2 a{
+    padding: 8px 12px;
+    text-decoration: none;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 12px;
+    color: #4a4848;
+}
+.botaoSaibaMais2 a:hover{
+    background-color: #e7e9ea;
+
+/* - - - - */
+
+

@@ -1,6 +1,6 @@
 ﻿@media( max-width: 1000px ){
 html, body{
-    
+    font-family: Arial, Helvetica;
 }
 .publiPrincipal{
     min-height: 610px;
@@ -16,25 +16,26 @@ html, body{
 .div-guia{
     width: 920px;
     min-height: 220px;    
+    border: 2px solid #ddd;
 }
 .publiLogo{    
-    width: 30%;
-    min-height: 215px;
-    box-sizing: border-box;
+    width: 25%;
+    min-height: 205px;
+    box-sizing: border-box;    
 }
 .publiTexto{
     width: 68%;
     box-sizing: border-box;        
-    min-height: 215px;
+    min-height: 215px;    
 }
 .linha-convenio{
-    font: bold 1.5em verdana;
+    font: bold 1.9em verdana;
 }
 .linha-dadosconvramo{
-    font: bold 1.2em 'Futura Bk BT';        
+    font: bold 1.4em 'Futura Bk BT';        
 }
 .linha-dadosconv{
-    font: italic 1.3em arial;    
+    font: italic 1.4em arial;    
     margin: 10px 0 10px 0;        
 }
 .guiaImg {
@@ -47,19 +48,52 @@ html, body{
     background-color: red;    
 }
 .formGuia {
-    width: 85%;
+    width: 85%;    
 }
 
-input[id=iBuscar]{
-    height: 90px;
-    width: 96%;
-    font-size: 2em;
+input{ /* Está no Fale Conosco*/
+    width: 98%;
+    padding: 20px 10px; 
+    font-size: 2em;        
 }
+input:hover{ /* Está no Fale Conosco*/
+    font-size: 2.5em;
+    color: #22396f;
+    padding: 15.5px 10px;    
+}
+
 
 input[type=submit] {        
     width: 98%;
     font-size: 2em;
+    height: 90px;    
+}
+
+
+input[id=iBuscar]{
     height: 90px;
+    width: 96%;
+    padding: 10px 5px;
+    font-size: 2em;
+    
+}
+input[id=iBuscar]:hover{            
+    font-size: 2.5em;
+    padding: 9.9px 5px;
+}
+
+input[id=btnBuscar]{
+    background-color: #22396f;
+    font-size: 2.5em;
+    width: 828px;
+    color: #FFF;
+    background: linear-gradient(top, #F33, #933 );
+    border: 1px solid #333;        
+}
+
+input[id=btnBuscar]:hover{
+    background-color: #8ba1d3;
+    color: #22396f;
 }
 
 input:focus {
@@ -67,7 +101,42 @@ input:focus {
     outline: none;
 }
 
+.form-guia{
+    width: 90%;
 
+}
+
+
+/* # # # # # # F A L E   C O N S O C O # # # # # # */
+
+.corpoFaleConsoco{    
+    width: 900px;
+}
+.corpoFaleConsoco h2{
+    padding: 5px 0 15px 0;
+    font-size: 3em;    
+}
+
+.lblTitRadio{
+    font-size: 2em;
+}
+
+input[type=radio] + label{
+    font-size: 2.2em;                
+}
+
+.stAssunto {     
+    width: auto;
+    padding: 10px 60px;
+    font-size: 3em;
+}
+
+.taMensagem{    
+    font-size: 2em;
+    height:300px;    
+}
+
+/* - - - - */
 
 }
 

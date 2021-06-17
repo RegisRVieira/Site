@@ -54,56 +54,56 @@
     margin-top: 5%;
 }
 
-    .navlista ul {
-        margin: 0;
-        padding: 0;
-    }
+.navlista ul {
+    margin: 0;
+    padding: 0;
+}
 
-    .navlista li {
-        list-style: none;
-        display: inline-block;
-        margin-top: 0px;
-    }
+.navlista li {
+    list-style: none;
+    display: inline-block;
+    margin-top: 0px;
+}
 
-        .navlista li a {
-            text-decoration: none;
-            color: #8ba1d3;
-            font-size: 16px;
-            font-family: 'Source Sans Pro', sans-serif;
-            padding: 0 16px 0 0px;
-            font-weight: 600;
-        }
+.navlista li a {
+    text-decoration: none;
+    color: #8ba1d3;
+    font-size: 16px;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 0 16px 0 0px;
+    font-weight: 600;
+}
 
-            .navlista li a:hover {
-                color: white;
-            }
+.navlista li a:hover {
+    color: white;
+}
 
-        .navlista li.voceonlinejs {
-            cursor: pointer;
-            display: none;
-        }
+.navlista li.voceonlinejs {
+    cursor: pointer;
+    display: none;
+}
 
-        .navlista li.treeline-icon {
-            display: none;
-            color: #cac0e5;
-        }
+.navlista li.treeline-icon {
+    display: none;
+    color: #cac0e5;
+}
 
-            .navlista li.treeline-icon:hover {
-                background-color: #cac0e5;
-                color: #44356f;
-                cursor: pointer;
-            }
+.navlista li.treeline-icon:hover {
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
 
-        .navlista li.treeline-closeicon {
-            display: none;
-            color: #cac0e5;
-        }
+.navlista li.treeline-closeicon {
+    display: none;
+    color: #cac0e5;
+}
 
-            .navlista li.treeline-closeicon:hover {
-                background-color: #cac0e5;
-                color: #44356f;
-                cursor: pointer;
-            }
+.navlista li.treeline-closeicon:hover {
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
 
 .navbarra {
     margin-top: 1%;

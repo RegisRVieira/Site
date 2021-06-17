@@ -6,11 +6,12 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Home ASU</title>
-    <link  rel="stylesheet" href="../Css/Global.css"/>
-    <link rel="stylesheet" href="../Css/Global-Fluido.css" />
-    <link rel="stylesheet" href="../Css/SlideShow.css" />
-    <script src="../Js/jQuery 3.4.1.js"></script>
-    <script type="text/javascript" src="../Js/Apoio.js"></script>
+    <link  rel="stylesheet" href="Css/Global.css"/>
+    <link rel="stylesheet" href="Css/Global-Fluido.css" />
+    <link rel="stylesheet" href="Css/SlideShow.css" />
+    <link rel="stylesheet" href="Css/Botoes.css" />
+    <script src="Js/jQuery 3.4.1.js"></script>
+    <script type="text/javascript" src="Js/Apoio.js"></script>
 </head>
 <body>
     <main>
@@ -19,13 +20,13 @@
         <nav class="navHome">
             <section class="navHome-Container">
                 <section class="navHome-Box" >
-                    <p><a href="#">Junte-se a Nós</a></p>
+                    <p><a href="ContNossaEntidade.aspx?vNE=1">Junte-se a Nós</a></p>
                 </section>
                 <section class="navHome-Box2" >
-                    <p><a href="#"><img style="width: 25px;" src="../Img/Icon/Icon-Face-Site.png" /></a></p>
+                    <p><a href="https://www.facebook.com/ASUBotucatu"><img style="width: 25px;" src="../Img/Icon/Icon-Face-Site.png" /></a></p>
                 </section>
                 <section class="navHome-Box3" >
-                    <p><a href="#"><img src="../Img/Icon/map.svg" /></a></p>
+                    <p><a href="https://www.google.com.br/maps/place/ASU+Sub-sede+Aposentados+Unesp/@-22.8706326,-48.4498872,19z/data=!4m5!3m4!1s0x94c7213a0b41cb85:0xa5f0199ffa5db304!8m2!3d-22.8706746!4d-48.449568"><img src="../Img/Icon/map.svg" /></a></p>
                 </section>
                 <section class="navHome-Box4">                    
                         <div>
@@ -42,11 +43,11 @@
                 <div class="navbarra">&vert;</div>
                 <div id="navlista" class="navlista">  
                     <ul>
-                        <li><a href="NossaEntidade.aspx?vNE=1">Nossa Entidade</a></li>
-                        <li><a href="NossaEntidade.aspx?vNE=2">Estatuto Social</a></li>
+                        <li><a href="ContNossaEntidade.aspx?vNE=1">Nossa Entidade</a></li>
+                        <li><a href="ContNossaEntidade.aspx?vNE=2">Estatuto Social</a></li>
                         <li><a href="FaleConosco.aspx">Fale conosco</a></li>
-                        <li><a class="voceonlinejs" href="#">Consultar Seu Saldo</a></li>
-                        <li><a id="voceonlinejs" class="voceonlinejs" href="#">Você On Line</a></li>
+                        <li><a class="voceonlinejs" href="LoginVoceOnLine.aspx">Consultar Seu Saldo</a></li>
+                        <li><a id="voceonlinejs" class="voceonlinejs" href="LoginVoceOnLine.aspx">Você On Line</a></li>
                         <li><a id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuHome()">&cross;</a></li>
                         <li id="treeline-icon" class="treeline-icon" onclick="openMenuHome()">&#9776;</li>                        
                     </ul>
@@ -72,39 +73,14 @@
                             <a href="LoginVoceOnLine.aspx">
                                 <img class="bannerSlider" src="../img/Seu Extrato.jpg" /></a>
                             <div class="bullets" style="width: 21.5%; height: auto; text-align: center; position: relative; top: 90%;">
-                            </div>
-                            <!-- configurando os botões do slider -->
-                        </section>
-                        <!--Slider-->
+                            </div>                            
+                        </section>                        
                     </div>
                 </div>
             </section>
             <section class="BoxMaterias">
                 <div class="BoxMaterias-Interno">
-                    <div class="tituloBox-2">Notícias</div>
-                    <!-- <h1>Noticias</h1> Colocar um título para cada seção -->                    
-                    <!--
-                    <div class="HomeMateria">
-                        <img src="../Img/Foto - DAP.jpg" />
-                        <h1 class="HomeMateriaTitulo">Fundação Abrinq </h1>
-                        <p class="HomeMateriaCategoria">Categoria: Unesp</p>
-                        <p class="HomeMateriaTexto">A Fundação Abrinq </p>
-                        <p class="HomeMateriaData">12 de Março de 2021</p>
-                        <div class="HomeMateriaMais"><a href="#">
-                            <p>Leia Mais...</p>
-                        </a></div>
-                    </div>
-                    <div class="HomeMateria">
-                        <img src="../Img/Natal2.png" />
-                        <h1 class="HomeMateriaTitulo">Fundação Abrinq direciona mais de 3,5 milhões a projetos de organizações da sociedade civil </h1>
-                        <p class="HomeMateriaCategoria">Categoria: Unesp</p>
-                        <p class="HomeMateriaTexto">A Fundação Abrinq acaba de abrir edital com informações completas para organizações sociais inscreverem…</p>
-                        <p class="HomeMateriaData">12 de Março de 2021</p>
-                        <div class="HomeMateriaMais"><a href="#">
-                            <p>Leia Mais...</p>
-                        </a></div>
-                    </div>
-                    -->
+                    <div class="tituloBox-2">Notícias</div>                    
                     <%# montarMateriasHome() %>
                     <div class="HomeMateria">
                         <div class="HomeMateria-Guia">
@@ -115,23 +91,78 @@
                                 <a href="MontaGuia.aspx">
                                     <img style="height: 100%; border-top-left-radius: 16px; border-top-right-radius: 16px;" src="../../Img/Box Guia Amando 2.jpg" />
                                 </a>
-                            </div>
-                            <!--
-                            <div style="width: 100%; height: 10%;"><p style="margin: 0; padding: 5px 0 5px; font-size: 2em; text-align: center;">Guia de Convênios</p></div>
-                            <div style="width: 100%; height: 60%; border-top: 1px solid #ddd"><a href="LoginVoceOnLine.aspx"><img style="height: 100%;" src="../../Img/Icon-Guia Lojista.jpg" /></a></div>
-                            <div style="width: 100%; height: 25%; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd;"><img style="height: 100%;" src="../../Img/Icon-Guia Saude.jpg" /></div>
-                            -->
+                            </div>                            
                         </div>
                     </div>
                 </div>
             </section>
             <section class="BoxServicos">
-
+                <div class="BoxS-Interno">                    
+                    <%# montarBoxServicos() %>
+                    <div class="BoxS-Conteudo" >
+                        <div class="BoxS-Conteudo-Tit">
+                            <p>Convênios</p>
+                        </div>
+                        <div class="BoxS-Img">
+                            <img src="Img/Convenios.jpg" /></div>                        
+                        <div class="botaoSaibaMais2">
+                            <a href="ContConv.aspx">Saiba Mais</a>
+                        </div>
+                    </div>
+                    <div class="BoxS-Conteudo">
+                        <div class="BoxS-Conteudo-Tit">
+                            <p>Acessoria Jurídica</p>
+                        </div>
+                        <div class="BoxS-Img">
+                            <img src="Img/Juridico.jpg" /></div>
+                        <div class="botaoSaibaMais2">
+                            <a href="ContAssoc.aspx?pAssoc=68">Saiba Mais</a>
+                        </div>
+                    </div>
+                </div>
             </section>
-            <section class="BoxGaleria33" style="">
-            </section>
+            <section class="BoxGaleria33" >
+                
+                <%# montarBox33() %>
+                
+                <section class="s2">
+                    <section class="Box33">
+                        <img class="BoxS2" src="Img/Vital Brasil.jpg" />
+                        <img class="BoxS2" src="Img/Posto real.jpg" />
+                        <div class="s-titulo">
+                            <p>Promoção Tanque Cheio</p>
+                        </div>
+                        <div id="" class="botaoSaibaMais">
+                            <a href="ContMaterias.aspx?IDContMat=70">Saiba Mais</a>
+                        </div>
+                    </section>
+                </section>                
+                <section class="s3">
+                    <section class="Box33">
+                        <img class="BoxS3" src="Img/Festa.jpg " />
+                        <img class="BoxS3" src="Img/Crianças.jpg " />
+                        <img class="BoxS3" src="Img/Pesca 2.jpg " />
+                        <img class="BoxS3" src="Img/Truco.jpg " />
+                        <img class="BoxS3" src="Img/Festa 2.jpg " />                        
+                        <div class="s-titulo">
+                            <p>Próximos Eventos</p>
+                        </div>
+                        <div id="" class="botaoSaibaMais">
+                            <a href="ContASU.aspx">Saiba Mais</a>
+                        </div>
+                    </section>
+                </section>
+                
+            </section>            
             <section class="Boxgaleria100">
-
+                <p class="tituloBox-1">Nossos Momentos</p>
+                <div class="BoxImg100">
+                    <img class="Box100" src="../../Img/festa 2012 091.jpg" />
+                    <img class="Box100" src="../../Img/Box100.jpg" />
+                    <img class="Box100" src="../../Img/Box100-1.jpg" />
+                    <img class="Box100" src="../../Img/Box100-2.jpg" />
+                    <img class="Box100" src="../../Img/Box100-3.jpg" />
+                </div>
             </section>
             <section id="margemRodape"></section>
         </main>

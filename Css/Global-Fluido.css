@@ -17,7 +17,7 @@ html, body{
 .navHome-Internas{    
     height: 104px;   
 }
-.navHome-Internas img{
+.navHome-Internas-Img{
     margin-top: 12px;
     width: 180px;
 }
@@ -52,7 +52,7 @@ html, body{
 
 .navlista {
     margin-top: 0;
-    width: 58%;
+    width: 66%;
     float: right;    
     height: auto;    
     position: absolute;
@@ -65,12 +65,16 @@ html, body{
 }
 
 .navlista li a{    
-    font-size: 2em;
+    font-size: 3em;
     text-transform: capitalize;    
+    
 }
 
-.navlista li {    
-    display: none;    
+.navlista li {
+    display: none;
+    background-color: #44356f;
+    background-color: #22396f;
+    border-bottom: 1px solid #cac0e5;
 }
 
 .navbarra {
@@ -101,10 +105,8 @@ html, body{
     text-align: center;
 }
 .menujs li {
-    display: block;
-    border-bottom: 1px solid #cac0e5;
-    padding: 15px 0px 15px 0px;
-    background-color: #44356f;
+    display: block;    
+    padding: 15px 0px 15px 0px;    
 }
 
 .menujs li:hover{
@@ -116,6 +118,13 @@ html, body{
     width: 100%;    
 }
 
+.BoxLogin{
+    min-width: 95%;
+    min-height: 460px;    
+}
+.BoxLogin h1{
+    font-size: 3em;
+}
 /* * * * * Fim NAV * * * * */
 
 /* * * * *  C O R P O  * * * * */
@@ -190,9 +199,8 @@ article p {
 
 /* - - - BoxSlider - - - */
 .BoxSlider{    
-height: 920px;
+height: 1010px;
 float: none;
-
 }
 .BoxSlider img{
     height: 100%;
@@ -200,8 +208,9 @@ float: none;
 
 /* - - - Galeria - - - */
 .BoxSlider-Interno {
+    margin-top: 5px;       
     width: 99%;           
-    height: 300px;
+    height: 350px;
 }
 
 .BoxSlider-Propaganda {
@@ -218,9 +227,12 @@ float: none;
     float: none;    
     height: 45%;
     width: 97.9%;
+    
 }
 .BoxSlider-VoceOnLine p{    
-    font-size: 2em;    
+    font-size: 3.5em;    
+    background-color: #f26907;
+    background-color:#22396f;
 }
 .BoxVOImg{    
     width: 100%;
@@ -291,7 +303,8 @@ float: none;
 }
 .HomeMateria-Guia-Tit {
     font-size: 1.4em;
-    padding-left: 100px;    
+    padding-left: 100px;        
+    margin-top: 100px;
 }
 .HomeMateria-Guia-Tit p {
     margin: 0;
@@ -316,8 +329,8 @@ float: none;
 }
 
 .tituloBox-2 {    
-    font-size: 3.2em;    
-    padding-top: 20px;
+    font-size: 3.5em;    
+    padding-top: 70px;
 }
 
  /* - - FIM - - */
@@ -370,13 +383,8 @@ float: none;
     margin-left: 140px;
     min-height: 0px;
 }
-
-/* - - Matéria - - */
-.publicidade {
-    width: 99%;
-}
-.publicidade img {
-    width: 100%;
+.BoxListaMaterias{
+    margin-bottom: 80px;
 }
 
 .pl-Titulo {
@@ -389,8 +397,240 @@ float: none;
     text-align: left;
 }
 
+
+/* - - Matéria - - */
+.publicidade {
+    width: 99%;
+}
+.publicidade img {
+    width: 100%;
+}
+
+
+
 /* - - Fim C. Matéria - - */
 
+/* - - - M A S T E R  P A G E  C O N T E Ú D O - - - */
+
+.corpoMpConteudo{
+    padding: 0;
+    margin: 0;
+    height: auto;
+    width: 100%;    
+}
+.lateralMpConteudo{  
+    margin: 0;
+    padding: 0;
+    width: 100%;     
+    background-color: #22396f;
+}
+.dadosMpConteudo {    
+    width: 97%;   
+    padding-left: 20px;
+    height: 0 auto;
+    background-color: #fff;    
+    font-size: 2.5em;       
+}
+
+.dadosMpConteudo div{    
+    margin-left: 1%;
+    margin-right: 1%;
+    padding-left: 2%;
+    padding-right: 2%;    
+    
+}
+.dadosMpConteudo img{
+    border: none;
+    margin: 2%;
+    /*border: 1px solid #808080;
+    background-color: #cac0e5*/
+}
+
+/*- - - -  FIM MP Conteúdo - - - - */
+
+/* - - - Monta Conteúdo - - - */
+.matImg{    
+    width: 95%;
+}
+.matImg img{
+    width: 97%;
+}
+/*FIM*/
+
+/* ####### Nossas Pessoas ###### */
+.BoxPessoas-Botoes{
+    
+}
+.BoxPessoas-Lateral {        
+    font-size: 1.8em;
+    padding-left: 0;    
+    height: 754px;
+}
+
+.BoxPessoas-Topo {
+    width: 100%;
+    height: 65px;
+    font-size: 1.5em;
+}
+
+.BoxPessoas-Dados {
+ width: 700px; 
+}
+.BoxPessoas-Dados-Img {
+    width: 110px;    
+    clear: both;
+}
+.rodapePessoas{
+    display: none;    
+}
+.rodapePessoasFluido{    
+    margin-bottom: 3650px;
+    width: 100%;
+    height: 2px;
+}
+.BoxPessoas-Dados-Text{
+    font-size: 1em;    
+    width: 550px;
+    margin-left: 10px;    
+    margin-top: 10px;
+}
+
+.BoxPessoas-Dados-Text span{    
+    margin: 0;    
+    font-size: .6em;    
+    
+}
+
+/* - - Gerado pelo: Code Behind - - */
+
+
+
+/* - - - */
+/* # # # # # # #  B O X  SERVIÇOS # # # # # # */
+.BoxS-Conteudo{
+    float: none;    
+    margin: 0 auto;
+    width: 70%;    
+    
+}
+.BoxS-Conteudo-Tit {        
+    margin-top: 45px;    
+    font-size: 3em;
+    padding: 10px 0 5px 0;        
+}
+.BoxS-Conteudo-Tit p{        
+    width: 100%;
+    font-size: 1.5em;
+    text-align: center;        
+}
+.BoxS-Img{    
+    width: 78%;
+    
+}
+.BoxS-Img img{
+    width: 100%;
+}
+
+/* - - Botões - - */
+
+
+
+.botaoSaibaMais2{   
+    margin: 0 auto;
+    width: 50%;    
+    font-size: 3em;            
+}
+.botaoSaibaMais2 a{    
+    margin-left: 110px;
+    
+}
+
+/* - - - - */
+
+/* # # # # # # B o x 33 # # # # # # */
+
+.BoxGaleria33 {
+    width: 1000px;
+    height: auto;
+}
+
+.Box33{    
+
+}
+
+.BoxS1 {
+    width: 100%;        
+    height: 499px;
+
+}
+
+.BoxS2 {
+    width: 100%;
+    height: 499px;    
+    
+}
+
+.BoxS3 {
+    width: 100%;
+    height: 499px;
+    
+}
+
+.s-titulo {
+    padding-top: 10px;
+    font-size: 2.9em;
+}
+
+.tituloBox-33{    
+    padding-top: 50px;
+    font-size: 4em;
+}
+
+.botaoSaibaMais {
+    clear: both;
+    padding-left: 200px;
+    padding-top: 150px;    
+    width: 600px;    
+}
+.botaoSaibaMais a{    
+    font-size: 2.5em;
+}
+
+.s1 {
+    width: 99%;
+    margin-left: 0.5%;
+    float: none;
+    margin-bottom: 20px;
+    height: 499px;    
+    
+}
+
+.s2 {
+    width: 99%;
+    margin-left: 0.5%;
+    float: none;
+    margin-bottom: 20px;
+    height: 499px; 
+}
+
+.s3 {
+    width: 99%;
+    margin-left: 0.5%;
+    float: none;
+    margin-bottom: 10px;
+    height: 499px;
+    
+}
+
+/* # # # # # # BOX 100 # # # # # # */
+
+.Boxgaleria100{
+    height: 400px;
+    margin-bottom: 50px;
+
+}
+
+/* - - - - */
 
 /* - - - - - F O O T E R - - - - - - */
 
@@ -413,4 +653,4 @@ float: none;
 /* - - - - - - - */
 
 
-}
+}/*FIM*/

@@ -1,0 +1,276 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+/* - - - Menu Lateral - - - */
+.menulateral {
+    margin-top: 10%;
+    color: #cac0e5;
+}
+.menulateral ul{    
+    padding: 2px;
+    margin: 0;
+    list-style: none;    
+}
+.menulateral li{      
+    margin-top: 5px;
+    height: 40px;             
+}
+.menulateral li:hover{             
+    background-color: #cac0e5;          
+}
+.menulateral li a{    
+    display: block;
+    height: 30px;
+    padding-left: 10px;
+    padding-top: 10px;
+    text-decoration: none;
+    color: #cac0e5;                          
+}
+.menulateral li.treeline-icon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menulateral li.treeline-icon:hover{
+    margin: 18px;        
+    background-color: #cac0e5;       
+    color: #44356f;
+    cursor: pointer;
+}
+.menulateral li.treeline-closeicon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menulateral li.treeline-closeicon:hover{
+    margin: 18px;        
+    background-color: #cac0e5;       
+    color: #44356f;
+    cursor: pointer;
+}
+.menulateral li a:hover{
+    color: #44356f;     
+}
+/* - - -  F I M: ML - - - */
+
+/* - - - Menu Flutua - - - */
+
+.menuflutua {    
+    font-size: 18px;
+}
+.menuflutua ul{
+    padding: 5px;
+    margin: 0;
+    text-align: center;        
+}
+.menuflutua li{
+    text-decoration: none;
+    background-color: #2a4370;
+    color: #f26907;
+    margin: 2px auto;
+    margin-bottom: 8px;   
+    width: 85%;        
+    list-style: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.menuflutua a{    
+    display: block;    
+    text-decoration: none;
+    color: #7495d0;        
+    padding-top: 20px;
+    padding-bottom: 18px;    
+}
+.menuflutua li:hover{
+    background-color: #7495d0;
+    color: #22396f;
+}
+.menuflutua a:hover{
+    color: #22396f;   
+    
+}
+.menuflutua li.treeline-icon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menuflutua li.treeline-icon:hover{
+    margin: 18px;        
+    background-color: #2a4370;       
+    color: #44356f;
+    cursor: pointer;
+}
+.menuflutua li.treeline-closeicon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menuflutua li.treeline-closeicon:hover {
+    margin: 18px;
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
+
+/* - - - F I M - MF - - - */
+
+/* - - - Menu Nossa Entidade - - - */
+
+.menuflutuaNE {    
+    font-size: 18px;   
+}
+.menuflutuaNE ul{
+    padding: 5px;
+    margin: 0;
+    text-align: center;        
+}
+.menuflutuaNE li{
+    text-decoration: none;
+    background-color: #2a4370;
+    color: #f26907;
+    margin: 2px auto;
+    margin-bottom: 8px;   
+    width: 85%;    
+    height: 50px;
+    list-style: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.menuflutuaNE a{    
+    display: block;    
+    text-decoration: none;
+    color: #7495d0;        
+    padding-top: 14px;
+    padding-bottom: 12px;
+}
+.menuflutuaNE li:hover{
+    background-color: #7495d0;
+    color: #22396f;
+}
+.menuflutuaNE a:hover{
+    color: #22396f;   
+    
+}
+.menuflutuaNE li.treeline-icon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menuflutuaNE li.treeline-icon:hover{
+    margin: 18px;        
+    background-color: #2a4370;       
+    color: #44356f;
+    cursor: pointer;
+}
+.menuflutuaNE li.treeline-closeicon{
+    display: none;
+    font-size: 50px;    
+    color: #cac0e5;
+}
+.menuflutuaNE li.treeline-closeicon:hover {
+    margin: 18px;
+    background-color: #cac0e5;
+    color: #44356f;
+    cursor: pointer;
+}
+
+/* - - - FIM NE - - - */
+
+
+@media (max-width: 1000px) {
+
+/* - - - - - - - - Menu - - - - - - - - - - */
+/* - - Menu Lateral - - */
+.menulateral {            
+    text-align: center;         
+    animation-name: testeanimar;
+    animation-duration: 3s;    
+} 
+.menulateral li{
+    display: none;
+    padding: 10px 0 10px 0;      
+}
+
+.menulateral li.treeline-icon{
+    display: inline;        
+}
+.menulateral li.treeline-closeicon{
+    display: inline;        
+}
+
+/* - - - Fim do Menu Lateral - - - */
+
+/* - - - MENU FLUTUA - - - */
+
+.menuflutua {            
+    text-align: center;         
+    animation-name: testeanimar;
+    animation-duration: 3s;    
+} 
+.menuflutua li{
+    display: none;  
+    margin: 0.5%;
+    width: 98%;
+    height: 65px;    
+}
+.menuflutua a{
+    font-size: 30px;    
+}
+.menuflutua li.treeline-icon{
+    display: inline;        
+}
+.menuflutua li.treeline-closeicon{
+    display: inline;        
+}
+
+/* - - FIM - - */
+
+
+/* - - - Menu Nossa Entidade*/
+
+.menuflutuaNE {            
+    text-align: center;         
+    animation-name: testeanimar;
+    animation-duration: 3s;    
+} 
+.menuflutuaNE li{
+    display: none;  
+    margin: 0.5%;
+    width: 98%;
+    height: 65px;    
+}
+.menuflutuaNE a{
+    font-size: 30px;    
+}
+.menuflutuaNE li.treeline-icon{
+    display: inline;        
+}
+.menuflutuaNE li.treeline-closeicon{
+    display: inline;        
+}
+
+/* - - - FIM - - - */
+
+/* - - - MENU JS - - -*/
+
+.menujs{
+    
+}
+.menujs ul{
+    text-align: center;
+}
+.menujs li{
+    display: block;
+}
+
+/* - - - FIM - - - */
+
+
+
+
+/*Animações*/
+@keyframes testeanimar /*nomedaanimação>*/{
+    0% {opacity: 0;}
+    100%{opacity: 1;}    
+}

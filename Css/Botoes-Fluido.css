@@ -1,0 +1,12 @@
+﻿@media( max-width:1000px )
+{
+.efeito{
+    font-size: .7em;    
+    padding: 8px;
+    
+}
+.efeito-1:before {
+    height: 46px;        
+}
+
+}/*FIM*/

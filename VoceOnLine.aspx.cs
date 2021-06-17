@@ -183,7 +183,7 @@ namespace Site
             mwContConv.ActiveViewIndex = 7;
         }
 
-        
+
         public void buscarCep(object sender, EventArgs e)
         {
             using (var ws = new WSCorreios.AtendeClienteClient())
@@ -238,7 +238,7 @@ namespace Site
             }
 
         }
-        
+
 
         /* - - - FIM Views - - - */
 
@@ -471,7 +471,7 @@ namespace Site
                     break;
             }
 
-            lblPeriodoAssoc.Text = dtIni + " à " + dtFim;
+            //lblPeriodoAssoc.Text = dtIni + " à " + dtFim;
 
 
 
@@ -480,14 +480,14 @@ namespace Site
 
                 if (mestFim.ToString("MM") == "01")
                 {
-                    ObjDbASU.Campo = " c.idmovime, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
+                    ObjDbASU.Campo = " c.idmovime, EXTRACT(DAY FROM c.data) AS dia, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
                                      " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN '" + janeiro + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
                     //  " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE (a.cnpj_cpf = '" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND vencimento BETWEEN '" + janeiro + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
 
                 }
                 else
                 {
-                    ObjDbASU.Campo = " c.idmovime, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
+                    ObjDbASU.Campo = " c.idmovime, EXTRACT(DAY FROM c.data) AS dia, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
                                      " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN '" + dtIni + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
                     //" (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE (a.cnpj_cpf = '" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND vencimento BETWEEN '" + dtInicio + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
                 }
@@ -498,12 +498,12 @@ namespace Site
                                 " INNER JOIN asdepen AS d ON c.dependen = d.iddepen ";
                 if (mestFim.ToString("MM") == "01")
                 {
-                    ObjDbASU.Condicao = " WHERE a.idassoc ='" + IdAssoc + "' AND c.vencimento BETWEEN '" + janeiro + "'  AND '" + dtFim + "' ";
+                    ObjDbASU.Condicao = " WHERE a.idassoc ='" + IdAssoc + "' AND c.vencimento BETWEEN '" + janeiro + "'  AND '" + dtFim + "' ORDER BY dia ";
                     //" WHERE (a.cnpj_cpf ='" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND c.vencimento BETWEEN '" + janeiro + "'  AND '" + dtFim + "' ";
                 }
                 else
                 {
-                    ObjDbASU.Condicao = " WHERE a.idassoc='" + IdAssoc + "' AND c.vencimento BETWEEN '" + dtIni + "'  AND '" + dtFim + "' ";
+                    ObjDbASU.Condicao = " WHERE a.idassoc='" + IdAssoc + "' AND c.vencimento BETWEEN '" + dtIni + "'  AND '" + dtFim + "' ORDER BY dia ";
                     //ObjDbASU.Condicao = " WHERE (a.cnpj_cpf ='" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND c.vencimento BETWEEN '" + dtInicio + "'  AND '" + dtFim + "' ";
                 }
 
@@ -527,23 +527,26 @@ namespace Site
 
                     saldo = (gastos - limite) * -1;
                     //Cria Saldo e Limite
-                    xRet += "<div class='left'>" + "Seja bem Vindo: " + Session["LoginUsuario"].ToString() + "</div>";
+                    xRet += "<div class='extAssocNormal'>";
                     xRet += "<table>";
+                    xRet += "<caption style='font-size: 1em; text-align: left;'>" + "Seja bem Vindo: " + Session["LoginUsuario"].ToString() + "</caption>";
                     xRet += "<tbody>";
                     xRet += "<tr>";
                     xRet += "<td>" + "Seu Limite: " + "</td>";
                     xRet += "<td style='font-size: 30px;'>" + "R$ " + limite.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
-                    xRet += "</tr>";
-                    xRet += "<tr>";
+                    //xRet += "</tr>";
+                    //xRet += "<tr>";
                     xRet += "<td>" + "Seu Saldo: " + "</td>";
                     xRet += "<td style='font-size: 40px;'>" + "R$ " + saldo.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
                     xRet += "</tr>";
                     xRet += "</tbody>";
                     xRet += "</table>";
+                    xRet += "</div>";
 
+                    xRet += "<div class='extAssocNormal' style='width: 1000px; '>";
                     //Cria Extrato
                     xRet += "<table>";
-                    xRet += "<caption>" + " Extrato Mensal " + "</caption>";
+                    xRet += "<caption>" + " Extrato " + "</caption>";
                     xRet += "<thead>";//Cabeçalho da Tabela
                     xRet += "<tr>"; //Linha
                     xRet += "<td>" + "Autorização" + "</td>";//Campo
@@ -571,20 +574,67 @@ namespace Site
                         xRet += "<td>" + dados.Rows[i]["conveniado"] + "</td>";//Convênio
                         xRet += "<td>" + dados.Rows[i]["cartao"] + "xx " + "</td>";//Cartão
                         xRet += "<td>" + dados.Rows[i]["comprador"] + "</td>";//Comprador
-                        xRet += "<td>" + dados.Rows[i]["parcela"] + "</td>";//Parcela
+                        xRet += "<td>" + dados.Rows[i]["parcela"] + "/" + dados.Rows[i]["parctot"] + "</td>";//Parcela
                         xRet += "<td>" + " R$" + valorCompra.ToString("F2", CultureInfo.InvariantCulture) + "</td>";//Valor
                         xRet += "</tr>";
                     }
                     xRet += "</tbody>";
                     xRet += "</table>";
+
+                    //xRet += "teste";
+                    xRet += "</div>";
                 }
                 else
                 {
                     xRet += "<div>";
                     xRet += "<p>" + " Seu cartão não gerou débitos para este período " + "</p>";
                     xRet += "</div>";
-
                 }
+
+                //Fluído
+                xRet += "<div class='extAssocFluido'>";
+                xRet += "<table>";
+                xRet += "<caption style='font-size: 2em; text-align: left;'>" + "Seja bem Vindo: " + Session["LoginUsuario"].ToString() + "</caption>";
+                xRet += "<tbody>";
+                xRet += "<tr>";
+                xRet += "<td>" + "Seu Limite: " + "</td>";
+                xRet += "<td style='font-size: 30px;'>" + "R$ " + limite.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                //xRet += "</tr>";
+                //xRet += "<tr>";
+                xRet += "<td>" + "Seu Saldo: " + "</td>";
+                xRet += "<td style='font-size: 40px;'>" + "R$ " + saldo.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                xRet += "</tr>";
+                xRet += "</tbody>";
+                xRet += "</table>";
+                //Cria Extrato
+                xRet += "<table>";
+                xRet += "<caption>" + " Extrato " + "</caption>";
+                xRet += "<thead>";//Cabeçalho da Tabela
+                xRet += "<tr>"; //Linha
+                xRet += "<td>" + "dia" + "</td>";
+                xRet += "<td colspan='4'>" + "Suas Compras" + "</td>";
+                xRet += "</tr>";
+                xRet += "</thead>";
+                xRet += "<tfoot>";//Rodape da Tabela
+                xRet += "<tr>"; //Linha
+                xRet += "<td colspan='3' class='right'>" + "Total: " + "</td>";
+                xRet += "<td colspan='2'>" + " R$: " + gastos.ToString("F2", CultureInfo.InvariantCulture) + " " + "</td>";
+                xRet += "</tr>";
+                xRet += "</tfoot>";
+                xRet += "<tbody>";//Cabeçalho da Tabela
+                for (int i = 0; i < contador; i++)
+                {
+                    double valorCompra = double.Parse(dados.Rows[i]["valor"].ToString()) * (-1);
+                    xRet += "<tr>";
+                    xRet += "<td>" + dados.Rows[i]["dia"] + "</td>";//Dia
+                    xRet += "<td colspan='2' style='text-align: left;'>" + dados.Rows[i]["conveniado"] + "<br>" + "<span style='font-size: .7em; margin-left: 20px;'>" + dados.Rows[i]["comprador"] + "</span>" + "</td>";//Convênio                    
+                    xRet += "<td>" + dados.Rows[i]["parcela"] + "/" + dados.Rows[i]["parctot"] + "</td>";//Parcela
+                    xRet += "<td>" + " R$" + valorCompra.ToString("F2", CultureInfo.InvariantCulture) + "</td>";//Valor
+                    xRet += "</tr>";
+                }
+                xRet += "</tbody>";
+                xRet += "</table>";
+                xRet += "</div>";
             }
 
 

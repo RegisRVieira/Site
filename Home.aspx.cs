@@ -46,6 +46,7 @@ namespace Site
                     DataTable dados = ObjConexao.RetCampos();
 
                     //MessageBox.Show(campos + tabela + left + condicao);                    
+                    
 
                     int contador = dados.Rows.Count;
 
@@ -129,10 +130,10 @@ namespace Site
                 xRet += "<p>" + "Associados" + "</p>";
                 xRet += "</div>";
                 xRet += "<div class='BoxS-Img'>";
-                xRet += "<img src='../../Img/Associados2.jpg' />";
+                xRet += "<img src='Img/Associados2.jpg' />";
                 xRet += "</div>";
                 xRet += "<div class='botaoSaibaMais2'>";
-                xRet += "<a href='ParaAssociado.aspx?pAssoc=65' >" + "Saiba Mais" + "</a>";
+                xRet += "<a href='ContAssoc.aspx?pAssoc=65' >" + "Saiba Mais" + "</a>";
                 xRet += "</div>";
                 xRet += "</div>";
             }
@@ -162,7 +163,7 @@ namespace Site
 
             string xRet = "";
 
-            xRet += "<div class='' >" + "<p class='tituloBox-1'>" + "O que temos para Você" + "</p></div>";
+            xRet += "<div class='tituloBox-33' >" + "O que temos para Você" + "</div>";
             xRet += "<section class='s1'>";
             xRet += "<section class='Box33'>";
             /*
@@ -172,17 +173,18 @@ namespace Site
             */
             for (int i = 0; i < nLinhasDest; i++)
             {
-                xRet += "<img class='BoxS1' src='../Site-ASU/" + dados.Rows[i]["path"] + "'>";
+                xRet += "<img class='BoxS1' src='" + dados.Rows[i]["path"] + "'>";
             }
             xRet += "<div class='s-titulo'>";
             xRet += "<p>Promoção Vale Compras</p>";
-            xRet += "</div>";
+            xRet += "</div>";            
             xRet += "<div id = 'black-Box-Text' class='botaoSaibaMais'> ";
             xRet += "<a href = '#' > Saiba Mais</a>";
             xRet += "</div>";
             xRet += "</section>";
             xRet += "</section>";
 
+            
             return xRet;
         }
 

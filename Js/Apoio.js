@@ -438,9 +438,38 @@ function incluirElementos() {
     meuElemento.appendChild(document.createElement("li")).innerHTML = "Margeritta";
 }
 
+
 function openNav() {
     var menu = document.getElementById("menulateral");
     var icon = document.getElementById("treeline-icon");
+
+    //alert("Aqui!!!");
+
+    if (menu.className === "menuflutua") {
+        menu.className += " menujs";
+        //icon.innerHTML = "&cross;";
+    } else {
+        manu.className = "menuflutua";
+        icon.innerHTML = "&#9776;";
+    }
+}
+function closeNav() {
+    var menu = document.getElementById("menulateral");
+    var icon = document.getElementById("treeline-closeicon");
+
+    //alert("Sair?!?");
+
+    if (menu.className === "menuflutua menujs") {
+        menu.className = "menuflutua";
+        //icon.innerHTML = "&#9776;";
+    }
+}
+
+
+/*
+function openNav() {
+    var menu = document.getElementById("menulateral");
+    var icon = document.getElementById("treeline-icon");    
 
     if (menu.className === "menulateral") {
         menu.className += " menujs";
@@ -459,6 +488,28 @@ function closeNav() {
         //icon.innerHTML = "&#9776;";
     }
 }
+*/
+function AcessarNossaEntidade() {
+    var menu = document.getElementById("menuLateralNE");
+    var icoFechar = document.getElementById("treeline-NossaEntidade");
+    //alert("Tá na Função do Apoio");
+
+    if (menu.className === "menuflutuaNE") {
+        menu.className += " menujs";
+        //icoFechar.innerHTML = "FECHAR a Bagaça";
+    }
+}
+function FecharNossaEntidade() {
+    var menu = document.getElementById("menuLateralNE");
+    var icoFechar = document.getElementById("treeline-NossaEntidade");
+
+    if (menu.className === "menuflutuaNE menujs") {
+        menu.className = "menuflutuaNE";
+        //icoFechar.innerHTML = "FECHAR a Bagaça";        
+    }
+}
+
+
 
 function AcessarVoceOnLine() {
     window.location.href = "LoginVoceOnLine.aspx";
@@ -472,7 +523,7 @@ function abrirImagens() {
     window.open("S-Imagens.aspx", "minhaJanela", "width= 950, height= 600 ");
 }
 
-
+/* - - - - Abilita Menu Responsi do Você OnLine - - - - */
 function openMenuFlutua() {
     var menu = document.getElementById("menuflutua");
     var icon = document.getElementById("treeline-icon");
@@ -494,11 +545,13 @@ function closeMenuFlutua() {
         //icon.innerHTML = "&#9776;";
     }
 }
-
-
+/* - - - - FIM - - - - */
+/*
+ - - - - - Abilita Menu Responsivo da Home - - - - -
+ */
 function openMenuHome() {
     //alert("Tá clicando para abrir");
-    
+
     var menu = document.getElementById("navlista");
     var icon = document.getElementById("treeline-icon");
 
@@ -513,9 +566,6 @@ function openMenuHome() {
         manu.className += " desativa-TreeLineIcon";
         //icon.innerHTML = "&cross";
     }
-
-    
-    
 }
 function closeMenuHome() {
 
@@ -529,6 +579,9 @@ function closeMenuHome() {
         //icon.innerHTML = "&#9776;";
     }
 }
+
+/* - - - - FIM - - - - */
+
 /* - - - Slider - STop - - - */
 $(function () {
     var curSlider = 0;
@@ -540,17 +593,17 @@ $(function () {
     function initSlider() {
         //percorre a qtde de slider para adicionar o botão de navegação do slider
         $('.STop').hide(); //apaga todos os sliders
-                $('.STop').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0
-            }
-            function changeSlide() {
-    setInterval(function () {
-        $('.STop').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
-        curSlider++;
-        if (curSlider > maxSlider7)
-            curSlider = 0;
+        $('.STop').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.STop').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider7)
+                curSlider = 0;
             $('.STop').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
-}, delay * 11000);
-}
+        }, delay * 11000);
+    }
 })
 
 //Você OnLine
@@ -647,3 +700,207 @@ function Popup(data, largura, titulo) {
 
     /*return true;*/
 }
+
+
+/* # # # # # B O X 33 # # # # # */
+
+/* - - - Box33 - S6 - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider6 = $('.BoxS6').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    /*S2*/
+    function initSlider() {
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+        $('.BoxS6').hide(); //apaga todos os sliders
+        $('.BoxS6').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0              
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.BoxS6').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider6)
+                curSlider = 0;
+            $('.BoxS6').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+        }, delay * 11000);
+    }
+})
+
+/* - - - Box33 - S5 - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider5 = $('.BoxS5').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    /*S2*/
+    function initSlider() {
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+        $('.BoxS5').hide(); //apaga todos os sliders
+        $('.BoxS5').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0              
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.BoxS5').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider5)
+                curSlider = 0;
+            $('.BoxS5').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+        }, delay * 11000);
+    }
+})
+
+/* - - - Box33 - S4 - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider4 = $('.BoxS4').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    /*S2*/
+    function initSlider() {
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+        $('.BoxS4').hide(); //apaga todos os sliders
+        $('.BoxS4').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0              
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.BoxS4').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider4)
+                curSlider = 0;
+            $('.BoxS4').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+        }, delay * 11000);
+    }
+})
+
+/* - - - Box33 - S3 - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider3 = $('.BoxS3').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    /*S2*/
+    function initSlider() {
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+        $('.BoxS3').hide(); //apaga todos os sliders
+        $('.BoxS3').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0              
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.BoxS3').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider3)
+                curSlider = 0;
+            $('.BoxS3').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+        }, delay * 11000);
+    }
+})
+
+/* - - - Box33 - S2 - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider2 = $('.BoxS2').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    /*S2*/
+    function initSlider() {
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+        $('.BoxS2').hide(); //apaga todos os sliders
+        $('.BoxS2').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0              
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.BoxS2').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider2)
+                curSlider = 0;
+            $('.BoxS2').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+        }, delay * 9000);
+    }
+    //alert("Entrou!!!");
+})
+/* - - - Box33 - S1 - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider = $('.BoxS1').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    function initSlider() {
+        $('.BoxS1').hide(); //apaga todos os sliders
+        $('.BoxS1').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.BoxS1').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider)
+                curSlider = 0;
+            $('.BoxS1').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+
+        }, delay * 10000);
+    }
+})
+/* - - - - */
+
+/* # # # # # # BOX 100 # # # # # # */
+
+$(function () {
+    var curSlider = 0;
+    var maxSlider = $('.Box100').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+    function initSlider() {
+        $('.Box100').hide(); //apaga todos os sliders
+        $('.Box100').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0                       
+        for (var i = 0; i <= maxSlider; i++) {
+        }
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.Box100').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider)
+                curSlider = 0;
+            $('.Box100').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider                            
+        }, delay * 10000);
+    }
+})
+/* - - - FIM BOX100 - - - */
+
+/* # # # Slider Guia de Convênios # # # */
+
+/* - - - Slider - - - */
+$(function () {
+    var curSlider = 0;
+    var maxSlider = $('.Slider').length - 1;
+    var delay = 1;
+    initSlider();
+    changeSlide();
+
+    function initSlider() {
+        $('.Slider').hide(); //apaga todos os sliders
+        $('.Slider').eq(0).show(); //eq é a posição e show é para apresentar. Apresentar o slider na posição 0
+        //percorre a qtde de slider para adicionar o botão de navegação do slider
+    }
+    function changeSlide() {
+        setInterval(function () {
+            $('.Slider').eq(curSlider).stop().fadeOut(200); //fadeOut finaliza a apresentação do slider 
+            curSlider++;
+            if (curSlider > maxSlider)
+                curSlider = 0;
+            $('.Slider').eq(curSlider).stop().fadeIn(200); //fadeIn inicia a apresentação do slider
+        }, delay * 10000);
+    }
+})
+
+/* - - - FIM GUIA - - - */
+
+/* - - - - FIM - - - - */

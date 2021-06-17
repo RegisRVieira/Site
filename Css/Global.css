@@ -43,7 +43,7 @@
 .navHome-Box p,a{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica;
     text-align: center;
     padding-top: 6px;
     font-size: .9em;
@@ -166,13 +166,12 @@
 .navlista li {
     list-style: none;
     display: inline-block;
-    margin-top: 0px;    
+    margin-top: 0px;        
 }
 .navlista li a {
     text-decoration: none;
     color: #8ba1d3;
-    font-size: .9em;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1em;    
     padding: 0px 16px 0 0px;    
     font-weight: 600;        
 }
@@ -191,7 +190,7 @@
 .navlista li.treeline-icon:hover {
     background-color: #cac0e5;
     color: #44356f;
-    cursor: pointer;
+    cursor: pointer;    
 }
 
 .navlista li a.treeline-closeicon {
@@ -214,15 +213,78 @@
     width: 10px;
     text-align: center;
 }
+
+/* - - - LoginVoceOnLine.aspx - - - */
+.BoxLogin {
+    margin: 0 auto;
+    width: 580px;
+    height: 200px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-top: 20px;    
+}
+.BoxVOLogin {
+    height: 20px;
+    background-color: #22396f;
+    width: 100%;
+    margin: 0;
+}
+
+.lblUsuLogado {
+    margin-left: 5px;
+    margin-top: -.5px;
+    position: absolute;
+    cursor: pointer;
+}
+.BoxVOLoginMenu{                            
+    width: 250px; 
+    float: right;
+    height: 20px;
+}
+.BoxVOLoginMenu ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;         
+    color: #7495d0;
+}
+.BoxVOLoginMenu ul li{                            
+    float: left;
+    position: relative;
+}
+.BoxVOLoginMenu ul li ul{
+    display: none;
+    position: absolute;
+    padding-top: 2px;
+    margin-top: 18px;
+}
+.BoxVOLoginMenu ul li ul li{
+    width: 120px;
+    margin-top: 1px;
+    background-color: #22396f;                            
+    padding: 8px 4px;
+    border-radius: 2px;
+}
+.BoxVOLoginMenu ul li ul li:hover{
+    background-color: #7495d0;      
+    color: #22396f;
+}
+.BoxVOLoginMenu ul li ul li a:hover{                        
+    color: #22396f;
+    padding-right: 80px;
+    text-align: left;
+    background-color: red;
+}
+.BoxVOLoginMenu li:hover ul{
+    display: block;                            
+}
+
 /* * * * * Fim NAV * * * * */
-
 /* * * * *  C O R P O  * * * * */
-
 .corpoHome {
     margin: 0px auto;
     width: 1165px;
     width: 100%;
-    padding: 0;        
+    padding: 0;
 }
 
 /* * * * *  Fim CORPO  * * * * */
@@ -308,8 +370,9 @@
     font-size: 2.2em; 
     font-style: italic; 
     text-shadow: 2px 1px 1.5px #8ba1d3;    
-    background-color:#22396f;
     background-color: #8ba1d3;
+    background-color: #f26907;
+    background-color:#22396f;
 }
 
 .BoxVOTitulo {
@@ -479,12 +542,14 @@
 }
 /* Títulos */
 .tituloBox-1 {
-    font-size: 2.8em;
+    clear: both;
+    font-size: 2.8em;        
     margin: 15px 0 5px;
     color: #524f4f;
     text-align: center;
-    font-family: 'Cormorant', serif;
+    font-family: 'Cormorant', serif;    
 }
+
 
 .tituloBox-2 {
     font-size: 1.8em;
@@ -494,6 +559,9 @@
 }
 
 /* - - - FIM - - - */
+
+/* # # # # # # #  B O X  S E R V I Ç O S # # # # # # */
+
 .BoxServicos {
     margin: 0;
     padding: 0;
@@ -501,29 +569,230 @@
     margin-bottom: 15px;
     width: 100%;
     height: 505px;
-    background-color: #ffd800;
+    /*background-color: #ffd800;*/
 }
+
+.BoxS-Interno {
+    margin: 0 auto;    
+    width: 1200px;
+    height: 100%;        
+}
+.BoxS-Conteudo{
+    width: 29.5%;
+    width: 354px;
+    height: 100%;
+    margin-left: 1.9%;
+    margin-right: 1.7%;
+    float: left;    
+}
+.BoxS-Conteudo-Tit {
+    width: 100%;
+    height: 10%;
+    color: #4a4848;
+}
+.BoxS-Conteudo-Tit p{
+    margin: 0; 
+    padding: 5px 0 5px;
+    font-size: 2em;
+    text-align: center;    
+}
+
+.BoxS-Img {  
+    margin: 0 auto;
+    width: 92%;
+    height: 85%;    
+}
+.BoxS-Img img{    
+    height: 100%;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* - - - Fim BOX SERVIÇOS - - - */
+/*###### B O X 33 ###### */
 
 .BoxGaleria33 {
-    width: 100%;
-    height: 490px;
+    margin: 0 auto;
+    width: 1405px;
+    height: 380px;
     margin-bottom: 15px;
     z-index: -10;
-    background-color: #ff6a00;
+    /*background-color: #ff6a00; */            
 }
 
+.tituloBox-33 {    
+    clear: both;
+    font-size: 2.8em;
+    margin: 15px 0 5px;
+    color: #524f4f;
+    text-align: center;
+    font-family: 'Cormorant', serif;
+}
+
+.s1 {
+    width: 33%;
+    width: 630px;
+    width: 462px;    
+    height: 399px;
+    height: 294px;
+    float: left;
+    /*background-image: url(../Img/Box33-3.jpg);*/
+    margin-left: .8%;        
+}
+
+.s2 {
+    width: 33%;
+    width: 630px;
+    width: 462px;
+    height: 294px;
+    float: left;
+    margin-left: .2%;
+}
+
+.s3 {
+    width: 33%;
+    width: 630px;
+    width: 462px;
+    height: 399px;
+    height: 294px;
+    float: left;
+    /*background-image: url(../Img/Box33-2.jpg);
+    background-image: url(../Img/MapaBotucatu.jpg);*/
+    margin-left: 0.2%; /* background-size: contain;*/
+}
+
+.Box33{
+    width: 100%;           
+}
+
+.Box33 p{
+    text-align: center;
+    font-size: 1.2em;     
+    padding: 0; 
+    margin: 0 auto;     
+    color: white; 
+    text-shadow: 2px 2px 10px #000;        
+}
+
+
+.BoxS1 {
+    position: absolute;
+    z-index: -1;
+    width: 462px;
+    height: 294px;
+}
+
+.BoxS2 {
+    position: absolute;
+    z-index: -1;
+    width: 462px;
+    height: 294px;
+}
+
+
+.BoxS3 {
+    position: absolute;
+    z-index: -1;
+    width: 462px;
+    height: 294px;
+}
+
+.s-titulo{ 
+    font-size: 1.8em; 
+    border-bottom: #CCC; 
+    padding: 0; 
+    margin: 0 auto; 
+    border-bottom: 2px solid white; 
+    border-bottom: none;
+    color: white;
+    width: 100%; 
+    text-align: center; 
+    margin-top: 0px;    
+}	
+.s-Text{
+    margin: 0; 
+    margin-top: 30px; 
+    font-size: 1.2em; 
+    color: white; 
+    padding: 15px; 
+    text-align: justify;
+}
+.s1-Text {
+    margin: 0;
+    width: 100%;
+    height: 300px;
+    margin-top: 30px;
+    font-size: 1.2em;
+    color: white;
+    padding: 15px;
+    text-align: justify;    
+    opacity: 0;
+}
+.s1-Text:hover {    
+    opacity: 1;
+}
+
+.black-box{
+    width: 100%; 
+    height: 100%; 
+    background-color: white; 
+    opacity: 1;
+    opacity: 0;
+}
+.black-box:hover{ 
+    opacity: .4; 
+    background-color: #f26907; /*text-transform: uppercase;*/
+    background-color: #000;
+}
+.black-Box-Text {
+    display: none;
+    position: relative;
+}
+.black-Box-Text:hover{
+    display: block;
+}
+
+
+/* - - - - FIM - - - - */
+
+
+/* - - Box Galeria 100% - - - */
 .Boxgaleria100 {
     margin: 0 auto;
     width: 100%;
     height: 660px;
     margin: 10px 0 0px 0;
-    background-color: #808080;
+    /*background-color: #808080;*/
 }
+
+.BoxImg100 {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.BoxImg100 img {
+    width: 100%;
+    background-size: contain;
+    -webkit-transition: all 0.27s ease;
+    transition: all 0.27s ease;
+    overflow: hidden;
+}
+
+.Boxgaleria100 img:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    position: relative;
+}
+/* - - - F I M */
+
+/* - - - - */
 
 #margemRodape {
     width: 100%;
     height: 9px;
-    margin-bottom: 34px;
+    margin-bottom: 100px;
     
 }
 
@@ -698,6 +967,137 @@ publicidade {
 
 /* - - - - Fim C. Matéria - - - - */
 
+/* - - - M A S T E R  P A G E  C O N T E Ú D O - - - */
+
+
+.corpoMpConteudo {
+    padding: 2px;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 0;
+    width: 84.5%;
+    width: 1400px;
+    display: inline-block;
+    /*background-color: #2a4370;*/
+}
+
+.lateralMpConteudo {
+    width: 327px;
+    /*background-color: #2a4370;*/
+    float: left;
+    margin-top: 60px;
+}
+
+.dadosMpConteudo {
+    margin-top: 60px;
+    width: 75%;
+    background-color: #fff;    
+    float: left;
+    height: auto;
+    height: auto;
+    /*background-color: yellow;*/
+}
+
+/*- - - - - FIM MP Conteúdo - - - - - */
+
+/* ####### Nossas Pessoas ###### */
+
+
+.BoxPessoas {
+    width: 100%;
+    min-height: 20px;    
+}
+
+.BoxPessoas-Botoes {
+    width: 90%;
+    min-height: 50px;
+    margin: 0 auto;    
+    
+}
+
+.BoxPessoas-Corpo {    
+    width: 90%;    
+    min-height: 780px;
+    margin: 0 auto;
+}
+
+.BoxPessoas-Lateral {
+    float: left;
+    width: 80px;
+    min-height: 754px;
+    color: white;
+    background-color: #f26907;
+    box-sizing: border-box;
+    writing-mode: vertical-lr;
+    font-size: 3em;
+    padding-left: 20px;
+    text-align: center;
+}
+.BoxPessoas-Topo {
+    width: 100%;
+    height: 60px;
+    color: white;
+    background-color: #22396f;
+    box-sizing: border-box; 
+    font-size: 3em;
+    padding-left: 20px;
+    text-align: center;
+}
+
+.BoxPessoas-Dados {
+    background-color: yellow;
+    float: left;
+    width: 845px;
+    min-height: 140px;
+    box-sizing: border-box;
+    border: 2px solid #f26907;
+    background-color: #f5d0b6;
+    /*
+    border: 2px solid #22396f;
+    background-color: #798ebe*/
+}
+.rodapePessoas { 
+    margin-bottom: 3610px;
+    width: 100%;
+    height: 2px;
+}
+
+.rodapePessoasFluido {
+    
+}
+
+.BoxPessoas-Dados-Img {
+    width: 125px;
+    min-height: 125px;    
+    float: left;
+    box-sizing: border-box;
+    border-radius: 180px;    
+    margin: 0;
+}
+.BoxPessoas-Dados-Img img{
+    width: 100%;
+    border-radius: 180px;
+}
+
+.BoxPessoas-Dados-Text {
+    width: 690px;
+    margin-left: 20px;
+    margin-top: 25px;
+    min-height: 100px;    
+    float: left;
+    box-sizing: border-box;       
+}
+.BoxPessoas-Dados-Text span{    
+    font-size: 1.4em;    
+    display: block;
+    color: #424141;
+}
+
+/* - - Gerado pelo: Code Behind - - */
+
+
+
+/* ###### FIM NP ######*/
 
 /* * * * *  F O O T E R  * * * * */
 
@@ -728,3 +1128,9 @@ publicidade {
 /* * * * * Fim FOOTER * * * * */
 
 /* = = = = = = = = = Fim Home = = = = = = = = = */
+
+.lblMsg{    
+    margin-left: 30px;
+    color: #22396f;
+    font-size: 2em;
+}

@@ -11,52 +11,52 @@ namespace Site
 {
 
 
-    public partial class LoginVoceOnLine
+    public partial class Conteudo
     {
 
         /// <summary>
-        /// Controle form1.
+        /// Controle cpHeader.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cpHeader;
 
         /// <summary>
-        /// Controle iCpf.
+        /// Controle lblUsuLogado.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText iCpf;
+        protected global::System.Web.UI.WebControls.Label lblUsuLogado;
 
         /// <summary>
-        /// Controle iSenha.
+        /// Controle CpLateral.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword iSenha;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder CpLateral;
 
         /// <summary>
-        /// Controle btnLogin.
+        /// Controle cpContent.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cpContent;
 
         /// <summary>
-        /// Controle lblResult.
+        /// Controle cpFooter.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResult;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder cpFooter;
     }
 }

@@ -78,17 +78,25 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="ContAssoc.aspx" />
+    <Content Include="ContConv.aspx" />
     <Content Include="ContMaterias.aspx" />
+    <Content Include="ContNossaEntidade.aspx" />
+    <Content Include="ContNossasPessoas.aspx" />
+    <Content Include="Css\Botoes-Fluido.css" />
+    <Content Include="Css\Botoes.css" />
     <Content Include="Css\Form-Clean.css" />
     <Content Include="Css\Form-Fluido.css" />
     <Content Include="Css\Generico.css" />
     <Content Include="Css\Global.css" />
+    <Content Include="Css\Menus.css" />
     <Content Include="Css\SlideShow.css" />
     <Content Include="Css\Global-Fluido.css" />
     <Content Include="Css\StyleHome.css" />
     <Content Include="Css\StyleVoceOnLine.css" />
     <Content Include="Css\Table-Extrato.css" />
     <Content Include="Default.aspx" />
+    <Content Include="FaleConosco.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Img\Logo ASU-White-Espaçado.png" />
     <Content Include="Js\Apoio.js" />
@@ -107,6 +115,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ContAssoc.aspx.cs">
+      <DependentUpon>ContAssoc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContAssoc.aspx.designer.cs">
+      <DependentUpon>ContAssoc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContConv.aspx.cs">
+      <DependentUpon>ContConv.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContConv.aspx.designer.cs">
+      <DependentUpon>ContConv.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Conteudo.Master.cs">
+      <DependentUpon>Conteudo.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Conteudo.Master.designer.cs">
+      <DependentUpon>Conteudo.Master</DependentUpon>
+    </Compile>
     <Compile Include="ContMaterias.aspx.cs">
       <DependentUpon>ContMaterias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -114,12 +143,33 @@
     <Compile Include="ContMaterias.aspx.designer.cs">
       <DependentUpon>ContMaterias.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ContNossaEntidade.aspx.cs">
+      <DependentUpon>ContNossaEntidade.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContNossaEntidade.aspx.designer.cs">
+      <DependentUpon>ContNossaEntidade.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContNossasPessoas.aspx.cs">
+      <DependentUpon>ContNossasPessoas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContNossasPessoas.aspx.designer.cs">
+      <DependentUpon>ContNossasPessoas.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="FaleConosco.aspx.cs">
+      <DependentUpon>FaleConosco.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FaleConosco.aspx.designer.cs">
+      <DependentUpon>FaleConosco.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
@@ -334,6 +384,7 @@
     <Content Include="Connected Services\WSCorreios\Site.WSCorreios.VerificaSeTodosObjetosCanceladosResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Conteudo.Master" />
     <None Include="packages.config" />
     <Content Include="VoceOnLine\Web.config" />
     <None Include="Web.Debug.config">

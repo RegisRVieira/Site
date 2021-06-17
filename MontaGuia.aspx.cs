@@ -122,13 +122,14 @@ namespace Site
                         {
                             xRet += "<img src='../" + dadosLogo.Rows[i]["path"] + "'>";
                             //xRet += "<p>Tem Logo</p> ";
-                        }
+                        }   
                         xRet += "</div>";
                         xRet += "<div class='publiTexto'>";
                         xRet += "<span class='linha-convenio'>" + dadosLogo.Rows[i]["nome"] + "</span>" + "<br>";
-                        xRet += "<span class='linha-dadosconvramo'>" + dadosLogo.Rows[i]["descricao"] + "</span>" + "<br><br>";
-                        xRet += "<span class='linha-dadosconv' style='margin: 8px 0 8px 0;'>" + dadosLogo.Rows[i]["fone"] + "</span>" + "<br>"+ "<br>";
-                        xRet += "<span class='linha-dadosconv' style='margin: 8px 0 8px 0; word-wrap: break-word'>" + dadosLogo.Rows[i]["logradouro"] + " " + dadosLogo.Rows[i]["endereco"] + ", " + dadosLogo.Rows[i]["numero"] + "</span>" + "<br><br>";
+                        xRet += "<span class='linha-dadosconvramo'>" + dadosLogo.Rows[i]["descricao"] + "</span>";
+                        xRet += "<span class='linha-dadosconv' style='margin: 8px 0 8px 0;'>" + "<address style='margin: 0; padding: 0;'><a style='margin: 0; padding: 0;' href='tel:" + dadosLogo.Rows[i]["fone"] + "'>" + dadosLogo.Rows[i]["fone"] + "</a></address>" + "</span>";
+                        //xRet += "<span class='linha-dadosconv' style='margin: 8px 0 8px 0;'>" + dadosLogo.Rows[i]["fone"] + "</span>" + "<br>"+ "<br>";
+                        xRet += "<span class='linha-dadosconv' style='margin: 8px 0 8px 0; word-wrap: break-word'>" + dadosLogo.Rows[i]["logradouro"] + " " + dadosLogo.Rows[i]["endereco"] + ", " + dadosLogo.Rows[i]["numero"] + "</span>" + "<br>";
                         xRet += "<span class='linha-dadosconv' style='margin: 8px 0 8px 0;'>" + dadosLogo.Rows[i]["bairro"] + " - " + dadosLogo.Rows[i]["cidade"] + "</span>" + "<br>";
                         xRet += "</div>";
                         xRet += "</div>";
