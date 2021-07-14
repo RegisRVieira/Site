@@ -51,7 +51,8 @@ namespace Site
                     IdMat = dados.Rows[i]["id"].ToString();
                     xRet += "<section class='BoxListaMaterias'>";
                     xRet += "<a href='ContMaterias.aspx?IDContMat=" + IdMat + "' >";
-                    xRet += "<img src='../Img/Av Major Matheus 2.JPG' />"; // Capturar Foto do Banco de Dados
+                    //xRet += "<img src='../Img/Av Major Matheus 2.JPG' />"; // Capturar Foto do Banco de Dados
+                    xRet += "<img src='" + dados.Rows[i]["Pathimg"] + "' />";
                     xRet += "<p class='pl-Titulo'>" + dados.Rows[i]["titulo"] + "</p>";
                     xRet += "<p class='pl-Data'>" + dados.Rows[i]["dt_PublIni"] + "</p>";
                     xRet += "</a>";

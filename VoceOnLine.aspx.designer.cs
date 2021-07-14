@@ -186,6 +186,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.LinkButton lbtOfertas;
 
         /// <summary>
+        /// Controle lbtSair.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtSair;
+
+        /// <summary>
         /// Controle mwContAssoc.
         /// </summary>
         /// <remarks>
@@ -535,6 +544,15 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTrocaSenha;
+
+        /// <summary>
+        /// Controle lblTrocaSenha.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTrocaSenha;
 
         /// <summary>
         /// Controle mwContConv.

@@ -42,6 +42,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.Button btnBuscar;
 
         /// <summary>
+        /// Controle lblTeste.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTeste;
+
+        /// <summary>
         /// Controle lblResult.
         /// </summary>
         /// <remarks>

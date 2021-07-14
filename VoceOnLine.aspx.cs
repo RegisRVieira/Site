@@ -666,16 +666,49 @@ namespace Site
                 ObjDbASU.Condicao = condicao;
 
                 DataTable dados;
-
                 dados = ObjDbASU.RetCampos();
-                xRet = dados.ToString();
 
+                int nLinhas = dados.Rows.Count;
 
-                xRet += "<section>";
-                xRet += "<p>" + dados.Rows[0]["idassoc"] + "</p>";
-                xRet += "<p>" + dados.Rows[0]["dependente"] + "</p>";
-                //xRet += "<p>" + dados.Rows[0]["idcartao"] + "</p>";
+                //xRet = dados.ToString();
+                /*
+                xRet += "<section style='width: 500px; min-height: 200px; margin-top: 30px; text-align: left;'>";
+                for (int i = 0; i < nLinhas; i++)
+                {
+                    //xRet += "<p>" + dados.Rows[i]["idassoc"] + "</p>";
+                    xRet += "<div style='padding-top: 0px; width: 100%; height: 40px'>";
+                    xRet += "<div style='float: left; height: 40px'>";
+                    xRet += "<img src='Img/icon/card.png'  style=''/>";
+                    xRet += "</div>";
+                    xRet += "<div style='float: left; height: 40px'>";
+                    xRet += "<p style='margin: 0; margin-left: 5px; padding-top: 10px; '>" + dados.Rows[i]["idcartao"] + "xx - " + dados.Rows[i]["dependente"] + "</p>";
+                    xRet += "</div>";
+                    //xRet += "<img src='Img/icon/card.png'  style='background-color: red'/>";
+                    xRet += "</div>"+"<br><br>";                    
+                }
                 xRet += "</section>";
+
+                */
+
+                for (int i = 0; i < nLinhas; i++)
+                {
+                    string validade = dados.Rows[0]["validade"].ToString();
+                    DateTime.Parse(validade).ToString("dd-MM-yyyy");
+                    xRet += "<div style='margin-top: 50px; width: 302px; height: 195px; float: left'>";
+
+                    xRet += "<div style='background-color: yellow; width: 302px; height: 195px;'>";
+                    xRet += "<img src='img/CartaoASUOnLine .jpg' style='width: 300px' />";
+                    xRet += "</div>";
+                    xRet += "<div style='margin-top: -195px; width: 302px; height: 195px; z-index: 1; position: absolute;'>";
+                    xRet += "<p style='margin: 0; margin-left: 28px; text-align: left; padding-top: 100px; '>" + dados.Rows[i]["dependente"] + "</p>";
+                    xRet += "<p style='margin: 0; margin-left: 28px; text-align: left; '>" + dados.Rows[i]["idcartao"] + "xx" + "</p>";
+                    xRet += "<p style='margin: 0; margin-left: 98px; text-align: left; '>" + " Validade: " + DateTime.Parse(validade).ToString("dd-MM-yyyy") + "</p>";
+                    xRet += "</div>" + "<br>";
+
+                    xRet += "</div>";
+                }
+
+                xRet += "<br><br><br><br>";
             }
             else
             {
@@ -1837,18 +1870,165 @@ namespace Site
             Response.Redirect("Home.aspx");
         }
 
+
         public void trocarSenhaAssoc(object sender, EventArgs e)
-        {
+        {            
             if (iSenhaNova.Value != iSenhaConfirma.Value)
             {
-                MessageBox.Show("As senhas não conferem, digite-as novamente!!!");
+                //MessageBox.Show("As senhas não conferem, digite-as novamente!!!");
+                lblTrocaSenha.Text = "As senhas não conferem, digite-as novamente!!!" + "\n" + "Estamos trabalhando nisso, aguarde. Por hora, entre em contato com o Atendimento da ASU.";
+
             }
             else
             {
-                MessageBox.Show("Senha: " + iSenhaAtual.Value + "\n" + "Nova Senha: " + iSenhaNova.Value);
+                //MessageBox.Show("Senha: " + iSenhaAtual.Value + "\n" + "Nova Senha: " + iSenhaNova.Value);
+                lblTrocaSenha.Text = "Senha: " + iSenhaAtual.Value + "\n" + "Nova Senha: " + iSenhaNova.Value + "\n" + "Estamos trabalhando nisso, aguarde. Por hora, entre em contato com o Atendimento da ASU.";
             }
+
+            /*
+             //Proceso do Paulo para Trocar senha do Associado
+            string cErro = "";
+            string cSenha_atual = "" + xFuncoes.RetCampo("senha", "associa", "idassoc = '" + Session["associado"] + "'", "ConexaoASU");
+
+            if (cSenha_atual == "")
+                cErro = "<span style='color:Red;'>Senha não cadastrada!</span>";
+            else
+            {
+                if (cSenha_atual != txtSenha_atual.Text)
+                {
+                    cErro = "<span style='color:Red;'>A senha atual digitada está incorreta!</span>";
+                }
+                else
+                {
+                    //Gravando a nova senha
+                    xFuncoes.UpdateReg("associa", "senha = '" + txtSenha.Text.Replace("'", "") + "'", "idassoc = '" + Session["associado"] + "'", "ConexaoASU");
+                    cErro = "<span style='color:DarkGreen;'>A senha foi alterado com SUCESSO!</span>";
+
+                    txtSenha.Text = "";
+                    txtSenha_atual.Text = "";
+                    txtSenha_conf.Text = "";
+                }
+            }
+
+            //Trocando a senha do associado
+            if (cErro != "")
+                lblErro_assoc.Text = "<table><tr><td><img src='Img/Layout/alert.gif' /></td><td><span style='font-weight:bold;font-size:15px;'>" + cErro + "</span></td></tr></table><br><br>";
+
+            */
+
+
         }
 
+        public void troarSenhaCartao(object sender, EventArgs e)
+        {
+            //caminho físico
+            string pathDocumento = "" + WebConfigurationManager.AppSettings["CaminhoVendaENV"];
+            //string pathDocumento = "d:\teste";
+            DirectoryInfo dir = new DirectoryInfo(pathDocumento);
+
+            string cArq_cont = "910" + "01.04" + "000000000" + Session["cartaosenha"] + "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" + iSenhaConfirma.Value;
+
+            //titulo do arquivo
+            string cArq_tit = "" + Session["cartaosenha"] + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
+            //string cArq_tit = "" + "xxx" + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
+
+            try
+            {
+                GravaArquivo(System.IO.Path.Combine(pathDocumento, cArq_tit), cArq_cont);
+            }
+            catch
+            {
+            }
+
+            string arquivosenha = "";
+
+            Session["arquivosenha"] = "" + System.IO.Path.Combine(pathDocumento, cArq_tit);
+            //arquivosenha = "" + System.IO.Path.Combine(pathDocumento, cArq_tit);
+
+            Retorna_senha();
+        }
+
+        protected void Retorna_senha() //Para trocar a Senha do Cartão
+        {
+            //Session["arquivosenha"]
+
+            try
+            {
+                string cArquivo = LeArquivo("" + Session["arquivosenha"].ToString().Replace("ENV", "RET"));
+                string cArquivo_mostra = "";
+
+                string cCod_transa = "" + cArquivo.Substring(1, 3);//cod. Transação
+                string cVersao = "" + cArquivo.Substring(3, 5); //Versão do Protocolo de Venda
+                string cCodConv = "" + cArquivo.Substring(8, 9); //cod. do Convênio
+                string cCodCarta = "" + cArquivo.Substring(17, 9); // Cod. do Cartão
+                string cValor = "" + cArquivo.Substring(26, 12); //Valor da Venda
+                string cParcela = "" + cArquivo.Substring(38, 2); //Quantidade de Parcelas
+                string cCodRet = "" + cArquivo.Substring(40, 3);//cod. Retorno
+                string cAutoriza = "" + cArquivo.Substring(43, 9); // Autorização da Compra
+                string cChaveUsuar = "" + cArquivo.Substring(52, 9); // Chave do Usuário
+                string cNome = "" + cArquivo.Substring(61, 40); //Nome do Conveniado
+                string cObserva = "" + cArquivo.Substring(101, 30); //Observação sobre a Vendfa
+                string cCpfCnpj = "" + cArquivo.Substring(131, 14); //CPF ou CNPJ
+                string cSaldo = "" + cArquivo.Substring(145, 14); //Saldo do Associado
+                string cSenha = "" + cArquivo.Substring(160, 20); //Senha 
+                string cRet_msg = "";
+
+                switch (cCodRet)
+                {
+                    case "000":
+                        cRet_msg = "Transação realizada com sucesso";
+                        break;
+                    case "110":
+                        cRet_msg = "Tempo esgotado para retorno";
+                        break;
+                    case "130":
+                        cRet_msg = "Conexão com problemas";
+                        break;
+                    case "210":
+                        cRet_msg = "Código do cartão inconsistente";
+                        break;
+                    case "320":
+                        cRet_msg = "Cartão vencido";
+                        break;
+                    case "330":
+                        cRet_msg = "Cartão não liberado";
+                        break;
+                    case "340":
+                        cRet_msg = "Cartão cancelado";
+                        break;
+                    default:
+                        cRet_msg = "Erro desconhecido";
+                        break;
+                }
+
+                //verificando se a venda ocorreu
+                if (cCodRet != "000")
+                {
+                    string cMsg_neg = "Ocorreram problemas nesse processo, tente novamente mais tarde: " + cRet_msg;
+                    ScriptManager.RegisterClientScriptBlock(Page, this.GetType(), "key1", "alert('" + cMsg_neg + "');location.href='Restrita.aspx?op=assocextra&menu=sim';", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(Page, this.GetType(), "key1", "alert('" + cRet_msg + "');location.href='Restrita.aspx?op=assocextra&menu=sim';", true);
+                }
+            }
+            catch (Exception erro)
+            {
+                if (nVezes <= Convert.ToInt16("" + WebConfigurationManager.AppSettings["Timeout_venda"]))
+                {
+                    System.Threading.Thread.Sleep(Convert.ToInt16(1000));
+                    nVezes++;
+                    Retorna_senha();
+                }
+                else
+                {
+                    string cMsg_neg = "Ocorreram problemas nesse processo, tente novamente mais tarde: " + "timeout";
+                    ScriptManager.RegisterClientScriptBlock(Page, this.GetType(), "key1", "alert('" + cMsg_neg + "');location.href='Restrita.aspx?op=assocextra&menu=sim';", true);
+                }
+            }
+
+            //mvRestrita.ActiveViewIndex = 14;
+        }
 
         /* - - - Processo de Venda - - - */
 

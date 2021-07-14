@@ -19,6 +19,10 @@ namespace Site
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["VoceOnLine"] != null)
+            {
+                Session.Abandon();
+            }
 
         }
 
@@ -98,7 +102,7 @@ namespace Site
                         tabela = " asdepen AS d ";
                         left = " INNER JOIN associa AS a ON d.associado = a.idassoc ";
                         //condicao = " WHERE cnpj_cpf ='" + codAcesso + "' AND senha = '" + Senha + "'";                
-                        condicao = " WHERE(d.cnpj_cpf = '" + codAcesso + "' OR(EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + codAcesso.Substring(0, 7) + "'))) AND a.senha = '" + Senha + "' ";
+                        condicao = " WHERE(d.cnpj_cpf = '" + codAcesso + "' OR(EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + codAcesso.Substring(0, 7) + "'))) AND a.senha = '" + Senha + "' AND a.cnscanmom IS NULL ";
 
                     }
                     else if (tamanhocampo == 14 || tamanhocampo < 7)//else if (tamanhocampo == 14 || tamanhocampo == 5)
@@ -106,7 +110,7 @@ namespace Site
                         //MessageBox.Show("Convênio");
                         campo = " idconven AS id, nome AS nomeConv, cnpj_cpf AS cnpj, senha_adm AS senha  ";
                         tabela = " coconven ";
-                        condicao = " WHERE cnpj_cpf ='" + codAcesso + "' OR idconven = '" + codAcesso.Substring(0, (tamanhocampo - 2)) + "' AND senha_adm = '" + Senha + "'";
+                        condicao = " WHERE cnpj_cpf ='" + codAcesso + "' OR idconven = '" + codAcesso.Substring(0, (tamanhocampo - 2)) + "' AND senha_adm = '" + Senha + "' AND cnscanmom IS NULL ";
                     }
                     else
                     {
@@ -170,7 +174,8 @@ namespace Site
                         }
                         else
                         {
-                            MessageBox.Show("Você já está Logado, encerre sua sessão para poder iniciar uma nova!");
+                            lblResult.Text = "Você estava Logado, deseja iniciar uma nova sessão?";
+                            //Session.Abandon();
                         }
                     }
                     //lblResult.Text = "Parabéns: Você está logado como: " + Session["LoginUsuario"];

@@ -33,6 +33,7 @@ namespace Site.App_Code
                 port = ConfigurationManager.AppSettings["PortASU"];
                 user = ConfigurationManager.AppSettings["UserASU"];
                 password = "i072406";
+                //password = "i)&@$)6";
                 connectionString = "Server={0}; Port={1};Database={2};Uid={3};Pwd={4};";
                 MsgError = "";
             }

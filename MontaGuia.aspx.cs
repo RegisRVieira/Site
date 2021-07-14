@@ -25,6 +25,13 @@ namespace Site
         {
             BLL ObjDbDest = new BLL(conectVegas);
             BLL ObjDbLogo = new BLL(conectVegas);
+
+            string TextBusca = "";
+            TextBusca = iBuscar.Value.Replace(" ", "%");
+
+            string xErro = "";
+            string xRet = "";
+
             /* Variáveis para Geração dos Dados da pesquisa de Convênios */
             /*
             string campos = " c.idconven, c.nome, c.tipoconv, c.ddd, c.fone, c.celular, c.fax, c.logradouro, c.endereco, c.numero, c.bairro, c.cidade, t.descricao, (SELECT descricao FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS img, (SELECT tipo FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS tipoimg, (SELECT valor FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS ordemimg ";
@@ -37,7 +44,7 @@ namespace Site
                                " (SELECT tipo FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS tipoimg, (SELECT valor FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS ordemimg ";
             string tabDest = " coconven AS c  ";
             string leftDest = " INNER JOIN base_cotipo AS t ON c.tipoconv = t.codtipo ";
-            string condDest = " WHERE c.cnscanmom IS NULL AND(c.nome LIKE '%" + iBuscar.Value + "%' OR EXISTS(SELECT tp.codtipo FROM base_cotipo AS tp WHERE tp.codtipo = c.tipoconv AND tp.descricao LIKE '%" + iBuscar.Value + "%')) AND EXISTS(SELECT img.descricao FROM coinfo AS img WHERE img.convenio = c.idconven AND img.tipo = 'SGUIADEST' AND((CURDATE() BETWEEN img.dt_inicio AND img.dt_fim) OR(img.dt_fim IS NULL)) ) ORDER BY c.nome ASC ";
+            string condDest = " WHERE c.cnscanmom IS NULL AND(c.nome LIKE '%" + TextBusca + "%' OR EXISTS(SELECT tp.codtipo FROM base_cotipo AS tp WHERE tp.codtipo = c.tipoconv AND tp.descricao LIKE '%" + TextBusca + "%')) AND EXISTS(SELECT img.descricao FROM coinfo AS img WHERE img.convenio = c.idconven AND img.tipo = 'SGUIADEST' AND((CURDATE() BETWEEN img.dt_inicio AND img.dt_fim) OR(img.dt_fim IS NULL)) ) ORDER BY c.nome ASC ";
 
             ObjDbDest.Campo = campoDest;
             ObjDbDest.Tabela = tabDest;
@@ -52,7 +59,7 @@ namespace Site
                                " (SELECT tipo FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS tipoimg, (SELECT valor FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS ordemimg "; ;
             string tabLogo = " coconven AS c ";
             string leftLogo = " INNER JOIN base_cotipo AS t ON c.tipoconv = t.codtipo ";
-            string condLogo = " WHERE c.cnscanmom IS NULL AND (c.nome LIKE '%" + iBuscar.Value + "%' OR EXISTS(SELECT tp.codtipo FROM base_cotipo AS tp WHERE tp.codtipo = c.tipoconv AND tp.descricao LIKE '%" + iBuscar.Value + "%')) ORDER BY c.nome ASC ";
+            string condLogo = " WHERE c.cnscanmom IS NULL AND (c.nome LIKE '%" + TextBusca + "%' OR EXISTS(SELECT tp.codtipo FROM base_cotipo AS tp WHERE tp.codtipo = c.tipoconv AND tp.descricao LIKE '%" + TextBusca + "%')) ORDER BY c.nome ASC ";
 
             ObjDbLogo.Campo = campoLogo;
             ObjDbLogo.Tabela = tabLogo;
@@ -61,14 +68,14 @@ namespace Site
             DataTable dadosLogo = ObjDbLogo.RetCampos();
 
             int nLinhasLogo = dadosLogo.Rows.Count;
-
+                                    
 
             if (iBuscar.Value == "")
             {
                 string msgErroCampoVazio = "É preciso preencher o campo 'Buscar' para procurarmos o que você deseja";
-                string xErro = "";
+                
 
-                xErro += "<div class='linha-convenio-p'>";
+                xErro += "<div class='linha-convenio-p'>";  
                 xErro += "<p>" + msgErroCampoVazio + "</p>";
                 xErro += "</div>";
 
@@ -79,35 +86,50 @@ namespace Site
             {
                 if (ObjDbDest.MsgErro == "" || ObjDbLogo.MsgErro == "")
                 {
-                    string xRet = "";
+                    
 
                     if (nLinhasDest > 0 || nLinhasLogo > 0)
                     {
                         //MessageBox.Show("Teve dados...");
+                        lblMsgErro.Text = String.Empty;
                     }
                     else
                     {
                         string xMsg = "";
                         xMsg += "<div class='linha-convenio-p'>";
-                        xMsg += "<p>" + " Não Teve dados para Retorno, faça uma nova Pesquisa " + "</p>";
+                        xMsg += "<p>" + " Não há dados para Retorno, faça uma nova Pesquisa " + "</p>";
                         xMsg += "</div>";
 
                         lblMsgErro.Text = xMsg;
                     }
 
-
-                    xRet += "<section class='publiPrincipal' style=''>";
-                    xRet += "<section class='margem-guia-principal'>";
-                    xRet += "</section>";
-                    xRet += "<section class='div-guia-principal'>";
-                    xRet += "<div class='guiaImg'>";
-                    for (int i = 0; i < nLinhasDest; i++)
+                    if (nLinhasDest > 0)
                     {
-                        xRet += "<img class='Slider' src='../" + dadosDest.Rows[i]["path"] + "'>";
+                        xRet += "<section class='publiPrincipal' style=''>";
+                        xRet += "<section class='margem-guia-principal'>";
+                        xRet += "</section>";
+                        xRet += "<section class='div-guia-principal'>";
+                        xRet += "<div class='guiaImg'>";
+                        for (int i = 0; i < nLinhasDest; i++)
+                        {
+                            xRet += "<img class='Slider' src='../" + dadosDest.Rows[i]["path"] + "'>";
+                        }
+                        xRet += "</div>";
+                        xRet += "</section>";
+                        xRet += "</section>";
                     }
-                    xRet += "</div>";
-                    xRet += "</section>";
-                    xRet += "</section>";
+                    else
+                    {
+                        xRet += "<section class='publiPrincipal' style=''>";
+                        xRet += "<section class='margem-guia-principal'>";
+                        xRet += "</section>";
+                        xRet += "<section class='div-guia-principal'>";
+                        xRet += "<div class='guiaImg'>";
+                        xRet += "<img class='Slider' src='../img/guia/Banner Publicidade Guia.jpg '>";                        
+                        xRet += "</div>";
+                        xRet += "</section>";
+                        xRet += "</section>";
+                    }
 
                     for (int i = 0; i < nLinhasLogo; i++)
                     {

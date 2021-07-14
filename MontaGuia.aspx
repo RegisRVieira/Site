@@ -21,7 +21,8 @@
     <section class="buscaConv" >
         <form class="formGuia" id="form1" runat="server">
             <input id="iBuscar" runat="server" type="text" placeholder="Digite o que você procura..." />                     
-            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="buscarConvenios" />            
+            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="buscarConvenios" />       
+            <asp:Label ID="lblTeste" runat="server"></asp:Label>
         </form>        
     </section>    
     <div style="">        

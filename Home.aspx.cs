@@ -18,12 +18,43 @@ namespace Site
         public string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                usuarioLogado();
+            }
             this.DataBind();
+        }
+
+        public void usuarioLogado()
+        {
+            string usuario = "";
+
+            if (Session["VoceOnline"] != null)
+            {
+                usuario = Session["LoginUsuario"].ToString();
+
+                string primeiroNome = usuario.Split(' ').FirstOrDefault();
+                string primeiraLetra = usuario.Split(' ').FirstOrDefault();
+                int tNome = primeiroNome.Length;
+
+                //xRet += "" + primeiraLetra.Substring(0, 1) + primeiroNome.Substring(1, (tNome-1)).ToLower();
+                lblUsuLogado.Text = primeiraLetra.Substring(0, 1) + primeiroNome.Substring(1, (tNome - 1)).ToLower();
+
+            }
+            else
+            {
+                lblUsuLogado.Text = "Você OnLine";
+            }
+                
+            
+            
+            //return xRet;
         }
 
         public String montarMateriasHome()
         {
             BLL ObjConexao = new BLL(conectSite);
+            BLL ObjConectVegas = new BLL(conectVegas);
 
             string xRet = "";
             string xImg = "";
@@ -36,31 +67,31 @@ namespace Site
                                 " LEFT JOIN st_imagens as i ON c.id = i.id_conteudo ";
             string condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' ORDER BY c.id DESC LIMIT 2 ";
 
-            if (ObjConexao.MsgErro == "")
-            {                
-                    ObjConexao.Campo = campos;
-                    ObjConexao.Tabela = tabela;
-                    ObjConexao.Left = left;
-                    ObjConexao.Condicao = condicao;
+            if (ObjConexao.MsgErro == "" || ObjConectVegas.MsgErro == "")
+            {
+                ObjConexao.Campo = campos;
+                ObjConexao.Tabela = tabela;
+                ObjConexao.Left = left;
+                ObjConexao.Condicao = condicao;
 
-                    DataTable dados = ObjConexao.RetCampos();
+                DataTable dados = ObjConexao.RetCampos();
 
-                    //MessageBox.Show(campos + tabela + left + condicao);                    
-                    
+                //MessageBox.Show(campos + tabela + left + condicao);                    
 
-                    int contador = dados.Rows.Count;
 
-                    int contMat = 0;
+                int contador = dados.Rows.Count;
 
-                    for (int i = 0; i < contador; i++)
+                int contMat = 0;
+
+                for (int i = 0; i < contador; i++)
+                {
+                    xImg += dados.Rows[i]["tipoImg"].ToString();
+                    if (xImg == "CHA")
                     {
-                        xImg += dados.Rows[i]["tipoImg"].ToString();
-                        if (xImg == "CHA")
-                        {
-                            xImg += dados.Rows[i]["tipoImg"];
-                            contMat++;
-                        }
+                        xImg += dados.Rows[i]["tipoImg"];
+                        contMat++;
                     }
+                }
 
                 for (int i = 0; i < 2; i++) //Para pegar apenas xImg = CHA
                 {
@@ -73,13 +104,14 @@ namespace Site
                     {
                         IDMat = dados.Rows[i]["id"].ToString();
 
-                        xRet += "<div class='HomeMateria'> ";
-                        xRet += "<img src='../Img/Foto - DAP.jpg' />";             //Capturar foto do Banco de Dados - 08-04-2021 23:20                                                                                                   
+                        xRet += "<div class='HomeMateria'> ";                        
+                        //xRet += "<img src='../Img/Foto - DAP.jpg' />";             //Capturar foto do Banco de Dados - 08-04-2021 23:20                                                                                                   
+                        xRet += "<img src='"+ dados.Rows[i]["PathImg"] +"' />"; 
                         xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
                         xRet += "<p class='HomeMateriaCategoria'>" + dados.Rows[i]["categoria"] + "</p>";
-                        xRet += "<p class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</p>";
+                        xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
                         xRet += "<p class='HomeMateriaData'>" + "12 de Março de 2021" + "</p>";
-                        xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p>" + "Leia Mais..." + "</p></a></div>";
+                        xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p>" + /*dados.Rows[i]["PathImg"] +*/  "Leia Mais..." + "</p></a></div>";
                         //MessageBox.Show(dados.Rows[i]["id"].ToString());                    
                     }
                     xRet += "</div>";
@@ -177,14 +209,14 @@ namespace Site
             }
             xRet += "<div class='s-titulo'>";
             xRet += "<p>Promoção Vale Compras</p>";
-            xRet += "</div>";            
+            xRet += "</div>";
             xRet += "<div id = 'black-Box-Text' class='botaoSaibaMais'> ";
             xRet += "<a href = '#' > Saiba Mais</a>";
             xRet += "</div>";
             xRet += "</section>";
             xRet += "</section>";
 
-            
+
             return xRet;
         }
 

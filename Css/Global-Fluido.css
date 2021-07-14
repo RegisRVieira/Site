@@ -634,6 +634,57 @@ float: none;
 
 /* - - - - - F O O T E R - - - - - - */
 
+.redeSocialHome{
+    display: block;    
+    height: 110px;
+    width: 50%;
+    margin: 0 auto;
+    border-bottom: 2px solid #8a8989;
+    margin-top: 80px;    
+}
+.redeSocialHome-Box1{
+    float: left;
+    width: 33.3%;
+    height: 100%;        
+    box-sizing: border-box;    
+    background-image: url(../Img/Icon/Icon-Face-Site.png);
+    background-repeat: no-repeat;    
+    background-position: center;
+    background-size: 110px;    
+    background-position-y: 5px;
+}
+.redeSocialHome-Box1:hover{
+    background-image: url(../Img/Icon/Icon-Face-Oficial.png);
+}
+.redeSocialHome-Box2{
+    float: left;
+    width: 33.3%;
+    height: 100%;        
+    box-sizing: border-box;    
+    background-image: url(../Img/Icon/map.svg);
+    background-repeat: no-repeat;    
+    background-position: center;
+    background-size: 100px;    
+    background-position-y: 5px;
+}
+.redeSocialHome-Box2:hover{
+    background-image: url(../Img/Icon/map2.svg);
+}
+.redeSocialHome-Box3{
+    float: left;
+    width: 33.3%;
+    height: 100%;        
+    box-sizing: border-box;        
+    background-image: url(../Img/Icon/whatsapp.svg);
+    background-repeat: no-repeat;    
+    background-position: center;
+    background-size: 100px;    
+    background-position-y: 5px;
+}
+.redeSocialHome-Box3:hover{
+       background-image: url(../Img/Icon/whatsapp2.svg);
+}
+
 .footerHome {
     font-size: 1.8em;    
     height: 98px;            

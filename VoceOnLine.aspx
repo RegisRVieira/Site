@@ -82,6 +82,7 @@
                                         <asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
                                     <li>
                                         <asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
                                 </ul>
@@ -141,9 +142,9 @@
                                                         <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
                                                         <asp:ListItem Value="2" Text="Março"></asp:ListItem>
                                                         <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="Maio" ></asp:ListItem>
                                                         <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Julho" Selected=""></asp:ListItem>
                                                         <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
                                                         <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
                                                         <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
@@ -173,20 +174,20 @@
                                 </div>
                             </section>
                         </asp:View>
-                        <asp:View ID="vwAssocCartoes" runat="server">
-                            <p>Cartões</p>
+                        <asp:View ID="vwAssocCartoes" runat="server">                            
                             <div>
                                 <%# metodoCartoesAssoc() %>
-                            </div>
+                            </div>                            
                         </asp:View>
                         <asp:View ID="vwAssocSenha" runat="server">
-                            <section style="margin: 0 auto; width: 40%; background-color: #cfcfcf">
+                            <section style="margin: 0 auto; margin-top: 30px; width: 60%; border: 2px solid #cfcfcf;">
                                 <div style="width: 100%">
-                                    <p style="text-align: center; font-size: 2em;">Trocar Senha</p>
+                                    <p style=" margin-top: 5px; color: #22396f; text-align: center; font-size: 2em;">Trocar Senha</p>
                                     <input id="iSenhaAtual" runat="server" type="password" placeholder="Senha Atual" />
                                     <input id="iSenhaNova" runat="server" type="password" placeholder="Nova Senha" />
                                     <input id="iSenhaConfirma" runat="server" type="password" placeholder="Confirma Nova Senha" />
                                     <asp:Button ID="btnTrocaSenha" runat="server" Text="Troca Senha" OnClick="trocarSenhaAssoc" />
+                                    <asp:label ID="lblTrocaSenha" runat="server"></asp:label>
                                 </div>
                             </section>
                         </asp:View>

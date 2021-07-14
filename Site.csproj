@@ -43,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
@@ -79,6 +85,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="ContAssoc.aspx" />
+    <Content Include="ContASU.aspx" />
     <Content Include="ContConv.aspx" />
     <Content Include="ContMaterias.aspx" />
     <Content Include="ContNossaEntidade.aspx" />
@@ -104,6 +111,7 @@
     <Content Include="LayOuts\LayOut-Home.aspx" />
     <Content Include="LoginVoceOnLine.aspx" />
     <Content Include="MontaGuia.aspx" />
+    <Content Include="testPdf.aspx" />
     <Content Include="VoceOnLine.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -121,6 +129,13 @@
     </Compile>
     <Compile Include="ContAssoc.aspx.designer.cs">
       <DependentUpon>ContAssoc.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ContASU.aspx.cs">
+      <DependentUpon>ContASU.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ContASU.aspx.designer.cs">
+      <DependentUpon>ContASU.aspx</DependentUpon>
     </Compile>
     <Compile Include="ContConv.aspx.cs">
       <DependentUpon>ContConv.aspx</DependentUpon>
@@ -207,6 +222,13 @@
       <DependentUpon>MontaGuia.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="testPdf.aspx.cs">
+      <DependentUpon>testPdf.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testPdf.aspx.designer.cs">
+      <DependentUpon>testPdf.aspx</DependentUpon>
+    </Compile>
     <Compile Include="VoceOnLine.aspx.cs">
       <DependentUpon>VoceOnLine.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -398,6 +420,7 @@
     <Folder Include="Downloads\" />
     <Folder Include="Eventos\" />
     <Folder Include="FTP\" />
+    <Folder Include="Img\Conteudo\" />
     <Folder Include="Img\Dir\" />
     <Folder Include="Img\Guia\" />
     <Folder Include="Img\Icon\" />
