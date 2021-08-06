@@ -1,21 +1,21 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LoginVoceOnLine.aspx.cs" Inherits="Site.LoginVoceOnLine" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="Site.VOnLine.Login" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Você OnLine</title>
-    <link rel="stylesheet" href="Css/Form-Clean.css" />
-    <link rel="stylesheet" href="Css/Global.css" />
-    <link rel="stylesheet" href="Css/Global-Fluido.css" />
-    <script src="Js/Apoio.js" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Login Você OnLine</title>
+    <link rel="stylesheet" href="../Css/Form-Clean.css" />
+    <link rel="stylesheet" href="../Css/Global.css" />
+    <link rel="stylesheet" href="../Css/Global-Fluido.css" />
+    <script src="../Js/Apoio.js" type="text/javascript"></script>
 </head>
 <body>
     <nav class="navHome-Internas">
         <p>
             <a href="Home.aspx">
-                <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
+                <img class="navHome-Internas-Img" src="../Img/Logo ASU-White-Espaçado.png" /></a>
         </p>
     </nav>
     <main>

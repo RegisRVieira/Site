@@ -78,12 +78,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Adm\Adm.Master" />
     <None Include="Connected Services\WSCorreios\configuration91.svcinfo" />
     <None Include="Connected Services\WSCorreios\configuration.svcinfo" />
     <None Include="Connected Services\WSCorreios\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Adm\Admin.aspx" />
+    <Content Include="Adm\InsertRegistro.aspx" />
+    <Content Include="Adm\LoginAdm.aspx" />
     <Content Include="ContAssoc.aspx" />
     <Content Include="ContASU.aspx" />
     <Content Include="ContConv.aspx" />
@@ -92,6 +96,7 @@
     <Content Include="ContNossasPessoas.aspx" />
     <Content Include="Css\Botoes-Fluido.css" />
     <Content Include="Css\Botoes.css" />
+    <Content Include="Css\Form-Adm.css" />
     <Content Include="Css\Form-Clean.css" />
     <Content Include="Css\Form-Fluido.css" />
     <Content Include="Css\Generico.css" />
@@ -112,10 +117,41 @@
     <Content Include="LoginVoceOnLine.aspx" />
     <Content Include="MontaGuia.aspx" />
     <Content Include="testPdf.aspx" />
-    <Content Include="VoceOnLine.aspx" />
+    <Content Include="VoceOnLine1.aspx" />
+    <Content Include="VOnLine\Index.aspx" />
+    <Content Include="VOnLine\Login.aspx" />
+    <Content Include="VOnLine\VoceOnLine.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adm\Adm.Master.cs">
+      <DependentUpon>Adm.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\Adm.Master.designer.cs">
+      <DependentUpon>Adm.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Adm\Admin.aspx.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\Admin.aspx.designer.cs">
+      <DependentUpon>Admin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adm\InsertRegistro.aspx.cs">
+      <DependentUpon>InsertRegistro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\InsertRegistro.aspx.designer.cs">
+      <DependentUpon>InsertRegistro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adm\LoginAdm.aspx.cs">
+      <DependentUpon>LoginAdm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\LoginAdm.aspx.designer.cs">
+      <DependentUpon>LoginAdm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Code\DAL.cs" />
     <Compile Include="App_Code\BLL.cs" />
     <Compile Include="Connected Services\WSCorreios\Reference.cs">
@@ -229,11 +265,32 @@
     <Compile Include="testPdf.aspx.designer.cs">
       <DependentUpon>testPdf.aspx</DependentUpon>
     </Compile>
-    <Compile Include="VoceOnLine.aspx.cs">
+    <Compile Include="VoceOnLine1.aspx.cs">
+      <DependentUpon>VoceOnLine1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VoceOnLine1.aspx.designer.cs">
+      <DependentUpon>VoceOnLine1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\VoceOnLine.aspx.cs">
       <DependentUpon>VoceOnLine.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="VoceOnLine.aspx.designer.cs">
+    <Compile Include="VOnLine\VoceOnLine.aspx.designer.cs">
       <DependentUpon>VoceOnLine.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -408,7 +465,7 @@
     </Content>
     <Content Include="Conteudo.Master" />
     <None Include="packages.config" />
-    <Content Include="VoceOnLine\Web.config" />
+    <Content Include="VOnLine\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

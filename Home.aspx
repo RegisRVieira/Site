@@ -42,10 +42,13 @@
                             
                             <div class="BoxVOLoginMenu">
                                 <ul>
-                                    <li><a href="LoginVoceOnLine.aspx"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a> 
+                                    <li><a href="VOnLine/Login.aspx"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a> 
                                         <ul>                                                                                                                         
-                                            <a href="LoginVoceOnLine.aspx" target="_blank"><li>Sair</li></a>
+                                            <a href="VOnLine/Login.aspx" target="_blank"><li>Você OnLine</li></a>
                                             <a href="testPdf.aspx" target="_blank"><li>Teste PDF</li></a>
+                                            <a href="LoginVoceOnLine.aspx">Você On Line - Para teste Local</a>
+                                            <a href="Adm/LoginAdm.aspx"><li>Adm</li></a>
+                                            <a href="Adm/InsertRegistro.aspx"> <li>Teste - Insert</li></a>
                                         </ul>
                                     </li>                            
                                 </ul>
@@ -86,11 +89,11 @@
                     <div class="BoxSlider-VoceOnLine">
                         <p>Você On Line</p>
                         <section class="BoxVOImg">
-                            <a href="LoginVoceOnLine.aspx">
+                            <a href="VOnLine/Login.aspx">
                                 <img class="bannerSlider" src="../img/Seu Saldo.jpg" /></a>
-                            <a href="LoginVoceOnLine.aspx">
+                            <a href="VOnLine/Login.aspx">
                                 <img class="bannerSlider" src="../img/Sua Venda.jpg" /></a>
-                            <a href="LoginVoceOnLine.aspx">
+                            <a href="VOnLine/Login.aspx">
                                 <img class="bannerSlider" src="../img/Seu Extrato.jpg" /></a>
                             <div class="bullets" style="width: 21.5%; height: auto; text-align: center; position: relative; top: 90%;">
                             </div>                            

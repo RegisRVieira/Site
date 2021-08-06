@@ -1,0 +1,647 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/*Admin do Site */
+
+.form-p {
+    margin: 0;
+    padding: 2px;
+    width: 99.8%;
+    /*height: 784px;*/
+    height: 100%; /* para falta de suporte */
+    height: -webkit-calc(100% - 100px); /* para Chrome */
+    height: -moz-calc(100% - 100px); /* para Firefox */
+    height: calc(100% - 100px); /* para suporte nativo */
+    /*background-color: #933;*/
+}
+
+.teste {
+    margin: 0;
+    padding: 0;
+    background-color: yellow;
+}
+
+.dmenu {
+    width: 99%;
+    /*height: 778px;*/
+    height: 754px;
+    margin: 2px 1px;
+    /*background-color: red;*/
+}
+
+.secnav {
+    width: 100%;
+    height: 58px;
+    display: inline-block;
+}
+
+.dcont-top {
+    margin: 10px auto;
+    width: 21.1%;
+    font-weight: 700;
+    height: 50px;
+    margin: 2px 1px;
+    border-radius: 4px;
+    background-color: #7688b4; /*#6f90dd*/
+    display: inline-block;
+    float: left;
+}
+
+.dcont-top-menu {
+    margin: 10px auto;
+    width: 78.2%;
+    height: 50px;
+    margin: 2px 1px;
+    /*border-radius: 4px;*/
+    /*background-color: #6f90dd;*/
+    border-top: solid 1px #7688b4;
+    /*border-bottom: solid 2px #7688b4;*/
+    float: right;
+}
+
+    .dcont-top-menu ul li {
+        padding-right: 10px;
+        display: inline-block;
+    }
+
+    .dcont-top-menu a {
+        text-decoration: none;
+        /*color: #6f90dd;*/
+        color: #7688b4;
+        font-weight: 600;
+    }
+
+        .dcont-top-menu a:hover {
+            color: #f26907;
+        }
+
+.dcont-top h1 {
+    margin: 0;
+    padding-top: 8px;
+    text-align: center;
+    font-size: 26px;
+    font-family: 'Futura Bk BT';
+    color: #22396f;
+}
+
+.dcont-top p {
+    margin: 0;
+    padding-top: 16px;
+    text-align: center;
+    font-size: 16px;
+    font-family: 'Futura Bk BT';
+    color: #22396f;
+}
+
+
+.dcont-grid {
+    margin: 10px auto;
+    width: 99.5%;
+    height: 250px;
+    margin: 2px 1px;
+    display: inline-block;
+    overflow: scroll;
+    /*background-color: #f26907;*/
+}
+
+.topform {
+    margin: 0 2px 10px 2px;
+    padding: 2px;
+    width: 98.5%;
+    color: white;
+    background-color: #22396f;
+}
+
+.dcont-form {
+    margin: 0 auto;
+    padding-top: 10px;
+    /*width: 600px;*/
+    width: 600px;
+    border: 1px solid #999;
+    box-shadow: #999 0.5em 0.5em 0.3em;
+    border-radius: 3px;
+    /*background-color:aquamarine;*/
+}
+
+.dcont {
+    margin: 10px auto;
+    width: 99.5%;
+    /*height: 524px;*/
+    height: 496px;
+    margin: 2px 1px;
+    display: inline-block;
+    overflow: scroll;
+    /*background-color: aqua;*/
+}
+
+.secleft {
+    margin: 1px 2px;
+    width: 21.2%;
+    /*height: 783px;*/
+    height: 758px;
+    display: inline-block;
+    float: left;
+    /*background-color: green;*/
+}
+
+.secrigth {
+    margin: 1px 2px;
+    width: 78%;
+    /*height: 786px;*/
+    height: 758px;
+    display: inline-block;
+    float: left;
+    /*background-color: yellow;*/
+}
+
+.naveg {
+    width: 100%;
+    height: 109px;
+    background-color: #22396f;
+}
+
+.naveg-itens {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.naveg-left {
+    margin: 2px;
+    float: left;
+    width: 21.7%;
+    height: 53px;
+    font-size: 12px;
+    display: inline-block;
+    background-color: #1f325e;
+}
+
+.naveg-rigth {
+    margin: 0;
+    font-size: 14px;
+    font-family: Calibri;
+    padding-top: 1px;
+    width: 20%;
+    height: 19px;
+    float: right;
+    color: white;
+    display: inline-block;
+}
+
+    .naveg-rigth h1 {
+        margin: 1px;
+        font-size: 12px;
+    }
+
+    .naveg-rigth p {
+        margin: 0px;
+        padding: 0;
+        display: block;
+    }
+
+.naveg h1 {
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    padding-top: 12px;
+}
+
+.naveg img {
+    margin: auto 0px;
+    padding-top: 10px;
+    padding-left: 48%;
+}
+
+.rodape {
+    font-size: 14px;
+    width: 100%;
+    height: 38px;
+    color: #f26907;
+    text-align: center;
+    margin-top: 5px auto;
+    padding-top: 10px;
+    background-color: #2b2b2b;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+input {
+    width: 578px;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.ddl {
+    width: 578px;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.alturainput {
+    height: 100px;
+    width: 578px;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.selectlist { /*Formatar SELECT para o padrão do formulário*/
+    width: 578px;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+
+input[type=text],
+input[type=tel],
+input[type=email],
+input[type=number],
+input[type=password],
+input[type=file] {
+    width: 578px;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+input[type=date] {
+    width: 200px;
+}
+
+input[type=checkbox] {
+    margin: 1px 1px;
+}
+
+.labelinpdate {
+    color: #22396f;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+input[type=radio] {
+    margin-left: 1px;
+    display: inline-block;
+    margin-bottom: 8px;
+    width: 30px;
+}
+
+.btngravar input[type=submit] {
+    width: 9%;
+    background-color: red;
+}
+
+input[type=submit] {
+    /*background-color: #3f63b6;*/
+    background-color: #22396f;
+    width: 24%;
+    display: inline-block;
+    color: #FFF;
+    background: linear-gradient(top, #F33, #933 );
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+input:focus {
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+/* Início */
+.cad-esquerda {
+    margin: 2px;
+    padding: 0;
+    display: inline-block;
+    width: 394px;
+}
+
+    .cad-esquerda ul li {
+        text-align: center;
+        list-style: none;
+    }
+
+        .cad-esquerda ul li a {
+            font-size: 24px;
+            background-color: #22396f;
+            color: #9fb8f5;
+            /*color: #f26907;*/
+            margin: 4px 4px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            display: block;
+            list-style: none;
+            border-radius: 8px;
+            border: 1px solid #f26907;
+            text-decoration: none;
+        }
+
+            .cad-esquerda ul li a:hover {
+                /*background-color: #9fb8f5;
+                        color: #22396f; */
+                color: #fac097;
+                background-color: #f26907;
+                width: 200px;
+                border: 1px solid #22396f;
+            }
+
+.cad-form {
+    margin: 2px auto;
+    width: 1800px;
+    background-color: #f26907;
+}
+
+/* Fim */
+/*Botões*/
+/*.cad-botao {
+            text-align: center;
+            list-style: none;
+        }
+        */
+.cad-botao {
+    font-size: 18px;
+    color: #9fb8f5;
+    /*color: #f26907;*/
+    margin: 4px 4px;
+    padding: 10px;
+    text-align: center;
+    display: block;
+    list-style: none;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+    .cad-botao:hover {
+        background-color: #f26907;
+        color: #fac097;
+        border: 1px solid #22396f;
+    }
+
+/*Fim*/
+
+/*Fim do Admin*/
+
+.marca {
+    color: #7688b4;
+}
+
+/*Início*/
+.menu-lateral div li {
+    list-style: none;
+    display: inline-block;
+}
+
+    .menu-lateral div li a {
+        background-color: #86bde5;
+        width: 360px;
+        height: 100px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 24px;
+        color: white;
+        display: table-cell;
+        vertical-align: middle;
+        border-radius: 10px;
+    }
+
+        .menu-lateral div li a:hover {
+            background-color: #3577a5;
+            color: #86bde5;
+            width: 358px;
+            height: 98px;
+            border: 1px solid #86bde5;
+        }
+/* Fim */
+
+.div-lista {
+    margin: 2px;
+    padding: 0;
+}
+
+.menu-lista {
+    margin: 0;
+    margin-left: 160px;
+    padding: 0;
+}
+
+    .menu-lista li {
+        list-style: none;
+        display: inline-block;
+    }
+
+    .menu-lista a {
+        font-size: 18px;
+        font-family: 'Futura Bk BT';
+        color: #f26907;
+        margin: 4px 4px;
+        padding: 40px;
+        width: 300px;
+        text-align: center;
+        display: inline-block;
+        list-style: none;
+        border-radius: 8px;
+        border: 1px solid #f26907;
+        text-decoration: none;
+    }
+
+        .menu-lista a:hover {
+            color: #fac097;
+            background-color: #f26907;
+            width: 300px;
+            border: 1px solid #fac097;
+        }
+
+main {
+    margin: 0;
+    padding: 0;
+}
+
+.frm-input input {
+    width: 520px;
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+    background-color: red;
+}
+
+.div-tipos {
+    margin: 0 auto;
+    background-color: #7688b4;
+    width: 100%;
+    height: 90%;
+}
+
+/*Botões View*/
+
+.vw-botao {
+    width: 30px;
+    display: inline-block;
+    margin-bottom: 15px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+    .vw-botao[type=checkbox] {
+        margin: 1px 1px;
+    }
+
+    .vw-botao[type=radio] {
+        margin-left: 1px;
+        display: inline-block;
+        margin-bottom: 8px;
+        width: 30px;
+    }
+
+    .vw-botao[type=submit] {
+        /*background-color: #3f63b6;*/
+        background-color: #22396f;
+        width: 20%;
+        color: #FFF;
+        background: linear-gradient(top, #F33, #933 );
+        border: 1px solid #333;
+        cursor: pointer;
+    }
+
+    .vw-botao input:focus {
+        border: 1px solid #ccc;
+        outline: none;
+    }
+
+/*Fim*/
+
+input {
+    width: 20px;
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+    input[type=checkbox] {
+        margin: 1px 1px;
+    }
+
+    input[type=radio] {
+        margin-left: 1px;
+        display: inline-block;
+        margin-bottom: 8px;
+        width: 30px;
+    }
+
+.BotaoGrandao input[type=submit] {
+    /*background-color: #3f63b6;*/
+    background-color: #22396f;
+    width: 96%;
+    color: #FFF;
+    background: linear-gradient(top, #F33, #933 );
+    border: 1px solid #333;
+    cursor: pointer;
+}
+
+input:focus {
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+nav div {
+    width: 100%;
+    height: 50px;
+}
+
+    /*
+    nav div {
+    width: 100%;
+    height: 50px;
+    background-color: #22396f;
+}
+*/
+
+    nav div h1 {
+        color: white;
+        font-size: 22px;
+        text-align: center;
+        padding-top: 12px;
+    }
+
+    nav div img {
+        margin: auto 0px;
+        padding-top: 10px;
+        padding-left: 48%;
+    }
+
+form {
+    width: 560px;
+    border: 1px solid #ddd;
+    margin: 10px auto;
+    background-color: #FFF;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+
+input[type=color] {
+    width: 330px;
+    height: 340px;
+}
+
+input[id=mensagem] {
+    height: 100px;
+}
+
+li {
+    list-style: none;
+}
+
+h1, h2 {
+    color: #22396f;
+    text-align: center;
+    margin: 0;
+}
+
+    h2 a {
+        text-decoration: none;
+    }
+
+select {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    width: 120px;
+}
+
+footer {
+    font-size: 14px;
+    width: 100%;
+    height: 38px;
+    color: #f26907;
+    text-align: center;
+    margin-top: 5px auto;
+    padding-top: 10px;
+    background-color: #2b2b2b;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}

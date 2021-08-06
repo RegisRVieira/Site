@@ -14,7 +14,8 @@ using System.Net;
 using System.Net.Mail;
 using System.IO;
 
-namespace Site
+
+namespace Site.VoceOnLine
 {
     public partial class VoceOnLine : System.Web.UI.Page
     {
@@ -77,7 +78,7 @@ namespace Site
             }
             else
             {
-                Response.Redirect("LoginVoceOnLine.aspx");
+                Response.Redirect("../LoginVoceOnLine.aspx");
 
             }
 
@@ -104,7 +105,7 @@ namespace Site
             }
             else
             {
-                Response.Redirect("LoginVoceOnLine.aspx");
+                Response.Redirect("../LoginVoceOnLine.aspx");
             }
 
             int checaQuemLogou = identifica.Length;
@@ -697,7 +698,7 @@ namespace Site
                     xRet += "<div style='margin-top: 50px; width: 302px; height: 195px; float: left'>";
 
                     xRet += "<div style='background-color: yellow; width: 302px; height: 195px;'>";
-                    xRet += "<img src='img/CartaoASUOnLine .jpg' style='width: 300px' />";
+                    xRet += "<img src='../img/CartaoASUOnLine .jpg' style='width: 300px' />";
                     xRet += "</div>";
                     xRet += "<div style='margin-top: -195px; width: 302px; height: 195px; z-index: 1; position: absolute;'>";
                     xRet += "<p style='margin: 0; margin-left: 28px; text-align: left; padding-top: 100px; '>" + dados.Rows[i]["dependente"] + "</p>";
@@ -1867,12 +1868,12 @@ namespace Site
         protected void fazerLogof(object sender, EventArgs e)
         {
             Session.Abandon();
-            Response.Redirect("Home.aspx");
+            Response.Redirect("../Home.aspx");
         }
 
 
         public void trocarSenhaAssoc(object sender, EventArgs e)
-        {            
+        {
             if (iSenhaNova.Value != iSenhaConfirma.Value)
             {
                 //MessageBox.Show("As senhas não conferem, digite-as novamente!!!");
@@ -2088,7 +2089,8 @@ namespace Site
             DirectoryInfo dir = new DirectoryInfo(pathDocumento);
 
             //Cria arquivo         
-            string cVersao = "00001.03";
+            //string cVersao = "00001.03";
+            string cVersao = "00001.04";
             string cConvenio = "" + "63193";
             string cCartao = "" + iNumCartao.Value;
             string cValor = "" + iValorVenda.Value.Replace(",", "").Replace(".", "");
@@ -2111,7 +2113,7 @@ namespace Site
             //titulo do arquivo
             //string cArq_tit = "" + Session["conveniado"] + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
             //Cr=iando o Arquivo  
-            string cArq_tit = "" + "IdDoConvênio" + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
+            string cArq_tit = "" + "63193" + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
             //try
             //{
             GravaArquivo(System.IO.Path.Combine(pathDocumento, cArq_tit), cArq_cont);
@@ -2431,10 +2433,5 @@ namespace Site
 
 
         /* - - - Fim Processo de Venda - - - */
-
-
-
-
-        /**/
     }
 }

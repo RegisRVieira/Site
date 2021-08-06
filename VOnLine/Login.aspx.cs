@@ -10,9 +10,9 @@ using MySql.Data.MySqlClient;
 using System.Configuration;
 using Site.App_Code;
 
-namespace Site
+namespace Site.VOnLine
 {
-    public partial class LoginVoceOnLine : System.Web.UI.Page
+    public partial class Login : System.Web.UI.Page
     {
         public string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
         public string conectSite = ConfigurationManager.AppSettings["ConectSite"];
@@ -152,7 +152,7 @@ namespace Site
 
                                 Session.Add("CodAcesso", codAcesso);
                                 //Session.Add("iDAssoc", dados.Rows[0]["associado"].ToString());
-                                Response.Redirect("VoceOnLine1.aspx");
+                                Response.Redirect("VoceOnLine.aspx");
                                 /*
                                 if (tamanhocampo == 9 || tamanhocampo == 11)
                                 {
@@ -168,7 +168,7 @@ namespace Site
                             else //É conveniado
                             {
                                 lblResult.Text = "Usuário ou Senha incorreto(s)";
-                                Response.Redirect("VoceOnLine1.aspx");
+                                Response.Redirect("VoceOnLine.aspx");
                                 //MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
                             }
                         }

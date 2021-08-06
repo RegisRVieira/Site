@@ -1,6 +1,10 @@
 ﻿body, html, main {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 .left {
@@ -348,10 +352,11 @@ input[id=iCpf]:hover, input[id=iSenha]:hover {
 /* Ver onde estoura para reativar, ou APAGAR*/
 .form-guia {
     width: 58%;
+    width: 570px;
     border: 1px solid #ddd;
     margin: 30px auto;
     padding: 10px 30px;
-    border-radius: 5px;
+    border-radius: 5px;    
 }
 
 .form-guia h1 {

@@ -1,12 +1,12 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Site.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="Site.VoceOnLine.Index" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Teste de Conexão</title>
-    <style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Você OnLine</title>
+      <style>
         .form {
             margin: 0 auto;
             padding: 0;
@@ -37,8 +37,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="form">
-            <h1>Bem Vindo</h1>
+<div class="form">
+            <h1>Bem Vindo - (Dir)</h1>
             <p>Vamos testar a conexão com o Banco</p>
             <asp:DropDownList ID="ddlEscolha" runat="server">
                 <asp:ListItem Value="0" Text="ASU"></asp:ListItem>
@@ -117,7 +117,7 @@
         </div>
         <div>
             <h1>Você OnLine</h1>
-            <a href="LoginVoceOnLine.aspx">Você OnLine</a>
+            <a href="Login.aspx">Acessar Você OnLine</a>
         </div>
     </form>
 </body>

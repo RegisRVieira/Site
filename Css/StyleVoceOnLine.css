@@ -1,6 +1,10 @@
 ﻿body, html {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 .navegation {
@@ -33,13 +37,14 @@ extAssocNormal{
     float: left;    
     margin-top: 20px;
     box-sizing: border-box;
+
 }
 
 .conteudo {
-    width: 1150px;
+    width: 75%;
     float: left;
-    height: 872px;        
-    box-sizing: border-box;
+    height: 872px;
+    box-sizing: border-box;    
 }
 
 .contassoc {
@@ -53,7 +58,7 @@ extAssocNormal{
 }
 
 .menuflutua {    
-    font-size: 18px;   
+    font-size: 18px;       
 }
 .menuflutua ul{
     padding: 5px;
@@ -241,15 +246,15 @@ slinhalimete {
     width: 100%;     
     background-color: #2a4370;
     background-color: #22396f;    
-    margin-top: 0px;    
+    margin-top: 0px;        
 }
 .conteudo{
-    width: 100%;
+    width: 100%;    
     
 }
 .contassoc {
     margin-right: 2%;    
-    width: 98%;
+    width: 98%;    
 }
 
 /* - - - - - - - - Menu Lateral - - - - - - - - - - */

@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using System.Data;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace Site.App_Code
 {
@@ -17,13 +20,14 @@ namespace Site.App_Code
         public string Rcampos { get; set; }
         public string MsgErro { get; set; }
         public string TipoConexao { get; set; }
-        
+
+
         public BLL(string tipoConexao = "Site")
         {
             MsgErro = "";
             this.TipoConexao = tipoConexao;
         }
-       
+
         public DataTable RetCampos()
         {
             DAL ObjCobexao = new DAL(TipoConexao);
@@ -58,8 +62,48 @@ namespace Site.App_Code
             }
         }
 
+        public string Msg { get; set; }
+        
+        public void InsertRegistro(string tabela, string campos, string valores)
+        {
+            string conectSite = ConfigurationManager.AppSettings["ConectSite"];
+            string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
+
+            this.Tabela = tabela;
+            this.Campo = campos;
+            this.Valores = valores;
+
+            DAL ObjConexao = new DAL(TipoConexao);
+
+            string sql = "";
 
 
+            if (TipoConexao == conectSite || TipoConexao == conectVegas)
+            {                
+                if (ObjConexao.MsgError == "")
+                {
+                    sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "(" + valores + ")");                                   
+                    if (ObjConexao.MsgError != "")
+                    {
+                        MsgErro = ObjConexao.MsgError;
+                    }
+                    //Msg = "SQL:" + sql;
+                }
+                else
+                {
+                    MsgErro = ObjConexao.MsgError;
+
+                }
+            }
+            else
+            {
+                //sql = MsgErro;
+            }
+
+            Msg = "SQL:" + sql;
+
+            ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
+        }
 
     }
 }

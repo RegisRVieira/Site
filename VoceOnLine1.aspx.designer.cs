@@ -11,7 +11,7 @@ namespace Site
 {
 
 
-    public partial class VoceOnLine
+    public partial class VoceOnLine1
     {
 
         /// <summary>

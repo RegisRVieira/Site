@@ -95,8 +95,15 @@ namespace Site.App_Code
         // Procedimento para capturar os dados do BD
         public void ExecutarComandoSQL(string sql)
         {
-            MySqlCommand command = new MySqlCommand(sql, connection);
-            command.ExecuteNonQuery();
+            try {
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MsgError = "Erro Original: " + e.Message;
+            }
+            
         }
         public void ExecutarComandoSQLASU(string Rcampos)
         {

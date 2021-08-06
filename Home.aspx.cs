@@ -16,6 +16,7 @@ namespace Site
     {
         public string conectSite = ConfigurationManager.AppSettings["ConectSite"];
         public string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
