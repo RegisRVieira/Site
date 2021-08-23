@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.9.12.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
@@ -86,8 +87,11 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="Adm\Admin.aspx" />
+    <Content Include="Adm\Conteudo.aspx" />
     <Content Include="Adm\InsertRegistro.aspx" />
     <Content Include="Adm\LoginAdm.aspx" />
+    <Content Include="Adm\OpcoesHome.aspx" />
+    <Content Include="Adm\Publicidade.aspx" />
     <Content Include="ContAssoc.aspx" />
     <Content Include="ContASU.aspx" />
     <Content Include="ContConv.aspx" />
@@ -138,6 +142,13 @@
     <Compile Include="Adm\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Adm\Conteudo.aspx.cs">
+      <DependentUpon>Conteudo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\Conteudo.aspx.designer.cs">
+      <DependentUpon>Conteudo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Adm\InsertRegistro.aspx.cs">
       <DependentUpon>InsertRegistro.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -151,6 +162,20 @@
     </Compile>
     <Compile Include="Adm\LoginAdm.aspx.designer.cs">
       <DependentUpon>LoginAdm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adm\OpcoesHome.aspx.cs">
+      <DependentUpon>OpcoesHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\OpcoesHome.aspx.designer.cs">
+      <DependentUpon>OpcoesHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adm\Publicidade.aspx.cs">
+      <DependentUpon>Publicidade.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adm\Publicidade.aspx.designer.cs">
+      <DependentUpon>Publicidade.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Code\DAL.cs" />
     <Compile Include="App_Code\BLL.cs" />

@@ -77,6 +77,7 @@ namespace Site.App_Code
 
             string sql = "";
 
+            
 
             if (TipoConexao == conectSite || TipoConexao == conectVegas)
             {                
@@ -88,6 +89,7 @@ namespace Site.App_Code
                         MsgErro = ObjConexao.MsgError;
                     }
                     //Msg = "SQL:" + sql;
+                    ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
                 }
                 else
                 {
@@ -101,8 +103,6 @@ namespace Site.App_Code
             }
 
             Msg = "SQL:" + sql;
-
-            ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
         }
 
     }

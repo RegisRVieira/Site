@@ -6,8 +6,8 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Login Adm</title>
-    <link rel="stylesheet" href="../../Css/Form-Clean.css" />
-    <script src="../../Js/Apoio2.js"></script>
+    <link rel="stylesheet" href="../Css/Form-Clean.css" />
+    <script src="../Js/Apoio.js"></script>
     <script>
         function acessarAdmin() {
             window.location.href = "SiteManutencao.aspx";
@@ -25,7 +25,7 @@
         </div>
     </nav>
     <form id="form1" runat="server">
-        <div>
+        <div class="formGuia">
             <h1>Administrador do Site</h1>
             <input id="iNome" type="text" runat="server"  placeholder="Nome" required="" autofocus="" />
             <input id="iSenha" type="password" runat="server" placeholder="Senha" required=""/>           

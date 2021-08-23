@@ -9,30 +9,19 @@
             <div class="dmenu">
                 <div class="cad-esquerda">
                     <ul>
-                        <li>
-                            <asp:LinkButton ID="lbtEmpresa" runat="server" Text="Empresa" OnClick="ativarVwEmpresa"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtUsuarios" runat="server" Text="Usuários" OnClick="ativarUsuarios"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtConfigEmp" runat="server" Text="Emp. Config"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtTipo" runat="server" Text="Tipo" OnClick="ativarVwTipo"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtCategoria" runat="server" Text="Categoria" OnClick="ativarVwCategoria"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtMenu" runat="server" Text="Menu" OnClick="ativarVwMenu"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtTipoImg" runat="server" Text="Tipos das Imagens" OnClick="ativarVwTipoImg"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtEmpresa" runat="server" Text="Empresa" OnClick="ativarVwEmpresa"></asp:LinkButton></li>                        
+                        <li><asp:LinkButton ID="lbtUsuarios" runat="server" Text="Usuários" OnClick="ativarUsuarios"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtConfigEmp" runat="server" Text="Emp. Config"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtTipo" runat="server" Text="Tipo" OnClick="ativarVwTipo"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtCategoria" runat="server" Text="Categoria" OnClick="ativarVwCategoria"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtMenu" runat="server" Text="Menu" OnClick="ativarVwMenu"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtTipoImg" runat="server" Text="Tipos das Imagens" OnClick="ativarVwTipoImg"></asp:LinkButton></li>
                         <li>Novos</li>
-                        <li>
-                            <asp:LinkButton ID="lbtCampoConteudo" runat="server" Text="Img Campo Conteúdo" OnClick="ativarVwImgCampoConteudo"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtmgPosicao" runat="server" Text="Img Posição" OnClick="ativarVwImgPosicao"></asp:LinkButton></li>
-                        <li>
-                            <asp:LinkButton ID="lbtImgAlinha" runat="server" Text="Img Alinhamento" OnClick="ativarVwImgAlinhamento"></asp:LinkButton></li>
-                        <li><a href="S-Imagens.aspx">Imagens</a></li>
+                        <li><asp:LinkButton ID="lbtCampoConteudo" runat="server" Text="Img Campo Conteúdo" OnClick="ativarVwImgCampoConteudo"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtmgPosicao" runat="server" Text="Img Posição" OnClick="ativarVwImgPosicao"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtImgAlinha" runat="server" Text="Img Alinhamento" OnClick="ativarVwImgAlinhamento"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtImagens" runat="server" Text="Imagens" OnClick="ativarVwImagens"></asp:LinkButton></li>
                         <li><asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
-
                     </ul>
                 </div>
             </div>
@@ -200,6 +189,22 @@
                             <SortedDescendingHeaderStyle BackColor="#15524A" />
                         </asp:GridView>
                     </asp:View>
+                    <asp:View ID="vwGridImagens" runat="server">
+                        <h1 class="topform">Imagens</h1>
+                        <asp:GridView ID="gvImagens" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="4" EditIndex="-1" SelectedIndex="-1" AllowPaging="True" AllowCustomPaging="False" OnPageIndexChanging="paginarGwConteudo">
+                            <AlternatingRowStyle BackColor="White" />
+                            <EditRowStyle BackColor="#7C6F57" />
+                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#E3EAEB" />
+                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                        </asp:GridView>
+                    </asp:View>
                 </asp:MultiView>
             </div>
             <div class="dcont">
@@ -280,9 +285,35 @@
                             <asp:Button ID="btnEdiAlinha" runat="server" Text="Editar" OnClick="editarImgAlinhamento" />
                             <asp:Button ID="btnExcAlinha" runat="server" Text="Excluir" OnClick="excluirImgAlinhamento" />
                         </asp:View>
+                        <asp:View ID="vwFormImagens" runat="server">
+                            <h1>Imagens</h1>
+                            <input id="iImgTitulo" runat="server" type="text" placeholder="Título" />
+                            <input id="iImgDescricao" runat="server" type="text" placeholder="Descrição" />
+                            <label class="labelinpdate">Tipo:</label>
+                            <select id="stImgTipo" runat="server" style="width: 578px; display: block; margin-bottom: 10px; margin-left: 2px; border: 1px solid #999; padding: 8px; border-radius: 3px;"></select>
+                            <label class="labelinpdate">Campo Conteúdo:</label>
+                            <select id="stImgCampoConteudo" runat="server" style="width: 578px; display: block; margin-bottom: 10px; margin-left: 2px; border: 1px solid #999; padding: 8px; border-radius: 3px;"></select>                            
+                            <label class="labelinpdate">Posição:</label>
+                            <select id="stImgPosicao" runat="server" style="width: 578px; display: block; margin-bottom: 10px; margin-left: 2px; border: 1px solid #999; padding: 8px; border-radius: 3px;"></select>                            
+                            <label class="labelinpdate">Alinhamento:</label>
+                            <select id="stImgAlinha" runat="server" style="width: 578px; display: block; margin-bottom: 10px; margin-left: 2px; border: 1px solid #999; padding: 8px; border-radius: 3px;"></select>                            
+                            <input id="iImgFonte" runat="server" type="text" placeholder="Fonte da Imagem" />
+                            <input id="iImgAutor" runat="server" type="text" placeholder="Autor da Imagem" />
+                            <input id="iImgOrdem" runat="server" type="number" />
+                            <input id="iImgHint" runat="server" type="text" placeholder="Hint" />                                
+                            <asp:MultiView ID="mwImg" runat="server">
+                                <asp:View ID="vwImg" runat="server">
+                                    <asp:Label ID="lblDados" runat="server">1</asp:Label>                                    
+                                </asp:View>
+                            </asp:MultiView>
+                            <asp:FileUpload ID="fuImgCont" runat="server" AllowMultiple="true" />
+                            <label id="lblResp" runat="server"></label>
+                            <asp:Button ib="btnTestes" runat="server" Text="Cadastrar" OnClick="cadastrarImagem" />                            
+                        </asp:View>
                     </asp:MultiView>
                 </div>
                 <asp:Label ID="lblResult" runat="server"></asp:Label>
+                <asp:Label ID="lblMsg" runat="server" ></asp:Label>
             </div>
         </section>
     </form>

@@ -44,9 +44,9 @@
                                 <ul>
                                     <li><a href="VOnLine/Login.aspx"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a> 
                                         <ul>                                                                                                                         
-                                            <a href="VOnLine/Login.aspx" target="_blank"><li>Você OnLine</li></a>
+                                            <a href="http://asu.no-ip.info/voceonline/" target="_blank"><li>Você OnLine</li></a>
                                             <a href="testPdf.aspx" target="_blank"><li>Teste PDF</li></a>
-                                            <a href="LoginVoceOnLine.aspx">Você On Line - Para teste Local</a>
+                                            <a href="VOnLine/Login.aspx">Você On Line - Para teste Local</a>
                                             <a href="Adm/LoginAdm.aspx"><li>Adm</li></a>
                                             <a href="Adm/InsertRegistro.aspx"> <li>Teste - Insert</li></a>
                                         </ul>

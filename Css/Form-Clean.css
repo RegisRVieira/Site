@@ -10,6 +10,24 @@
 .left {
     float: left;
 }
+.naveg {
+    width: 100%;
+    height: 50px;
+    background-color: #22396f;
+}
+
+.naveg h1{
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    padding-top: 12px;
+}
+
+.naveg img {
+    margin: auto 0px;
+    padding-top: 10px;
+    padding-left: 48%;
+}
 
 .guia section {
     margin: 2px auto;

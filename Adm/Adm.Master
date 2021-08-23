@@ -6,7 +6,7 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Administrador do Site</title>
-    <script src="../../Js/Apoio2.js"></script>
+    <script src="../Js/Apoio.js"></script>
     <link rel="stylesheet" href="../Css/Form-Adm.css" />
     <meta charset="utf-8" />
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -36,14 +36,14 @@
                 <div class="dcont-top-menu">
                     <ul>
                         <li><a href="S-Menu.aspx">Menu</a></li>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="S-Conteudo.aspx">Conteúdo</a></li>
+                        <li><a href="OpcoesHome.aspx">Home</a></li>
+                        <li><a href="Conteudo.aspx">Conteúdo</a></li>
                         <li><a href="S-Materias.aspx">Matérias</a></li>
                         <li><a href="S-Ofertas.aspx">Ofertas</a></li>
                         <li><a href="S-Classificados.aspx">Classificados</a></li>
-                        <li><a href="S-Publicidade.aspx">Publicidade</a></li>
-                        <li><a href="S-DB-Site.aspx">Tabelas Auxiliares</a></li>
-                        <li><a href="Login.aspx">Sair</a></li>                        
+                        <li><a href="Publicidade.aspx">Publicidade</a></li>
+                        <li><a href="Admin.aspx">Tabelas Auxiliares - Admin</a></li>
+                        <li><a href="LoginAdm.aspx">Sair</a></li>                        
                         <li>
                             <h1>
                                 <asp:Label ID="lblTitulo" runat="server"></asp:Label></h1>
