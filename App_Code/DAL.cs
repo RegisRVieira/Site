@@ -95,6 +95,11 @@ namespace Site.App_Code
         // Procedimento para capturar os dados do BD
         public void ExecutarComandoSQL(string sql)
         {
+            MySqlCommand command = new MySqlCommand(sql, connection);
+            command.ExecuteNonQuery();
+
+            /*
+             * Este cara não funcionou, pois ele não grava e não exibe erro. Sem o Try funciona. Analisar este try. 02-09-2021
             try {
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.ExecuteNonQuery();
@@ -103,7 +108,7 @@ namespace Site.App_Code
             {
                 MsgError = "Erro Original: " + e.Message;
             }
-            
+            */
         }
         public void ExecutarComandoSQLASU(string Rcampos)
         {

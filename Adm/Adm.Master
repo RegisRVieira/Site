@@ -34,13 +34,11 @@
                     <p>Associação dos Servidores da Unesp - ASU</p>
                 </div> 
                 <div class="dcont-top-menu">
-                    <ul>
-                        <li><a href="S-Menu.aspx">Menu</a></li>
+                    <ul>                        
                         <li><a href="OpcoesHome.aspx">Home</a></li>
-                        <li><a href="Conteudo.aspx">Conteúdo</a></li>
-                        <li><a href="S-Materias.aspx">Matérias</a></li>
-                        <li><a href="S-Ofertas.aspx">Ofertas</a></li>
-                        <li><a href="S-Classificados.aspx">Classificados</a></li>
+                        <li><a href="Conteudo.aspx">Conteúdo</a></li>                        
+                        <li><a href="#">Ofertas</a></li>
+                        <li><a href="#">Classificados</a></li>
                         <li><a href="Publicidade.aspx">Publicidade</a></li>
                         <li><a href="Admin.aspx">Tabelas Auxiliares - Admin</a></li>
                         <li><a href="LoginAdm.aspx">Sair</a></li>                        

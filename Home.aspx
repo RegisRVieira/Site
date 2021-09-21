@@ -78,14 +78,7 @@
         <main class="corpoHome">
             <section class="BoxSlider">
                 <div class="BoxSlider-Interno">
-                    <div class="BoxSlider-Propaganda">
-                        <section class="slider">                            
-                            <img class="STop" src="../img/Festa Julina.jpg" />
-                            <img class="STop" src="../Img/Painel-Sede.png" />
-                            <img class="STop" src="../img/Seja Socio.jpg" />
-                            <img class="STop" src="../Img/Painel-Clube.jpg" />
-                        </section>
-                    </div>
+                   <%# montarSlider() %>                    
                     <div class="BoxSlider-VoceOnLine">
                         <p>Você On Line</p>
                         <section class="BoxVOImg">
@@ -143,7 +136,7 @@
             <section class="BoxMaterias">
                 <div class="BoxMaterias-Interno">
                     <div class="tituloBox-2">Notícias</div>                    
-                    <%# montarMateriasHome() %>
+                    <%# montarMateriasHome() %>                    
                     <div class="HomeMateria">
                         <div class="HomeMateria-Guia">
                             <div class="HomeMateria-Guia-Tit">
@@ -183,38 +176,8 @@
                     </div>
                 </div>
             </section>
-            <section class="BoxGaleria33" >
-                
-                <%# montarBox33() %>
-                
-                <section class="s2">
-                    <section class="Box33">
-                        <img class="BoxS2" src="Img/Vital Brasil.jpg" />
-                        <img class="BoxS2" src="Img/Posto real.jpg" />
-                        <div class="s-titulo">
-                            <p>Promoção Tanque Cheio</p>
-                        </div>
-                        <div id="" class="botaoSaibaMais">
-                            <a href="ContMaterias.aspx?IDContMat=70">Saiba Mais</a>
-                        </div>
-                    </section>
-                </section>                
-                <section class="s3">
-                    <section class="Box33">
-                        <img class="BoxS3" src="Img/Festa.jpg " />
-                        <img class="BoxS3" src="Img/Crianças.jpg " />
-                        <img class="BoxS3" src="Img/Pesca 2.jpg " />
-                        <img class="BoxS3" src="Img/Truco.jpg " />
-                        <img class="BoxS3" src="Img/Festa 2.jpg " />                        
-                        <div class="s-titulo">
-                            <p>Próximos Eventos</p>
-                        </div>
-                        <div id="" class="botaoSaibaMais">
-                            <a href="ContASU.aspx">Saiba Mais</a>
-                        </div>
-                    </section>
-                </section>
-                
+            <section class="BoxGaleria33" >                
+                <%# montarBox33() %>                               
             </section>
             
              <style> /*Stilo Sessão Depoimentos*/
@@ -331,8 +294,8 @@
 
             </style>
             <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
             <section class="BoxDepoimentos">
                 <p>DEPOIMENTOS</p>
                 <h3>O que Dizem</h3>
@@ -370,21 +333,9 @@
                     </div>
                 </div>
             </section>
-
             <section class="Boxgaleria100">
-                <p class="tituloBox-1">Nossos Momentos</p>
-                <div class="BoxImg100">                    
-                    <img class="Box100" src="../../Img/Box100.jpg" />
-                    <img class="Box100" src="../../Img/Box100-Claudia.jpg" />
-                    <img class="Box100" src="../../Img/festa 2012 091.jpg" />
-                    <img class="Box100" src="../../Img/Box100-1.jpg" />
-                    <img class="Box100" src="../../Img/Box100-2.jpg" />
-                    <img class="Box100" src="../../Img/Box100-3.jpg" />
-                </div>
-            </section>   
-           
-           
-            
+                <%# montarBox100() %>                  
+            </section>                                    
             <section class="redeSocialHome">
                 <a href="https://www.facebook.com/ASUBotucatu" target="_blank">
                     <section class="redeSocialHome-Box1" >                     

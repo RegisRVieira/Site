@@ -16,6 +16,7 @@ namespace Site
     {
         public string conectSite = ConfigurationManager.AppSettings["ConectSite"];
         public string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
+        public string limitBox100 = ConfigurationManager.AppSettings["limiteBox100"];
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -46,9 +47,9 @@ namespace Site
             {
                 lblUsuLogado.Text = "Você OnLine";
             }
-                
-            
-            
+
+
+
             //return xRet;
         }
 
@@ -79,19 +80,26 @@ namespace Site
 
                 //MessageBox.Show(campos + tabela + left + condicao);                    
 
-
-                int contador = dados.Rows.Count;
-
+                int contador = 0;
                 int contMat = 0;
 
-                for (int i = 0; i < contador; i++)
+                if (dados.Rows.Count > 0)
                 {
-                    xImg += dados.Rows[i]["tipoImg"].ToString();
-                    if (xImg == "CHA")
+                    contador = dados.Rows.Count;
+
+                    for (int i = 0; i < contador; i++)
                     {
-                        xImg += dados.Rows[i]["tipoImg"];
-                        contMat++;
+                        xImg += dados.Rows[i]["tipoImg"].ToString();
+                        if (xImg == "CHA")
+                        {
+                            xImg += dados.Rows[i]["tipoImg"];
+                            contMat++;
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Problema de conexão com o provedor do Site, verifique!");
                 }
 
                 for (int i = 0; i < 2; i++) //Para pegar apenas xImg = CHA
@@ -105,13 +113,16 @@ namespace Site
                     {
                         IDMat = dados.Rows[i]["id"].ToString();
 
-                        xRet += "<div class='HomeMateria'> ";                        
+                        string dtpublica = dados.Rows[i]["dt_publini"].ToString();
+
+                        xRet += "<div class='HomeMateria'> ";
                         //xRet += "<img src='../Img/Foto - DAP.jpg' />";             //Capturar foto do Banco de Dados - 08-04-2021 23:20                                                                                                   
-                        xRet += "<img src='"+ dados.Rows[i]["PathImg"] +"' />"; 
+                        xRet += "<img src='" + dados.Rows[i]["PathImg"] + "' />";
                         xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
                         xRet += "<p class='HomeMateriaCategoria'>" + dados.Rows[i]["categoria"] + "</p>";
                         xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
-                        xRet += "<p class='HomeMateriaData'>" + "12 de Março de 2021" + "</p>";
+                        //xRet += "<p class='HomeMateriaData'>" + "12 de Março de 2021" + "</p>";
+                        xRet += "<p class='HomeMateriaData'>" + Convert.ToDateTime(dtpublica).ToString("dd-MM-yyyy") + "</p>";
                         xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p>" + /*dados.Rows[i]["PathImg"] +*/  "Leia Mais..." + "</p></a></div>";
                         //MessageBox.Show(dados.Rows[i]["id"].ToString());                    
                     }
@@ -151,6 +162,44 @@ namespace Site
 
         }
 
+        public String montarSlider()
+        {
+            BLL ObjDados = new BLL(conectSite);
+            string xRet = "";
+
+            string campos = " i.id, i.codtipo AS TipoImg, c.Cod_tipo AS TipoCont, i.cod_destaque, i.titulo, i.path_img, i.fonte, i.autor, i.hint, c.dt_publini, c.dt_publfim, c.id, c.cod_menu,  c.cod_categoria, c.titulo ";
+            string tabela = " st_imagens AS i  ";
+            string left = " INNER JOIN st_conteudo AS c ON c.id = i.id_conteudo  ";
+            string condicao = " WHERE i.codtipo IN ('SLI' ) AND c.Cod_tipo = 'PROP' ORDER BY c.id DESC LIMIT 3 ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Left = left;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            if (ObjDados.MsgErro == "")
+            {
+
+
+                xRet += "<div class='BoxSlider-Propaganda'>";
+                xRet += "<section class='slider'>";
+                for (int i = 0; i < dados.Rows.Count; i++)
+                {
+                    xRet += "<img class='STop' src='" + dados.Rows[i]["path_img"] + "' />";
+                }
+                xRet += "</section>";
+                xRet += "</div>";
+            }
+            else
+            {
+                xRet += "<label>" + ObjDados.MsgErro + "</label>";
+            }
+
+            return xRet;
+        }
+
         public String montarBoxServicos()
         {
 
@@ -176,37 +225,32 @@ namespace Site
 
         public String montarBox33()
         {
-            BLL ObjConexao = new BLL(conectVegas);
+            BLL ObjDados = new BLL(conectSite);
 
-            //Query para Retorno de dados do Destaque
-            string campos = " c.idconven, c.nome, c.tipoconv, c.ddd, c.fone, c.celular, c.fax, c.logradouro, c.endereco, c.numero, c.bairro, c.cidade, t.descricao, (SELECT img.descricao FROM coinfo AS img WHERE img.convenio = c.idconven AND img.tipo = 'SGUIADEST' AND((CURDATE() BETWEEN img.dt_inicio AND img.dt_fim) OR(img.dt_fim IS NULL)) ORDER BY img.cnscadmom DESC LIMIT 1 ) AS path, " +
-                               " (SELECT tipo FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS tipoimg, (SELECT valor FROM coinfo AS info WHERE c.idconven = info.convenio AND tipo IN('SGUIADEST', 'SGUIALOGO') LIMIT 1) AS ordemimg ";
-            string tabela = " coconven AS c  ";
-            string left = " INNER JOIN base_cotipo AS t ON c.tipoconv = t.codtipo ";
-            string condicao = " WHERE c.cnscanmom IS NULL AND(c.nome LIKE '%" + "Manzi" + "%' OR EXISTS(SELECT tp.codtipo FROM base_cotipo AS tp WHERE tp.codtipo = c.tipoconv AND tp.descricao LIKE '%" + "Manzi" + "%')) AND EXISTS(SELECT img.descricao FROM coinfo AS img WHERE img.convenio = c.idconven AND img.tipo = 'SGUIADEST' AND((CURDATE() BETWEEN img.dt_inicio AND img.dt_fim) OR(img.dt_fim IS NULL)) ) ORDER BY c.nome ASC ";
+            string campos = " i.id, i.codtipo AS TipoImg, c.Cod_tipo AS TipoCont, i.cod_destaque, i.titulo, i.path_img, i.fonte, i.autor, i.hint, c.dt_publini, c.dt_publfim, c.id, c.cod_menu,  c.cod_categoria, c.titulo ";
+            string tabela = " st_imagens AS i ";
+            string left = " INNER JOIN st_conteudo AS c ON c.id = i.id_conteudo ";
+            string condicao = " WHERE i.codtipo IN ('B33S1', 'B33S2', 'B33S3' ) AND c.Cod_tipo = 'BOX33' ORDER BY c.id DESC "; //É o seguinte, não tem as imagens na pasta. Então dá imagem "vazia"... Só carregar as imagens e Pronto! 14-09-2021
 
-            ObjConexao.Campo = campos;
-            ObjConexao.Tabela = tabela;
-            ObjConexao.Left = left;
-            ObjConexao.Condicao = condicao;
-
-            DataTable dados = ObjConexao.RetCampos();
-
-            int nLinhasDest = dados.Rows.Count;
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Left = left;
+            ObjDados.Condicao = condicao;
+            DataTable dados = ObjDados.RetCampos();
 
             string xRet = "";
 
+            //Sessão 1
             xRet += "<div class='tituloBox-33' >" + "O que temos para Você" + "</div>";
             xRet += "<section class='s1'>";
             xRet += "<section class='Box33'>";
-            /*
-            xRet += "<img class='BoxS1' src='../../Img/Manzini-Lj1.jpg' />";
-            xRet += "<img class='BoxS1' src='../../Img/Jau-Lj11.jpg' />";
-            xRet += "<img class='BoxS1' src='../../Img/Confiança.jpg' />";
-            */
-            for (int i = 0; i < nLinhasDest; i++)
+            for (int i = 0; i < dados.Rows.Count; i++)
             {
-                xRet += "<img class='BoxS1' src='" + dados.Rows[i]["path"] + "'>";
+                //Criar método para checar se o arquivo existe             
+                if (dados.Rows[i]["TipoImg"].ToString() == "B33S1")
+                {
+                    xRet += "<img class='BoxS1' src='" + dados.Rows[i]["path_img"] + "'>";
+                }
             }
             xRet += "<div class='s-titulo'>";
             xRet += "<p>Promoção Vale Compras</p>";
@@ -218,9 +262,81 @@ namespace Site
             xRet += "</section>";
 
 
+            //Sessão 2
+            xRet += "<section class='s2'>";
+            xRet += "<section class='Box33'>";
+            for (int i = 0; i < dados.Rows.Count; i++)
+            {
+                if (dados.Rows[i]["TipoImg"].ToString() == "B33S2")
+                {
+                    xRet += "<img class='BoxS2' src='" + dados.Rows[i]["path_img"] + "'>";
+                }
+            }
+            xRet += "<div class='s-titulo'>";
+            xRet += "<p>Promoção Tanque Cheio</p>";
+            xRet += "</div>";
+            xRet += "<div id = '' class='botaoSaibaMais'>";
+            xRet += "<a href='ContMaterias.aspx?IDContMat=70' > Saiba Mais</a>";
+            xRet += "</div>";
+            xRet += "</section>";
+            xRet += "</section>";
+
+            //Sessão 3
+            xRet += "<section class='s3'>";
+            xRet += "<section class='Box33'>";
+            for (int i = 0; i < dados.Rows.Count; i++)
+            {
+                if (dados.Rows[i]["TipoImg"].ToString() == "B33S3")
+                {
+                    xRet += "<img class='BoxS3' src='" + dados.Rows[i]["path_img"] + "'>";
+                }
+            }
+            xRet += "<div class='s-titulo'>";
+            xRet += "<p>Próximos Eventos</p>";
+            xRet += "</div>";
+            xRet += "<div id = '' class='botaoSaibaMais'>";
+            xRet += "<a href = 'ContASU.aspx' > Saiba Mais</a>";
+            xRet += "</div>";
+            xRet += "</section>";
+            xRet += "</section>";
+
+
+            return xRet;
+        }
+
+        public String montarBox100()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " i.id, i.codtipo AS TipoImg, c.Cod_tipo AS TipoCont, i.cod_destaque, i.titulo, i.path_img, i.fonte, i.autor, i.hint, c.dt_publini, c.dt_publfim, c.id, c.cod_menu,  c.cod_categoria, c.titulo ";
+            string tabela = " st_imagens AS i ";
+            string left = " INNER JOIN st_conteudo AS c ON c.id = i.id_conteudo ";
+            string condicao = " WHERE i.codtipo IN ('B100' ) AND c.Cod_tipo = 'BOX100' ORDER BY c.id DESC LIMIT " + limitBox100 + " ";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Left = left;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            //MessageBox.Show(campos +"\n" + tabela+"\n" + left + "\n" + condicao);
+
+            string xRet = "";
+
+            xRet += "<p class='tituloBox-1'>" + "Nossos Momentos" + "</p>";
+            xRet += "<div class='BoxImg100'>";
+            for (int i = 0; i < dados.Rows.Count; i++)
+            {
+                xRet += "<img class='Box100' src='" + dados.Rows[i]["path_img"] + "'/>";
+            }
+            xRet += "</div>";
+            xRet += "</div>";
+
+
             return xRet;
         }
 
 
-    }
+    }//Fim
 }

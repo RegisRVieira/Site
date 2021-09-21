@@ -102,7 +102,7 @@ namespace Site.App_Code
                 //sql = MsgErro;
             }
 
-            Msg = "SQL:" + sql;
+            Msg = "Dados Recebidos na BLL: " + sql;
         }
 
     }
