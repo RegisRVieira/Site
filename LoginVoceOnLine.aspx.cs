@@ -145,30 +145,16 @@ namespace Site
                                 {
                                     Session.Add("LoginUsuario", dados.Rows[0]["nomeConv"].ToString());
                                     Session.Add("Identifica", dados.Rows[0]["cnpj"].ToString());
-                                }
-                                //Session.Abandon();
-                                //Session.Remove("VoceOnLine");
+                                }                                
                                 Session.Add("VoceOnLine", "Sim");
 
                                 Session.Add("CodAcesso", codAcesso);
-                                //Session.Add("iDAssoc", dados.Rows[0]["associado"].ToString());
                                 Response.Redirect("VoceOnLine1.aspx");
-                                /*
-                                if (tamanhocampo == 9 || tamanhocampo == 11)
-                                {
-                                    MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
-                                }
-                                else
-                                {
-                                    MessageBox.Show(dados.Rows[0]["nomeConv"].ToString());
-                                }
-                                */
-                                //MessageBox.Show(dados.Rows[0]["nome"].ToString());
                             }
                             else //É conveniado
                             {
                                 lblResult.Text = "Usuário ou Senha incorreto(s)";
-                                Response.Redirect("VoceOnLine1.aspx");
+                                
                                 //MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
                             }
                         }

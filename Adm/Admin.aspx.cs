@@ -8,17 +8,12 @@ using System.Data;
 using System.Configuration;
 using Site.App_Code;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace Site.Adm
 {
     public partial class Admin : System.Web.UI.Page
     {
-
-        /*
-        AdmBLL objDB = new AdmBLL();
-        Login objLogin = new Login();
-        BLL objDBASU = new BLL();
-        */
         string conectSite = ConfigurationManager.AppSettings["conectSite"];
         string conectVegas = ConfigurationManager.AppSettings["conectVegas"];
 
@@ -51,7 +46,7 @@ namespace Site.Adm
             carregarGvImgCampoCont();
             carregarGvImgPosicao();
             carregarGvImgAlinha();
-            carregarGvImagens();
+            carregarGvImagens();            
         }
 
         public void ativarViews(int ativa)
@@ -103,7 +98,52 @@ namespace Site.Adm
         {
             ativarViews(9);
         }
+        protected void ativarConfig(object sender, EventArgs e)
+        {
+            ativarViews(10);
+        }
+        public void ultimoRegistro()
+        {
+            BLL ObjDados = new BLL(conectSite);
 
+            ObjDados.Campo = " * ";
+            ObjDados.Tabela = " st_conteudo ";
+            ObjDados.Condicao = " ORDER BY id DESC ";
+
+            DataTable dados = ObjDados.RetCampos();
+            if (ObjDados.MsgErro == "")
+            {
+                UltimoRegistro = dados.Rows[0]["id"].ToString();
+            }
+            else
+            {
+                MessageBox.Show(ObjDados.MsgErro);
+            }
+            //UltimoRegistro =  dados.Rows.Count.ToString();
+            //MessageBox.Show("Método Último Registro: " + UltimoRegistro);
+        }
+
+        protected void carregarGvImagens()
+        {
+            //ultimoRegistro();
+
+            BLL ObjDados = new BLL(conectSite);
+
+            //MessageBox.Show("Último Registro Cadastrado: " + UltimoRegistro);
+
+            //ObjDados.Campo = "" + " c.titulo, c.fonte, c.autor, i.path_img, i.titulo, i.descritivo, i.cadusu, t.descricao ";
+            ObjDados.Campo = "" + " i.titulo, i.fonte, i.autor, i.path_img, i.descritivo,  i.cadusu, i.hint, id_conteudo ";
+            ObjDados.Tabela = "" + " st_imagens AS i ";
+            
+            //ObjDados.Left = "" + " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
+            //                     " INNER JOIN st_tipo AS t ON t.cod = c.cod_tipo ";
+            //ObjDbASU.Condicao = " WHERE i.id_conteudo = '55' ";
+            //ObjDados.Condicao = " WHERE i.id_conteudo = '" + UltimoRegistro + "' ";
+
+            gvImagens.DataSource = ObjDados.RetCampos();
+            gvImagens.DataBind();
+        }
+        
         public void carregarGvEmpresa()
         {
             BLL ObjAdm = new BLL(conectSite);
@@ -140,11 +180,184 @@ namespace Site.Adm
         }
         protected void selecionarRegistroGvEmpresa(object sender, EventArgs e)
         {
-            string IdEmpSel;
-            //IdEmpSel = gvEmpresa.SelectedValue.ToString();
+            iExcluEmpresaMot.Visible = false;
+            iExcluEmpresaMot.Value = String.Empty;
+            btnExcEmpresa.Visible = false;
+            btnMotExcEmpresa.Visible = true;
 
+            lblIdEmpresa.Text = gvEmpresa.SelectedRow.Cells[1].Text;
+            iNome.Value = gvEmpresa.SelectedRow.Cells[2].Text;
+
+            string nome = iNome.Value;
+
+            //bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[^a-zA-Z0-9]"));
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iNome.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iNome.Value = string.Join("", iNome.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
         }
+        protected void selecionarRegistrosGvCategoria(object sender, EventArgs e)
+        {
+            lblCodCategoria.Text = gvCategoria.SelectedRow.Cells[1].Text;
+            iCodCategoria.Value = gvCategoria.SelectedRow.Cells[1].Text;
+            iDescCategoria.Value = gvCategoria.SelectedRow.Cells[4].Text;
+            
+            string nome = iDescCategoria.Value;
 
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));            
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescCategoria.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescCategoria.Value = string.Join("", iDescCategoria.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarRegistrosGvMenu(object sender, EventArgs e)
+        {
+            lblCodMenu.Text = gvMenu.SelectedRow.Cells[1].Text;
+            iCodMenu.Value = gvMenu.SelectedRow.Cells[1].Text;
+            iDescMenu.Value = gvMenu.SelectedRow.Cells[3].Text;
+
+            string nome = iDescMenu.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescMenu.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescMenu.Value = string.Join("", iDescMenu.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarRegistrosGvImgTipo(object sender, EventArgs e)
+        {
+            lblCodImgTipo.Text = gvImgTipo.SelectedRow.Cells[1].Text;
+            iCodTipoImg.Value = gvImgTipo.SelectedRow.Cells[1].Text;
+            iTituloTipoImg.Value = gvImgTipo.SelectedRow.Cells[3].Text;
+            iDescTipoImg.Value = gvImgTipo.SelectedRow.Cells[4].Text;
+
+            string nome = iDescTipoImg.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescTipoImg.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescTipoImg.Value = string.Join("", iDescTipoImg.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarRegistroGvUsuario(object sender, EventArgs e)
+        {
+            lblIdUsuario.Text = gvUsuarios.SelectedRow.Cells[1].Text;
+            iNomeUsuario.Value = gvUsuarios.SelectedRow.Cells[4].Text;
+            iUsuarioUsu.Value = gvUsuarios.SelectedRow.Cells[5].Text;
+            iSenhaUsuario.Value = gvUsuarios.SelectedRow.Cells[6].Text;
+            iEmailUsuario.Value = gvUsuarios.SelectedRow.Cells[7].Text;
+            iCPFUsuario.Value = gvUsuarios.SelectedRow.Cells[8].Text;
+            
+
+            string nome = iUsuarioUsu.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iUsuarioUsu.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iUsuarioUsu.Value = string.Join("", iUsuarioUsu.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarRegistroGvTipo(object sender, EventArgs e)
+        {
+            lblCodTipo.Text = gvTipo.SelectedRow.Cells[1].Text;
+            iCodTipo.Value = gvTipo.SelectedRow.Cells[1].Text;
+            iDescTipo.Value = gvTipo.SelectedRow.Cells[3].Text;            
+
+            string nome = iDescTipo.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescTipo.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescTipo.Value = string.Join("", iDescTipo.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarImgCampoConteudo(object sender, EventArgs e)
+        {
+            lblImgCampoConteudo.Text = gvImgCampoConteudo.SelectedRow.Cells[1].Text;
+            iCodCampConteudo.Value = gvImgCampoConteudo.SelectedRow.Cells[1].Text;
+            iDescCampConteudo.Value = gvImgCampoConteudo.SelectedRow.Cells[3].Text;
+
+            string nome = iDescCampConteudo.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescCampConteudo.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescCampConteudo.Value = string.Join("", iDescCampConteudo.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarImgPosicao(object sender, EventArgs e)
+        {
+            lblCodImgPosicao.Text = gvImgPosicao.SelectedRow.Cells[1].Text;
+            iCodPosicao.Value = gvImgPosicao.SelectedRow.Cells[1].Text;
+            iDescPosicao.Value = gvImgPosicao.SelectedRow.Cells[3].Text;
+
+            string nome = iDescPosicao.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescPosicao.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescPosicao.Value = string.Join("", iDescPosicao.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarImgAlinha(object sender, EventArgs e)
+        {
+            lblCodImgAlinha.Text = gvImgAlinha.SelectedRow.Cells[1].Text;
+            iCodImgAlinha.Value = gvImgAlinha.SelectedRow.Cells[1].Text;
+            iDescImgAlinha.Value = gvImgAlinha.SelectedRow.Cells[3].Text;
+
+            string nome = iDescImgAlinha.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iDescImgAlinha.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iDescImgAlinha.Value = string.Join("", iDescImgAlinha.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        protected void selecionarImagens(object sender, EventArgs e)
+        {
+            string idImagem = gvImagens.SelectedRow.Cells[1].Text;
+
+            iImgTitulo.Value = gvImagens.SelectedRow.Cells[1].Text;            
+            iImgFonte.Value = gvImagens.SelectedRow.Cells[2].Text;
+            iImgAutor.Value = gvImagens.SelectedRow.Cells[3].Text;
+            iImgPath.Value = gvImagens.SelectedRow.Cells[4].Text;
+            iImgDescricao.Value = gvImagens.SelectedRow.Cells[5].Text;
+            iImgHint.Value = gvImagens.SelectedRow.Cells[7].Text;
+            
+            //" i.titulo, i.fonte, i.autor, i.path_img, i.descritivo,  i.cadusu, i.hint, id_conteudo "
+        }
         public void carregarGvCategoria()
         {
             BLL ObjAdm = new BLL(conectSite);
@@ -362,56 +575,16 @@ namespace Site.Adm
             gvImgAlinha.DataSource = ObjAlinha.RetCampos();
             gvImgAlinha.PageIndex = e.NewPageIndex;
             gvImgAlinha.DataBind();
-        }
-        public void ultimoRegistro()
-        {
-            BLL ObjDados = new BLL(conectSite);
-
-            ObjDados.Campo = " * ";
-            ObjDados.Tabela = " st_conteudo ";
-            ObjDados.Condicao = " ORDER BY id DESC ";
-
-            DataTable dados = ObjDados.RetCampos();
-            if (ObjDados.MsgErro == "")
-            {
-                UltimoRegistro = dados.Rows[0]["id"].ToString();
-            }
-            else
-            {
-                MessageBox.Show(ObjDados.MsgErro);
-            }
-
-
-            //UltimoRegistro =  dados.Rows.Count.ToString();
-            //MessageBox.Show("Método Último Registro: " + UltimoRegistro);
-        }
-
-        protected void carregarGvImagens()
-        {
-            ultimoRegistro();
-
-            BLL ObjDados = new BLL(conectVegas);
-
-            //MessageBox.Show("Último Registro Cadastrado: " + UltimoRegistro);
-
-            ObjDados.Campo = "" + " c.titulo, c.fonte, c.autor, i.path_img, i.titulo, i.descritivo, i.cadusu, t.descricao ";
-            ObjDados.Tabela = "" + " st_imagens AS i ";
-            ObjDados.Left = "" + " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
-                                 " INNER JOIN st_tipo AS t ON t.cod = c.cod_tipo ";
-            //ObjDbASU.Condicao = " WHERE i.id_conteudo = '55' ";
-            ObjDados.Condicao = " WHERE i.id_conteudo = '" + UltimoRegistro + "' ";
-
-            gvImagens.DataSource = ObjDados.RetCampos();
-            gvImagens.DataBind();
-        }
-
+        }        
         protected void cadastrarEmpresa(object sender, EventArgs e)
         {
             BLL ObjEmpresa = new BLL(conectSite);
 
             string tabela = " " + " st_empresa ";
             string campos = " nome, cadusu, cadmom ";
-            string valores = String.Format("'" + iNome.Value + "'" + ", " + "'" + Session["LoginUsuario"].ToString() + "'" + ", " + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            string valores = String.Format("'" + iNome.Value + "'" + ", " +
+                                           "'" + Session["LoginUsuario"].ToString() + "'" + ", " +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
 
             ObjEmpresa.Tabela = tabela;
             ObjEmpresa.Campo = campos;
@@ -433,16 +606,92 @@ namespace Site.Adm
                 MessageBox.Show(ObjEmpresa.MsgErro);
             }
         }
-
-
         protected void editarEmpresa(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição de Empresa");
-        }
+            string idEmpresa = lblIdEmpresa.Text;
 
+            BLL ObjDados = new BLL(conectSite);
+
+            string tabela = " st_empresa ";
+            string valores = " nome = " + "'" + iNome.Value + "'" +
+                             ", altusu = " + "'" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = " + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " id = " + "'" + idEmpresa + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!!!";
+            }
+
+            //MessageBox.Show(ObjDados.Msg);
+            //MessageBox.Show("UPDATE" + tabela + " SET " + valores + condicao);
+            carregarGvEmpresa();
+
+        }                
+        protected void ativarMotivo(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Button btn = sender as System.Windows.Forms.Button;
+            //System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
+
+            if (btn.Name == "btnMotExcEmpresa")
+            {
+                iExcluEmpresaMot.Visible = true;
+                btnExcEmpresa.Visible = true;
+                btnMotExcEmpresa.Visible = false;
+            }
+            else
+            {
+                lblMsg.Text = "Algo Errado...";
+            }
+            
+            /*iExcluEmpresaMot.Visible = true;
+            btnExcEmpresa.Visible = true;
+            btnMotExcEmpresa.Visible = false;*/
+        }
         protected void excluirEmpresa(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão de Empresa");
+            string idEmpresa = lblIdEmpresa.Text;
+
+            BLL ObjDados = new BLL(conectSite);
+
+            string tabela = " st_empresa ";
+            string valores = ", canusu = " + "'" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmot = " + "'" + iExcluEmpresaMot.Value + "'" +
+                             ", canmom = " + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " id = " + "'" + idEmpresa + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {                
+                if (!String.IsNullOrEmpty(iExcluEmpresaMot.Value))
+                {
+                    ObjDados.EditRegistro(tabela, valores, condicao);
+
+                    lblMsg.Text = "Exclusão realizada com sucesso!!!";
+                    //MessageBox.Show(ObjDados.Msg);
+                    btnExcEmpresa.Visible = false;
+                    btnMotExcEmpresa.Visible = true;
+                    iExcluEmpresaMot.Visible = false;
+                    iExcluEmpresaMot.Value = String.Empty;
+                }
+                else
+                {
+                    lblMsg.Text = "Obrigatório preeenchimento do Motivo";
+                }
+                
+            }
+
+           
+            
+            carregarGvEmpresa();
         }
         protected void cadastrarCategoria(object sender, EventArgs e)
         {
@@ -484,7 +733,7 @@ namespace Site.Adm
                     iDescCategoria.Value = String.Empty;
                     iCodCategoria.Focus();
 
-                    MessageBox.Show(ObjCategoria.Msg);
+                    //MessageBox.Show(ObjCategoria.Msg);
                 }
             }
             else
@@ -494,14 +743,55 @@ namespace Site.Adm
         }
         protected void editarCategoria(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição de Categoria");
+            BLL ObjDados = new BLL(conectSite);
+
+            string tabela = " st_categoria ";
+            string valores = " cod = '" + iCodCategoria.Value + "'" +
+                             ", descricao = '" + iDescCategoria.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";                                              
+            string condicao = " cod = '" + lblCodCategoria.Text + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescCategoria.Value = String.Empty;
+            iCodCategoria.Value = String.Empty;
+            carregarGvCategoria();
         }
         protected void excluirCategoria(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão de Categoria");
+            BLL ObjDados = new BLL(conectSite);
+
+            string tabela = " st_categoria ";
+            string valores = ", canmot = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + lblCodCategoria.Text + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Excluisão realizada com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescCategoria.Value = String.Empty;
+            iCodCategoria.Value = String.Empty;
+            carregarGvCategoria();
         }
-
-
         protected void cadastrarMenu(object sender, EventArgs e)
         {
             BLL ObjMenu = new BLL(conectSite);
@@ -545,15 +835,60 @@ namespace Site.Adm
                 MessageBox.Show(ObjMenu.MsgErro);
             }
         }
-
         protected void editarMenu(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição de Menu");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codMenu = lblCodMenu.Text;
+
+            string tabela = " st_menu ";
+            string valores = " cod = '" + iCodMenu.Value + "'" +                             
+                             ", descricao = '" + iDescMenu.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + lblCodMenu.Text + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescMenu.Value = String.Empty;
+            iCodMenu.Value = String.Empty;
+            carregarGvMenu();
+        }
         protected void excluirMenu(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão de Menu");
+            BLL ObjDados = new BLL(conectSite);
+
+            string codMenu = lblCodMenu.Text;
+
+            string tabela = " st_menu ";
+            string valores = ", canusu = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + lblCodMenu.Text + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescMenu.Value = String.Empty;
+            iCodMenu.Value = String.Empty;
+            carregarGvMenu();
         }
 
 
@@ -594,11 +929,11 @@ namespace Site.Adm
                     //MessageBox.Show(ObjTipoImg.Msg);
 
                     lblMsg.Text = "Cadastro realizado com Sucesso!";
-                    
+
                     iCodTipoImg.Value = String.Empty;
                     iTituloTipoImg.Value = String.Empty;
                     iDescTipoImg.Value = String.Empty;
-                    
+
                     iCodTipoImg.Focus();
                 }
             }
@@ -607,15 +942,61 @@ namespace Site.Adm
                 MessageBox.Show(ObjTipoImg.MsgErro);
             }
         }
-
         protected void editarTipoImg(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição de Tipo Imagem");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codTipoImg = lblCodImgTipo.Text;
+
+            string tabela = " st_img_tipo ";
+            string valores = " cod = '" + codTipoImg + "'" +
+                             ", titulo = '" + iTituloTipoImg.Value + "'" +
+                             ", descricao = '" + iDescTipoImg.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codTipoImg + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescTipoImg.Value = String.Empty;
+            iCodTipoImg.Value = String.Empty;
+            carregarGvTipoImg();
+        }
         protected void excluirTipoImg(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão de Tipo Imagem");
+            BLL ObjDados = new BLL(conectSite);
+
+            string codTipoImg = lblCodImgTipo.Text;
+
+            string tabela = " st_img_tipo ";
+            string valores = ", canmot = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codTipoImg + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescTipoImg.Value = String.Empty;
+            iCodTipoImg.Value = String.Empty;
+            carregarGvTipoImg();
         }
 
         //*Fim  Tipo Imagens
@@ -666,17 +1047,61 @@ namespace Site.Adm
                 MessageBox.Show(ObjTipo.MsgErro);
             }
         }
-
         protected void editarTipo(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição de Tipo");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codTipo = lblCodTipo.Text;
+
+            string tabela = " st_tipo ";
+            string valores = " cod = '" + codTipo + "'" +                             
+                             ", descricao = '" + iDescTipo.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codTipo + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescTipo.Value = String.Empty;
+            iCodTipo.Value = String.Empty;
+            carregarGvTipo();
+        }
         protected void excluirTipo(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão de Tipo");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codTipo = lblCodTipo.Text;
+
+            string tabela = " st_tipo ";
+            string valores = ", canusu = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codTipo + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iDescTipo.Value = String.Empty;
+            iCodTipo.Value = String.Empty;
+            carregarGvTipo();
+        }
         protected void cadastrarUsuario(object sender, EventArgs e)
         {
             BLL ObjUsuario = new BLL(conectSite);
@@ -722,17 +1147,73 @@ namespace Site.Adm
                 MessageBox.Show("Erro: " + ObjUsuario.MsgErro);
             }
         }
-
         protected void editarUsuario(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição de Usuários");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string idUsuario = lblIdUsuario.Text;
+
+            string tabela = " st_usuario ";
+            string valores = " id = '" + idUsuario + "'" +
+                             ", nome = '" + iNomeUsuario.Value + "'" +
+                             ", usuario = '" + iUsuarioUsu.Value + "'" +
+                             ", senha = '" + iSenhaUsuario.Value + "'" +
+                             ", email = '" + iEmailUsuario.Value + "'" +
+                             ", cpf = '" + iCPFUsuario.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " id = '" + idUsuario + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iNomeUsuario.Value = String.Empty;
+            iUsuarioUsu.Value = String.Empty;
+            iSenhaUsuario.Value = String.Empty;
+            iEmailUsuario.Value = String.Empty;
+            iCPFUsuario.Value = String.Empty;
+                        
+            carregarGvUsuarios();
+        }
         protected void excluirUsuario(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão de Usuários");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string idUsuario = lblIdUsuario.Text;
+
+            string tabela = " st_usuario ";
+            string valores = ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canusu = '" + "Testes" + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " id = '" + idUsuario + "'";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iNomeUsuario.Value = String.Empty;
+            iUsuarioUsu.Value = String.Empty;
+            iSenhaUsuario.Value = String.Empty;
+            iEmailUsuario.Value = String.Empty;
+            iCPFUsuario.Value = String.Empty;
+
+            carregarGvUsuarios();
+        }
         protected void cadastrarImgCampoConteudo(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -776,17 +1257,65 @@ namespace Site.Adm
                 MessageBox.Show(ObjDados.MsgErro);
             }
         }
-
         protected void editarImgCampoConteudo(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição em Construção");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codCampoConteudo = lblImgCampoConteudo.Text;
+
+            string tabela = " st_imgcampoconteudo ";
+            string valores = " cod = '" + codCampoConteudo + "'" +
+                             ", descricao = '" + iDescCampConteudo.Value + "'" +                             
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codCampoConteudo + "'";
+                        
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iCodCampConteudo.Value = String.Empty;
+            iDescCampConteudo.Value = String.Empty;            
+
+            carregarGvImgCampoCont();
+        }
         protected void excluirImgCampoConteudo(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão em Construção");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codCampoConteudo = lblImgCampoConteudo.Text;
+
+            string tabela = " st_imgcampoconteudo ";
+            string valores = ", canmot = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codCampoConteudo + "'";
+
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iCodCampConteudo.Value = String.Empty;
+            iDescCampConteudo.Value = String.Empty;
+
+            carregarGvImgCampoCont();
+        }
         protected void cadastrarImgPosicao(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -830,17 +1359,65 @@ namespace Site.Adm
             }
 
         }
-
         protected void editarImgPosicao(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição em Construção");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codImgPosicao = lblCodImgPosicao.Text;
+
+            string tabela = " st_imgposicao ";
+            string valores = " cod = '" + codImgPosicao + "'" +
+                             ", descricao = '" + iDescPosicao.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codImgPosicao + "'";
+
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iCodPosicao.Value = String.Empty;
+            iDescPosicao.Value = String.Empty;
+
+            carregarGvImgPosicao();
+        }
         protected void excluirImgPosicao(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão em Construção");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codImgPosicao = lblCodImgPosicao.Text;
+
+            string tabela = " st_imgposicao ";
+            string valores = ", canmot = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codImgPosicao + "'";
+
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iCodPosicao.Value = String.Empty;
+            iDescPosicao.Value = String.Empty;
+
+            carregarGvImgPosicao();
+        }
         protected void cadastrarImgAlinhamento(object sender, EventArgs e)
         {
 
@@ -869,7 +1446,7 @@ namespace Site.Adm
                 {
                     ObjDados.InsertRegistro(tabela, campos, valores);
 
-                    MessageBox.Show(ObjDados.Msg);
+                    //MessageBox.Show(ObjDados.Msg);
 
                     carregarGvImgAlinha();
 
@@ -885,15 +1462,64 @@ namespace Site.Adm
             }
 
         }
-
         protected void editarImgAlinhamento(object sender, EventArgs e)
         {
-            MessageBox.Show("Edição em Construção");
-        }
+            BLL ObjDados = new BLL(conectSite);
 
+            string codImgAlinha = lblCodImgAlinha.Text;
+
+            string tabela = " st_imgalinhamento ";
+            string valores = " cod = '" + codImgAlinha + "'" +
+                             ", descricao = '" + iDescImgAlinha.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codImgAlinha + "'";
+
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iCodImgAlinha.Value = String.Empty;
+            iDescImgAlinha.Value = String.Empty;
+
+            carregarGvImgAlinha();
+        }
         protected void excluirImgAlinhamento(object sender, EventArgs e)
         {
-            MessageBox.Show("Exclusão em Construção");
+            BLL ObjDados = new BLL(conectSite);
+
+            string codImgAlinha = lblCodImgAlinha.Text;
+
+            string tabela = " st_imgalinhamento ";
+            string valores = ", canmot = '" + "Testes" + "'" +
+                             ", canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string condicao = " cod = '" + codImgAlinha + "'";
+
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            if (ObjDados.MsgErro == "")
+            {
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iCodImgAlinha.Value = String.Empty;
+            iDescImgAlinha.Value = String.Empty;
+
+            carregarGvImgAlinha();
         }
 
         protected void paginarGwConteudo(object sender, GridViewPageEventArgs e)
@@ -913,164 +1539,42 @@ namespace Site.Adm
             gvImagens.DataBind();
         }
 
-        protected void cadastrarImagem(object sender, EventArgs e)
+        protected void editarImagem(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
-            BLL ObjImg = new BLL(conectSite);
-            BLL ObjDbASU = new BLL(conectSite);
-            //Tamanho da Imagem - Funciona bem, porém: Quando a imagem possui tamanho maior do que o tamanho permitido no WebConfig, dá erro: Tamanho máximo de solicitação excedido.
-            //Encontrar uma forma para Não ocorrer este erro na página
-            double tamanho = fuImgCont.PostedFile.ContentLength;
-            tamanho = tamanho / 1024;
 
-            string arquivo = "";
+            string idImagem = lbliIdImagem.Text;
 
-            lblResp.InnerText = arquivo + " / " + tamanho + "Kb";
+            string tabela = " st_imagens ";
+            string valores = " id = '" + idImagem + "'" +
+                             ", titulo = '" + iImgTitulo.Value + "'" +
+                             ", descritivo = '" + iImgDescricao.Value + "'" +
+                             ", fonte = '" + iImgFonte.Value + "'" +
+                             ", autor = '" + iImgAutor.Value + "'" +
+                             ", path_img = '" + iImgPath.Value + "'" +
+                             ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";            
+            string condicao = " cod = '" + idImagem + "'";
 
-            string icampos = " id, id_conteudo, codtipo AS tipo, cod_menu AS destaque, titulo, descritivo, path_img, fonte, autor, ordem, hint, cadusu, cadmom ";
-            string itabela = " st_imagens ";
-            string icondicao = " order by cadmom desc ";
+            ObjDados.Tabela = tabela;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
 
-            ObjImg.Tabela = itabela;
-            ObjImg.Campo = icampos;
-            ObjImg.Condicao = icondicao;
-
-            if (fuImgCont.PostedFile.ContentLength < 4500000)
+            if (ObjDados.MsgErro == "")
             {
-                //MessageBox.Show("Deu certo...");
-
-                //Validando tipo de arquivo
-                if (fuImgCont.PostedFile.ContentType == "image/jpeg" ||
-                fuImgCont.PostedFile.ContentType == "image/png" ||
-                fuImgCont.PostedFile.ContentType == "image/gif")
-                {
-                    //MessageBox.Show("Blzura, no caminho certo");
-                    try
-                    {
-                        //Gravar Arquivo
-
-                        string caminho = Server.MapPath(@"~/Img/Conteudo/").Replace(@"\", "/");
-                        string caminho2 = ("/Img/Conteudo/").Replace(@"\", "/");
-                        arquivo = fuImgCont.FileName;
-
-                        DataTable dados = ObjImg.RetCampos();
-
-                        string xRet = " ";
-                        //int nLinhas = dados.Rows.Count;
-
-                        string path = caminho.Replace(@"\", "/");
-
-                        fuImgCont.PostedFile.SaveAs(caminho + arquivo);
-
-                        MessageBox.Show("UpLoad de Arquivo realizado com Sucesso");
-
-                        //Cadastrar dados no DB
-
-                        ObjDados.Campo = " " + " * ";
-                        ObjDados.Tabela = " " + " st_conteudo ";
-                        ObjDados.Left = "";
-                        ObjDados.Condicao = " " + " ORDER BY id DESC LIMIT 1  ";
-
-                        DataTable dados2 = ObjDados.RetCampos();
-
-                        int contador = dados2.Rows.Count;
-                        int vRegistro = 0;
-                        UltimoRegistro = dados2.Rows[0]["id"].ToString();
-
-                        if (contador > 0)
-                        {
-                            vRegistro = Convert.ToInt32(UltimoRegistro);
-                        }
-                        /*
-                        MessageBox.Show("Você tem: " + UltimoRegistro + " Registros na Tabela" + "\n" + "\n" +
-                                            "Agora você terá: " + vRegistro + "\n" + usu.usuarioLogado);
-                        */
-
-                        string campos = " id_empresa, id_conteudo, id_noticia, codtipo, cod_destaque, cod_CampoConteudo, cod_posicao, cod_alinhamento, titulo, descritivo, path_img,   fonte, autor, ordem,   hint, cadusu, cadmom ";
-                        string tabela = " st_imagens ";
-                        string valores = String.Format("'" + 1 + "'," + "'" + vRegistro + "'," + "'" + 2 + "'," + "'" + stImgTipo.Value + "'," + "'" + stImgCampoConteudo.Value + "'," + "'" + "'" +
-                                                        stImgPosicao.Value + "'," + "'" + stImgAlinha.Value + "'," + iImgTitulo.Value + "'," + "'" + iImgDescricao.Value + "'," + "'" + caminho2 + arquivo + "'," +
-                                                        "'" + iImgFonte.Value + "'," + "'" + iImgAutor.Value + "'," + "'" + iImgHint.Value + "'," + "'" + Session["LoginUsuario"] + "'");
-
-                        ObjImg.Campo = campos;
-                        ObjImg.Tabela = tabela;
-                        ObjImg.Valores = valores;
-
-                        ObjImg.InsertRegistro(tabela, campos, valores);
-
-
-                        MessageBox.Show(ObjImg.Msg);
-
-                        //MessageBox.Show("Destaque: " + stImgDestaque.Value + "\n" +
-                        //              "Tipo: " + stImgTipo.Value);
-
-                        /*
-                        MessageBox.Show("Caminho: " + caminho + "\n" +
-                                       "Caminho 2: " + caminho2 + "\n" +
-                                       " - - - - - - - - - - " + "\n" +
-                                       "Path: " + path);
-                        */
-
-                        ObjDbASU.Campo = " " + " * ";
-                        ObjDbASU.Tabela = " " + " st_imagens ";
-                        ObjDbASU.Left = "";
-                        ObjDbASU.Condicao = " " + " WHERE id_conteudo = '" + vRegistro + "' ";
-
-                        DataTable dadosImg = ObjDbASU.RetCampos();
-                        int contadorImg = 0;
-                        contadorImg = dadosImg.Rows.Count;
-
-                        xRet += "<div style='margin: 2px auto; margin-bottom: 5px; font.size: 10px, border: 1px solid #666;  width: 90%; height: 15px; display: inline-block; ; color: #22396f; '>";
-                        xRet += "<div style='width: 150px; display: inline-block;'>" + "Título" + "</div>" + "<div style='width: 150px; display: inline-block;'>" + "Descritivo" + "</div> " + "<div style='width: 150px; display: inline-block;'>" + "Path" + "</div>";
-                        xRet += "</div>";
-                        for (int i = 0; i < contadorImg; i++)
-                        {
-                            xRet += "<div style='margin: 2px auto; margin-bottom: 5px; font.size: 10px, border: 1px solid #666;  width: 90%; height: 40px; display: inline-block; ; color: #7688b4; '>";
-                            xRet += "<div style='width: 150px; display: inline-block;'>" + dadosImg.Rows[i]["titulo"] + "</div>";
-                            xRet += "<div style='width: 300px; display: inline-block;'>" + dadosImg.Rows[i]["descritivo"] + "</div>";
-                            //xRet += "<div style='width: 100px; display: inline-block;'>"  + dados.Rows[i]["path_img"] + "</div>";                
-                            xRet += "<div style='width: 50px; display: inline-block;'>" + "<img style='width: 40px' src =" + "'../.." + dadosImg.Rows[i]["path_img"] + "'" + "/>" + "</div>";
-                            //xRet += "<img style='width: 50px' src =" + path + "/>";
-                            xRet += "</div>";
-
-                            //MessageBox.Show(xRet += "<img style='width: 100px' src =" + "'../.." + dados.Rows[i]["path_img"] +"'" + "/>");
-                        }
-
-                        lblDados.Text = xRet;
-
-
-
-                        //Limpar Campos
-                        iImgTitulo.Value = String.Empty;
-                        iImgDescricao.Value = String.Empty;
-                        //iArquivoUpLoad.Value = String.Empty;
-                        //iTamanhoUpLoad.Value = String.Empty;
-                        //iPathImg.Value = String.Empty;
-                        iImgFonte.Value = String.Empty;
-                        iImgAutor.Value = String.Empty;
-                        iImgOrdem.Value = String.Empty;
-                        iImgHint.Value = String.Empty;
-
-                        mwImg.ActiveViewIndex = 0;
-                        carregarGvImagens();
-
-                        iImgTitulo.Focus();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.ToString());
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Tipo de arquivo não suportado");
-                }
+                ObjDados.EditRegistro(tabela, valores, condicao);
+                lblMsg.Text = "Dados alterados com sucesso!";
             }
-            else
-            {
-                MessageBox.Show("Imagem maior que o permitido: " + tamanho / 1024 + "Mb, máximo de 4.5Mb");
-            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            iImgTitulo.Value = String.Empty;
+            iImgDescricao.Value = String.Empty;
+            iImgFonte.Value = String.Empty;
+            iImgAutor.Value = String.Empty;
+            iImgPath.Value = String.Empty;
+
+            carregarGvImagens();            
+
         }
 
         /*Fim*/

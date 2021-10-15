@@ -10,7 +10,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Button ID="btnPdf" runat="server" Text=" Gerar PDF" OnClick="gerarPDF" /><br />
+            <asp:Button ID="btnPdf" runat="server" Text=" Gerar PDF" OnClick="converterHtmlPdf" /><br />
             <a href="Downloads\Arquivo.pdf" target="_blank">Arquivo PDF</a>            
             <asp:Label ID="lbArquivos" runat="server"></asp:Label>            
         </div>

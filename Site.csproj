@@ -46,6 +46,15 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="DynamicPDF.Converter.NETStandard20, Version=3.10.0.44688, Culture=neutral, PublicKeyToken=09b5ce0d5c0a9d8b, processorArchitecture=MSIL">
+      <HintPath>packages\ceTe.DynamicPDF.Converter.NET.3.10.0\lib\netstandard20\DynamicPDF.Converter.NETStandard20.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicPDF.CoreSuite, Version=11.18.0.44737, Culture=neutral, PublicKeyToken=09b5ce0d5c0a9d8b, processorArchitecture=MSIL">
+      <HintPath>packages\ceTe.DynamicPDF.CoreSuite.NET.11.18.0\lib\net40\DynamicPDF.CoreSuite.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicPDF.HTMLConverter.NETStandard20, Version=1.6.0.43372, Culture=neutral, PublicKeyToken=09b5ce0d5c0a9d8b, processorArchitecture=MSIL">
+      <HintPath>packages\ceTe.DynamicPDF.HtmlConverter.NET.1.6.0\lib\netstandard20\DynamicPDF.HTMLConverter.NETStandard20.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp, Version=5.5.13.2, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.2\lib\itextsharp.dll</HintPath>
     </Reference>
@@ -106,12 +115,15 @@
     <Content Include="Css\Generico.css" />
     <Content Include="Css\Global.css" />
     <Content Include="Css\Menus.css" />
+    <Content Include="Css\pStyle.css" />
     <Content Include="Css\SlideShow.css" />
     <Content Include="Css\Global-Fluido.css" />
     <Content Include="Css\StyleHome.css" />
     <Content Include="Css\StyleVoceOnLine.css" />
     <Content Include="Css\Table-Extrato.css" />
     <Content Include="Default.aspx" />
+    <Content Include="DPDFConverterService\DynamicPDF.Converter.Service.exe" />
+    <Content Include="DPDFConverterService\ReadMe.txt" />
     <Content Include="FaleConosco.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Img\Logo ASU-White-Espaçado.png" />
@@ -120,12 +132,26 @@
     <Content Include="LayOuts\LayOut-Home.aspx" />
     <Content Include="LoginVoceOnLine.aspx" />
     <Content Include="MontaGuia.aspx" />
+    <Content Include="Pessoal.aspx" />
+    <Content Include="Privado\Adm.aspx" />
+    <Content Include="Privado\Cadastro.aspx" />
+    <Content Include="Privado\Default.aspx" />
+    <Content Include="Privado\Listas.aspx" />
+    <Content Include="Privado\pLogin.aspx" />
     <Content Include="testPdf.aspx" />
     <Content Include="VoceOnLine1.aspx" />
     <Content Include="VOnLine\Index.aspx" />
     <Content Include="VOnLine\Login.aspx" />
     <Content Include="VOnLine\VoceOnLine.aspx" />
+    <Content Include="Web-BK.config" />
     <Content Include="Web.config" />
+    <Content Include="DPDFConverterService\DynamicPDF.Converter.Service.exe.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adm\Adm.Master.cs">
@@ -177,6 +203,7 @@
     <Compile Include="Adm\Publicidade.aspx.designer.cs">
       <DependentUpon>Publicidade.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_Code\Apoio.cs" />
     <Compile Include="App_Code\DAL.cs" />
     <Compile Include="App_Code\BLL.cs" />
     <Compile Include="Connected Services\WSCorreios\Reference.cs">
@@ -281,6 +308,48 @@
     </Compile>
     <Compile Include="MontaGuia.aspx.designer.cs">
       <DependentUpon>MontaGuia.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Pessoal.aspx.cs">
+      <DependentUpon>Pessoal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pessoal.aspx.designer.cs">
+      <DependentUpon>Pessoal.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\Adm.aspx.cs">
+      <DependentUpon>Adm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Adm.aspx.designer.cs">
+      <DependentUpon>Adm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\Cadastro.aspx.cs">
+      <DependentUpon>Cadastro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Cadastro.aspx.designer.cs">
+      <DependentUpon>Cadastro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\Listas.aspx.cs">
+      <DependentUpon>Listas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Listas.aspx.designer.cs">
+      <DependentUpon>Listas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\pLogin.aspx.cs">
+      <DependentUpon>pLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\pLogin.aspx.designer.cs">
+      <DependentUpon>pLogin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="testPdf.aspx.cs">
@@ -491,11 +560,11 @@
     <Content Include="Conteudo.Master" />
     <None Include="packages.config" />
     <Content Include="VOnLine\Web.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <None Include="Web-BK.Debug.config">
+      <DependentUpon>Web-BK.config</DependentUpon>
     </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
+    <None Include="Web-BK.Release.config">
+      <DependentUpon>Web-BK.config</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -544,7 +613,11 @@
       <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('packages\ceTe.DynamicPDF.Converter.NET.3.10.0\build\netstandard20\ceTe.DynamicPDF.Converter.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\ceTe.DynamicPDF.Converter.NET.3.10.0\build\netstandard20\ceTe.DynamicPDF.Converter.NET.targets'))" />
   </Target>
+  <Import Project="packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="packages\ceTe.DynamicPDF.Converter.NET.3.10.0\build\netstandard20\ceTe.DynamicPDF.Converter.NET.targets" Condition="Exists('packages\ceTe.DynamicPDF.Converter.NET.3.10.0\build\netstandard20\ceTe.DynamicPDF.Converter.NET.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

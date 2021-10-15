@@ -33,6 +33,33 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.LinkButton lbtCadConteudo;
 
         /// <summary>
+        /// Controle lbtNossaEntidade.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtNossaEntidade;
+
+        /// <summary>
+        /// Controle lbtAssociados.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtAssociados;
+
+        /// <summary>
+        /// Controle lbtConvenios.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtConvenios;
+
+        /// <summary>
         /// Controle mwGridConteudo.
         /// </summary>
         /// <remarks>

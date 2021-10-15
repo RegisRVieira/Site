@@ -1,0 +1,161 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.secMenu {
+    margin: 0 auto;
+    width: 50%;
+    min-height: 600px;
+    border: 1px solid #f26907;
+}
+
+    .secMenu p {
+        margin: 0;
+        padding: 0;
+        padding-top: 5px;
+        padding-bottom: 10px;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: 25px;
+        color: #f26907;
+    }
+
+    .secMenu ul li {
+        width: 200px;
+        background-color: #f26907;
+        color: white;
+        display: inline-block;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+.secForm {
+    width: 50%;
+    min-height: 300px;
+    margin: 0 auto;
+}
+
+    .secForm p {
+        margin: 0 auto;
+        text-align: center;
+        background-color: none;
+    }
+
+.sSelect {
+    width: 98%;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 2px;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+input[type=submit] {
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(top, #F33, #933 );
+    border: 1px solid #333;
+    cursor: pointer;
+    background-color: rebeccapurple;
+    color: white;
+    border-radius: 3px;
+}
+
+    input[type=submit]:hover {
+        background-color: #F33;
+    }
+
+input[type=text], input[type=password], input[type=search] {
+    width: 97%;
+    height: 25px;
+    display: inline-block;
+    margin-left: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+    input[type=search]{
+        height: 40px;
+        width: 100%;
+    }
+
+    .alinhaBotao {
+        margin: 0 auto;
+        width: 80%;
+        margin-top: 10px;
+    }
+
+.pLista{
+    margin: 2px;
+    width: 150px;
+    height: 60px;
+    display: inline-block;
+    background-color: #f26907;
+}
+.pLista{
+    margin-top: 20px;
+    width: 205px;
+    height: 60px;
+    border-radius: 10px;
+    text-align: center;
+    display: inline-block;
+    margin-right: 2px;
+    background-color: #f26907;
+    color: white;
+    padding-top: 15px;
+}
+
+.lbtForm{  
+    margin: 0 auto;    
+}
+    .lbtForm a {
+        width: 150PX;
+        padding-top: 20px;  
+        height: 40px;        
+        float: left;
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        text-align: center;
+        margin: 2px;
+        border-radius: 6px;
+        background-color: #F33;
+    }
+
+.links{
+    margin: 0;
+}
+.links label, a, li{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #f26907;    
+    width: 98%;
+    height: 20px;;
+}
+
+.pLogin{
+    margin: 0 auto;
+    width: 40%;
+    height: 400px;
+    padding: 0;    
+}
+.pLogin label, p{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    color: #f26907;
+    font-size: 30px;
+}
+
+#lblLogado{
+    color: #1e5283;
+    font-size: 14px;
+    text-align: right;
+    margin: 10px 0 0 10px;       
+}

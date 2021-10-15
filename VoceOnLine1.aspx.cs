@@ -13,6 +13,9 @@ using System.Globalization;
 using System.Net;
 using System.Net.Mail;
 using System.IO;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Site
 {
@@ -34,6 +37,7 @@ namespace Site
                 carregarDadosAssoc();
                 carregarDadosConv();
                 usuarioLogado();
+                atualizaDdlExtrato();
             }
             this.DataBind();
         }
@@ -390,11 +394,34 @@ namespace Site
             }
         }
 
+        public string extratoAssoc { get; set; }
+
+        protected void atualizaDdlExtrato()
+        {
+            //Checar data e atualizar ddl
+            string mesAtual = DateTime.Now.Month.ToString();
+            string diaAtual = DateTime.Now.Day.ToString();                        
+            
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) - 1).ToString();
+            }
+            
+            foreach (System.Web.UI.WebControls.ListItem li in ddlMesExtratoAssoc.Items)
+            {
+                if (li.Value == mesAtual)
+                {
+                    li.Selected = true;
+                }
+            }
+           
+        }
         public String extratoAssociado()
         {
             BLL ObjDbASU = new BLL(conectVegas);
 
             string xRet = "";
+            string xPdf = "";
 
             //Criar Variáveis para: Associado, Data início e Fim - Criado 02-04-2021
             //int idAssoc = 2747;
@@ -635,8 +662,30 @@ namespace Site
                 xRet += "</tbody>";
                 xRet += "</table>";
                 xRet += "</div>";
+
+                //# # # # # # # # # # # Extrato para PDF # # # # # # # # # # # # #
+                xPdf += "Autorização";//Campo
+                xPdf += "Momento";
+                xPdf += "Convênio";
+                xPdf += "Cartão";
+                xPdf += "Comprador";
+                xPdf += "Parcela(s)";
+                xPdf += "Valor" + "\n";
+                for (int i = 0; i < contador; i++)
+                {
+                    double valorCompra = double.Parse(dados.Rows[i]["valor"].ToString()) * (-1);
+                    xPdf += dados.Rows[i]["idmovime"];//Autorização
+                    xPdf += dados.Rows[i]["cnscadmom"];//Momento
+                    xPdf += dados.Rows[i]["conveniado"];//Convênio
+                    xPdf += dados.Rows[i]["cartao"] + "xx ";//Cartão
+                    xPdf += dados.Rows[i]["comprador"];//Comprador
+                    xPdf += dados.Rows[i]["parcela"] + "/" + dados.Rows[i]["parctot"];//Parcela
+                    xPdf += " R$" + valorCompra.ToString("F2", CultureInfo.InvariantCulture) + "\n";//Valor
+
+                }
             }
 
+            extratoAssoc = xPdf;
 
             return xRet;
         }
@@ -1872,7 +1921,7 @@ namespace Site
 
 
         public void trocarSenhaAssoc(object sender, EventArgs e)
-        {            
+        {
             if (iSenhaNova.Value != iSenhaConfirma.Value)
             {
                 //MessageBox.Show("As senhas não conferem, digite-as novamente!!!");
@@ -2430,6 +2479,281 @@ namespace Site
 
         }
 
+        protected void gerarPdfExtratoAssoc(object sender, EventArgs e)
+        {
+            Apoio ObjPdf = new Apoio();
+
+            //## Extrato ##
+
+            BLL ObjDbASU = new BLL(conectVegas);
+
+            string xRet = "";
+            string xPdf = "";
+
+
+            //Criar Variáveis para: Associado, Data início e Fim - Criado 02-04-2021
+            //int idAssoc = 2747;
+            string iDAcesso = Session["codAcesso"].ToString();
+            int tCampo = iDAcesso.Length;
+            string IdAssoc = "";
+
+            if (tCampo == 9 || tCampo == 11)
+            {
+                IdAssoc = Session["IdAssoc"].ToString();
+            }
+            DateTime agora = DateTime.Now;
+            DateTime mesInicio = DateTime.Now.AddMonths(-1);
+            DateTime mestFim = DateTime.Now;
+
+            string wMes = ddlMesExtratoAssoc.SelectedValue;
+            string dtIni = ddlAnoExtratoAssoc.SelectedItem.Value + "-" + DateTime.Now.Month + "-20";
+            string dtFim = ddlAnoExtratoAssoc.SelectedItem.Value + "-" + DateTime.Now.AddMonths(1) + "-19";
+
+            string janeiro = agora.AddYears(-1).ToString("yyyy") + "-" + mesInicio.ToString("MM") + "-20";
+            /*
+            string dtInicio = agora.Year + "-" + mesInicio.ToString("MM") + "-20";
+            string dtFim = agora.Year + "-" + mestFim.ToString("MM") + "-19";
+            */
+            switch (wMes)
+            {
+                case "0":
+                    dtIni = (Convert.ToInt32(ddlAnoExtratoAssoc.SelectedItem.Text) - 1) + "-12-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-01-19";
+                    break;
+                case "1":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-01-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-02-19";
+                    break;
+                case "2":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-02-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-03-19";
+                    break;
+                case "3":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-03-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-04-19";
+                    break;
+                case "4":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-04-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-05-19";
+                    break;
+                case "5":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-05-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-06-19";
+                    break;
+                case "6":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-06-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-07-19";
+                    break;
+                case "7":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-07-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-08-19";
+                    break;
+                case "8":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-08-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-09-19";
+                    break;
+                case "9":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-09-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-10-19";
+                    break;
+                case "10":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-10-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-11-19";
+                    break;
+                case "11":
+                    dtIni = ddlAnoExtratoAssoc.SelectedItem.Text + "-11-20";
+                    dtFim = ddlAnoExtratoAssoc.SelectedItem.Text + "-12-19";
+                    break;
+            }
+
+            //lblPeriodoAssoc.Text = dtIni + " à " + dtFim;
+
+
+
+            if (tCampo == 9 || tCampo == 11)
+            {
+
+                if (mestFim.ToString("MM") == "01")
+                {
+                    ObjDbASU.Campo = " c.idmovime, EXTRACT(DAY FROM c.data) AS dia, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
+                                     " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN '" + janeiro + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
+                    //  " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE (a.cnpj_cpf = '" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND vencimento BETWEEN '" + janeiro + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
+
+                }
+                else
+                {
+                    ObjDbASU.Campo = " c.idmovime, EXTRACT(DAY FROM c.data) AS dia, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
+                                     " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN '" + dtIni + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
+                    //" (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE (a.cnpj_cpf = '" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND vencimento BETWEEN '" + dtInicio + "' AND '" + dtFim + "' LIMIT 1) AS gastos ";
+                }
+
+                ObjDbASU.Tabela = " comovime AS c ";
+                ObjDbASU.Left = " INNER JOIN coconven AS co ON co.idconven = c.convenio " +
+                                " INNER JOIN associa AS a ON c.associado = a.idassoc " +
+                                " INNER JOIN asdepen AS d ON c.dependen = d.iddepen ";
+                if (mestFim.ToString("MM") == "01")
+                {
+                    ObjDbASU.Condicao = " WHERE a.idassoc ='" + IdAssoc + "' AND c.vencimento BETWEEN '" + janeiro + "'  AND '" + dtFim + "' ORDER BY dia ";
+                    //" WHERE (a.cnpj_cpf ='" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND c.vencimento BETWEEN '" + janeiro + "'  AND '" + dtFim + "' ";
+                }
+                else
+                {
+                    ObjDbASU.Condicao = " WHERE a.idassoc='" + IdAssoc + "' AND c.vencimento BETWEEN '" + dtIni + "'  AND '" + dtFim + "' ORDER BY dia ";
+                    //ObjDbASU.Condicao = " WHERE (a.cnpj_cpf ='" + iDAcesso + "' OR (EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + iDAcesso.Substring(0, (tCampo - 2)) + "'))) AND c.vencimento BETWEEN '" + dtInicio + "'  AND '" + dtFim + "' ";
+                }
+
+                //MessageBox.Show("Do Extrato: " + iDAcesso.Substring(0,(tCampo- 2)));
+
+                DataTable dados = ObjDbASU.RetCampos();
+                int contador = dados.Rows.Count;
+
+
+                double gastos = 0;
+                double limite = 0;
+                double saldo = 0;
+
+
+                //# # # # # # # # # # # Extrato para PDF # # # # # # # # # # # # #
+                xPdf += "Autorização";//Campo
+                xPdf += "Momento";
+                xPdf += "Convênio";
+                xPdf += "Cartão";
+                xPdf += "Comprador";
+                xPdf += "Parcela(s)";
+                xPdf += "Valor" + "\n";
+                for (int i = 0; i < contador; i++)
+                {
+                    double valorCompra = double.Parse(dados.Rows[i]["valor"].ToString()) * (-1);
+                    xPdf += dados.Rows[i]["idmovime"];//Autorização
+                    xPdf += dados.Rows[i]["cnscadmom"];//Momento
+                    xPdf += dados.Rows[i]["conveniado"];//Convênio
+                    xPdf += dados.Rows[i]["cartao"] + "xx ";//Cartão
+                    xPdf += dados.Rows[i]["comprador"];//Comprador
+                    xPdf += dados.Rows[i]["parcela"] + "/" + dados.Rows[i]["parctot"];//Parcela
+                    xPdf += " R$" + valorCompra.ToString("F2", CultureInfo.InvariantCulture) + "\n";//Valor
+
+                }
+
+                double totalExtrato = double.Parse(dados.Rows[0]["gastos"].ToString()) * (-1);
+
+                //# # Gera PDF # #
+                string PdfGerado = extratoAssoc;
+
+                Document pdf = new Document(PageSize.A4);
+                pdf.SetMargins(40, 40, 40, 80);
+                pdf.AddCreationDate();
+                //string caminhoPdf = ConfigurationManager.AppSettings["caminhoArquivoPdf"] + "Arquivo_" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".pdf";
+                //string caminho = @"K:\Projetos\Web\Site\Site\Downloads\" + "Extrato_" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".pdf";
+                string caminho = AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\" + "Extrato_" + DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + "_" + DateTime.Now.Hour + "-" + DateTime.Now.Minute + "-" + DateTime.Now.Second + ".pdf";
+                PdfWriter excreverPDF = PdfWriter.GetInstance(pdf, new FileStream(caminho, FileMode.Create));
+
+                pdf.Open();
+
+                string simg = @"K:\Projetos\Web\Site\Site\Img\Logo.png";
+                iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(simg);
+                img.ScaleAbsolute(50, 20);
+
+                //img.SetAbsolutePosition(100, 20);
+
+                //Cabeçalho
+                PdfPTable tableHeader = new PdfPTable(2);
+                tableHeader.AddCell(img);
+                tableHeader.AddCell("Extrato Mensal");
+
+                //Rodapé
+                PdfPTable tableFooter = new PdfPTable(2);
+                tableFooter.AddCell("Total");
+                tableFooter.AddCell("R$ " + totalExtrato);
+
+                //Corpo
+                PdfPTable table = new PdfPTable(7);
+                Font fonte = FontFactory.GetFont(BaseFont.TIMES_ROMAN, 8);
+
+                //# # Formatação das Células # #
+                PdfPCell cell = new PdfPCell();
+
+
+                //# # Criar Células da Tabela # #
+                table.AddCell("Autorização");
+                table.AddCell("Momento");
+                table.AddCell("Convênio");
+                table.AddCell("Cartão");
+                table.AddCell("Comprador");
+                table.AddCell("Parcelas");
+                table.AddCell("Valor");
+
+                for (int i = 0; i < contador; i++)
+                {
+                    double valorCompra = double.Parse(dados.Rows[i]["valor"].ToString()) * (-1);
+
+                    var cel1 = dados.Rows[i]["idmovime"].ToString();
+                    var cel2 = dados.Rows[i]["cnscadmom"].ToString();
+                    var cel3 = dados.Rows[i]["conveniado"].ToString();
+                    var cel4 = dados.Rows[i]["cartao"].ToString();
+                    var cel5 = dados.Rows[i]["comprador"].ToString();
+                    var cel6 = dados.Rows[i]["parcela"].ToString() + "/" + dados.Rows[i]["parctot"].ToString();
+                    var cel7 = " R$" + valorCompra.ToString("F2", CultureInfo.InvariantCulture).ToString();
+
+                    table.AddCell(cel1);
+                    table.AddCell(cel2);
+                    table.AddCell(cel3);
+                    table.AddCell(cel4);
+                    table.AddCell(cel5);
+                    table.AddCell(cel6);
+                    table.AddCell(cel7);
+                }
+
+                string dadosPdf = "";
+
+                Paragraph paragrafo = new Paragraph(dadosPdf, new Font(Font.NORMAL, 8));
+                paragrafo.Alignment = Element.ALIGN_CENTER;
+                paragrafo.Add(xPdf);
+
+                //pdf.Add(img);
+                pdf.Add(tableHeader);
+                pdf.Add(table);
+                pdf.Add(tableFooter);
+
+
+
+
+                pdf.Close();
+
+                /*Exibir Arquivos no Diretório*/
+                DirectoryInfo diretorio = new DirectoryInfo(@"K:\Projetos\Web\Site\Site\Downloads");
+                //Executa função GetFile(Lista os arquivos desejados de acordo com o parametro)
+                FileInfo[] Arquivos = diretorio.GetFiles("*.*");
+
+                string arquivos = "";
+                string xArq = "";
+                //Listar os arquivos
+                foreach (FileInfo fileinfo in Arquivos)
+                {
+                    arquivos = fileinfo.Name;
+
+                    xArq += "<div>";
+                    xArq += "<a href='" + @"Downloads\" + arquivos + "' target=_blanck>" + arquivos;
+                    xArq += "</a><br>";
+                    xArq += "</div>";
+
+                    lbArquivos.Text = xArq;
+                }
+
+
+
+
+            }
+
+            extratoAssoc = xPdf;
+
+            //## Fim Extrato ##
+
+
+
+
+            //MessageBox.Show(ObjPdf.gerarPdf());
+
+        }
 
         /* - - - Fim Processo de Venda - - - */
 

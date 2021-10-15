@@ -11,7 +11,37 @@ namespace Site.Adm
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                usuarioLogado();
+            }
 
+        }
+
+        public void usuarioLogado()
+        {
+            string usuario = "";
+
+            if (Session["LoginAdm"] != null)
+            {
+                usuario = Session["LoginUsuario"].ToString();
+
+                string primeiroNome = usuario.Split(' ').FirstOrDefault();
+                string primeiraLetra = usuario.Split(' ').FirstOrDefault();
+                int tNome = primeiroNome.Length;
+
+                //xRet += "" + primeiraLetra.Substring(0, 1) + primeiroNome.Substring(1, (tNome-1)).ToLower();
+                lblUsuario.Text = primeiraLetra.Substring(0, 1) + primeiroNome.Substring(1, (tNome - 1)).ToLower();
+
+            }
+            else
+            {
+                lblUsuario.Text = "Entrar";
+            }
+
+
+
+            //return xRet;
         }
     }
 }

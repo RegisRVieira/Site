@@ -20,6 +20,7 @@ namespace Site.App_Code
         public string Rcampos { get; set; }
         public string MsgErro { get; set; }
         public string TipoConexao { get; set; }
+        public string Msg { get; set; } //Para exibir Query
 
 
         public BLL(string tipoConexao = "Site")
@@ -62,8 +63,8 @@ namespace Site.App_Code
             }
         }
 
-        public string Msg { get; set; }
         
+
         public void InsertRegistro(string tabela, string campos, string valores)
         {
             string conectSite = ConfigurationManager.AppSettings["ConectSite"];
@@ -77,13 +78,13 @@ namespace Site.App_Code
 
             string sql = "";
 
-            
+
 
             if (TipoConexao == conectSite || TipoConexao == conectVegas)
-            {                
+            {
                 if (ObjConexao.MsgError == "")
                 {
-                    sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "(" + valores + ")");                                   
+                    sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "(" + valores + ")");
                     if (ObjConexao.MsgError != "")
                     {
                         MsgErro = ObjConexao.MsgError;
@@ -105,5 +106,41 @@ namespace Site.App_Code
             Msg = "Dados Recebidos na BLL: " + sql;
         }
 
+        public void EditRegistro(string tabela, string valores, string condicao)
+        {
+            string conectSite = ConfigurationManager.AppSettings["ConectSite"];
+            string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
+
+            this.Tabela = tabela;
+            this.Valores = valores;
+            this.Condicao = condicao;
+
+            DAL ObjConexao = new DAL(TipoConexao);
+
+            string sql = "";
+
+            //sql = String.Format("UPDATE" + tabela + "SET" + valores + "WHERE" + condicao);
+            if (TipoConexao == conectSite || TipoConexao == conectVegas)
+            {
+                if (ObjConexao.MsgError == "")
+                {
+                    if (ObjConexao.MsgError != "")
+                    {
+                        MsgErro = ObjConexao.MsgError;
+                    }
+
+                    sql = String.Format("UPDATE" + tabela + "SET" + valores + "WHERE" + condicao);
+
+                    ObjConexao.ExecutarComandoSQL(sql);
+                }
+                else
+                {
+                    MsgErro = ObjConexao.MsgError;
+                }
+            }
+            Msg = "SQL: " + sql;
+        }
+
+        //Fim Class BLL
     }
 }

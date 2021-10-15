@@ -797,7 +797,6 @@ namespace Site.Adm
             carregarGvSlider();
 
         }//Fim
-
         // # # # # ## Inserir Imagens no BOX 33 ## # # # #
         public void inserirImagemB33(object sender, EventArgs e)
         {
@@ -1000,7 +999,7 @@ namespace Site.Adm
             }
             carregarGvBox33();
         }
-
+        // # # # # ## Inserir Imagens no BOX 100 ## # # # #
         public void inserirImagemB100(object sender, EventArgs e)
         {
 
@@ -1204,8 +1203,6 @@ namespace Site.Adm
             }
             //carregarGvTipo();
         }
-
-
         protected void InserirImgMateria(object sender, EventArgs e)
         {
             string xRet = "";

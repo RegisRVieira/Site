@@ -215,17 +215,17 @@ namespace Site.Adm
 
         public void capturarConteudoId(object sender, EventArgs e)
         {
-            var id = gvConteudo.SelectedRow.Cells[1].Text;
+            //var id = gvConteudo.SelectedRow.Cells[0].Text;
             string idCont = "";
-
-            idCont = gvConteudo.SelectedRow.Cells[1].Text;
-            stCategoria.Value = gvConteudo.SelectedRow.Cells[3].Text;
-            stDestaque.Value = gvConteudo.SelectedRow.Cells[4].Text;
+            MessageBox.Show(gvConteudo.SelectedRow.Cells[1].Text);
+            
+            /*
+            idCont = gvConteudo.SelectedRow.Cells[1].Text;            
             iTitulo.Value = gvConteudo.SelectedRow.Cells[5].Text;
             taConteudo.Value = gvConteudo.SelectedRow.Cells[6].Text;
             iFonteConteudo.Value = gvConteudo.SelectedRow.Cells[9].Text;
             iAutorConteudo.Value = gvConteudo.SelectedRow.Cells[10].Text;
-
+            */
             //gvConteudo.DeleteRow(i);
         }
 

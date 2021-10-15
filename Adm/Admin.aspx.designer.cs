@@ -177,13 +177,13 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.GridView gvCategoria;
 
         /// <summary>
-        /// Controle vwGvDestaque.
+        /// Controle vwGvMenu.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View vwGvDestaque;
+        protected global::System.Web.UI.WebControls.View vwGvMenu;
 
         /// <summary>
         /// Controle gvMenu.
@@ -195,13 +195,13 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.GridView gvMenu;
 
         /// <summary>
-        /// Controle vwGvTiposImg.
+        /// Controle vwGvImgTipo.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View vwGvTiposImg;
+        protected global::System.Web.UI.WebControls.View vwGvImgTipo;
 
         /// <summary>
         /// Controle gvImgTipo.
@@ -321,6 +321,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.GridView gvImagens;
 
         /// <summary>
+        /// Controle vwGvCofig.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwGvCofig;
+
+        /// <summary>
         /// Controle mwForm.
         /// </summary>
         /// <remarks>
@@ -339,6 +348,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.View vwEmpresa;
 
         /// <summary>
+        /// Controle lblIdEmpresa.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdEmpresa;
+
+        /// <summary>
         /// Controle iNome.
         /// </summary>
         /// <remarks>
@@ -346,6 +364,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText iNome;
+
+        /// <summary>
+        /// Controle iExcluEmpresaMot.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iExcluEmpresaMot;
 
         /// <summary>
         /// Controle btnCadEmpresa.
@@ -366,6 +393,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.Button btnEditEmpresa;
 
         /// <summary>
+        /// Controle btnMotExcEmpresa.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMotExcEmpresa;
+
+        /// <summary>
         /// Controle btnExcEmpresa.
         /// </summary>
         /// <remarks>
@@ -382,6 +418,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwCategoria;
+
+        /// <summary>
+        /// Controle lblCodCategoria.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodCategoria;
 
         /// <summary>
         /// Controle iCodCategoria.
@@ -420,6 +465,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.Button btnEditCategoria;
 
         /// <summary>
+        /// Controle btnMotExcCategoria.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMotExcCategoria;
+
+        /// <summary>
         /// Controle btnExcCategoria.
         /// </summary>
         /// <remarks>
@@ -436,6 +490,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwMenu;
+
+        /// <summary>
+        /// Controle lblCodMenu.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodMenu;
 
         /// <summary>
         /// Controle iCodMenu.
@@ -490,6 +553,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwTipoImagem;
+
+        /// <summary>
+        /// Controle lblCodImgTipo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodImgTipo;
 
         /// <summary>
         /// Controle iCodTipoImg.
@@ -553,6 +625,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwUsuarios;
+
+        /// <summary>
+        /// Controle lblIdUsuario.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIdUsuario;
 
         /// <summary>
         /// Controle iNomeUsuario.
@@ -636,6 +717,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.View vwTipo;
 
         /// <summary>
+        /// Controle lblCodTipo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodTipo;
+
+        /// <summary>
         /// Controle iCodTipo.
         /// </summary>
         /// <remarks>
@@ -688,6 +778,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwCampoConteudo;
+
+        /// <summary>
+        /// Controle lblImgCampoConteudo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblImgCampoConteudo;
 
         /// <summary>
         /// Controle iCodCampConteudo.
@@ -744,6 +843,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.View vwImgPosicao;
 
         /// <summary>
+        /// Controle lblCodImgPosicao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodImgPosicao;
+
+        /// <summary>
         /// Controle iCodPosicao.
         /// </summary>
         /// <remarks>
@@ -796,6 +904,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwImgAlinhamento;
+
+        /// <summary>
+        /// Controle lblCodImgAlinha.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCodImgAlinha;
 
         /// <summary>
         /// Controle iCodImgAlinha.
@@ -852,6 +969,15 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.View vwFormImagens;
 
         /// <summary>
+        /// Controle lbliIdImagem.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbliIdImagem;
+
+        /// <summary>
         /// Controle iImgTitulo.
         /// </summary>
         /// <remarks>
@@ -868,42 +994,6 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText iImgDescricao;
-
-        /// <summary>
-        /// Controle stImgTipo.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stImgTipo;
-
-        /// <summary>
-        /// Controle stImgCampoConteudo.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stImgCampoConteudo;
-
-        /// <summary>
-        /// Controle stImgPosicao.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stImgPosicao;
-
-        /// <summary>
-        /// Controle stImgAlinha.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stImgAlinha;
 
         /// <summary>
         /// Controle iImgFonte.
@@ -924,15 +1014,6 @@ namespace Site.Adm
         protected global::System.Web.UI.HtmlControls.HtmlInputText iImgAutor;
 
         /// <summary>
-        /// Controle iImgOrdem.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iImgOrdem;
-
-        /// <summary>
         /// Controle iImgHint.
         /// </summary>
         /// <remarks>
@@ -940,6 +1021,15 @@ namespace Site.Adm
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlInputText iImgHint;
+
+        /// <summary>
+        /// Controle iImgPath.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iImgPath;
 
         /// <summary>
         /// Controle mwImg.
@@ -969,22 +1059,13 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.Label lblDados;
 
         /// <summary>
-        /// Controle fuImgCont.
+        /// Controle vwFormConfig.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload fuImgCont;
-
-        /// <summary>
-        /// Controle lblResp.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResp;
+        protected global::System.Web.UI.WebControls.View vwFormConfig;
 
         /// <summary>
         /// Controle lblResult.

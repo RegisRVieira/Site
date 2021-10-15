@@ -2431,6 +2431,14 @@ namespace Site.VoceOnLine
 
         }
 
+        protected void gerarPdfExtratoAssoc(object sender, EventArgs e)
+        {
+            Apoio ObjPdf = new Apoio();
+
+            ObjPdf.xPdf = "Teste";
+
+        }
+
 
         /* - - - Fim Processo de Venda - - - */
     }

@@ -138,18 +138,18 @@
                                             <tr>
                                                 <td>
                                                     <asp:DropDownList ID="ddlMesExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
-                                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                                        <asp:ListItem Value="4" Text="Maio" ></asp:ListItem>
-                                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                                        <asp:ListItem Value="6" Text="Julho" Selected=""></asp:ListItem>
-                                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
+                                                        <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="Março"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="abril"></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Maio" ></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Julho" ></asp:ListItem>
+                                                        <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
+                                                        <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
+                                                        <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
+                                                        <asp:ListItem Value="11" Text="Novembro"></asp:ListItem>
+                                                        <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>
@@ -171,6 +171,10 @@
                                     <%# extratoAssociado() %>
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
                                     <section id="margemRodape"></section>
+                                    <asp:Button ID="btnPdf" runat="server" Text="Gerar PDF" OnClick="gerarPdfExtratoAssoc" />
+                                    <div style="margin-top: 20px; margin-bottom: 180px; background-color: #eae5e5">
+                                        <asp:Label ID="lbArquivos" runat="server"></asp:Label>
+                                    </div>                                    
                                 </div>
                             </section>
                         </asp:View>

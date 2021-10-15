@@ -171,6 +171,7 @@
                                     <%# extratoAssociado() %>
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
                                     <section id="margemRodape"></section>
+                                    <asp:Button ID="btnPdf" runat="server" Text="Gerar PDF" OnClick="gerarPdfExtratoAssoc" />
                                 </div>
                             </section>
                         </asp:View>

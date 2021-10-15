@@ -12,6 +12,9 @@
                 <div class="cad-esquerda">                  
                     <ul>                        
                         <li><asp:LinkButton ID="lbtCadConteudo" runat="server" Text="Conteudo do Site" OnClick="ativarVwCadConteudo"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtNossaEntidade" runat="server" Text="Nossa Entidade"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtAssociados" runat="server" Text="Associados"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtConvenios" runat="server" Text="Convênios"></asp:LinkButton></li>
                     </ul>
                 </div>
             </div>
