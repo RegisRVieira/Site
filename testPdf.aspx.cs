@@ -15,6 +15,9 @@ using System.Configuration;
 using System.Data;
 using System.Net;
 using ceTe.DynamicPDF.HtmlConverter;
+using ceTe.DynamicPDF.PageElements;
+using ceTe.DynamicPDF;
+
 
 namespace Site
 {
@@ -50,7 +53,7 @@ namespace Site
 
 
             //Criar Arquivo PDF
-            Document doc = new Document(); //Criando e estipulando o tipo de folha
+            iTextSharp.text.Document doc = new iTextSharp.text.Document(); //Criando e estipulando o tipo de folha
             doc.SetMargins(40, 40, 40, 80); //Estipulando o espaçamento das margens
             doc.AddCreationDate();
 
@@ -66,16 +69,16 @@ namespace Site
 
             string dados = "";
 
-            Paragraph paragrapfh = new Paragraph(dados, new Font(Font.NORMAL, 16));
+            Paragraph paragrapfh = new Paragraph(dados, new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 16));
 
             paragrapfh.Alignment = Element.ALIGN_CENTER;
 
             paragrapfh.Add("Este é meu primeiro Arquivo PDF. Foi criado com a sua ajuda, obrigado!!!" + "\n");
 
-            paragrapfh.Font = new Font(Font.NORMAL, 16, (int)System.Drawing.FontStyle.Bold);
+            paragrapfh.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 16, (int)System.Drawing.FontStyle.Bold);
             paragrapfh.Add("Negrito ");
 
-            paragrapfh.Font = new Font(Font.NORMAL, 18, (int)System.Drawing.FontStyle.Regular);
+            paragrapfh.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 18, (int)System.Drawing.FontStyle.Regular);
             paragrapfh.Add("\n" + "Sem Negrito" + "\n");
 
             paragrapfh.Add(xRet);
@@ -128,7 +131,7 @@ namespace Site
             lbArquivos.Text = xRet;
 
             //Criar Documento PDF
-            Document document = new Document();
+            iTextSharp.text.Document document = new iTextSharp.text.Document();
             document.SetMargins(3, 2, 3, 2);
 
             //Indicar local onde o documento será armazenado
@@ -140,7 +143,7 @@ namespace Site
 
             PdfPTable table = new PdfPTable(3);
 
-            Font fonte = FontFactory.GetFont(BaseFont.HELVETICA, 10);
+            iTextSharp.text.Font fonte = FontFactory.GetFont(BaseFont.HELVETICA, 10);
 
             Paragraph coluna1 = new Paragraph("Nome", fonte);
             Paragraph coluna2 = new Paragraph("Idade", fonte);
@@ -162,12 +165,13 @@ namespace Site
             List<Apoio> pessoas = new List<Apoio>();
 
             Apoio pessoa1 = new Apoio();
-            for (int i = 0; i< dados.Rows.Count; i++) {
+            for (int i = 0; i < dados.Rows.Count; i++)
+            {
                 pessoa1.Nome = dados.Rows[i]["Nome"].ToString();
                 pessoa1.Idade = dados.Rows[i]["Usuario"].ToString();
-                pessoa1.Cidade = dados.Rows[i]["Senha"].ToString(); 
+                pessoa1.Cidade = dados.Rows[i]["Senha"].ToString();
             }
-            
+
 
             pessoas.Add(pessoa1);
 
@@ -203,10 +207,11 @@ namespace Site
 
             string caminho = AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\" + "PdfEmUmaLinha.pdf";
             //Converter.Convert(new Uri("http://www.uol.com.br"), caminho);
-            Converter.Convert(new Uri("https://localhost:44320/VoceOnLine1.aspx"), caminho);          
+            Converter.Convert(new Uri("https://localhost:44320/VoceOnLine1.aspx"), caminho);
         }
 
-        public void pdfClaudia(object sender, EventArgs e) {
+        public void pdfClaudia(object sender, EventArgs e)
+        {
 
             string xRet = "";
 
@@ -218,7 +223,7 @@ namespace Site
 
 
 
-            Document pdfDoc = new Document();
+            iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document();
             pdfDoc.SetMargins(2, 3, 2, 3);
 
             /*
@@ -236,7 +241,7 @@ namespace Site
 
             pdfDoc.Open();
 
-            
+
             pdfDoc.Add(table);
 
             table.AddCell("coluna 1");
@@ -253,5 +258,67 @@ namespace Site
 
             Response.End();
         }
-    }
+
+        protected void criarPdfCete(object sender, EventArgs e)
+        {
+            ceTe.DynamicPDF.Document document = new ceTe.DynamicPDF.Document();
+            ceTe.DynamicPDF.Page page = new ceTe.DynamicPDF.Page();
+
+            document.Pages.Add(page);
+
+            Table2 table = new Table2(0, 0, 600, 600);
+
+            Column2 column1 = table.Columns.Add(150);
+            column1.CellDefault.Align = ceTe.DynamicPDF.TextAlign.Center;
+            table.Columns.Add(90);
+            table.Columns.Add(90);
+            table.Columns.Add(90);
+
+            Row2 row1 = table.Rows.Add(40, ceTe.DynamicPDF.Font.Helvetica, 16, Grayscale.Black, Grayscale.Gray);
+            row1.CellDefault.Align = ceTe.DynamicPDF.TextAlign.Center;
+            row1.CellDefault.VAlign = ceTe.DynamicPDF.VAlign.Center;
+            row1.Cells.Add("Celula 1");
+            row1.Cells.Add("Célila 2");
+            row1.Cells.Add("Celula 3");
+            row1.Cells.Add("Célula 4");
+
+            Row2 row2 = table.Rows.Add(30);
+            Cell2 cell1 = row2.Cells.Add("RowHeard1", ceTe.DynamicPDF.Font.HelveticaBold, 16, Grayscale.Black, Grayscale.Gray, 1);
+            cell1.Align = ceTe.DynamicPDF.TextAlign.Center;
+            cell1.VAlign = ceTe.DynamicPDF.VAlign.Center;
+            row2.Cells.Add("Item 1");
+            row2.Cells.Add("Item 2");
+            row2.Cells.Add("Item 3");
+
+            Row2 row3 = table.Rows.Add(30);
+            Cell2 cell2 = row2.Cells.Add("RowHeard1", ceTe.DynamicPDF.Font.HelveticaBold, 16, Grayscale.Black, Grayscale.Gray, 1);
+            cell1.Align = ceTe.DynamicPDF.TextAlign.Center;
+            cell1.VAlign = ceTe.DynamicPDF.VAlign.Center;
+            row2.Cells.Add("Item 4");
+            row2.Cells.Add("Item 5");
+            row2.Cells.Add("Item 6");
+
+            table.CellDefault.Padding.Value = 5.0f;
+            table.CellSpacing = 5.0f;
+            table.Border.Top.Color = RgbColor.Green;
+            table.Border.Bottom.Color = RgbColor.Blue;
+            table.Border.Top.Width = 2;
+            table.Border.Bottom.Width = 2;
+            table.Border.Left.LineStyle = LineStyle.None;
+            table.Border.Right.LineStyle = LineStyle.None;
+
+            page.Elements.Add(table);
+            document.Draw(@"K:\Projetos\Web\Site\Site\Downloads\" + "ceTe-PDF.pdf");
+
+
+
+
+        }
+
+        protected void pdfItex7(object sender, EventArgs e)
+        {
+
+        }
+
+    }//Fim
 }

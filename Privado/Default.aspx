@@ -15,12 +15,12 @@
             /*background-color: #ffd800;*/
         }
 
-        .secPrincipal p {
-            text-align: center;
-            padding: 0;
-            font-size: 30px;
-            color: #574040;
-        }
+            .secPrincipal p {
+                text-align: center;
+                padding: 0;
+                font-size: 30px;
+                color: #574040;
+            }
 
         .btnPrincipal {
             margin-left: 5px;
@@ -33,39 +33,58 @@
             display: inline-block;
             float: left;
         }
-        .btnPrincipal a{
-            text-decoration: none;
-        }
-                
-        .btnPrincipal a p{
-            margin: 0;
-            padding: 0;
-            padding-top: 20px;
-            padding-bottom: 20px;
-            text-align: center;
-            color: white;
-            font-size: 18px;
-            font-family: 'Verdana';
-            font-family: 'Courier New';
-            text-decoration: none;            
+
+            .btnPrincipal a {
+                text-decoration: none;
+            }
+
+                .btnPrincipal a p {
+                    margin: 0;
+                    padding: 0;
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+                    text-align: center;
+                    color: white;
+                    font-size: 18px;
+                    font-family: 'Verdana';
+                    font-family: 'Courier New';
+                    text-decoration: none;
+                }
+
+        .secLogo {            
+            width: 100%;
+            min-height: 60px;
+            border: 1px solid #65368a;
         }
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">        
+    <form id="form1" runat="server">
         <section class="secPrincipal">
-            <section class="areaLogin">            
-            <asp:Label ID="lblLogado" runat="server"></asp:Label>
-        </section>
+            <section class="areaLogin">
+                <asp:Label ID="lblLogado" runat="server"></asp:Label>
+            </section>
+            <section class="secLogo">
+                <div style="width: 60%; height:60px; margin: 0 auto;">
+                    <div style="width: 40px; height: 60px; display: inline-block; float: left;"><img style="width:100%;" src="../Img/Logo Régis-2.png" /></div>
+                    <div style="width: 200px; height: 50px; display: inline-block; float: left;"><p style="margin: 0; padding-top: 10px; display: inline-block; color: #f26907;">Tecnologia</p></div>                                       
+                </div>
+            </section>
             <p>Minhas Coisas</p>
             <div class="btnPrincipal">
-                <a ID="lbtAdm" runat="server" href="Adm.aspx"><p>Adm</p></a>
+                <a id="lbtAdm" runat="server" href="Adm.aspx">
+                    <p>Adm</p>
+                </a>
             </div>
             <div class="btnPrincipal">
-                <a ID="lbtCadastro" runat="server" href="Cadastro.aspx"><p>Cadastro</p></a>
+                <a id="lbtCadastro" runat="server" href="Cadastro.aspx">
+                    <p>Cadastro</p>
+                </a>
             </div>
             <div class="btnPrincipal">
-                <a ID="lbtListas" runat="server" href="Listas.aspx"><p>Conteúdo</p></a>
+                <a id="lbtListas" runat="server" href="Listas.aspx">
+                    <p>Conteúdo</p>
+                </a>
             </div>
         </section>
     </form>

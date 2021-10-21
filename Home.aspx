@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="Css/Botoes.css" />
     <script src="Js/jQuery 3.4.1.js"></script>
     <script type="text/javascript" src="Js/Apoio.js"></script>
+    <link rel="sortcut icon" type="image/png" href="Img/Logo-nav.png" />
 </head>
 <body>
     <script src="https://static.zenvia.com/embed/js/zenvia-chat.min.js"></script><script>  var chat = new ZenviaChat('b0ec78cf08497aecd5aeffd29b7bf5f9').embedded('button').build();</script>

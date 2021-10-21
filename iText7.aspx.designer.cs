@@ -11,7 +11,7 @@ namespace Site
 {
 
 
-    public partial class testPdf
+    public partial class iText7
     {
 
         /// <summary>
@@ -24,30 +24,30 @@ namespace Site
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controle btnPdf.
+        /// Controle btnPDF.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPdf;
+        protected global::System.Web.UI.WebControls.Button btnPDF;
 
         /// <summary>
-        /// Controle btnCepPdf.
+        /// Controle btnPDFExtrato.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCepPdf;
+        protected global::System.Web.UI.WebControls.Button btnPDFExtrato;
 
         /// <summary>
-        /// Controle lbArquivos.
+        /// Controle lblMsg.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbArquivos;
+        protected global::System.Web.UI.WebControls.Label lblMsg;
     }
 }

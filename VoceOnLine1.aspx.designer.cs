@@ -501,13 +501,22 @@ namespace Site
         protected global::System.Web.UI.WebControls.Button btnPdf;
 
         /// <summary>
-        /// Controle lbArquivos.
+        /// Controle lblExtratoPdf.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbArquivos;
+        protected global::System.Web.UI.WebControls.Label lblExtratoPdf;
+
+        /// <summary>
+        /// Controle lblArquivos.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblArquivos;
 
         /// <summary>
         /// Controle vwAssocCartoes.
@@ -976,6 +985,15 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwConvOfertas;
+
+        /// <summary>
+        /// Controle lblMsg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsg;
 
         /// <summary>
         /// Controle lblResult.

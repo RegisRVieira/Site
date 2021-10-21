@@ -171,12 +171,15 @@
                                     <%# extratoAssociado() %>
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
                                     <section id="margemRodape"></section>
-                                    <asp:Button ID="btnPdf" runat="server" Text="Gerar PDF" OnClick="gerarPdfExtratoAssoc" />
+                                    <div style="width: 100px; height: 50px;float: left">
+                                        <asp:Button ID="btnPdf" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />
+                                    </div>
+                                    <div style="width: 100px; height: 50px;float:left"><asp:Label ID="lblExtratoPdf" runat="server"></asp:Label></div>
                                     <div style="margin-top: 20px; margin-bottom: 180px; background-color: #eae5e5">
-                                        <asp:Label ID="lbArquivos" runat="server"></asp:Label>
-                                    </div>                                    
+                                        <asp:Label ID="lblArquivos" runat="server"></asp:Label>
+                                    </div>                                                                      
                                 </div>
-                            </section>
+                            </section>                            
                         </asp:View>
                         <asp:View ID="vwAssocCartoes" runat="server">                            
                             <div>
@@ -368,7 +371,8 @@
                         <asp:View ID="vwConvDownloads" runat="server">Downloads</asp:View>
                         <asp:View ID="vwConvOfertas" runat="server">Ofertas</asp:View>
                     </asp:MultiView>
-                </div>
+                    <asp:Label ID="lblMsg" runat="server"></asp:Label>
+                </div>                
             </div>
             <asp:Label ID="lblResult" runat="server"></asp:Label>
             <footer class="footerHome">
