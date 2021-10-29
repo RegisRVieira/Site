@@ -176,6 +176,7 @@
     <Content Include="Privado\Listas.aspx" />
     <Content Include="Privado\pLogin.aspx" />
     <Content Include="testPdf.aspx" />
+    <Content Include="test_Extrato.aspx" />
     <Content Include="VoceOnLine1.aspx" />
     <Content Include="VOnLine\Index.aspx" />
     <Content Include="VOnLine\Login.aspx" />
@@ -402,6 +403,13 @@
     </Compile>
     <Compile Include="testPdf.aspx.designer.cs">
       <DependentUpon>testPdf.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="test_Extrato.aspx.cs">
+      <DependentUpon>test_Extrato.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test_Extrato.aspx.designer.cs">
+      <DependentUpon>test_Extrato.aspx</DependentUpon>
     </Compile>
     <Compile Include="VoceOnLine1.aspx.cs">
       <DependentUpon>VoceOnLine1.aspx</DependentUpon>

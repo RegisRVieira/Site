@@ -6,11 +6,11 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Você OnLine</title>
+    <link rel="stylesheet" href="Css/StyleVoceOnLine.css" />
     <link rel="stylesheet" href="Css/Form-Clean.css" />
     <link rel="stylesheet" href="Css/Form-Fluido.css" />
     <link rel="stylesheet" href="Css/Global.css" />
     <link rel="stylesheet" href="Css/Global-Fluido.css" />
-    <link rel="stylesheet" href="Css/StyleVoceOnLine.css" />
     <link rel="stylesheet" href="Css/Table-Extrato.css" />
     <script type="text/javascript" src="Js/Apoio.js"></script>
     <script type="text/javascript" src="Js/jQuery 3.4.1.js"></script>
@@ -21,26 +21,27 @@
             <div>
                 <p>
                     <a href="Home.aspx">
-                        <img  class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
+                        <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
                 </p>
             </div>
             <div runat="server" class="BoxVOLogin">
-                <div style=" color: white; float: right">
-                    <img  src="Img/icon/usuLogin.svg"/>                    
+                <div style="color: white; float: right">
+                    <img src="Img/icon/usuLogin.svg" />
                     <div class="BoxVOLoginMenu">
                         <ul>
-                            <li><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label> 
-                                <ul>                                    
+                            <li>
+                                <asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label>
+                                <ul>
                                     <li>Sobre</li>
                                     <li>Voltar à Home</li>
                                     <asp:LinkButton ID="lbtDeslogar" runat="server" Text="Sair" OnClick="fazerLogof"><li>Sair</li></asp:LinkButton>
                                 </ul>
                             </li>
-                            
+
                         </ul>
-                    </div>    
+                    </div>
                 </div>
-            </div>            
+            </div>
         </nav>
         <main>
             <div class="lateral">
@@ -57,7 +58,8 @@
                                         <asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
                                     <li>
                                         <asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
-                                    <li><asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
+                                    <li>
+                                        <asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
                                 </ul>
@@ -82,7 +84,8 @@
                                         <asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
                                     <li>
                                         <asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
-                                    <li><asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
+                                    <li>
+                                        <asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
                                 </ul>
@@ -91,7 +94,7 @@
                     </asp:MultiView>
                 </div>
             </div>
-            <div class="conteudo" >
+            <div class="conteudo">
                 <div class="contassoc">
                     <asp:MultiView ID="mwContAssoc" runat="server">
                         <asp:View ID="vwAssocDados" runat="server">
@@ -130,21 +133,21 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwAssocExtrato" runat="server">
-                            <section style="min-height: 900px;">
-                                <div style="width: 100%; font-size: 0.8em;">
-                                    <table style="width: 80%;">
+                            <section class="SecPeriodoExtrato">
+                                <div class="BoxDdlPeriodoExtrato">
+                                    <table class="TabPeridoExtrato">
                                         <caption>Período</caption>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td class="tdPeridoExtratoMes">
                                                     <asp:DropDownList ID="ddlMesExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
                                                         <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
                                                         <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
                                                         <asp:ListItem Value="3" Text="Março"></asp:ListItem>
                                                         <asp:ListItem Value="4" Text="abril"></asp:ListItem>
-                                                        <asp:ListItem Value="5" Text="Maio" ></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Maio"></asp:ListItem>
                                                         <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
-                                                        <asp:ListItem Value="7" Text="Julho" ></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Julho"></asp:ListItem>
                                                         <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
                                                         <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
                                                         <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
@@ -152,16 +155,20 @@
                                                         <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                                <td>
+                                                <td class="tdPeridoExtratoAno">
                                                     <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
-                                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
+                                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
+                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                        <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
+                                                        <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
+                                                        <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
                                                     </asp:DropDownList></td>
                                                 <td>
-                                                    <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" /></td>
+                                                    <div class="BtnPeriodoExtrato">
+                                                        <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -170,31 +177,34 @@
                                 <div style="width: 77.8%;">
                                     <%# extratoAssociado() %>
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
-                                    <section id="margemRodape"></section>
-                                    <div style="width: 100px; height: 50px;float: left">
-                                        <asp:Button ID="btnPdf" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />
+                                    <div class="BtnGerarPDfAssoc">
+                                        <asp:Button ID="btnPdfAssoc" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />
                                     </div>
-                                    <div style="width: 100px; height: 50px;float:left"><asp:Label ID="lblExtratoPdf" runat="server"></asp:Label></div>
+                                    <div style="width: 100px; height: 50px; float: left">
+                                        <asp:Label ID="lblExtratoPdf" runat="server"></asp:Label>
+                                    </div>
                                     <div style="margin-top: 20px; margin-bottom: 180px; background-color: #eae5e5">
                                         <asp:Label ID="lblArquivos" runat="server"></asp:Label>
-                                    </div>                                                                      
+                                    </div>
+
                                 </div>
-                            </section>                            
+                                <section id="margemRodape"></section>
+                            </section>
                         </asp:View>
-                        <asp:View ID="vwAssocCartoes" runat="server">                            
+                        <asp:View ID="vwAssocCartoes" runat="server">
                             <div>
                                 <%# metodoCartoesAssoc() %>
-                            </div>                            
+                            </div>
                         </asp:View>
                         <asp:View ID="vwAssocSenha" runat="server">
                             <section style="margin: 0 auto; margin-top: 30px; width: 60%; border: 2px solid #cfcfcf;">
                                 <div style="width: 100%">
-                                    <p style=" margin-top: 5px; color: #22396f; text-align: center; font-size: 2em;">Trocar Senha</p>
+                                    <p style="margin-top: 5px; color: #22396f; text-align: center; font-size: 2em;">Trocar Senha</p>
                                     <input id="iSenhaAtual" runat="server" type="password" placeholder="Senha Atual" />
                                     <input id="iSenhaNova" runat="server" type="password" placeholder="Nova Senha" />
                                     <input id="iSenhaConfirma" runat="server" type="password" placeholder="Confirma Nova Senha" />
                                     <asp:Button ID="btnTrocaSenha" runat="server" Text="Troca Senha" OnClick="trocarSenhaAssoc" />
-                                    <asp:label ID="lblTrocaSenha" runat="server"></asp:label>
+                                    <asp:Label ID="lblTrocaSenha" runat="server"></asp:Label>
                                 </div>
                             </section>
                         </asp:View>
@@ -288,30 +298,32 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwConvRelEntrega" runat="server">
+
                             <div style="width: 100%; font-size: 0.8em;">
                                 <div style="width: 200px; float: left">
                                     <asp:DropDownList ID="ddlMes" runat="server">
-                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
-                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
+                                        <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
+                                        <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
+                                        <asp:ListItem Value="3" Text="Março"></asp:ListItem>
+                                        <asp:ListItem Value="4" Text="abril"></asp:ListItem>
+                                        <asp:ListItem Value="5" Text="Maio" Selected=""></asp:ListItem>
+                                        <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
+                                        <asp:ListItem Value="7" Text="Julho"></asp:ListItem>
+                                        <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
+                                        <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
+                                        <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
+                                        <asp:ListItem Value="11" Text="Novembro"></asp:ListItem>
+                                        <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div style="width: 150px; float: left">
                                     <asp:DropDownList ID="ddlAno" runat="server">
-                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
+                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
+                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                        <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
+                                        <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
+                                        <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
                                     </asp:DropDownList>
                                 </div>
                                 <div style="width: 250px; font-size: 20px;">
@@ -335,44 +347,81 @@
                             <div><%# montarRelMensal() %></div>
                         </asp:View>
                         <asp:View ID="vwConvExtrato" runat="server">
-                            <div style="width: 100%; font-size: 0.8em;">
-                                <div style="width: 200px; float: left">
-                                    <asp:DropDownList ID="ddlMesExtrato" runat="server">
-                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
-                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
-                                    </asp:DropDownList>
+                            <section class="SecPeriodoExtrato">
+                                <!--<div style="width: 100%; font-size: 0.8em;">-->
+                                <div class="BoxDdlPeriodoExtrato">
+                                    <table class="TabPeridoExtrato">
+                                        <caption>Período</caption>
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdPeridoExtratoMes">
+                                                    <asp:DropDownList ID="ddlMesExtratoConv" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="Março"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="abril"></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Maio"></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Julho"></asp:ListItem>
+                                                        <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
+                                                        <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
+                                                        <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
+                                                        <asp:ListItem Value="11" Text="Novembro"></asp:ListItem>
+                                                        <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td class="tdPeridoExtratoAno">
+                                                    <asp:DropDownList ID="ddlAnoExtratoConv" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
+                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                        <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
+                                                        <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
+                                                        <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button1" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div style="width: 150px; float: left">
-                                    <asp:DropDownList ID="ddlAnoExtrato" runat="server">
-                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
-                                    </asp:DropDownList>
+                                <div style="width: 100%; min-height: 50px; background-color: #d8e1f3">
+                                    <div class="BtnGerarPDfAssoc" style="margin-top: 7px;  margin-left: 5px;">
+                                        <asp:Button ID="btnPdfConv" runat="server" Text="Imprimir PDF"  />
+                                        <br />
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Extrato Pós Pago</p>
+                                    </div>
                                 </div>
-                                <div style="width: 250px; font-size: 20px;">
-                                    <asp:Button ID="Button1" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                <div style="width: 100%; max-height: 300px; overflow: scroll; overflow-x: auto;" >
+                                    <%# montarExtratoConv() %>
                                 </div>
-                            </div>
-                            <%# montarExtratoConv() %>
+                                <div style="margin-top: 20px; width: 100%; min-height: 50px;  background-color: #d8e1f3"">
+                                    <div class="BtnGerarPDfAssoc" style="margin-top: 7px;  margin-left: 5px;">
+                                        <asp:Button ID="Button2" runat="server" Text="Imprimir PDF"  />
+                                        <br />
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px;" >Extrato Pré Pago</p>
+                                    </div>
+                                </div>
+                                <div style="width: 100%; max-height: 250px; overflow: scroll; overflow-x: auto;">                                    
+                                    <%# montarExtratoPreConv() %>
+                                </div>
+                                <div>
+                                    <section class="margemRodape"></section>
+                                </div>
+                            </section>
                         </asp:View>
                         <asp:View ID="vwConvSenha" runat="server">Altera Senha</asp:View>
                         <asp:View ID="vwConvDownloads" runat="server">Downloads</asp:View>
                         <asp:View ID="vwConvOfertas" runat="server">Ofertas</asp:View>
                     </asp:MultiView>
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
-                </div>                
+                </div>
             </div>
             <asp:Label ID="lblResult" runat="server"></asp:Label>
             <footer class="footerHome">

@@ -58,7 +58,8 @@ input{ /* Está no Fale Conosco*/
 }
 input:hover{ /* Está no Fale Conosco*/
     font-size: 2.5em;
-    color: #22396f;
+    /*color: #22396f;*/
+    color: #8ba1d3;
     padding: 15.5px 10px;    
 }
 

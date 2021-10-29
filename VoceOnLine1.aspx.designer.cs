@@ -492,13 +492,13 @@ namespace Site
         protected global::System.Web.UI.WebControls.Button btnLogof;
 
         /// <summary>
-        /// Controle btnPdf.
+        /// Controle btnPdfAssoc.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPdf;
+        protected global::System.Web.UI.WebControls.Button btnPdfAssoc;
 
         /// <summary>
         /// Controle lblExtratoPdf.
@@ -933,22 +933,22 @@ namespace Site
         protected global::System.Web.UI.WebControls.View vwConvExtrato;
 
         /// <summary>
-        /// Controle ddlMesExtrato.
+        /// Controle ddlMesExtratoConv.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMesExtrato;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMesExtratoConv;
 
         /// <summary>
-        /// Controle ddlAnoExtrato.
+        /// Controle ddlAnoExtratoConv.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAnoExtrato;
+        protected global::System.Web.UI.WebControls.DropDownList ddlAnoExtratoConv;
 
         /// <summary>
         /// Controle Button1.
@@ -958,6 +958,24 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
+
+        /// <summary>
+        /// Controle btnPdfConv.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPdfConv;
+
+        /// <summary>
+        /// Controle Button2.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
         /// Controle vwConvSenha.

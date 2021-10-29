@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Home ASU</title>
+    <title>ASU - Associação dos Servidores da Unesp</title>
     <link  rel="stylesheet" href="Css/Global.css"/>
     <link rel="stylesheet" href="Css/Global-Fluido.css" />
     <link rel="stylesheet" href="Css/SlideShow.css" />
@@ -50,6 +50,7 @@
                                             <a href="Adm/LoginAdm.aspx"><li>Adm</li></a>
                                             <a href="Adm/InsertRegistro.aspx"> <li>Teste - Insert</li></a>
                                             <a href="Privado/pLogin.aspx"><li>Privado</li></a>
+                                            <a href="test_Extrato.aspx">Teste Período</a>
                                         </ul>
                                     </li>                            
                                 </ul>

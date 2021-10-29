@@ -270,6 +270,9 @@ input[type=submit] {
     border: 1px solid #333;
     cursor: pointer;
 }
+input[type=submit]:hover{
+    color: #8ba1d3;
+}
 
 input:focus {
     border: 1px solid #ccc;
