@@ -419,7 +419,7 @@ namespace Site
             if (Convert.ToInt32(diaAtual) >= 20)
             {
                 mesAtual = (Convert.ToInt32(mesAtual) + 1).ToString();
-                //# # # # # Extrato Associado # # # # #
+                //# # # # # Extrato Associado - Atualiza Mês # # # # #
                 foreach (System.Web.UI.WebControls.ListItem lMes in ddlMesExtratoAssoc.Items)//Extrato Associado
                 {
                     if (lMes.Value == mesAtual)
@@ -427,7 +427,7 @@ namespace Site
                         lMes.Selected = true;
                     }
                 }
-                //# # # # # Extrato Convênio # # # # #
+                //# # # # # Extrato Convênio - Atualiza Mês # # # # #
                 foreach (System.Web.UI.WebControls.ListItem lMesConv in ddlMesExtratoConv.Items)
                 {
                     if (lMesConv.Value == mesAtual)
@@ -438,7 +438,7 @@ namespace Site
             }
             else
             {
-                //# # # # # Extrato Associado # # # # #
+                //# # # # # Extrato Associado - Atualiza Mês # # # # #
                 foreach (System.Web.UI.WebControls.ListItem lMes in ddlMesExtratoAssoc.Items)
                 {
                     if (lMes.Value == mesAtual)
@@ -446,7 +446,7 @@ namespace Site
                         lMes.Selected = true;
                     }
                 }
-                //# # # # # Extrato Convênio # # # # #
+                //# # # # # Extrato Convênio - Atualiza Mês # # # # #
                 foreach (System.Web.UI.WebControls.ListItem lMesConv in ddlMesExtratoConv.Items)
                 {
                     if (lMesConv.Value == mesAtual)
@@ -455,7 +455,7 @@ namespace Site
                     }
                 }
             }
-            //# # # # # Extrato Associado # # # # #
+            //# # # # # Extrato Associado - Atualiza Ano # # # # #
             foreach (System.Web.UI.WebControls.ListItem lAno in ddlAnoExtratoAssoc.Items)
             {
                 if (lAno.Value == anoAtual)
@@ -463,7 +463,7 @@ namespace Site
                     lAno.Selected = true;
                 }
             }
-            //# # # # # Extrato Convênio # # # # #
+            //# # # # # Extrato Convênio - Atualiza Ano # # # # #
             foreach (System.Web.UI.WebControls.ListItem lAnoConv in ddlAnoExtratoConv.Items)
             {
                 if (lAnoConv.Value == anoAtual)
@@ -505,12 +505,12 @@ namespace Site
                 if (tCampo == 9 || tCampo == 11)
                 {
                     ObjDbASU.Campo = " c.idmovime, EXTRACT(DAY FROM c.data) AS dia, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito," +
-                                     " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN " + Apoio.Periodo() + " LIMIT 1) AS gastos ";
+                                     " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN " + Apoio.dtDataInicio() + " AND " + Apoio.dtDataFim() + " AND c.cnscanmom IS NULL LIMIT 1) AS gastos ";
                     ObjDbASU.Tabela = " comovime AS c ";
                     ObjDbASU.Left = " INNER JOIN coconven AS co ON co.idconven = c.convenio " +
                                     " INNER JOIN associa AS a ON c.associado = a.idassoc " +
                                     " INNER JOIN asdepen AS d ON c.dependen = d.iddepen ";
-                    ObjDbASU.Condicao = " WHERE a.idassoc ='" + IdAssoc + "' AND c.vencimento BETWEEN " + Apoio.Periodo() + " ORDER BY dia ";
+                    ObjDbASU.Condicao = " WHERE a.idassoc ='" + IdAssoc + "' AND c.vencimento BETWEEN " + Apoio.dtDataInicio() + " AND " + Apoio.dtDataFim() + " AND c.cnscanmom IS NULL ORDER BY dia ";
 
 
                     //MessageBox.Show("Do Extrato: " + iDAcesso.Substring(0,(tCampo- 2)));
@@ -523,53 +523,27 @@ namespace Site
                     double limite = 0;
                     double saldo = 0;
 
-                    Apoio.IdAssoc = IdAssoc; //Atribui Id do associado ao Método para calcaular os gastos
+                    Apoio.IdAssoc = IdAssoc; //Atribui Id do associado ao Método para calcular os gastos
 
                     string mesAtual = DateTime.Now.Month.ToString();
                     string diaAtual = DateTime.Now.Day.ToString();
 
-                    //# # # # # Gera saldo e limite # # # # #
-                    if (dados.Rows.Count > 0)
-                    {
-                        limite = double.Parse(dados.Rows[0]["credito"].ToString());
-                    }
-                    else
-                    {
-                        ObjCredito.Campo = " credito ";
-                        ObjCredito.Tabela = " associa ";
-                        ObjCredito.Condicao = "WHERE idassoc ='" + IdAssoc + "'";
-
-                        DataTable dcredito = ObjCredito.RetCampos();
-
-                        limite = double.Parse(dcredito.Rows[0]["credito"].ToString());
-                    }
-
-                    saldo = (Apoio.GastosAssociado() - limite) * -1;
-
-                    //Cria Saldo e Limite
+                    //# # # Mostra Limite e Saldo # # #
                     xRet += "<div class='extAssocNormal'>";
                     xRet += "<table class='background-color: violet;'>";
                     xRet += "<caption style='font-size: 1em; text-align: left;'>" + "Seja bem Vindo: " + Session["LoginUsuario"].ToString() + "</caption>";
                     xRet += "<tbody>";
                     xRet += "<tr>";
                     xRet += "<td>" + "Seu Limite: " + "</td>";
-                    xRet += "<td style='font-size: 30px;'>" + "R$ " + limite.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                    xRet += "<td style='font-size: 30px;'>" + "R$ " + Apoio.limiteAssociado().ToString("F2", CultureInfo.InvariantCulture) + "</td>";
                     //xRet += "</tr>";
                     //xRet += "<tr>";
                     xRet += "<td>" + "Seu Saldo: " + "</td>";
-                    xRet += "<td style='font-size: 40px;'>" + "R$ " + saldo.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                    xRet += "<td style='font-size: 40px;'>" + "R$ " + Apoio.SaldoAssociado().ToString("F2", CultureInfo.InvariantCulture) + "</td>";
                     xRet += "</tr>";
                     xRet += "</tbody>";
                     xRet += "</table>";
                     xRet += "</div>";
-
-                    //MessageBox.Show(Apoio.GastosAssociado().ToString("F2", CultureInfo.InvariantCulture)) ;
-
-                    //# # # Período # # #
-
-                    //xRet += "<div>";                
-                    //xRet += "<p>" + "Período: " + Apoio.Periodo() + "</p>";
-                    //xRet += "</div>";
 
                     //# # # # # Fim - saldo e limite # # # # #
 
@@ -579,6 +553,7 @@ namespace Site
                         //Cria Extrato
                         xRet += "<table>";
                         xRet += "<caption>" + " Extrato " + "</caption>";
+                        //xRet += "<caption>" + " Extrato " + " - Período: " + Apoio.Periodo() + "</caption>";
                         xRet += "<thead>";//Cabeçalho da Tabela
                         xRet += "<tr>"; //Linha
                         xRet += "<td>" + "Autorização" + "</td>";//Campo
@@ -623,18 +598,19 @@ namespace Site
                         xRet += "</div>";
                     }
 
-                    //Fluído
+                    //# # # # # Extrato Fluído # # # # #
+
                     xRet += "<div class='extAssocFluido'>";
                     xRet += "<table>";
                     xRet += "<caption style='font-size: 2em; text-align: left;'>" + "Seja bem Vindo: " + Session["LoginUsuario"].ToString() + "</caption>";
                     xRet += "<tbody>";
                     xRet += "<tr>";
                     xRet += "<td>" + "Seu Limite: " + "</td>";
-                    xRet += "<td style='font-size: 30px;'>" + "R$ " + limite.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                    xRet += "<td style='font-size: 30px;'>" + "R$ " + Apoio.limiteAssociado().ToString("F2", CultureInfo.InvariantCulture) + "</td>";
                     //xRet += "</tr>";
                     //xRet += "<tr>";
                     xRet += "<td>" + "Seu Saldo: " + "</td>";
-                    xRet += "<td style='font-size: 40px;'>" + "R$ " + saldo.ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                    xRet += "<td style='font-size: 40px;'>" + "R$ " + Apoio.SaldoAssociado().ToString("F2", CultureInfo.InvariantCulture) + "</td>";
                     xRet += "</tr>";
                     xRet += "</tbody>";
                     xRet += "</table>";
@@ -1391,6 +1367,7 @@ namespace Site
                 rDigVerifica = GeraDigMod11(Convert.ToInt32(iDAcesso));
                 lblResultado.Text = rDigVerifica.Substring(7, 2);
 
+
                 //MessageBox.Show(lblResultado.Text);
             }
 
@@ -1403,7 +1380,7 @@ namespace Site
             string condicaoPos = " WHERE (m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.Periodo() + " ORDER BY m.cnscadmom DESC ";
 
 
-            lblMsg.Text = Apoio.Periodo();
+            //lblMsg.Text = Apoio.Periodo();
 
             if (ObjDbExtPos.MsgErro == "")
             {
@@ -1415,6 +1392,9 @@ namespace Site
 
                 DataTable dadosPos = ObjDbExtPos.RetCampos();
                 //MessageBox.Show(camposPos + tabelaPos + leftPos + condicaoPos);
+
+                //Apoio.IdConv = dadosPos.Rows[0]["convenio"].ToString(); - 07/12/2021, testar o impacto deste cara
+
 
                 int nLinhasPos = dadosPos.Rows.Count;
 
@@ -1429,7 +1409,7 @@ namespace Site
 
                 if (nLinhasPos > 0)
                 {
-                   // xRet += "<div  id='print' class='conteudo' style='min-width: 990px; height: 600px; overflow: scroll; '>";
+                    // xRet += "<div  id='print' class='conteudo' style='min-width: 990px; height: 600px; overflow: scroll; '>";
                     //xRet += "<div style='width: 200px;'>" + "<input type='button' onclick='cont();' value='Imprimir' >" + "</div>" + "<br>";
                     xRet += "<table>";
                     xRet += "<caption>"; //Caption
@@ -1452,7 +1432,7 @@ namespace Site
                     xRet += "</thead>";
                     xRet += "<tfoot>"; //Footer
                     xRet += "<td colspan='5' class='right'>" + "Total: " + "</td>";
-                    xRet += "<td colspan='2'>" + " R$: " + gastos + " " + "</td>";
+                    xRet += "<td colspan='2'>" + " R$: " + Apoio.vendasConvenio() + "</td>";
                     xRet += "</tfoot>";
                     xRet += "<tbody>"; //Corpo
                     for (int i = 0; i < nLinhasPos; i++)
@@ -1531,7 +1511,7 @@ namespace Site
                              " LEFT OUTER JOIN COCONVEN CONV ON conv.IDCONVEN = mov.CONV_ORIGID AND mov.CONV_ORIGTAB = 'COCONVEN' ";
             string condicaoPre = " WHERE (mov.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = mov.CONV_ORIGID AND conv.cnpj_cpf = '" + iDAcesso + "')) AND mov.vencimento BETWEEN " + Apoio.Periodo() + " ";
 
-            lblMsg.Text = Apoio.Periodo();
+            //lblMsg.Text = Apoio.Periodo();
 
             if (ObjDbExtPre.MsgErro == "")
             {
@@ -1545,6 +1525,7 @@ namespace Site
                 DataTable dadosPre = ObjDbExtPre.RetCampos();
                 int nLinhasPre = dadosPre.Rows.Count;
 
+                //Apoio.IdConv = dadosPre.Rows[0]["conv_origid"].ToString();
 
                 if (nLinhasPre > 0)
                 {
@@ -1604,15 +1585,15 @@ namespace Site
                     xRet += "<td colspan='2'>" + " R$: " + dadosPre.Rows[0]["gastosPre"].ToString() + " " + "</td>";
                     xRet += "</tfoot>";
                     xRet += "</table>";
-                  //  xRet += "</div>";
+                    //  xRet += "</div>";
                     //xRet += "<div style=' width: 100%; height: 9px; margin-bottom: 140px; background-color: yellow;'>" + "</div>";
                 }
                 else
                 {
-             //       xRet += "<div id='print' class='conteudo' style='height: 300px; overflow: scroll'>";
+                    //       xRet += "<div id='print' class='conteudo' style='height: 300px; overflow: scroll'>";
                     xRet += "<p>" + "Extrato Mensal: Cartão Pré Pago" + "</p>";
                     xRet += "<p>" + "Não houve Vendas para o Período Selecionado!" + "</p>";
-               //     xRet += "</div>";
+                    //     xRet += "</div>";
                     //MessageBox.Show("Não houve Vendas No Cartão Pós Pago!");
                 }
             }

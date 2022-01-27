@@ -1,0 +1,252 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.areaPagina {
+    margin: 0 auto;
+    width: 1200px;
+    min-height: 800px;
+}
+/*Nav*/
+.secLogoBox {
+    width: 60%;
+    height: 60px;
+    margin: 0 auto;
+}
+
+.secLogoImg {
+    width: 40px;
+    height: 60px;
+    display: inline-block;
+    float: left;
+}
+
+    .secLogoImg img {
+        width: 115%;
+    }
+
+.secLogoTexto {
+    width: 200px;
+    height: 50px;
+    display: inline-block;
+    float: left;
+}
+
+    .secLogoTexto p {
+        margin: 0;
+        padding-top: 10px;
+        display: inline-block;
+        color: #f26907;
+    }
+
+.secLogoTitulo {
+    width: 400px;
+    min-height: 60px;
+    float: left;
+}
+
+    .secLogoTitulo p {
+        padding: 5px 10px 5px 10px;
+        border-left: 2px solid #f26907;
+        font-size: 1em;
+        color: #65368a;
+    }
+/*Fim Nav*/
+
+.secMenuLateral {
+    width: 25%;
+    min-height: 850px;
+    float: left;
+    margin-right: 10px;
+    /*border: 1px solid #65368a;*/
+    background-color: #d4e4d5;
+    background-color: #826797;
+    background-color: #e1c7f6;
+}
+
+.secJS {
+    width: 70%;
+    min-height: 50px;
+    border: #ddd;
+    float: left;
+    display: none;
+}
+
+.secCSS {
+    width: 70%;
+    min-height: 50px;
+    border: #65368a;
+    float: left;
+}
+/*Tem no Default*/
+.secLogo {
+    margin: 0 auto;
+    margin-bottom: 2px;
+    width: 1200px;
+    min-height: 60px;
+    border-bottom: 1px solid #65368a;
+}
+/**/
+/*Corpo*/
+
+.secJSBox {
+    margin: 0 auto;
+    width: 100%;
+    min-height: 50px;
+    border: 1px solid #ddd;
+    display: none;
+}
+
+.secJSmain {
+    width: 100%;
+    min-height: 850px;    
+}
+    .secJSmain p {
+        margin: 0 auto;
+        margin-bottom: 10px;
+        min-width: 30%;
+        max-width: 40%;
+        font-size: 1.5em;
+        min-height: 20px;
+        text-align: center;
+        border-bottom: 1px solid #65368a;
+        border-left: 15px solid #65368a;
+        border-bottom-left-radius: 8px;
+        color: #f26907;
+    }
+
+.secJSmaiCad {
+    width: 100%;
+    min-height: 100px;
+    border-left: 8px solid yellow;
+    margin-bottom:5px;
+
+}
+.JScadDiv{
+    border-bottom: 1px solid yellow;
+    width: 98%;
+    min-height: 90px;
+    margin-bottom: 2px;
+}
+.JScadDiv h1{
+    color: #484747;
+    margin-left: 10px;
+}
+
+.secJSmainBox {
+    width: 100%;
+    min-height: 200px;
+}
+
+.secJSmainDados {
+    width: 100%;
+    min-height: 100px;
+    border-left: 6px solid green;
+    float: left;
+    margin-bottom: 5px;
+}
+
+.secJSmainNotas {
+    width: 46%;
+    min-height: 100px;
+    border-left: 4px solid #f26907;
+    float: left;
+    margin-right: 2%;
+}
+
+.secJSmainMidia {
+    width: 46%;
+    min-height: 100px;
+    border-left: 2px solid #23293f;
+    float: left;
+}
+
+/*Menu Lateral*/
+.mljs {
+}
+
+    .mljs ul {
+        list-style: none;
+    }
+
+        .mljs ul li {
+            font-size: 1.2em;
+            color: #65368a;
+            margin-left: -15px;            
+        }
+
+            .mljs ul li ul {
+                cursor: pointer;
+                font-size: .8em;
+                color: #65368a;
+            }
+
+.ml {
+    margin-top: 10px;
+}
+
+    .ml ul {
+        width: 90%;
+        margin: 0;
+        padding: 0;
+        margin-left: 20px;
+        list-style: none;
+    }
+
+        .ml ul li {
+            margin-left: 0px;
+            margin-bottom: 2px;
+            width: 275px;
+        }
+
+            .ml ul li a {
+                text-decoration: none;
+                color: black;
+                margin-right: 100%;
+            }
+
+            .ml ul li ul {
+                display: none;
+                margin-left: 10px;
+            }
+
+                .ml ul li ul li {
+                    margin-bottom: 0px;
+                    margin: 1px 0 1px 0;
+                    width: 260px;
+                    border-bottom: 1px solid #f26907;
+                }
+
+                    .ml ul li ul li:hover {
+                        color: #f26907;
+                    }
+
+                    .ml ul li ul li a:hover {
+                        color: #f26907;
+                    }
+
+            .ml ul li:hover ul {
+                display: block;
+            }
+/*Inputs*/
+input[type=text], input[type=number] {
+    margin: 5px;
+    width: 300px;
+    min-height: 22px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    float: left;
+}
+
+input[type=submit] {
+    font-size: 15px;
+    float: left;
+    min-width: 150px;
+    min-height: 20px;
+    margin: 5px;
+    background-color: #65368a;
+    color: white;
+    border-radius: 6px;
+}
+

@@ -18,7 +18,8 @@ namespace Site.Privado
         {
             if (!Page.IsPostBack)
             {
-                if (Session["LoginPrivado"] != null) {
+                if (Session["LoginPrivado"] != null)
+                {
                     lblLogado.Text = "Você está Logado como: " + Session["LoginPrivado"].ToString();
                 }
                 else
@@ -66,15 +67,29 @@ namespace Site.Privado
         {
             BLL ObjDados = new BLL(conectSite);
 
+            //MessageBox.Show(iLink.Value);
+
             string tabela = " p_link ";
             string campos = " Link, id_usuario, cod_tipo, Descricao, Indicacao, CadMom, CadUsu ";
-            string valores = "'" + iLink.Value + "'," +
-                             "'" + sUsuario.Value + "'," +
-                             "'" + sTipo.Value + "'," +
-                             "'" + iDescricao.Value + "'," +
-                             "'" + iIndicacao.Value + "'," +                             
-                             "'" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "'," +
-                             "'" + Session["LoginPrivado"].ToString() + "'";
+            string valores = "";            
+            if (Session["LoginPrivado"] != null)
+            {
+                valores = String.Format("'" + iLink.Value + "'," +
+                                        "'" + sUsuario.Value + "'," +
+                                        "'" + sTipo.Value + "'," +
+                                        "'" + iDescricao.Value + "'," +
+                                        "'" + iIndicacao.Value + "'," +
+                                        "'" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "'," +
+                                        "'" + Session["LoginPrivado"].ToString() + "'");
+            }
+            else
+            {
+                MessageBox.Show("É preciso Logar!!!");
+                Response.Redirect("pLogin.aspx");
+            }
+              
+            //MessageBox.Show("SELECT " + campos + " FROM " + tabela + " WHERE " + valores);
+
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
             ObjDados.Valores = valores;

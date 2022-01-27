@@ -145,6 +145,7 @@
     <Content Include="ContNossasPessoas.aspx" />
     <Content Include="Css\Botoes-Fluido.css" />
     <Content Include="Css\Botoes.css" />
+    <Content Include="Css\eStyle.css" />
     <Content Include="Css\Form-Adm.css" />
     <Content Include="Css\Form-Clean.css" />
     <Content Include="Css\Form-Fluido.css" />
@@ -154,18 +155,24 @@
     <Content Include="Css\pStyle.css" />
     <Content Include="Css\SlideShow.css" />
     <Content Include="Css\Global-Fluido.css" />
+    <Content Include="Css\StyleEventos.css" />
     <Content Include="Css\StyleHome.css" />
     <Content Include="Css\StyleVoceOnLine.css" />
     <Content Include="Css\Table-Extrato.css" />
+    <Content Include="Css\tsStyle.css" />
     <Content Include="Default.aspx" />
     <Content Include="DPDFConverterService\DynamicPDF.Converter.Service.exe" />
     <Content Include="DPDFConverterService\ReadMe.txt" />
+    <Content Include="Eventos\Brindes.aspx" />
+    <Content Include="Eventos\eLogin.aspx" />
+    <Content Include="Eventos\eMenu.aspx" />
     <Content Include="FaleConosco.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Img\Logo ASU-White-Espaçado.png" />
     <Content Include="iText7.aspx" />
     <Content Include="Js\Apoio.js" />
     <Content Include="Js\jQuery 3.4.1.js" />
+    <Content Include="Js\Scripts.js" />
     <Content Include="LayOuts\LayOut-Home.aspx" />
     <Content Include="LoginVoceOnLine.aspx" />
     <Content Include="MontaGuia.aspx" />
@@ -173,8 +180,11 @@
     <Content Include="Privado\Adm.aspx" />
     <Content Include="Privado\Cadastro.aspx" />
     <Content Include="Privado\Default.aspx" />
+    <Content Include="Privado\Estudos.aspx" />
     <Content Include="Privado\Listas.aspx" />
     <Content Include="Privado\pLogin.aspx" />
+    <Content Include="Privado\tsHome.aspx" />
+    <Content Include="Privado\tsSorteio.aspx" />
     <Content Include="testPdf.aspx" />
     <Content Include="test_Extrato.aspx" />
     <Content Include="VoceOnLine1.aspx" />
@@ -305,6 +315,27 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Eventos\Brindes.aspx.cs">
+      <DependentUpon>Brindes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\Brindes.aspx.designer.cs">
+      <DependentUpon>Brindes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos\eLogin.aspx.cs">
+      <DependentUpon>eLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\eLogin.aspx.designer.cs">
+      <DependentUpon>eLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos\eMenu.aspx.cs">
+      <DependentUpon>eMenu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\eMenu.aspx.designer.cs">
+      <DependentUpon>eMenu.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FaleConosco.aspx.cs">
       <DependentUpon>FaleConosco.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -382,6 +413,13 @@
     <Compile Include="Privado\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Privado\Estudos.aspx.cs">
+      <DependentUpon>Estudos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Estudos.aspx.designer.cs">
+      <DependentUpon>Estudos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Privado\Listas.aspx.cs">
       <DependentUpon>Listas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -395,6 +433,20 @@
     </Compile>
     <Compile Include="Privado\pLogin.aspx.designer.cs">
       <DependentUpon>pLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\tsHome.aspx.cs">
+      <DependentUpon>tsHome.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\tsHome.aspx.designer.cs">
+      <DependentUpon>tsHome.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\tsSorteio.aspx.cs">
+      <DependentUpon>tsSorteio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\tsSorteio.aspx.designer.cs">
+      <DependentUpon>tsSorteio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="testPdf.aspx.cs">
@@ -621,7 +673,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Downloads\" />
-    <Folder Include="Eventos\" />
     <Folder Include="FTP\" />
     <Folder Include="Img\Conteudo\" />
     <Folder Include="Img\Dir\" />

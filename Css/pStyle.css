@@ -55,32 +55,34 @@
 }
 
 input[type=submit] {
-    width: 100%;
+    margin-left: 5px;
+    width: 98%;
     height: 30px;
     background: linear-gradient(top, #F33, #933 );
     border: 1px solid #333;
     cursor: pointer;
     background-color: rebeccapurple;
+    background-color: #65368a;
     color: white;
     border-radius: 3px;
 }
 
     input[type=submit]:hover {
-        background-color: #F33;
+        background-color: #bfa2d7;
     }
 
-input[type=text], input[type=password], input[type=search] {
-    width: 97%;
+input[type=text], input[type=password], input[type=search] {    
+    width: 96%;
     height: 25px;
     display: inline-block;
-    margin-left: 2px;
+    margin-left: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
     border-radius: 3px;
 }
     input[type=search]{
         height: 40px;
-        width: 100%;
+        width: 100%;        
     }
 
     .alinhaBotao {
@@ -140,9 +142,9 @@ input[type=text], input[type=password], input[type=search] {
 
 .pLogin{
     margin: 0 auto;
-    width: 40%;
+    width: 500px;
     height: 400px;
-    padding: 0;    
+    padding: 0;        
 }
 .pLogin label, p{
     margin: 0;

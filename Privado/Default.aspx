@@ -70,7 +70,7 @@
                     <div style="width: 200px; height: 50px; display: inline-block; float: left;"><p style="margin: 0; padding-top: 10px; display: inline-block; color: #f26907;">Tecnologia</p></div>                                       
                 </div>
             </section>
-            <p>Minhas Coisas</p>
+            <p>Listas</p>
             <div class="btnPrincipal">
                 <a id="lbtAdm" runat="server" href="Adm.aspx">
                     <p>Adm</p>
@@ -86,6 +86,24 @@
                     <p>Conteúdo</p>
                 </a>
             </div>
+        </section>
+        <section style="width: 600px; min-height: 50px; margin: 0 auto;">
+            <div class="btnPrincipal">
+                <a id="lblEventos" runat="server" href="../Eventos/eLogin.aspx">
+                    <p>Eventos ASU</p>
+                </a>
+            </div>
+            <div class="btnPrincipal">
+                <a id="lbtProjetos" runat="server" href="tsHome.aspx">
+                    <p>Projetos</p>
+                </a>
+            </div>
+            <div class="btnPrincipal">
+                <a id="lbtEstudos" runat="server" href="Estudos.aspx">
+                    <p>Estudos</p>
+                </a>
+            </div>
+
         </section>
     </form>
 </body>

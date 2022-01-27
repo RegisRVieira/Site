@@ -1,0 +1,299 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+/***tsSorteio***/
+.secAprsenta{    
+    padding-top: 10px;
+}
+.tsMNum {
+    width: 60px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+}
+
+/* - - - - - */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    background-color: #4c6c3f;
+    width: 60px;
+    height: 25px;
+    text-align: center;
+    padding: 10px 10px 0 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 2px;
+}
+
+    .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: #30124a;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+        margin-top: -70px;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+
+/* - - - - - */
+
+
+.numSorteio {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid #f26907;
+}
+
+    .numSorteio .tooltip2 {
+        visibility: hidden;
+        width: 150px;
+        background-color: blue;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 10px 20px 10px 20px;
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+    }
+
+    .numSorteio:hover .tooltip2 {
+        visibility: visible;
+    }
+
+.secTabNumeros {
+    width: 1200px;
+    min-height: 100px;
+    margin: 0 auto;
+    border: 1px solid #fff;
+}
+
+.stbNumero {
+    color: #f26907;
+    font-size: .8em;
+}
+
+.stbNome {
+    color: white;
+    font-size: .8em;
+}
+
+.stbStatus {
+    color: #09cde1;
+    font-size: .8em;
+    font-weight: bold;
+}
+
+.secAprsenta {
+    margin: 0 auto;
+    width: 1200px;
+    min-height: 450px;
+}
+
+.secImg {
+    width: 850px;
+    margin-right: 10px;
+    height: 448px;
+    float: left;
+    border: 1px solid #4c6c3f;
+    border-radius: 6px;
+}
+
+    .secImg figure {
+        margin: 0;
+        padding: 0;
+    }
+
+        .secImg figure img {
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+
+        .secImg figure figcaption {
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+
+.secDesc {
+    width: 300px;
+    height: 450px;
+    background-color: #2f392b;
+    float: left;
+    border-radius: 6px;
+}
+
+.secDescTit {
+    width: 280px;
+    height: 50px;
+    background-color: #6c8a5f;
+    opacity: .5;
+    border-radius: 6px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+    .secDescTit p {
+        margin: 0;
+        padding: 0;
+        padding-top: 10px;
+        color: white;
+    }
+
+.secDescText {
+    margin: 0 auto;
+    width: 280px;
+    max-height: 320px;
+    overflow-x: auto;
+    padding-left: 5px;
+    color: #607059;
+}
+
+.secDescRedes div {
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin: 2px;
+    margin-top: 5px;
+    background-color: #6c8a5f;
+    opacity: .8;
+}
+/**Fim**/
+
+/***tsHome***/
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.tsNav {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+    background-color: #c0d8c1;
+}
+
+.tsNavCorpo {
+    width: 1200px;
+    min-height: 80px;
+    margin: 0 auto;
+}
+
+.tsNavLogo {
+    width: 20%;
+    height: 100%;
+    float: left;
+}
+
+    .tsNavLogo img {
+        margin-top: 20px;
+        width: 100px;
+        height: 38px;
+    }
+
+.tsNavCentro {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+    .tsNavCentro ul li {
+        margin-top: 10px;
+        text-align: center;
+        color: #08610a;
+        font-size: 1.5em;
+        display: inline-block;
+        width: 120px;
+        margin-left: 50px;
+        min-height: 30px;
+        border-bottom: 1px solid #08610a;
+    }
+
+.tsNavLogin {
+    width: 30%;
+    height: 100%;
+    float: left;
+}
+
+.tsMan {
+    width: 100%;
+    min-height: 700px;
+    margin-top: 10px;
+}
+.secHomeCorpo {    
+    width: 1030px;
+    min-height: 600px;
+    margin: 0 auto;         
+}
+.secHomeSorteio{    
+    background-color: #c0d8c1;
+    width: 500px;
+    min-height: 300px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 6px;
+}
+.secHomeSorteio img{
+    width: 100%;
+    border-radius: 6px;
+    height: 250px;
+}
+.secHomeSorteio a{
+    text-decoration: none;
+    color: #4c6c3f;
+    margin-left: 20px;
+    font-size: 2em;
+}
+.secHomeDestaque{
+    margin: 0 auto;      
+    width: 1000px;
+    height: 200px;
+    border-radius: 12px;
+    background-color: violet;
+}
+.secHomeDestaque img{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.tsFooter {
+    width: 100%;
+    min-height: 40px;
+    background-color: #5f3b3b;
+}
+
+.botaoLogin {
+    margin-top: 30px;
+    text-align: center;
+    width: auto;
+}
+
+    .botaoLogin a {
+        padding: 5px 75px 5px 75px;
+        text-decoration: none;
+        color: #08610a;
+        font-size: 1.2em;
+        border-radius: 6px;
+        border: 1px solid #08610a;
+    }
+
+        .botaoLogin a:hover {
+            background-color: #08610a;
+            color: #c0d8c1;
+        }
+/**Fim**/

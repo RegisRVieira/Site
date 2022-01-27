@@ -64,6 +64,46 @@ namespace Site.App_Code
         }
 
         
+        public void InsertEmLote(string tabela, string campos, string valores)
+        {
+            string conectSite = ConfigurationManager.AppSettings["ConectSite"];
+            string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
+
+            this.Tabela = tabela;
+            this.Campo = campos;
+            this.Valores = valores;
+
+            DAL ObjConexao = new DAL(TipoConexao);
+
+            string sql = "";
+
+
+
+            if (TipoConexao == conectSite || TipoConexao == conectVegas)
+            {
+                if (ObjConexao.MsgError == "")
+                {
+                    sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "" + valores + "");
+                    if (ObjConexao.MsgError != "")
+                    {
+                        MsgErro = ObjConexao.MsgError;
+                    }
+                    //Msg = "SQL:" + sql;
+                    ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
+                }
+                else
+                {
+                    MsgErro = ObjConexao.MsgError;
+
+                }
+            }
+            else
+            {
+                //sql = MsgErro;
+            }
+
+            Msg = "Dados Recebidos na BLL: " + sql;
+        }
 
         public void InsertRegistro(string tabela, string campos, string valores)
         {
