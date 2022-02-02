@@ -83,7 +83,7 @@ function ativarDivMenu(ativa) {
 function ativarMenuWebAvancado(ativar) {
 
     if (ativar == 1) {
-        divJSAdom.style.display = "block";        
+        divJSAdom.style.display = "block";
         divJSAedoc.style.display = "none";
         divJSAaddevent.style.display = "none";
         divJSAcss.style.display = "none";
@@ -92,7 +92,7 @@ function ativarMenuWebAvancado(ativar) {
         divJSArepet.style.display = "none";
         divJSArelogio.style.display = "none";
         divJSAajax.style.display = "none";
-        divJQWidgets.style.display = "none";        
+        divJQWidgets.style.display = "none";
     }
     if (ativar == 2) {
         divJSAdom.style.display = "none";
@@ -178,7 +178,7 @@ function ativarMenuWebAvancado(ativar) {
         divJSAajax.style.display = "none";
         divJQWidgets.style.display = "none";
     }
-    if (ativar == divJSAajax) {        
+    if (ativar == divJSAajax) {
         divJSAdom.style.display = "none";
         divJSAedoc.style.display = "none";
         divJSAaddevent.style.display = "none";
@@ -190,7 +190,7 @@ function ativarMenuWebAvancado(ativar) {
         divJSAajax.style.display = "block";
         divJQWidgets.style.display = "none";
     }
-    if (ativar == divJQWidgets) {        
+    if (ativar == divJQWidgets) {
         divJSAdom.style.display = "none";
         divJSAedoc.style.display = "none";
         divJSAaddevent.style.display = "none";
@@ -216,6 +216,8 @@ btnJSjavascript.addEventListener("click", function (e) {
 
     secCSS.style.display = "none";
     secJS.style.display = "block";
+    secJQavancado.style.display = "none";
+    secJSavancado.style.display = "none";
 
 });
 btnCSSjs.addEventListener("click", function (e) {
@@ -229,6 +231,8 @@ btnCSSjs.addEventListener("click", function (e) {
 
     secJS.style.display = "none";
     secCSS.style.display = "block";
+    secJQavancado.style.display = "none";
+    secJSavancado.style.display = "none";
 
 });
 
@@ -243,6 +247,8 @@ btnJSavancado.addEventListener("click", function (e) {
 
     secJQavancado.style.display = "none";
     secJSavancado.style.display = "block";
+    secCSS.style.display = "none";
+    secJS.style.display = "none";
 });
 
 btnjQueryAvancado.addEventListener("click", function (e) {
@@ -256,7 +262,8 @@ btnjQueryAvancado.addEventListener("click", function (e) {
 
     secJSavancado.style.display = "none";
     secJQavancado.style.display = "block";
-
+    secCSS.style.display = "none";
+    secJS.style.display = "none";
 });
 // ######################################################
 
@@ -296,11 +303,11 @@ btnJSObject.addEventListener("click", function (e) {
 });
 //#### Ativar Divs Java Avançado ####
 btnJSAdom.addEventListener("click", function (e) {
-    e.preventDefault();    
-    ativarMenuWebAvancado(1);    
+    e.preventDefault();
+    ativarMenuWebAvancado(1);
 });
 btnJSAeventos.addEventListener("click", function (e) {
-    e.preventDefault();    
+    e.preventDefault();
     ativarMenuWebAvancado(2);
 });
 btnJSAevent.addEventListener("click", function (e) {
@@ -355,7 +362,7 @@ btnCSSObject.addEventListener("click", function (e) {
 function iniciar() {
     btnTestes.addEventListener("click", function (e) {
         e.preventDefault();
-        desativarDiv("none");
+        desativarDiv("none");                
     });
 }
 
@@ -687,7 +694,7 @@ btnDiaNascimento.addEventListener("click", function (e) {
 
     var diaCalendar = dia[agora.getDay(iCalendar.value)];
     var nascimento = dia[diaNascimento.getDay(iCalendar.value)];
-    
+
     /*
 
     if (parseInt(diaNascimento.getDay(iCalendar.value)) === 0 || parseInt((diaNascimento.getDay(iCalendar.value)) + 1) === 6) {
@@ -702,9 +709,9 @@ btnDiaNascimento.addEventListener("click", function (e) {
     
     //lblResultDate.innerHTML = iCalendar.value + " Você nasceu: " + nascimento;
     */
-    lblResultDate.innerHTML = iCalendar.value + " getDay: " + diaNascimento.getDay(iCalendar.value) + " getDate: " + (diaNascimento.getDate(iCalendar.value) + 1) + "-" + diaNascimento.getMonth(iCalendar.value) +" - "+ diaNascimento.getFullYear(iCalendar.value);
+    lblResultDate.innerHTML = iCalendar.value + " getDay: " + diaNascimento.getDay(iCalendar.value) + " getDate: " + (diaNascimento.getDate(iCalendar.value) + 1) + "-" + diaNascimento.getMonth(iCalendar.value) + " - " + diaNascimento.getFullYear(iCalendar.value);
 
-// É o seguinte, o dia da semana é pego com um a menos, ou seja, dia 26 ele pega 25.
+    // É o seguinte, o dia da semana é pego com um a menos, ou seja, dia 26 ele pega 25.
 
 });
 
@@ -731,4 +738,377 @@ btnObject.addEventListener("click", function (e) {
 
     lblResultObject.innerHTML = Produto.info();
 });
+
+//######### DOM ##########
+
+//Elementos 
+btnJSAchildren.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementById("opcoesPizza");
+
+    console.log(elemento.children);
+    lblRespJSAdom.innerHTML = elemento.children + ", Veja o Console no Inspector da Página.";
+});
+
+btnJSAchildrenHTML.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementById("opcoesPizza");
+
+    console.log(elemento.children[0].innerHTML);
+    lblRespJSAdom.innerHTML = elemento.children[0].innerHTML;
+});
+
+btnJSAchildrenCount.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementById("opcoesPizza");
+
+    console.log(elemento.childElementCount);
+    lblRespJSAdom.innerHTML = elemento.childElementCount;
+});
+
+btnJSAchildrenText.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementById("opcoesPizza");
+
+    console.log(elemento.firstElementChild.textContent);
+    lblRespJSAdom.innerHTML = elemento.firstElementChild.textContent;
+});
+
+btnJSAFirstchild.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementById("opcoesPizza");
+
+    console.log(elemento.firstChild);
+    lblRespJSAdom.innerHTML = elemento.firstChild + ", Veja o Console no Inspector da Página.";
+});
+
+// Varredura com For
+btnJSAverredura.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementById("opcoesPizza");
+
+    var xRet = "";
+
+    for (var i = 0; i < elemento.childElementCount; i++) {
+        console.log(elemento.children[i].innerHTML);
+        //lblRespJSAdom.innerHTML += elemento.children[i].innerHTML;
+        xRet += "<div style='color: red;'>";
+        xRet += "<h1 style='margin: 0;'>" + elemento.children[i].innerHTML + "</h1>";
+        xRet += "</div";
+    }
+
+    //lblRespJSAdom.innerHTML = elemento.children[i].innerHTML + ", Veja o Console no Inspector da Página.";
+    lblRespJSAdom.innerHTML = xRet + ", Veja o Console no Inspector da Página.";
+});
+
+btnJSAtagName.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementsByTagName("li");
+
+    console.log(elemento.length);
+    console.log(elemento);
+    lblRespJSAdom.innerHTML = elemento + ", quantidade: " + elemento.length + ", Veja o Console no Inspector da Página.";
+});
+
+btnJSAtagNameFor.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.getElementsByTagName("li");
+    var xRet = "";
+
+    for (var i = 0; i < elemento.length; i++) {
+        console.log(elemento[i].innerHTML);
+        xRet += "<div>";
+        xRet += "<h1 style='margin: 0; color: green;'>" + elemento[i].innerHTML + "</h1>";
+        xRet += "</div>";
+    }
+    lblRespJSAdom.innerHTML = xRet + ", Veja o Console no Inspector da Página.";
+});
+btnJSAqSelector.addEventListener("click", function (e) {
+    e.preventDefault();
+    var elemento = document.querySelector("#opcoesPizza");
+    var xRet = "";
+    for (var i = 0; i < elemento.childElementCount; i++) {
+        xRet += "Elemento " + i + ": " + elemento.children[i].innerHTML + "\n";
+    }
+    lblRespJSAdom.innerHTML = xRet;
+    console.log(xRet);
+});
+
+btnJSAcreate.addEventListener("click", function (e) {
+    e.preventDefault();
+    var meuElemento = document.querySelector("#opcoesPizza");
+    var novoElemento = document.createElement("li");
+
+    //Adicionar nova li
+    meuElemento.appendChild(novoElemento);
+
+    //Atribuir valor LI
+    //Opção 1
+    //novoElemento.innerHTML = iNovaPizza.value;
+    //Opção 2
+    meuElemento.appendChild(novoElemento).innerHTML = iNovaPizza.value;
+
+    iNovaPizza.value = "";
+
+});
+
+btnJSAattribute.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    var elemento = document.querySelector("ul");
+    elemento.setAttribute("background-color", "#f26907");
+
+    var img = document.querySelector("#img");
+    img.setAttribute("width", "150px");
+    img.setAttribute("alt", "Logo da ASU");
+
+    console.log(img.getAttribute("alt"));
+    console.log(elemento.getAttribute("background-color"))
+});
+
+//onclik diretamente na página, bom para realizar teste de integridade do HTML com o JavaScript
+/*
+document.onclick = function () {
+    alert("Você Clicou!!!");
+}
+*/
+//Certifica que toda janela foi carregada
+//window.onload = function () {}
+
+window.onload = function () {
+    img.onclick = function () {
+        alert("Você clicou na Imagem!!!");
+    }
+}
+
+btnJSAonClick.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    alert("Você clicou no Botão!!!")
+
+});
+//#################################
+//esse travou
+
+window.onload = function () {
+    imgEvent.onclick = function () {
+        imgEvent.setAttribute("width", "150px");
+        alert("Você clicou na Foto!!!");
+    }
+}
+//esse funciona
+imgEvent.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    imgEvent.setAttribute("width", "150px");
+    alert("Você clicou na Foto!!!");
+});
+//#################################
+
+window.onload = function () {
+    var caixa = document.querySelector("input#iEventNome");
+
+    caixa.onfocus = function () {
+        lblRespJSAedoc.innerHTML = "onFocus na caixa de texto nome";
+        console.log("onFocus na caixa de texto nome");
+    }
+    caixa.onblur = function () {
+        lblRespJSAedoc.innerHTML = "onBlur na caixa de texto nome";
+        console.log("onBlur na caixa de texto nome");
+    }
+
+    //#########
+
+    var meu_pais = document.querySelector("#btnPais");
+
+    meu_pais.onchange = function () {
+        alert("Mudou...");
+        console.log(meu_pais.value);
+
+        lblRespJSAedoc.innerHTML = "País selecionado: " + meu_pais.value;
+    }
+
+    //########################
+    function capturarEventListener(valor) {
+
+        lblRespJSAaddevent.innerHTML = valor;
+    }
+    function executarEventListener() {
+        btnEventistener.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            capturarEventListener(inomeEventList.value);
+
+        });
+    }
+    executarEventListener();
+
+    //############ Altera a Classe  ##############
+    function receberCor(cor) {
+        janela.style.backgroundColor = cor;
+        janela.className = cor;
+    }
+    function mudarCor() {
+        btnAmarelo.addEventListener("click", function (e) {
+            e.preventDefault();
+            receberCor("yellow");
+        });
+        btnVermelho.addEventListener("click", function (e) {
+            e.preventDefault();
+            receberCor("red");
+        });
+    }
+    mudarCor();
+
+    function alterarCor() {
+        btnAlterarCor.addEventListener("click", function (e) {
+            e.preventDefault();
+            receberCor("verde");            
+        });
+
+        sCor.addEventListener("change", function (e) {
+            e.preventDefault();
+            receberCor(sCor.value);
+        });
+    }
+    alterarCor();
+
+    //############## Eventos Diversos #################
+
+    //##Detectar Resolução
+
+    function detectarResolucao() {
+        btnResolucao.addEventListener("click", function (e) {
+            e.preventDefault();
+            var largura;
+
+            if (window.innerWidth) {
+                largura = window.innerWidth;
+            } else if (document.documentElement && document.documentElement.clientWidth) { //Android
+                largura = document.documentElement.clientWidth;
+            } else if (document.body) {//IOS
+                largura = document.body;
+            }
+
+            if (largura < 1000) {
+                btnResolucao.setAttribute("background-color", "#f26907");
+                             //setAttribute("background-color", "#f26907");
+                alert("Menor que 1000");    
+            }
+
+            lblRespJSAediversos.innerHTML = "Width: " + window.innerWidth + ", Height: " + window.innerHeight;
+        });        
+    }
+    detectarResolucao();
+
+    //############ Detectar Posição do Mouse ################
+
+
+    function pegarPosicaoMouse(e) {
+        e.preventDefault();
+
+        //lblRespJSAediversos.innerHTML = "X: " + e.clientX + ", Y: " + e.clientY;
+        posicaoX.innerHTML ="Posicão X: "+ e.clientX;
+        posicaoY.innerHTML = "Posicao Y: " + e.clientY;
+
+        if (e.clientY < 10) {
+            janelaPosicao.style.display = "block";
+            //alert("Mexeu!!!");
+        }
+    }
+    document.addEventListener("mousemove", pegarPosicaoMouse);
+    //document.addEventListener("click", pegarPosicaoMouse);
+}
+
+btnFecharJanela.addEventListener("click", function (e) {
+    e.preventDefault();
+    //janelaPosicao.style.backgroundColor = "green";
+    janelaPosicao.style.display = "none";
+});
+
+btnPosicaoMouse.addEventListener("click", function (e) {
+    e.preventDefault();
+    lblRespJSAediversos.innerHTML = "Mova o Mouse na janela para ver sua posição";
+});
+
+btnCapturarLead.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    lblRespJSAediversos.innerHTML = "Mova o Mouse até o topo da página para ver este Event";
+    //document.addEventListener("click", pegarPosicaoMouse);
+});
+
+btnTeclaPressionada.addEventListener("click", function (e) {
+    e.preventDefault();
+    lblRespJSAediversos.innerHTML = "Pressione uma tecla para ver este Event";
+});
+
+function detectarTecla(e) {
+
+    lblRespJSAediversos.innerHTML = "KeyCod: " + e.keyCode + ", Key: " + e.key;
+
+    var tecla = e.keyCode;
+
+    switch (tecla) {
+        case 38:
+            lblRespJSAediversos.innerHTML = "Pra Cima";
+            break;
+        case 40:
+            lblRespJSAediversos.innerHTML = "Para Baixo";
+            break;
+        case 39:
+            lblRespJSAediversos.innerHTML = "Direita";
+            break;
+        case 37:
+            lblRespJSAediversos.innerHTML = "Esquerda";
+            break;
+    }
+
+}
+document.addEventListener("keydown", detectarTecla);
+
+btnScroll.addEventListener("click", function (e) {
+    e.preventDefault();
+    lblRespJSAediversos.innerHTML = "Veja a Aula 116 do Curso Avançado";
+});
+
+btnChamaForm.addEventListener("click", function (e) {
+    e.preventDefault();
+    alert("Vá para o Formulário, abra cadabra!!!");
+    window.open("eFormulario.aspx", "_blank", "width=500px, height=800px, top=100, left=550, scrollbars=no ");
+});
+
+//### setTimeOut
+
+
+btnMudarFoto.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    var minhaFoto;
+
+    function mudarFoto() {
+        minhaFoto.setAttribute("src", "../Img/BoxMini5.jpg");        
+    }
+
+    function capturarFoto() {
+        minhaFoto = document.querySelector("#espacofoto");
+        setTimeout(mudarFoto, 5000);
+    }
+
+    capturarFoto();
+});
+
+//##
+
+btnRelogioAnalogico.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    lblRespJSArelogio.innerHTML = "Veja as Aulas: 124 à 127.";
+});
+btnAJAX.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    lblRespJSAajax.innerHTML = "Veja as Aulas: 128 à 135.";
+});
+
 

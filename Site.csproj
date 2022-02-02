@@ -172,6 +172,7 @@
     <Content Include="iText7.aspx" />
     <Content Include="Js\Apoio.js" />
     <Content Include="Js\jQuery 3.4.1.js" />
+    <Content Include="Js\Script2.js" />
     <Content Include="Js\Scripts.js" />
     <Content Include="LayOuts\LayOut-Home.aspx" />
     <Content Include="LoginVoceOnLine.aspx" />
@@ -180,6 +181,7 @@
     <Content Include="Privado\Adm.aspx" />
     <Content Include="Privado\Cadastro.aspx" />
     <Content Include="Privado\Default.aspx" />
+    <Content Include="Privado\eFormulario.aspx" />
     <Content Include="Privado\Estudos.aspx" />
     <Content Include="Privado\Listas.aspx" />
     <Content Include="Privado\pLogin.aspx" />
@@ -412,6 +414,13 @@
     </Compile>
     <Compile Include="Privado\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\eFormulario.aspx.cs">
+      <DependentUpon>eFormulario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\eFormulario.aspx.designer.cs">
+      <DependentUpon>eFormulario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Privado\Estudos.aspx.cs">
       <DependentUpon>Estudos.aspx</DependentUpon>

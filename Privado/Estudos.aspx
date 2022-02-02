@@ -6,7 +6,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Página de Estudos</title>
-    <script src="../Js/Scripts.js" type="text/javascript" defer="defer"></script>
+    <script src="../Js/Scripts.js" type="text/javascript" defer="defer"></script>    
     <link rel="stylesheet" href="../Css/eStyle.css" />
     <style>
         
@@ -65,7 +65,7 @@
                                         <li id="btnJSAdiversos" >Eventos Diversos</li>
                                         <li id="btnJSAform" >Formulários</li>
                                         <li id="btnJSArepeticao" >Ações de Repetições</li>
-                                        <li id="btnJSArelogio">Relógio Digital</li>
+                                        <li id="btnJSArelogio">Relógio</li>
                                         <li id="btnJSAajax">AJAX</li>                                        
                                     </ul>
                                 </li>
@@ -284,7 +284,64 @@
                     <main class="secJSmain" >
                         <p>DOM</p>                         
                         <section class="secJSmaiCad" style="float: left;">                            
-                            <input id="btnJSAtrabdom" type="submit" value="Trabalhando com DOM" />
+                            <div class="JScadDiv">
+                                <h1></h1>
+                                <input id="iNovaPizza" type="text" placeholder="Adicionar Nova Pizza" /><br />
+                                <h1>Menu Pizzas</h1>
+                                <ul id="opcoesPizza">
+                                    <li>Calabresa</li>
+                                    <li>Portuguesa</li>
+                                    <li>Atum</li>
+                                </ul>
+                            </div>                            
+                            <div class="JScadDiv">
+                                <h1></h1>
+                                <img id="img" src="../Img/Logo ASU-White-Espaçado.png" /><br /><br />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>Como Acessar Elementos</h1>
+                                <input id="btnJSAchildren" type="submit" value="children" />
+                            </div>                            
+                            <div class="JScadDiv">
+	                            <h1>children HTML</h1>
+                                <input id="btnJSAchildrenHTML" type="submit" value="children HTML" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>children  Count</h1>
+                                <input id="btnJSAchildrenCount" type="submit" value="children Count" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>children TextContent</h1>
+                                <input id="btnJSAchildrenText" type="submit" value="children TextContent" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>firstChild</h1>
+                                <input id="btnJSAFirstchild" type="submit" value="firstChild" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>Varredura</h1>
+                                <input id="btnJSAverredura" type="submit" value="Varredura com For" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>TagName</h1>
+                                <input id="btnJSAtagName" type="submit" value="TagName" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>TagName com For</h1>
+                                <input id="btnJSAtagNameFor" type="submit" value="for com TagName" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>querySelector</h1>
+                                <input id="btnJSAqSelector" type="submit" value="querySelector" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>Adicionar novo Elemento</h1>
+                                <input id="btnJSAcreate" type="submit" value="appendChild - Nova Pizza" />
+                            </div>
+                            <div class="JScadDiv">
+	                            <h1>Alterar um Atributo</h1>
+                                <input id="btnJSAattribute" type="submit" value="Attribute" />
+                            </div>                            
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -298,9 +355,36 @@
                 <div id="divJSAedoc" class="secJSBox">                    
                     <main class="secJSmain" >
                         <p>Eventos de document</p>                         
-                        <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                        <section class="secJSmaiCad" style="float: left;">        
+                            <div class="JScadDiv">
+                                <h2 id="itext1" >Perder tempo em aprender coisas que não interessam priva-nos de descobrir coisas interessantes. <span>Carlos Drummond de Andrade</span></h2>
+                                <h2>Só existem dois dias no ano que nada pode ser feito. Um se chama ontem e o outro se chama amanhã, portanto hoje é o dia certo para amar, acreditar, fazer e principalmente viver. <span>Dalai Lama</span></h2>                                
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Imagem</h1>
+                                <img id="imgEvent" src="../Img/Logo ASU-White-Espaçado.png" /><br /><br />
+                            </div>
+                            <div class="JScadDiv">
+                                <div style="margin: 0 auto; width: 90%;">
+                                <h1 style="margin: 0;">OnFocus e OnBlur</h1>
+                                    <input id="iEventNome" type="text" placeholder="Nome" />
+                                    <input id="IEventEmail" type="text" placeholder="e-mail" />
+                                    <input id="btnonFocus" type="submit" value="Confirmar" />
+                                </div>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>onChange</h1>
+                                <select id="btnPais">
+                                    <option value="BR">Brasil</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="CH">Chile</option>
+                                    <option value="UY">Uruguai</option>
+                                </select>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Botões</h1>
+                                <input id="btnJSAonClick" type="submit" value="OnClick" />
+                            </div>                            
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -315,8 +399,8 @@
                     <main class="secJSmain" >
                         <p>Eventos com  addEventListener</p>                         
                         <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                            <input id="inomeEventList" type="text" placeholder="Digite alguma coisa..."/>
+                            <input id="btnEventistener" type="submit" value="Event Listener" />
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -331,8 +415,21 @@
                     <main class="secJSmain" >
                         <p>JavaScriprt e CSS</p>                         
                         <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                            <div class="JScadDiv" style="height: 200px;">
+                                <h1>Alterar CSS</h1>
+                                <div id="janela" style="width: 100px; height: 100px; border: 1px solid #f26907; margin-left: 30px; "></div>
+                                <input id="btnAmarelo" type="submit" value="Amarelo" />
+                                <input id="btnVermelho" type="submit" value="Vermelho" />
+                            </div>
+                            <div>
+                                <h1>Alterar e Atribuir ClassName</h1>
+                                <select id="sCor">
+                                    <option value="verde">Verde</option>
+                                    <option value="azul">Azul</option>
+                                    <option value="vermelho">Vermelho</option>
+                                </select>
+                                <input id="btnAlterarCor" type="submit" value="Mudar Cor"/>
+                            </div>
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -347,8 +444,44 @@
                     <main class="secJSmain" >
                         <p>Eventos Diversos</p>                         
                         <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                            <div class="JScadDiv">
+                                                                
+                                <ul>
+                                    <li>Botucatu</li>
+                                    <li>São Manuel</li>
+                                    <li>Bauru</li>
+                                </ul>
+                            </div>
+                            <div class="JScadDiv">
+                                <style>
+                                    div#posicaoX, div#posicaoY {
+                                        display: block;
+                                    }
+                                    div#janelaPosicao {                                        
+                                        display: none;
+                                        position: fixed;
+                                        top: 0;
+                                        left: 0;
+                                        width: 50%;
+                                        height: 50%;
+                                        margin-left: 400px;
+                                        margin-top: 400px;
+                                        background-color: rgba(0,0,255,0.5);
+                                    }
+                                </style>
+                                <div id="posicaoX"></div>
+                                <div id="posicaoY"></div>         
+                                <div id="janelaPosicao">
+                                    <input id="btnFecharJanela" type="submit" value="X"/>
+                                </div>
+                            </div>
+                            <div>
+                                <input id="btnResolucao" type="submit" value="Detectar Resolução" />
+                                <input id="btnPosicaoMouse" type="submit" value="Posição do Mouse" />
+                                <input id="btnCapturarLead" type="submit" value="Capturar Lead"/>
+                                <input id="btnTeclaPressionada" type="submit" value="Tecla Pressionada" />
+                                <input id="btnScroll" type="submit" value="Scroll do Navegador" />
+                            </div>
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -362,9 +495,8 @@
                 <div id="divJSAform" class="secJSBox">                    
                     <main class="secJSmain" >
                         <p>Formulários Inteligentes</p>                         
-                        <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                        <section class="secJSmaiCad" style="float: left;">                            
+                            <input id="btnChamaForm" type="submit" value="Abrir Formulário" />
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -376,11 +508,63 @@
                     </main>
                 </div>
                 <div id="divJSArepet" class="secJSBox">                    
-                    <main class="secJSmain" >
+                    <main class="secJSmain" >                        
                         <p>Ações de Repetição por Tempo</p>                         
                         <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                            <div class="JScadDiv">
+                                <h1>setTimeOut</h1>
+                                <img src="../Img/BoxMini6.jpg" id="espacofoto"/>                                
+                                <input id="btnMudarFoto" type="submit" value="Trocar Foto"/>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>setInterval</h1>
+                                <div id="janelaInterval">
+
+                                </div>
+                                <script>
+                                    var indice = 0;
+                                    var intervalo;
+
+                                    function mudarValor() {
+                                        janelaInterval.innerHTML = indice;
+                                        indice++;
+
+                                        if (indice >= 5) {
+                                            clearInterval(intervalo);
+                                            //alert("Tempo esgotado!");
+                                        }
+                                    }
+                                    intervalo = setInterval(mudarValor, 2000);
+
+                                    janelaInterval.innerHTML = "Janela";
+                                </script>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Alterar Fotos de Forma Contínua</h1>
+                                <img src="../Img/BoxMini1.jpg" id="albumFotos" />
+                                <script>
+                                    var minhaFoto, albumFoto, indiceAlbum, intervaloAlbum;
+
+                                    function trocarFoto() {
+                                        //alert("Trocar Foto");
+
+                                        minhaFoto.setAttribute("src", albumFoto[indiceAlbum]);
+                                        indiceAlbum++;
+
+                                        if (indiceAlbum >= albumFoto.length) {
+                                            //clearInterval(intervalo);
+                                            indiceAlbum = 0;
+                                        }
+                                    }
+
+                                    minhaFoto = document.querySelector("#albumFotos");
+                                    var albumFoto = ["../Img/BoxMini2.jpg", "../Img/BoxMini3.jpg", "../Img/BoxMini4.jpg", "../Img/BoxMini5.jpg", "../Img/BoxMini6.jpg"]
+                                    indiceAlbum = 0;
+
+                                    intervaloAlbum = setInterval(trocarFoto, 1000);
+                                   //alert("Trocar Foto");
+                                </script>
+                            </div>
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -393,10 +577,40 @@
                 </div>
                 <div id="divJSArelogio" class="secJSBox">                    
                     <main class="secJSmain" >
-                        <p>Relógio Digital</p>                         
+                        <p>Relógio</p>                         
                         <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                            <div class="JScadDiv">
+                                <h1>Relógio Digital</h1>
+                                <section id="relogio" style="margin: 5px; border: 1px solid #F0F0F0; border-radius: 6px; padding: 15px; width: 60px; text-align: center;" ></section>
+                            </div>
+                            <script>
+                                var interval;
+
+                                function doisDigitos(tempo) {
+                                    if (tempo < 10) {
+                                        return "0" + tempo;
+                                    } else {
+                                        return tempo;
+                                    }
+                                }
+
+                                function mostrarHora() {
+                                    var agora = new Date();
+
+                                    var hora = doisDigitos(agora.getHours());
+                                    var min = doisDigitos(agora.getMinutes());
+                                    var seg = doisDigitos(agora.getSeconds());
+
+                                    relogio.innerHTML = hora + ":" + min + ":" + seg;
+                                }
+
+                                interval = setInterval(mostrarHora, 1000);
+
+                            </script>
+                            <div class="JScadDiv">
+                                <h1>Relógio Analógico</h1>
+                                <input id="btnRelogioAnalogico" type="submit" value="Relógio Analógico" />
+                            </div>
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                
@@ -411,8 +625,25 @@
                     <main class="secJSmain" >
                         <p>Ajax</p>                         
                         <section class="secJSmaiCad" style="float: left;">
-                            <input />
-                            <input id="" type="submit" value="" />
+                            <div class="JScadDiv">
+                                <h1>Apresentação do Projeto</h1>
+                                <input id="btnAJAX" type="submit" value="AJAX" />
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>API Key</h1>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Carregamento dos dados</h1>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Aplicar Parse JSON</h1>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Preencher dados no HTML</h1>
+                            </div>
+                            <div class="JScadDiv">
+                                <h1>Longitude e Latitude Automaticamente</h1>
+                            </div>
                         </section>
                         <section class="secJSmainBox">
                             <div class="secJSmainDados">                                

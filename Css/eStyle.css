@@ -4,9 +4,9 @@
 }
 
 .areaPagina {
-    margin: 0 auto;
+    margin: 0 auto;    
     width: 1200px;
-    min-height: 800px;
+    min-height: 850px;        
 }
 /*Nav*/
 .secLogoBox {
@@ -70,7 +70,8 @@
     min-height: 50px;
     border: #ddd;
     float: left;
-    display: none;
+    display: none;    
+    margin-bottom: 20px;
 }
 
 .secCSS {
@@ -78,6 +79,7 @@
     min-height: 50px;
     border: #65368a;
     float: left;
+    margin-bottom: 20px;
 }
 /*Tem no Default*/
 .secLogo {
@@ -91,11 +93,11 @@
 /*Corpo*/
 
 .secJSBox {
-    margin: 0 auto;
+    margin: 0 auto;    
     width: 100%;
-    min-height: 50px;
-    border: 1px solid #ddd;
-    display: none;
+    min-height: 50px;        
+    /*border: 1px solid #ddd;*/
+    display: none;    
 }
 
 .secJSmain {
@@ -126,7 +128,7 @@
 .JScadDiv{
     border-bottom: 1px solid yellow;
     width: 98%;
-    min-height: 90px;
+    min-height: 100px;
     margin-bottom: 2px;
 }
 .JScadDiv h1{
@@ -144,7 +146,7 @@
     min-height: 100px;
     border-left: 6px solid green;
     float: left;
-    margin-bottom: 5px;
+    margin-bottom: 5px;    
 }
 
 .secJSmainNotas {
@@ -250,3 +252,12 @@ input[type=submit] {
     border-radius: 6px;
 }
 
+.vermelho{
+    background-color: red;
+}
+.verde{
+    background-color: green;
+}
+.azul{
+    background-color: dodgerblue;
+}
