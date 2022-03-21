@@ -30,7 +30,7 @@
                 <p class="pl-Data">08-04-2021 08:47</p>
                 </a>
             </section>
-                -->
+                
             <section style="width: 100%; min-height: 140px; ">
                 <a style="text-decoration: none;" href="FaleConosco.aspx">
                 <img style="width: 100%" src="../../Img/Box33-2.jpg" />
@@ -59,6 +59,7 @@
                 <p style="margin: 0; padding:0; padding-left: 15px; padding-bottom: 10px; font-size: .7em;">08-04-2021 08:47</p>
                 </a>
             </section> 
+                -->
             <section id="margemRodape"></section>
         </div>
     </main>

@@ -83,13 +83,20 @@ namespace Site.App_Code
             {
                 if (ObjConexao.MsgError == "")
                 {
-                    sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "" + valores + "");
-                    if (ObjConexao.MsgError != "")
+                    try
                     {
-                        MsgErro = ObjConexao.MsgError;
+                        sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "" + valores + "");
+                        if (ObjConexao.MsgError != "")
+                        {
+                            MsgErro = ObjConexao.MsgError;
+                        }
+                        //Msg = "SQL:" + sql;
+                        ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
                     }
-                    //Msg = "SQL:" + sql;
-                    ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
+                    finally
+                    {
+                        ObjConexao.DesconectDal();
+                    }
                 }
                 else
                 {
@@ -124,13 +131,20 @@ namespace Site.App_Code
             {
                 if (ObjConexao.MsgError == "")
                 {
-                    sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "(" + valores + ")");
-                    if (ObjConexao.MsgError != "")
+                    try
                     {
-                        MsgErro = ObjConexao.MsgError;
+                        sql = String.Format("INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "(" + valores + ")");
+                        if (ObjConexao.MsgError != "")
+                        {
+                            MsgErro = ObjConexao.MsgError;
+                        }
+                        //Msg = "SQL:" + sql;
+                        ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
                     }
-                    //Msg = "SQL:" + sql;
-                    ObjConexao.ExecutarComandoSQL(sql); //05-08-2021: Desativar esse cara se precisar exibir a Query para análise.
+                    finally
+                    {
+                        ObjConexao.DesconectDal();
+                    }
                 }
                 else
                 {

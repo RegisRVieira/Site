@@ -11,7 +11,7 @@ namespace Site.Privado
 {
 
 
-    public partial class Default
+    public partial class eTestes
     {
 
         /// <summary>
@@ -24,84 +24,48 @@ namespace Site.Privado
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// Controle lblLogado.
+        /// Controle dvSelecao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLogado;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl dvSelecao;
 
         /// <summary>
-        /// Controle lbtAdm.
+        /// Controle lblSelecao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtAdm;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblSelecao;
 
         /// <summary>
-        /// Controle lbtCadastro.
+        /// Controle tbTexto.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtCadastro;
+        protected global::System.Web.UI.WebControls.TextBox tbTexto;
 
         /// <summary>
-        /// Controle lbtListas.
+        /// Controle btnGravar.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtListas;
+        protected global::System.Web.UI.WebControls.Button btnGravar;
 
         /// <summary>
-        /// Controle lblEventos.
+        /// Controle lblResult.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lblEventos;
-
-        /// <summary>
-        /// Controle lbtProjetos.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtProjetos;
-
-        /// <summary>
-        /// Controle lbtEstudos.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtEstudos;
-
-        /// <summary>
-        /// Controle lbtTestes.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtTestes;
-
-        /// <summary>
-        /// Controle lbtTesteGravarHTML.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtTesteGravarHTML;
+        protected global::System.Web.UI.WebControls.Label lblResult;
     }
 }

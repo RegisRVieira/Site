@@ -137,6 +137,7 @@ namespace Site.Privado
             DataTable dados = ObjDados.RetCampos();
 
             string xRet = "";
+            string voltarHome = "";
 
             xRet += "<section>";
             if (dados.Rows.Count > 0)
@@ -152,7 +153,8 @@ namespace Site.Privado
             }
             else
             {
-                xRet += "Não há dados para exibir!";
+                xRet += "Não há dados para exibir!!!";
+                voltarHome += "<a href='Default.aspx'>" + "Voltar..." + "</a>";
             }
             xRet += "</section>";
 
@@ -177,7 +179,7 @@ namespace Site.Privado
             DataTable dados = ObjItens.RetCampos();
 
             string xRet = "";
-
+            string voltarHome = "";
 
             //xRet += "SELECT " + campos + " FROM " + tabela + " WHERE " + condicao;            
             //xRet += "SELECT " + ObjDados.Campo + " FROM " + ObjDados.Tabela+ " WHERE " + ObjDados.Condicao;
@@ -210,7 +212,10 @@ namespace Site.Privado
                 }
                 else
                 {
-                    xRet += "Não há dados para exibir!";
+                    xRet += "Não há dados para exibir!!!";
+                    xRet += "<div style='margin-top: 50px; margin-left: 10px; width:200px; heigth: 20px; '>";
+                    xRet += "<a href='Default.aspx'>" + "Voltar..." + "</a>";
+                    xRet += "</div";
                 }
                 xRet += "</section>";
             }

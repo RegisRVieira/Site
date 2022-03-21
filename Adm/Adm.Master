@@ -30,9 +30,11 @@
                 </div>
             </div>
             <section class="secnav">
-                <div class="dcont-top">
-                    <p>Associação dos Servidores da Unesp - ASU</p>
-                </div> 
+                <a href="../Home.aspx" style="text-decoration: none; color: #22396f" target="_blank">
+                    <div class="dcont-top">
+                        <p>Associação dos Servidores da Unesp - ASU</p>
+                    </div> 
+                </a>
                 <div class="dcont-top-menu">
                     <ul>                        
                         <li><a href="OpcoesHome.aspx">Home</a></li>

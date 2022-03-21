@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Adm/Adm.Master" CodeBehind="OpcoesHome.aspx.cs" Inherits="Site.Adm.OpcoesHome" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Adm/Adm.Master" CodeBehind="OpcoesHome.aspx.cs" Inherits="Site.Adm.OpcoesHome" ValidateRequest="false" %>
 
 <asp:Content ID="cMenu" ContentPlaceHolderID="cpContent" runat="server">
     <form id="frmOpcoes" runat="server" class="form-p">
@@ -12,7 +12,7 @@
             .iDuracao {
                 width: 20px;
                 height: auto;
-                color: #f26907;
+                color: #f26907; 
             }
 
             .intervaloDatas {
@@ -120,7 +120,7 @@
                     </asp:View>
                     <asp:View ID="vwGridMateria" runat="server">
                         <h1 class="topform">Materia</h1>
-                        <asp:GridView ID="gvMateria" runat="server" CellPadding="2" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="2" AllowPaging="True" OnPageIndexChanging="paginarMateria" OnSelectedIndexChanged="capturarConteudoId">
+                        <asp:GridView ID="gvMateria" runat="server" CellPadding="2" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="2" AllowPaging="True" OnPageIndexChanging="paginarMateria" OnSelectedIndexChanged="selecionarRegistroGvMateria">
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ShowSelectButton="True" />
@@ -293,6 +293,7 @@
                         </asp:View>
                         <asp:View ID="vwFormMateria" runat="server">
                             <h1>Materia</h1>
+                            <asp:Label ID="lblIdMateria" runat="server" Visible="false"></asp:Label>
                             <input id="iMatTitulo" runat="server" type="text" placeholder="Título" />
                             <textarea id="taMatIntroducao" runat="server" placeholder="Introcução" class="alturainput"></textarea>                            
                             <textarea id="taMatConteudo" runat="server" placeholder="Conteúdo" class="alturainput"></textarea>

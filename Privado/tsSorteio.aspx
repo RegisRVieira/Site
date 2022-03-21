@@ -1,17 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tsSorteio.aspx.cs" Inherits="Site.Privado.tsSorteio" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="tsSorteio.aspx.cs" Inherits="Site.Privado.tsSorteio" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="sortcut icon" type="image/png" href="..\img\privado\trevo.png" />
     <link rel="stylesheet" href="../Css/tsStyle.css" />
-    <title>Sorteios</title>    
+    <title>Sorteios</title>
 </head>
 <body>
     <form id="form1" runat="server">
-         <nav class="tsNav">
+        <nav class="tsNav">
             <section class="tsNavCorpo">
                 <section class="tsNavLogo">
                     <img src="../Img/Privado/Tua Sorte.png" />
@@ -24,7 +24,7 @@
                 </section>
                 <section class="tsNavLogin">
                     <div class="botaoLogin">
-                        <asp:LinkButton ID="lbtLogin" runat="server" Text="Entrar" ></asp:LinkButton>
+                        <asp:LinkButton ID="lbtLogin" runat="server" Text="Entrar"></asp:LinkButton>
                     </div>
                 </section>
             </section>
@@ -33,15 +33,18 @@
             <section class="secAprsenta">
                 <section class="secImg">
                     <figure>
-                    <img src = '../img/privado/Img-01.jpg' title="Vamos ver essa bagaça!!!"/>
-                    <figcaption > Trevo de Quatro Folhas...</figcaption>
-                    </figure> 
+                        <img src='../img/privado/Img-01.jpg' title="Vamos ver essa bagaça!!!" />
+                        <figcaption>Trevo de Quatro Folhas...</figcaption>
+                    </figure>
                 </section>
                 <section class="secDesc">
-                    <section class="secDescTit"><p>Titulo da "Rifa"</p></section>
+                    <section class="secDescTit">
+                        <p>Titulo da "Rifa"</p>
+                    </section>
                     <section class="secDescText">
                         <p>
-                        Mustang<br /><br />
+                            Mustang<br />
+                            <br />
 
                             Upgrades
 
@@ -134,7 +137,7 @@
                             5 - O veículo será entregue com DUT reconhecido ao ganhador por autenticidade. 
 
                             6 - O Veículo se encontra na cidade de Sorocaba/SP e qualquer custo de envio para outra cidade será de nossa responsabilidade.
-                    </p>
+                        </p>
                     </section>
                     <section class="secDescRedes">
                         <div>F</div>
@@ -143,11 +146,202 @@
                     </section>
                 </section>
             </section>
-            
-            <%# executarHint() %>
+            <section>
+                <!-- < %# executarHint() %>-->                
+                <ul>
+                    <li class="tooltip">
+                        <label id="iNum1">00010</label>
+                    </li>
+                    <span class="tooltip">
+                        <label id="iNum2">0002</label>
+                    </span>
+                    <span id="iNum3" class="tooltip">
+                        <label>0003</label>
+                    </span>
+                    <li id="iNum4" class="tooltip">
+                        <label>0004</label>
+                    </li>
+                </ul>
+            </section>
+            <a href="eTestes.aspx">Testes</a>
+            <section>
+                <input id="btnSelecionar" type="submit" value="Selecionar" />
+            </section>
+            <section id="secNumEscolhidos" style="width: 500px; height: 500px; background-color: #F0F0F0; margin: 0 auto; margin-bottom: 20px;">
+                <label id="recebeNumeros"></label>
+            </section>
+            <script>
+                btnSelecionar.addEventListener("click", function (e) {
+                    e.preventDefault();
+
+                    //alert(" * ");
+
+                    var sec = document.querySelector("#secNumEscolhidos");
+
+                    sec.setAttribute("backgroundColor", "#22396f");
+                    //sec.setAttribute("background-color", "#f26907");
+                    //secNumEscolhidos.setAttribute("width", "800px");                                                           
+                    secNumEscolhidos.style.width = "800px";
+                    secNumEscolhidos.style.backgroundColor = "#f26907";
+
+                    if (sec.getAttribute("backgroundColor") == "#f26907") {
+                        alert("#22396f");
+                    } else {
+                        alert("Diferente");
+                        secNumEscolhidos.style.backgroundColor = "#22693f";
+                    }
+
+                    console.log(sec.getAttribute("backgroundColor"))
+                });
+                            /*
+    function changebackground() {
+        var colors = ["#0099cc", "#c0c0c0", "#587b2e",
+            "#990000", "#000000", "#1C8200", "#987baa", "#464646",
+            "#AA8971", "#1987FC", "#99081E"];
+
+        setInterval(function () {
+            var bodybgarrayno = Math.floor(Math.random() * colors.length);
+            var selectedcolor = colors[bodybgarrayno];
+            secNumEscolhidos.style.background = selectedcolor;
+        }, 3000);
+        console.log(colors.length);
+    }
+    changebackground();*/
+            </script>
+            <script>
+
+                var clickNumeros = document.querySelector('#iNum1');                
+
+                clickNumeros.onclick = function () {
+
+                    var xRet = "";
+
+                    alert('Ai! Pare de me cutucar!');
+
+
+
+                    function selecao() {
+
+                        var nSelecionado;                        
+                        var cont = iNum1.innerHTML;
+                        
+                        //var numDiv = cont.substr((cont.length - (cont.length - 1)), cont.length - (cont.length - 1));
+                        //var numDiv = cont.substr((cont.length - (cont.length - 0)), cont.length - (cont.length - 1));
+
+                        var y = parseInt(cont);
+                        var id = "lNum";
+                        var x = "";
+                        var qs = String('"' + "#" + id + y + '"');
+                        //var idrecuperada = document.querySelector("#" + id + y);
+                        var idrecuperada = document.querySelector('li');
+
+                        xRet += "<div class=" + "tooltip" + ">";
+                        //xRet += "<label'" + "id='" + id + "'" + y + "'" + "' > " + cont + " - " + qs + "</label > ";
+                        xRet += "<label'" + "id='" + id + "'" + y + "'" + "' > " + qs + "</label > ";
+                        xRet += "</div>";
+
+
+                        recebeNumeros.innerHTML = xRet;
+                    }                   
+
+                    selecao();
+                    
+                }
+
+                iNum2.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    //alert("*");
+
+                    var xRet = "";
+
+                    var pedeDados = prompt("Digite alguma coisa...");
+
+                    /*
+                    var nSelecionados = ["0001", "0002", "0003", "0004", "0005", "0006", "0007"];
+
+                    function numSelecionado() {
+                       
+                        var contarNumeros = nSelecionados.length;
+
+                        for (var i = 0; i < contarNumeros; i++) {
+                            xRet += "<div class=" + "tooltip" + ">";
+                            xRet += nSelecionados[i];
+                            xRet += "</div>";          
+                        }                                                
+
+                        recebeNumeros.innerHTML = xRet;                                         
+                    }*/
+
+
+                    function selecao() {
+
+                        var nSelecionado;
+                        //xRet = iNum1.innerHTML;
+                        //var cont = iNum1.innerHTML;
+                        var cont = iNum2.innerHTML;
+
+                        //var numDiv = cont.substr((cont.length - i), cont.length); fazer for
+
+                        //var numDiv = cont.substr((cont.length - 1), cont.length);
+                        //var numDiv = cont.substr(1, 1);
+                        //var numDiv = cont.substr((cont.length - (cont.length - 1)), cont.length - (cont.length - 1));
+                        var numDiv = cont.substr((cont.length - (cont.length - 0)), cont.length - (cont.length - 1));
+
+                        var y = parseInt(cont);
+                        var id = "lNum";
+                        var x = "";
+                        var qs = String('"' + "#" + id + y + '"');
+                        //var idrecuperada = document.querySelector("#" + id + y);
+                        var idrecuperada = document.querySelector("#" + id + y);
+
+                        xRet += "<div class=" + "tooltip" + ">";
+                        xRet += "<label'" + "id='" + id + "'" + y + "'" + "' > " + cont + " - " + qs+ ", Você Digitou: " + pedeDados +   "</label > ";
+                        xRet += "</div>";                       
+
+
+                        /*
+                        for (var i = 0; i < cont.length; i++) {
+
+                            var numDiv = cont.substr((cont.length - (cont.length - i)), cont.length - (cont.length - 1));
+
+                            xRet += "<div class=" + "tooltip" + ">";
+                            xRet += "<label'" + "id=" + "'lNum" + y + "'" + "'>" + cont + "</label>";
+                            xRet += "</div>";
+                            //xRet = x + " - " + y;
+
+                            /*
+                            if (numDiv == 0) {
+                                x = x + numDiv;
+                                alert("Deu " + numDiv + "/" + i);
+                                xRet += "<div class=" + "tooltip" + ">";
+                                xRet += "<label'" + "id=" + "'lNum" + y + "'" + "'>" + cont + "</label>";
+                                xRet += "</div>";
+                                xRet = x + " - " + y;
+                            }*/
+                        //}
+
+
+                //var numDiv = cont.substr(0,1);
+
+
+                //xRet = x + " - " + y;
+                
+
+
+
+                        recebeNumeros.innerHTML = xRet + "#" + numDiv;
+                    }
+
+                selecao();
+
+                    //numSelecionado();
+
+
+                });
+            </script>
+
         </main>
         <footer>
-
         </footer>
     </form>
 </body>

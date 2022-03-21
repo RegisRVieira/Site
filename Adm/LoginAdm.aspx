@@ -32,6 +32,9 @@
             <asp:Button ID="btnLogar" runat="server" Text="Login" OnClick="acessarAdmin"/>
             <asp:Label ID="lblUsuário" runat="server"></asp:Label>
         </div>
+        <div style="margin: 0 auto; width: 500px; min-height: 30px; ">
+            <p style="margin: 0; padding: 0; margin-top: -8px; text-align: right; width: 100%; min-height: 30px;"><a href="../Home.aspx" style="text-decoration: none; color: #22396f;" target="_blank">Ir para o Site</a></p>
+        </div>
     </form>
     <footer class="rodape">
             <small>&reg; 1969 -

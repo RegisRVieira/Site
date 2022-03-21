@@ -9,6 +9,7 @@ using System.Data;
 using System.Configuration;
 using System.Windows.Forms;
 using Site.App_Code;
+using System.Text.RegularExpressions;
 
 
 namespace Site.Adm
@@ -25,7 +26,7 @@ namespace Site.Adm
                 carregarGvBox100();
                 carregarGvBox33();
                 popularImgTipo();
-                popularMatImgTipo();
+                popularMatImgTipo();                
             }
 
             this.DataBind();
@@ -52,6 +53,7 @@ namespace Site.Adm
         public void ativarVwMateria(object sender, EventArgs e)
         {
             ativaViews(3);
+            carregarGvMateria();
         }
         public void ativarVwPublicidade(object sender, EventArgs e)
         {
@@ -148,6 +150,33 @@ namespace Site.Adm
             gvMateria.PageIndex = e.NewPageIndex;
             gvMateria.DataBind();
         }
+        public void selecionarRegistroGvMateria(object sender, EventArgs e)
+        {
+            carregarGvMateria();
+
+            //string x = gvMateria.SelectedRow.Cells[1].Text;
+            //MessageBox.Show("Clicou!!!" + x);
+            
+            lblIdMateria.Text =  gvMateria.SelectedRow.Cells[1].Text;
+            iMatTitulo.Value = gvMateria.SelectedRow.Cells[2].Text;
+            taMatIntroducao.Value = gvMateria.SelectedRow.Cells[3].Text;
+            taMatConteudo.Value =  gvMateria.SelectedRow.Cells[4].Text;
+            taMatComplemento.Value = gvMateria.SelectedRow.Cells[5].Text;
+            taMatConclusao.Value = gvMateria.SelectedRow.Cells[6].Text;
+
+            string titulo = iMatTitulo.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(titulo, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iMatTitulo.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iMatTitulo.Value = string.Join("", iMatTitulo.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+
+        }       
 
         public void capturarConteudoId(object sender, EventArgs e)
         {
@@ -170,11 +199,13 @@ namespace Site.Adm
             int periodo = Convert.ToInt32(iDuracaoPub.Value);
             int periodoB33 = Convert.ToInt32(iB33DuracaoPub.Value);
             int periodoB100 = Convert.ToInt32(iB100DuracaoPub.Value);
+            
 
             DateTime hoje = DateTime.Now;
             DateTime p30 = DateTime.Now.AddDays(periodo);
             DateTime p30B33 = DateTime.Now.AddDays(periodoB33);
             DateTime p30B100 = DateTime.Now.AddDays(periodoB100);
+            
 
 
             iPublIniConteudo.Value = hoje.ToString("yyyy-MM-dd");
@@ -186,6 +217,21 @@ namespace Site.Adm
             iB100PubIniConteudo.Value = hoje.ToString("yyyy-MM-dd");
             iB100PubFimConteudo.Value = DateTime.Now.AddDays(periodoB100).ToString("yyyyy-MM-dd");
 
+            iMatPubIni.Value = hoje.ToString("yyyy-MM-dd");
+            
+
+        }
+
+        public void carregarGvMateria()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            ObjDados.Campo = " id, titulo, introducao, complemento, conclusao, dt_PublIni, dt_PublFim  ";
+            ObjDados.Tabela = " st_conteudo ";
+            ObjDados.Condicao = " ORDER BY id DESC LIMIT 1";
+
+            gvMateria.DataSource = ObjDados.RetCampos();
+            gvMateria.DataBind();
         }
 
         public void carregarGvSlider()
@@ -325,8 +371,12 @@ namespace Site.Adm
             string campos = " cod_tipo, titulo, introducao, dt_publIni, dt_PublFim, dt_cad ";
             string campoID = " * ";
             string condicao = " ORDER BY id DESC LIMIT 1 ";
-            string valores = String.Format("'" + "PROP" + "'," + "'" + iTitulo.Value + "'," + "'" + taIntroducao.Value + "'," + "'" + iPublIniConteudo.Value + "'," +
-                                           "'" + iPublFimConteudo.Value + "'," + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            string valores = String.Format("'" + "PROP" + "'," + 
+                                           "'" + iTitulo.Value + "'," + 
+                                           "'" + taIntroducao.Value.ToString() + "'," + 
+                                           "'" + iPublIniConteudo.Value + "'," +
+                                           "'" + iPublFimConteudo.Value + "'," + 
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
             //Dados para Inserção
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
@@ -376,8 +426,12 @@ namespace Site.Adm
             string campos = " cod_tipo, titulo, introducao, dt_publIni, dt_PublFim, dt_cad ";
             string campoID = " * ";
             string condicao = " ORDER BY id DESC LIMIT 1 ";
-            string valores = String.Format("'" + "BOX33" + "'," + "'" + iB33Titulo.Value + "'," + "'" + taB33Introducao.Value + "'," + "'" + iB33PubIniConteudo.Value + "'," +
-                                           "'" + iB33PubFimConteudo.Value + "'," + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            string valores = String.Format("'" + "BOX33" + "'," +
+                                           "'" + iB33Titulo.Value + "'," +
+                                           "'" + taB33Introducao.Value + "'," +
+                                           "'" + iB33PubIniConteudo.Value + "'," +
+                                           "'" + iB33PubFimConteudo.Value + "'," +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
             //Dados para Inserção
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
@@ -428,8 +482,12 @@ namespace Site.Adm
             string campos = " cod_tipo, titulo, introducao, dt_publIni, dt_PublFim, dt_cad ";
             string campoID = " * ";
             string condicao = " ORDER BY id DESC LIMIT 1 ";
-            string valores = String.Format("'" + "BOX100" + "'," + "'" + iB100Titulo.Value + "'," + "'" + taB100Introducao.Value + "'," + "'" + iB100PubIniConteudo.Value + "'," +
-                                           "'" + iB100PubFimConteudo.Value + "'," + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            string valores = String.Format("'" + "BOX100" + "'," +
+                                           "'" + iB100Titulo.Value + "'," +
+                                           "'" + taB100Introducao.Value + "'," +
+                                           "'" + iB100PubIniConteudo.Value + "'," +
+                                           "'" + iB100PubFimConteudo.Value + "'," +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
             //Dados para Inserção
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
@@ -490,7 +548,7 @@ namespace Site.Adm
 
 
 
-            for (int i = 0; i <= stMatImgTipo.Items.Count -1; i++)
+            for (int i = 0; i <= stMatImgTipo.Items.Count - 1; i++)
             {
                 if (stMatImgTipo.Items[i].Selected)
                 {
@@ -501,10 +559,10 @@ namespace Site.Adm
 
                 MessageBox.Show("" + stMatImgTipo.Items[i].Selected);
             }
-            
+
 
         }
-        
+
         public void cadastrarMateria(object sender, EventArgs e)
         {
             string xRet = "";
@@ -515,18 +573,19 @@ namespace Site.Adm
             DateTime dt_ini = DateTime.Now;
             DateTime dt_fin = DateTime.Now;
 
-            iB33PubIniConteudo.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
-            iB33PubFimConteudo.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
+
+            iMatPubIni.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
+            iMatPubFim.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
 
             string tabela = " st_conteudo ";
-            string campos = " cod_tipo, cod_categoria, cod_menu, titulo, introducao, conteudo, complemento, conclusao, fonte, autor, dt_publIni, dt_PublFim, id_empresa, dt_cad, cadMom  ";
+            string campos = " cod_tipo, cod_categoria, cod_menu, titulo, introducao, conteudo, complemento, conclusao, fonte, autor, dt_publIni, dt_PublFim, id_empresa, dt_cad, cadMom, cadUsu  ";
             string campoID = " * ";
             string condicao = " ORDER BY id DESC LIMIT 1 ";
             string valores = String.Format("'" + "MAT" + "'," +
                                            "'" + "GER" + "'," +
                                            "'" + "MAT" + "'," +
                                            "'" + iMatTitulo.Value + "'," +
-                                           "'" + taMatIntroducao.Value + "'," +
+                                           "'" + taMatIntroducao.Value.ToString() + "'," +
                                            "'" + taMatConteudo.Value + "'," +
                                            "'" + taMatComplemento.Value + "'," +
                                            "'" + taMatConclusao.Value + "'," +
@@ -536,7 +595,8 @@ namespace Site.Adm
                                            "'" + iMatPubFim.Value + "'," +
                                            "'" + 1 + "'," +
                                            "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
-                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                           "'" + Session["LoginUsuario"].ToString() + "'");
 
             //Dados para Inserção
             ObjDados.Tabela = tabela;
@@ -547,8 +607,9 @@ namespace Site.Adm
             {
                 ObjDados.InsertRegistro(tabela, campos, valores);
 
-                iMatImgTitulo.Focus();
-                lblMsg.Text = "Cadastro Realizado com Sucesso!";
+                iMatImgTitulo.Focus();  
+                lblMsg.Text = "Cadastro Realizado com Sucesso!";                
+                //lblMsg.Text = "Estamos testando! Gravação 'Desativada'! Descomente a linha 558 de Gravação após os testes...";
 
                 iMatValida.Value = "Validado";
 
@@ -563,7 +624,7 @@ namespace Site.Adm
                 iMatTitulo.Focus();
             }
 
-            MessageBox.Show(ObjDados.Msg);
+            //MessageBox.Show(ObjDados.Msg);
             //MessageBox.Show("INSERT INTO" + tabela + "(" + campos + ")" + " VALUES(" + valores + ")");
 
             //Dados para Validação
@@ -574,6 +635,8 @@ namespace Site.Adm
 
             //MessageBox.Show("Título: " + iMatTitulo.Value + "\n" + "Introdução:" + taMatIntroducao.Value + "\n" +"Conteúdo: " + taMatConteudo.Value + 
             //  "\n" + "Complemento: " + taMatComplemento.Value + "\n" + "Conclusão: " + taMatConclusao.Value + "\n" + iMatFonte.Value + "\n" + iMatAutor.Value);
+
+            carregarGvMateria();
         }
 
         public void checarTamanhoImg(object sender, EventArgs e) //Criado para testar a validação do tamanho do arquivo - 18-08-2021
@@ -690,17 +753,17 @@ namespace Site.Adm
                                         string tabela = " st_imagens ";
                                         string campos = " id_conteudo, codtipo, titulo, descritivo, fonte, autor, hint, cadmom, cadusu, path_img, id_empresa, id_noticia ";
                                         string condicao = " WHERE id = '" + IDConteudo + "'";
-                                        string valores = String.Format("'" + IDConteudo + "'," + 
-                                                                       "'" + "SLI" + "'," + 
-                                                                       "'" + iImgTitulo.Value + "'," + 
-                                                                       "'" + iImgDescricao.Value + "'," + 
+                                        string valores = String.Format("'" + IDConteudo + "'," +
+                                                                       "'" + "SLI" + "'," +
+                                                                       "'" + iImgTitulo.Value + "'," +
+                                                                       "'" + iImgDescricao.Value + "'," +
                                                                        "'" + iImgFonte.Value + "'," +
-                                                                       "'" + iImgAutor.Value + "'," + 
-                                                                       "'" + iImgHint.Value + "'," + 
-                                                                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + 
+                                                                       "'" + iImgAutor.Value + "'," +
+                                                                       "'" + iImgHint.Value + "'," +
+                                                                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                                                        "'" + Session["LoginUsuario"].ToString() + "'," +
-                                                                       "'" + caminho2 + arquivo + "'," + 
-                                                                       "'" + 1 + "'," + 
+                                                                       "'" + caminho2 + arquivo + "'," +
+                                                                       "'" + 1 + "'," +
                                                                        "'" + 2 + "'");
 
                                         //objImg.ImgCodTipo = stImgTipo.Value; //Fazer este SELECT                        
@@ -882,9 +945,18 @@ namespace Site.Adm
                                         string tabela = " st_imagens ";
                                         string campos = " id_conteudo, codtipo, titulo, descritivo, fonte, autor, hint, cadmom, cadusu, path_img, id_empresa, id_noticia ";
                                         string condicao = " WHERE id = '" + IDConteudo + "'";
-                                        string valores = String.Format("'" + IDConteudo + "'," + "'" + stImgTipo.Value + "'," + "'" + iB33ImgTitulo.Value + "'," + "'" + iB33ImgDescricao.Value + "'," + "'" + iB33ImgFonte.Value + "'," +
-                                                                       "'" + iB33ImgAutor.Value + "'," + "'" + iB33ImgHint.Value + "'," + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," + "'" + Session["LoginUsuario"].ToString() + "'," +
-                                                                       "'" + caminho2 + arquivo + "'," + "'" + 1 + "'," + "'" + 2 + "'");
+                                        string valores = String.Format("'" + IDConteudo + "'," +
+                                                                       "'" + stImgTipo.Value + "'," +
+                                                                       "'" + iB33ImgTitulo.Value + "'," +
+                                                                       "'" + iB33ImgDescricao.Value + "'," +
+                                                                       "'" + iB33ImgFonte.Value + "'," +
+                                                                       "'" + iB33ImgAutor.Value + "'," +
+                                                                       "'" + iB33ImgHint.Value + "'," +
+                                                                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                       "'" + Session["LoginUsuario"].ToString() + "'," +
+                                                                       "'" + caminho2 + arquivo + "'," +
+                                                                       "'" + 1 + "'," +
+                                                                       "'" + 2 + "'");
                                         ObjDados.Tabela = tabela;
                                         ObjDados.Campo = campos;
                                         ObjDados.Condicao = condicao;
@@ -1213,7 +1285,7 @@ namespace Site.Adm
             BLL ObjValida = new BLL(conectSite);
             DAL ObjDal = new DAL(conectSite);
 
-            iB100Valida.Visible = false;
+            iMatValida.Visible = false;
 
 
             if (!String.IsNullOrEmpty(iMatValida.Value))
@@ -1261,7 +1333,8 @@ namespace Site.Adm
                                     else
                                     {
                                         fuMatImg.PostedFile.SaveAs(caminho + arquivo);
-                                        lblMsg.Text = "UpLoad de Arquivo realizado com Sucesso";
+                                        lblMsg.Text = "Imagem cadastrada com Sucesso!!!";
+                                        //lblMsg.Text = "UpLoad não realizado!!! Testes: descomentar linha 1282 e 1342 após os testes.";
 
                                         // # Captura ID para Cadastrar Imagens # 
                                         string tConteudo = " st_conteudo ";
@@ -1275,10 +1348,15 @@ namespace Site.Adm
 
                                         string IDConteudo = "";
                                         DataTable dadosID = ObjValida.RetCampos();
+                                        //int contador = 0;
+
+                                        //MessageBox.Show(" SELECT " + ObjValida.Campo + " FROM " + ObjValida.Tabela + " " + ObjValida.Condicao);
+
                                         int contador = dadosID.Rows.Count;
                                         IDConteudo = dadosID.Rows[0]["ID"].ToString();
 
-                                        //MessageBox.Show("Quant.: " + contador + " ID: " + IDConteupo);
+                                        //MessageBox.Show("Quant.: " + contador + " ID: " + IDConteudo);                                        
+                                        
 
                                         // # Fim Captura ID #
                                         stMatImgTipo.DataValueField = "cod";
@@ -1308,15 +1386,13 @@ namespace Site.Adm
                                         int nLinhas = dados.Rows.Count;
                                         iMatImgTitulo.Focus();
 
-                                        ObjDados.InsertRegistro(tabela, campos, valores);
-
-
                                         //#Testar Query#
                                         //MessageBox.Show("Dados: " + ObjDados.Msg + "Validação: " + ObjValida.Msg);
                                         //MessageBox.Show(ObjDal.MsgError);
-                                        //MessageBox.Show("INSERT INTO " + tabela + "(" + campos + ")" + "VALUES (" + valores + ")");                                        
+                                        //MessageBox.Show("INSERT INTO " + tabela + "(" + campos + ")" + "VALUES (" + valores + ")"); //Checar se variáveis estão carregando
                                         //xRet += "INSERT INTO" + tabela + "(" + campos + ")" + "VALUES " + "(" + valores + ")"; 
 
+                                        ObjDados.InsertRegistro(tabela, campos, valores);
 
                                         if (contador > 0) // Executa se houver retorno de registro
                                         {

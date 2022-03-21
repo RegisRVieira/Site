@@ -24,7 +24,19 @@ namespace Site
         public String montarListaMaterias()
         {
             BLL ObjDbASU = new BLL(conectSite);
+            BLL ObjValida = new BLL(conectSite);
 
+            ObjValida.Campo = " * ";
+            ObjValida.Tabela = " st_conteudo AS c";
+            ObjValida.Left = " " + " INNER JOIN st_categoria AS c_cat ON c.cod_categoria = c_cat.cod ";
+            ObjValida.Left += " " + " INNER JOIN st_menu AS d ON c.cod_menu = d.cod ";
+            ObjValida.Left += " " + " INNER JOIN st_tipo AS t ON c.cod_tipo = t.cod ";
+            ObjValida.Left += " " + " LEFT JOIN st_imagens as i ON c.id = i.id_conteudo ";
+            ObjValida.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "'";
+
+            DataTable valida = ObjValida.RetCampos();
+
+            int qtde = valida.Rows.Count;
 
             string idContMat = Request.QueryString["IDContMat"];
 
@@ -38,7 +50,14 @@ namespace Site
                 ObjDbASU.Left += " " + " INNER JOIN st_menu AS d ON c.cod_menu = d.cod ";
                 ObjDbASU.Left += " " + " INNER JOIN st_tipo AS t ON c.cod_tipo = t.cod ";
                 ObjDbASU.Left += " " + " LEFT JOIN st_imagens as i ON c.id = i.id_conteudo ";
-                ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' ORDER BY c.id DESC LIMIT 2 ";
+                if (qtde < 6)
+                {
+                    ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "'" + " ORDER BY c.id DESC LIMIT " + qtde ;                                    
+                }
+                else
+                {
+                    ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' ORDER BY c.id DESC LIMIT 6 ";                    
+                }
 
                 DataTable dados = ObjDbASU.RetCampos();
 
@@ -53,7 +72,7 @@ namespace Site
                     xRet += "<a href='ContMaterias.aspx?IDContMat=" + IdMat + "' >";
                     //xRet += "<img src='../Img/Av Major Matheus 2.JPG' />"; // Capturar Foto do Banco de Dados
                     xRet += "<img src='" + dados.Rows[i]["Pathimg"] + "' />";
-                    xRet += "<p class='pl-Titulo'>" + dados.Rows[i]["titulo"] + "</p>";
+                    xRet += "<p class='pl-Titulo'>" + dados.Rows[i]["titulo"] + qtde + "</p>";
                     xRet += "<p class='pl-Data'>" + dados.Rows[i]["dt_PublIni"] + "</p>";
                     xRet += "</a>";
                     xRet += "</section>";
@@ -82,22 +101,51 @@ namespace Site
                 ObjDbASU.Campo = " * ";
                 ObjDbASU.Tabela = " st_conteudo ";
                 ObjDbASU.Condicao = " WHERE ID = '" + idContMat + "' ";
+                //ObjDbASU.Condicao = " WHERE ID = '" + "73" + "' ";
 
                 ObjDbImg.Campo = " *, ali.descricao ";
                 ObjDbImg.Tabela = " st_imagens AS i ";
                 ObjDbImg.Left = " INNER JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod ";
-                ObjDbImg.Condicao = " WHERE id_conteudo = '" + idContMat + "' ";
+                ObjDbImg.Condicao = " WHERE i.id_conteudo = '" + idContMat + "' ";
 
+                //Testar integridade das Querys
+                //MessageBox.Show("Conteudo: " + "SELECT " + ObjDbASU.Campo + "  FROM " + ObjDbASU.Tabela + " " + ObjDbASU.Condicao);
+                //MessageBox.Show("Imagens: " + "SELECT " + ObjDbImg.Campo + " FROM " + ObjDbImg.Tabela + ObjDbImg.Left + " " + ObjDbImg.Condicao);
 
                 DataTable dados = ObjDbASU.RetCampos();
                 DataTable imgs = ObjDbImg.RetCampos();
 
-                int contador = dados.Rows.Count;
+                if (dados.Rows.Count > 0)
+                {
+                    int contador = dados.Rows.Count;
+                }
+                else
+                {
+                    MessageBox.Show("Algum erro");
+                }
+
                 int contaImg = imgs.Rows.Count;
 
 
                 xRet += "<section class='publicidade'>";
-                xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
+                //xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
+
+                //Caso haja conteúdo com o Tipo='ICPROP', ele deverá exibir a imagem do DB, se não houver ele deverá exibis uma imagem padrão
+                for (int i = 0; i < contaImg; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                {
+                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICPROP")
+                    {
+                        xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
+                        xRet += "<img ' src='" + imgs.Rows[i]["path_img"] + "' />";
+                    }
+                    else
+                    {
+                        xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
+                    }
+
+                }
+
+
                 xRet += "</section>";
                 xRet += "<section class='titulo'>";
                 xRet += "<p>" + dados.Rows[0]["titulo"] + "</p>";

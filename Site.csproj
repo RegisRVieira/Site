@@ -183,8 +183,10 @@
     <Content Include="Privado\Default.aspx" />
     <Content Include="Privado\eFormulario.aspx" />
     <Content Include="Privado\Estudos.aspx" />
+    <Content Include="Privado\eTestes.aspx" />
     <Content Include="Privado\Listas.aspx" />
     <Content Include="Privado\pLogin.aspx" />
+    <Content Include="Privado\testesGravarHtml.aspx" />
     <Content Include="Privado\tsHome.aspx" />
     <Content Include="Privado\tsSorteio.aspx" />
     <Content Include="testPdf.aspx" />
@@ -429,6 +431,13 @@
     <Compile Include="Privado\Estudos.aspx.designer.cs">
       <DependentUpon>Estudos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Privado\eTestes.aspx.cs">
+      <DependentUpon>eTestes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\eTestes.aspx.designer.cs">
+      <DependentUpon>eTestes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Privado\Listas.aspx.cs">
       <DependentUpon>Listas.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -442,6 +451,13 @@
     </Compile>
     <Compile Include="Privado\pLogin.aspx.designer.cs">
       <DependentUpon>pLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\testesGravarHtml.aspx.cs">
+      <DependentUpon>testesGravarHtml.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\testesGravarHtml.aspx.designer.cs">
+      <DependentUpon>testesGravarHtml.aspx</DependentUpon>
     </Compile>
     <Compile Include="Privado\tsHome.aspx.cs">
       <DependentUpon>tsHome.aspx</DependentUpon>

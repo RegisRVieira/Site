@@ -60,7 +60,10 @@ namespace Site
 
             string xRet = "";
             string xImg = "";
-            string IDMat = "";
+            string IDMat = "";            
+
+            //xRet += dados.Rows[0]["introducao"].ToString();
+
             string campos = " " + " c.id, c.titulo, c.conteudo, c.introducao, c.fonte, c.autor, dt_publini, c.cadusu, c_cat.descricao AS Categoria, d.descricao AS Destaque, t.descricao AS Tipo, i.cod_destaque AS img_destaque, i.codtipo AS TipoImg, i.path_img AS PathImg ";
             string tabela = " " + " st_conteudo AS c ";
             string left = " " + " INNER JOIN st_categoria AS c_cat ON c.cod_categoria = c_cat.cod " +
@@ -104,6 +107,15 @@ namespace Site
 
                 for (int i = 0; i < 2; i++) //Para pegar apenas xImg = CHA
                 {
+                    //Remove Tags do Texto para Exibição da Home
+
+                    string x = dados.Rows[i]["titulo"].ToString();
+                    string y = dados.Rows[i]["introducao"].ToString();
+
+                    //MessageBox.Show("Como tem que ficar: " + (tagIni + 1) + ", " + ((tagFim - 1) - (tagIni + 1)));
+                    //MessageBox.Show("Como tem que ficar: " + x.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))));
+                    //
+
                     if (xImg == "MAT")
                     {
                         //xRet += "<div style='display: inline-block; background-color: yellow;'>" + "<img style='width: 627px; height: 146px' src =" + "'../.." + Linha["PathImg"] + "'" + "/>" + "</div>";
@@ -116,14 +128,50 @@ namespace Site
                         string dtpublica = dados.Rows[i]["dt_publini"].ToString();
 
                         xRet += "<div class='HomeMateria'> ";
-                        //xRet += "<img src='../Img/Foto - DAP.jpg' />";             //Capturar foto do Banco de Dados - 08-04-2021 23:20                                                                                                   
                         xRet += "<img src='" + dados.Rows[i]["PathImg"] + "' />";
-                        xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
+                        //xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
+                        if (x.Substring(0, 1) == "<")
+                        {
+                            int tagIni = 0;
+                            int tagFim = 0;
+
+                            while (x.Substring(tagIni, 1) != ">")
+                            {
+                                tagIni++;
+                            }
+                            while (x.Substring(tagFim, 1) != "/")
+                            {
+                                tagFim++;
+                            }
+                            xRet += "<h1 class='HomeMateriaTitulo'>" + x.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))) + "</h1>";
+                        }
+                        else
+                        {
+                            xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
+                        }
                         xRet += "<p class='HomeMateriaCategoria'>" + dados.Rows[i]["categoria"] + "</p>";
-                        xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
-                        //xRet += "<p class='HomeMateriaData'>" + "12 de Março de 2021" + "</p>";
+                        //xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
+                        if (y.Substring(0, 1) == "<")
+                        {
+                            int tagIni = 0;
+                            int tagFim = 0;
+
+                            while (y.Substring(tagIni, 1) != ">")
+                            {
+                                tagIni++;
+                            }
+                            while (y.Substring(tagFim, 1) != "/")
+                            {
+                                tagFim++;
+                            }
+                            xRet += "<div class='HomeMateriaTexto'>" + y.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))) + "</div>";
+                        }
+                        else
+                        {
+                            xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
+                        }
                         xRet += "<p class='HomeMateriaData'>" + Convert.ToDateTime(dtpublica).ToString("dd-MM-yyyy") + "</p>";
-                        xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p>" + /*dados.Rows[i]["PathImg"] +*/  "Leia Mais..." + "</p></a></div>";
+                        xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p style='text-align: right;'>" + /*dados.Rows[i]["PathImg"] +*/  "Leia Mais..." + "</p></a></div>";
                         //MessageBox.Show(dados.Rows[i]["id"].ToString());                    
                     }
                     xRet += "</div>";
@@ -170,7 +218,7 @@ namespace Site
             string campos = " i.id, i.codtipo AS TipoImg, c.Cod_tipo AS TipoCont, i.cod_destaque, i.titulo, i.path_img, i.fonte, i.autor, i.hint, c.dt_publini, c.dt_publfim, c.id, c.cod_menu,  c.cod_categoria, c.titulo ";
             string tabela = " st_imagens AS i  ";
             string left = " INNER JOIN st_conteudo AS c ON c.id = i.id_conteudo  ";
-            string condicao = " WHERE i.codtipo IN ('SLI' ) AND c.Cod_tipo = 'PROP' ORDER BY c.id DESC LIMIT 3 ";
+            string condicao = " WHERE i.codtipo IN ('SLI' ) AND c.Cod_tipo = 'PROP' ORDER BY c.id DESC LIMIT 5 ";
 
             ObjDados.Campo = campos;
             ObjDados.Tabela = tabela;

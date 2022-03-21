@@ -24,6 +24,7 @@
 
         .btnPrincipal {
             margin-left: 5px;
+            margin-bottom: 5px;
             min-width: 192px;
             height: 60px;
             background-color: #ff0000;
@@ -51,7 +52,7 @@
                     text-decoration: none;
                 }
 
-        .secLogo {            
+        .secLogo {
             width: 100%;
             min-height: 60px;
             border: 1px solid #65368a;
@@ -65,9 +66,12 @@
                 <asp:Label ID="lblLogado" runat="server"></asp:Label>
             </section>
             <section class="secLogo">
-                <div style="width: 60%; height:60px; margin: 0 auto;">
-                    <div style="width: 40px; height: 60px; display: inline-block; float: left;"><img style="width:100%;" src="../Img/Logo Régis-2.png" /></div>
-                    <div style="width: 200px; height: 50px; display: inline-block; float: left;"><p style="margin: 0; padding-top: 10px; display: inline-block; color: #f26907;">Tecnologia</p></div>                                       
+                <div style="width: 60%; height: 60px; margin: 0 auto;">
+                    <div style="width: 40px; height: 60px; display: inline-block; float: left;">
+                        <img style="width: 100%;" src="../Img/Logo Régis-2.png" /></div>
+                    <div style="width: 200px; height: 50px; display: inline-block; float: left;">
+                        <p style="margin: 0; padding-top: 10px; display: inline-block; color: #f26907;">Tecnologia</p>
+                    </div>
                 </div>
             </section>
             <p>Listas</p>
@@ -101,6 +105,16 @@
             <div class="btnPrincipal">
                 <a id="lbtEstudos" runat="server" href="Estudos.aspx">
                     <p>Estudos</p>
+                </a>
+            </div>
+            <div class="btnPrincipal">
+                <a id="lbtTestes" runat="server" href="eTestes.aspx">
+                    <p>Testes</p>
+                </a>
+            </div>
+            <div class="btnPrincipal">
+                <a id="lbtTesteGravarHTML" runat="server" href="testesGravarHtml.aspx">
+                    <p>Recuperação de Tags HTML</p>
                 </a>
             </div>
 

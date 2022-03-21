@@ -47,9 +47,9 @@
                                             <a href="http://asu.no-ip.info/voceonline/" target="_blank"><li>Você OnLine</li></a>
                                             <a href="testPdf.aspx" target="_blank"><li>Teste PDF</li></a>
                                             <a href="VOnLine/Login.aspx">Você On Line - Local</a>
-                                            <a href="Adm/LoginAdm.aspx"><li>Adm</li></a>
+                                            <a href="Adm/LoginAdm.aspx" target="_blank"><li>Adm</li></a>
                                             <a href="Adm/InsertRegistro.aspx"> <li>Teste - Insert</li></a>
-                                            <a href="Privado/pLogin.aspx"><li>Privado</li></a>
+                                            <a href="Privado/pLogin.aspx" target="_blank"><li>Privado</li></a>
                                             <a href="test_Extrato.aspx">Teste Período</a>
                                         </ul>
                                     </li>                            
@@ -59,7 +59,7 @@
                 </section>                
             </section>
             <section id="logohome" class="logohome">
-                <a href="../Home.aspx">
+                <a href="../Home.aspx">                    
                     <img src="../Img/Logo ASU-White-Espaçado.png" /></a>                    
             </section>            
             <section class="navmenu">

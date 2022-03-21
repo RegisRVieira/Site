@@ -188,6 +188,8 @@ namespace Site.Adm
             lblIdEmpresa.Text = gvEmpresa.SelectedRow.Cells[1].Text;
             iNome.Value = gvEmpresa.SelectedRow.Cells[2].Text;
 
+            //MessageBox.Show(gvEmpresa.SelectedRow.Cells[1].Text);
+
             string nome = iNome.Value;
 
             //bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[^a-zA-Z0-9]"));
