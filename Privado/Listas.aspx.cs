@@ -22,16 +22,46 @@ namespace Site.Privado
                 //gerarLink();
                 popularTipo();
 
-                if (Session["LoginPrivado"] != null)
-                {
-                    lblLogado.Text = "Você está Logado como: " + Session["LoginPrivado"].ToString();
-                }
-                else
-                {
-                    Session.Abandon();
-                }
+                mostrarLogado();
             }
         }
+
+        public void mostrarLogado()
+        {
+            Apoio ObjApoio = new Apoio();
+            string identifica = "";
+
+            identifica = Session["LoginPrivado"].ToString();
+
+            string primeiroNome = identifica.Split(' ').FirstOrDefault();
+            string primeiraLetra = identifica.Split(' ').FirstOrDefault();
+            int tNome = primeiroNome.Length;
+
+            if (Session["LoginPrivado"] != null)
+            {
+                lblLogado.Text = primeiraLetra.Substring(0, 1).ToUpper() + primeiroNome.Substring(1, (tNome - 1)).ToLower();
+            }
+            else
+            {
+                Session.Abandon();
+            }            
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            //lblMsg.Text = IP;
+
+        }
+        protected void encerrarLogin(object sender, EventArgs e)
+        {
+            if (Session["Privado"] != null)
+            {
+                Session.Abandon();
+            }
+
+            Response.Redirect("pLogin.aspx");
+        }
+
         protected void ativarViews(int ativa)
         {
             mwConteudo.ActiveViewIndex = ativa;
@@ -44,6 +74,7 @@ namespace Site.Privado
         {
             ativarViews(2);
         }
+
 
         protected void popularTipo()
         {
@@ -179,7 +210,9 @@ namespace Site.Privado
             DataTable dados = ObjItens.RetCampos();
 
             string xRet = "";
+#pragma warning disable CS0219 // A variável "voltarHome" é atribuída, mas seu valor nunca é usado
             string voltarHome = "";
+#pragma warning restore CS0219 // A variável "voltarHome" é atribuída, mas seu valor nunca é usado
 
             //xRet += "SELECT " + campos + " FROM " + tabela + " WHERE " + condicao;            
             //xRet += "SELECT " + ObjDados.Campo + " FROM " + ObjDados.Tabela+ " WHERE " + ObjDados.Condicao;

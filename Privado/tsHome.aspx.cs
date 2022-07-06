@@ -69,8 +69,12 @@ namespace Site.Privado
 
             int nSorteio = (numInicio - 1);
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "xCont" é atribuída, mas seu valor nunca é usado
             string xCont = "";
+#pragma warning restore CS0219 // A variável "xCont" é atribuída, mas seu valor nunca é usado
 
             string tabela = " ";
             string campos = " ";
@@ -127,7 +131,9 @@ namespace Site.Privado
                 //lblNumSorteio.Text += i.ToString();
             }
 
+#pragma warning disable CS0219 // A variável "sql" é atribuída, mas seu valor nunca é usado
             string sql = "";
+#pragma warning restore CS0219 // A variável "sql" é atribuída, mas seu valor nunca é usado
 
             ///sql.cop
 

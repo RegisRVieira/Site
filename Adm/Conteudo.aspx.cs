@@ -216,7 +216,9 @@ namespace Site.Adm
         public void capturarConteudoId(object sender, EventArgs e)
         {
             //var id = gvConteudo.SelectedRow.Cells[0].Text;
+#pragma warning disable CS0219 // A variável "idCont" é atribuída, mas seu valor nunca é usado
             string idCont = "";
+#pragma warning restore CS0219 // A variável "idCont" é atribuída, mas seu valor nunca é usado
             MessageBox.Show(gvConteudo.SelectedRow.Cells[1].Text);
             
             /*
@@ -341,8 +343,12 @@ namespace Site.Adm
         {
             BLL ObjDados = new BLL();
 
+#pragma warning disable CS0219 // A variável "tabela" é atribuída, mas seu valor nunca é usado
             string tabela = " st_conteudo ";
+#pragma warning restore CS0219 // A variável "tabela" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "campos" é atribuída, mas seu valor nunca é usado
             string campos = " * ";
+#pragma warning restore CS0219 // A variável "campos" é atribuída, mas seu valor nunca é usado
             //string condicao = " WHERE id =" + ImgId;
 
             //MessageBox.Show("Tá no Caminho... Clicou para Editar");            

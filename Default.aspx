@@ -119,6 +119,10 @@
             <h1>Você OnLine</h1>
             <a href="LoginVoceOnLine.aspx">Você OnLine</a>
         </div>
+        <div style="width: 600px; height: 300px; border: 1px solid #f26907; background-color: #ffd800">
+            <asp:Button ID="btnTesBtn" runat="server" Text="Executar"  />
+            <asp:Label ID="lblMsg" runat="server"></asp:Label>
+        </div>
     </form>
 </body>
 </html>

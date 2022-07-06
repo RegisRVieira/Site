@@ -1,0 +1,39 @@
+﻿body {
+}
+
+.fatMensal table{
+    border: 2px solid #f26907;
+    background-color: yellow;
+}
+
+.fatMensal caption{
+    background-color: #f26907;
+}
+
+.tabBody{
+    
+}
+    .tabBody tr, td {
+    border: 2px solid #22396f;
+}
+
+.tabBody td {
+    min-width: 80px;
+    text-align: center;
+}
+
+.tabHead td {
+    min-width: 80px;
+    text-align: center;
+}
+
+.titLateral {
+    background-color: red;
+    writing-mode: vertical-lr;
+    width: 20px;
+    text-align: center;
+    font-size: 16px;
+}
+
+
+

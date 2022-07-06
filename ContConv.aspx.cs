@@ -81,7 +81,9 @@ namespace Site
                 xRet += "</section>";
 
                 //Título
+#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 if (dados.Rows[0]["titulo"] == "" || dados.Rows[0]["titulo"] is null)
+#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 {
                 }
                 else
@@ -98,7 +100,9 @@ namespace Site
                     xRet += "</section>";
                 }
                 //Introdução
+#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 if (dados.Rows[0]["introducao"] == "" || dados.Rows[0]["introducao"] is null)
+#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 {
 
                 }
@@ -116,7 +120,9 @@ namespace Site
                     xRet += "</section>";
                 }
                 //Conteúdo
+#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 if (dados.Rows[0]["conteudo"] == "" || dados.Rows[0]["conteudo"] is null)
+#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 {
                 }
                 else
@@ -134,7 +140,9 @@ namespace Site
                 }
 
                 //Complemento
+#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 if (dados.Rows[0]["complemento"] == "" || dados.Rows[0]["complemento"] is null)
+#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 {
 
                 }
@@ -152,7 +160,9 @@ namespace Site
                     xRet += "</section>";
                 }
                 //Conclusão
+#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 if (dados.Rows[0]["conclusao"] == "" || dados.Rows[0]["conclusao"] is null)
+#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
                 {
                 }
                 else

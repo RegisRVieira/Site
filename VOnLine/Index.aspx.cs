@@ -74,7 +74,9 @@ namespace Site.VoceOnLine
                         lblResp.Text = xRet;
                     }
                 }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
                 catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
                 {
                     //lblResp.Text = ex.Message;
                     if (ddlEscolha.SelectedValue == "0")

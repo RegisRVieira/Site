@@ -24,9 +24,81 @@ namespace Site
     public partial class testPdf : System.Web.UI.Page
     {
         public string conectSite = ConfigurationManager.AppSettings["conectSite"];
+        public string conectVegas = ConfigurationManager.AppSettings["conectVegas"];
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public string GeraDigMod11(long intNumero)
+        {
+            string cDigito = "";
+
+            cDigito = "" + intNumero + DigitoModulo11(intNumero);
+            cDigito = "" + cDigito + DigitoModulo11(Convert.ToUInt32(cDigito));
+
+            return cDigito;
+        }
+
+        public int DigitoModulo11(long intNumero)
+        {
+            int[] intPesos = { 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            string strText = intNumero.ToString();
+
+            if (strText.Length > 16)
+
+                throw new Exception("Número não suportado pela função!");
+
+            int intSoma = 0;
+
+            int intIdx = 0;
+
+            for (int intPos = strText.Length - 1; intPos >= 0; intPos--)
+            {
+                intSoma += Convert.ToInt32(strText[intPos].ToString()) * intPesos[intIdx];
+
+                intIdx++;
+            }
+
+            int intResto = (intSoma * 10) % 11;
+
+            int intDigito = intResto;
+
+            if (intDigito >= 10)
+
+                intDigito = 0;
+
+            return intDigito;
+        }
+
+
+        protected void gerarDvConvenios(object sender, EventArgs e) {
+            BLL ObjDados = new BLL(conectVegas);
+
+            ObjDados.Campo = " idconven, nome";
+            ObjDados.Tabela = " coconven ";
+            ObjDados.Condicao = " WHERE cnscanmom IS NULL ";
+
+            DataTable dados = ObjDados.RetCampos();
+
+            string xRet = "";
+            string dv = "";
+            xRet += "<div>";
+            for (int i = 0; i < dados.Rows.Count; i++)
+            {
+                string idConv = dados.Rows[i]["idconven"].ToString();                
+            
+                dv = GeraDigMod11(Convert.ToInt64(idConv)).ToString();
+
+                xRet += "<p>" + dados.Rows[i]["idconven"].ToString() + " - " + dados.Rows[i]["nome"].ToString() + " DV: " + dv + "</p>";
+                
+            }           
+            xRet += "</div>";
+
+            
+
+            lblListaConvenios.Text = xRet;
         }
 
         public void gerarPDF(object sender, EventArgs e)
@@ -233,7 +305,11 @@ namespace Site
 
 
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+#pragma warning disable CS0612 // "HTMLWorker" está obsoleto
+#pragma warning disable CS0612 // "HTMLWorker" está obsoleto
             HTMLWorker obj = new HTMLWorker(pdfDoc);
+#pragma warning restore CS0612 // "HTMLWorker" está obsoleto
+#pragma warning restore CS0612 // "HTMLWorker" está obsoleto
             MemoryStream ms = new MemoryStream();
             PdfWriter writer = PdfWriter.GetInstance(pdfDoc, ms);
 
@@ -318,6 +394,11 @@ namespace Site
         protected void pdfItex7(object sender, EventArgs e)
         {
 
+        }
+        protected void executarTest(object sender, EventArgs e)
+        {
+            string msg = "Você Clicou!!!";
+            lblMsg.Text = msg;
         }
 
     }//Fim

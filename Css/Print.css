@@ -1,0 +1,93 @@
+﻿body, html {    
+    font-size: 10px;
+    
+    
+}
+
+@media print {
+    /* html, body {
+        margin: 0;
+        padding: 0;
+        border: 0;                                        
+     }
+                                       */
+    body * {
+        visibility: hidden;
+    }
+    /*
+    #printable, #printable * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 70px;
+        border: none;
+        visibility: visible;             
+    }
+        */
+    /*#printable {*/
+        /*display: none;*/
+        /*position: fixed;
+        left: 0;
+        top: 0;
+    }*/
+        .printable, .printable * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 70px;
+            border: none;
+            visibility: visible;
+        }
+
+    .printable {
+        /*display: none;*/
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
+
+    /* - - - - Extrato Convênio - - - - */
+
+        .printable2, .printable2 * {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 40px;
+            border: none;
+            visibility: visible;
+    }
+
+    .printable2 {
+        /*display: none;*/
+        position: fixed;
+        left: 0;
+        top: 0;
+    }
+
+
+    /* - - - Extrato Associado - - - */
+    .tFontExtrato {
+        font-size: 55px;
+    }
+    #nome {
+        font-size: 55px;
+    }
+
+    #nome2 {
+        font-size: 55px;
+    }
+    #cpf {
+        font-size: 55px;
+    }
+    #cpf2 {
+        font-size: 55px;
+    }
+
+}
+
+
+#lblPeriodo{
+    font-size: 10px;
+    background-color: forestgreen;
+}

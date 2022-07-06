@@ -18,6 +18,15 @@
         <div>
             <a href="iText7.aspx">PDF - iText7</a>
         </div>
-    </form>
+        <!--Teste realizado em 11-05-2022, pois ocorre erro ao utilizar um button. Por isso está sem o OnClick-->
+        <div style="margin-top: 20px; width: 800px; height: 300px;  border: 2px solid #ff0000;">
+            <asp:Button ID="btnTest" runat="server" Text="Executar"  />
+            <asp:Label ID="lblMsg" runat="server"></asp:Label>
+        </div>
+    
+        <asp:Button ID="btnRelConv" runat="server" Text="Ver Convênios" OnClick="gerarDvConvenios" />
+
+        <asp:Label ID="lblListaConvenios" runat="server"></asp:Label>
+    </form>    
 </body>
 </html>

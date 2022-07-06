@@ -66,7 +66,9 @@ namespace Site.Privado
             xRet += "<br>";
             //xRet += "<span title=" + "Será..." + "Segunda linha..." + " class='tsCursor'>1500</span>";
 
+#pragma warning disable CS0219 // A variável "nSorteio" é atribuída, mas seu valor nunca é usado
             int nSorteio = 2000;
+#pragma warning restore CS0219 // A variável "nSorteio" é atribuída, mas seu valor nunca é usado
             //xRet += "<span class='tooltiptext'><span class='stbNumero'>" + "Número" + dados.Rows[0]["Numero"].ToString() + "</span><br /><span class='stbNome'>" + dados.Rows[0]["Descricao"].ToString() + "</span><br /><span class='stbStatus'>" + "Pago" + "</span></span>";
 
             xRet += "<section class='secTabNumeros'>";

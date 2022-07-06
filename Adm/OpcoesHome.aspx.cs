@@ -356,7 +356,9 @@ namespace Site.Adm
 
         public void cadastrarContSlider(object sender, EventArgs e)
         {
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
@@ -411,7 +413,9 @@ namespace Site.Adm
         public void cadastrarContB33(object sender, EventArgs e)
         {
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
@@ -467,7 +471,9 @@ namespace Site.Adm
 
         public void cadastrarContB100(object sender, EventArgs e)
         {
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
@@ -565,7 +571,9 @@ namespace Site.Adm
 
         public void cadastrarMateria(object sender, EventArgs e)
         {
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
@@ -669,7 +677,9 @@ namespace Site.Adm
         public void inserirImagemSlider(object sender, EventArgs e)
         {
             string xRet = "";
+#pragma warning disable CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
             string xImg = "";
+#pragma warning restore CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);
@@ -864,7 +874,9 @@ namespace Site.Adm
         public void inserirImagemB33(object sender, EventArgs e)
         {
             string xRet = "";
+#pragma warning disable CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
             string xImg = "";
+#pragma warning restore CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);
@@ -1076,7 +1088,9 @@ namespace Site.Adm
         {
 
             string xRet = "";
+#pragma warning disable CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
             string xImg = "";
+#pragma warning restore CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);
@@ -1278,7 +1292,9 @@ namespace Site.Adm
         protected void InserirImgMateria(object sender, EventArgs e)
         {
             string xRet = "";
+#pragma warning disable CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
             string xImg = "";
+#pragma warning restore CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);

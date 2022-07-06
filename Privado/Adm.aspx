@@ -10,8 +10,13 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <section class="secMenu">            
-            <asp:Label ID="lblLogado" runat="server"></asp:Label>
+        <section class="secMenu">
+            <div class="pDivLogin">
+                <p style="color: #fbb888;">
+                    Você está logado como:
+                    <asp:Label ID="lblLogado" runat="server" CssClass="corLogin"></asp:Label>&nbsp&nbsp&nbsp&nbsp<asp:LinkButton ID="lbtEncerrar" runat="server" Text="Sair" OnClick="encerrarLogin"></asp:LinkButton>
+                </p>
+            </div>
             <div style="margin: 0 auto; width: 70%; height: auto;">
                 <ul>
                     <p>Cadastro</p>
@@ -24,7 +29,7 @@
                 <asp:MultiView ID="mwPessoal" runat="server">
                     <asp:View ID="vwBoasVindas" runat="server">
                         <label>Bem Vindo!!!</label>
-                        <label>Vamos Começar...</label>                                                
+                        <label>Vamos Começar...</label>
                     </asp:View>
                     <asp:View ID="vwUsuarios" runat="server">
                         <p>Usuários</p>
@@ -34,7 +39,7 @@
                         <div class="alinhaBotao">
                             <asp:Button ID="btnCadUsuario" runat="server" Text="Cadastrar" OnClick="cadastrarUsuario" />
                         </div>
-                        <section >                            
+                        <section>
                             <asp:GridView ID="gvUsuarios" runat="server" BackColor="White" BorderColor="#E7E7FF" BorderStyle="None" BorderWidth="1px" CellPadding="3" GridLines="Horizontal">
                                 <AlternatingRowStyle BackColor="#F7F7F7" />
                                 <FooterStyle BackColor="#B5C7DE" ForeColor="#4A3C8C" />
@@ -46,11 +51,11 @@
                                 <SortedAscendingHeaderStyle BackColor="#5A4C9D" />
                                 <SortedDescendingCellStyle BackColor="#D8D8F0" />
                                 <SortedDescendingHeaderStyle BackColor="#3E3277" />
-                            </asp:GridView>                            
+                            </asp:GridView>
                         </section>
                     </asp:View>
                     <asp:View ID="vwTipo" runat="server">
-                        <p>Tipo</p>                        
+                        <p>Tipo</p>
                         <input id="iCodTipo" runat="server" type="text" placeholder="Código" required="required" />
                         <input id="iNomeTipo" runat="server" type="text" placeholder="Nome" required="required" />
                         <input id="iDescTipo" runat="server" type="text" placeholder="Descrição" required="required" />
@@ -65,6 +70,9 @@
                 </asp:MultiView>
                 <asp:Label ID="lblMsg" runat="server"></asp:Label>
             </section>
+            <div style="margin-left: 10px;">
+                <a href="Default.aspx">Voltar</a>
+            </div>
         </section>
     </form>
 </body>

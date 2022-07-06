@@ -9,7 +9,9 @@ using System.IO;
 using System.Configuration;
 using System.Data;
 using Site.App_Code;
+#pragma warning disable CS0105 // A diretiva using para "System.Configuration" apareceu anteriormente neste namespace
 using System.Configuration;
+#pragma warning restore CS0105 // A diretiva using para "System.Configuration" apareceu anteriormente neste namespace
 using System.Net;
 
 namespace Site.App_Code
@@ -37,6 +39,7 @@ namespace Site.App_Code
         //Associado
         public string IdAssoc { get; set; }
         public string IdConv { get; set; }
+        
         public string gerarPdf()
         {
             string PdfGerado = xPdf;
@@ -375,8 +378,10 @@ namespace Site.App_Code
             return limite;
         }
 
-        public double vendasConvenio()
+        public double vendasConvenio(string idConv, string idConv2)
         {
+            this.IdConv = idConv;
+            string idAcesso = idConv2;
             BLL ObjDados = new BLL(conectVegas);
 
             double vendas = 0.00;
@@ -385,9 +390,12 @@ namespace Site.App_Code
 
             ObjDados.Campo = " SUM(valor*-1) AS vendas ";
             ObjDados.Tabela = " comovime AS m ";
-            ObjDados.Condicao = " where (m.convenio = '" + IdConv + "' or exists(SELECT null FROM coconven as c WHERE c.idconven = m.convenio and c.cnpj_cpf = '" + IdConv + "')) AND m.cnscanmom IS NULL and vencimento between " + dtDataInicio() + " and " + dtDataFim() ;            
+            //ObjDados.Condicao = " where (m.convenio = '" + IdConv + "' or exists(SELECT null FROM coconven as c WHERE c.idconven = m.convenio and c.cnpj_cpf = '" + IdConv + "')) AND m.cnscanmom IS NULL and vencimento between " + dtDataInicio() + " and " + dtDataFim();
+            ObjDados.Condicao = " where (m.convenio = '" + IdConv + "' or exists(SELECT null FROM coconven as c WHERE c.idconven = m.convenio and c.cnpj_cpf = '" + idConv2 + "')) AND m.cnscanmom IS NULL and vencimento between " + Periodo();
 
             DataTable dados = ObjDados.RetCampos();
+
+            string query = ObjDados.Campo + " " + ObjDados.Tabela + "" + ObjDados.Condicao;
 
             if (ObjDados.MsgErro == "")
             {
@@ -398,11 +406,11 @@ namespace Site.App_Code
                 }
                 else
                 {
-                    vendas = double.Parse(dados.Rows[0]["vendas"].ToString());            
+                    vendas = double.Parse(dados.Rows[0]["vendas"].ToString());
                 }
             }
             else
-            {              
+            {
                 Ms = ObjDados.MsgErro;
 
                 //Ver como resolver esse cara. Retornar uma string (a msg de erro) num double (29-11-2021)
@@ -410,6 +418,119 @@ namespace Site.App_Code
             }
 
             return vendas;
+            //return query;
         }
-    }
+
+        public String checarAniversario(string Id)
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+#pragma warning disable CS0219 // A variável "msgNiver" é atribuída, mas seu valor nunca é usado
+            string msgNiver = "";
+#pragma warning restore CS0219 // A variável "msgNiver" é atribuída, mas seu valor nunca é usado
+
+
+            //string campos = " associado, iddepen, nome, dtnasci,CONCAT((YEAR(CURDATE()) - (YEAR(dtnasci) + 1)), ' ano(s)') AS Idade,  IF(EXTRACT(MONTH FROM CURDATE()) = EXTRACT(MONTH FROM dtnasci), IF((EXTRACT(DAY FROM CURDATE()) = EXTRACT(DAY FROM dtnasci)), CONCAT(EXTRACT(YEAR FROM CURDATE()) - (EXTRACT(YEAR FROM dtnasci)), ', " + "Hoje é o seu aniversário, Parabéns!!!" + "'), ''), '') AS aniversario, grau";
+            string campos = " associado, iddepen, nome,  dtnasci,  CONCAT((YEAR(CURDATE()) - (YEAR(dtnasci)+1)), ' ano(s)') AS Idade,  IF(EXTRACT(MONTH FROM CURDATE()) = EXTRACT(MONTH FROM dtnasci),IF((EXTRACT(DAY FROM CURDATE()) = EXTRACT(DAY FROM dtnasci)),'Aniversariante' ,'Ainda não é o dia do seu aniversário'),'Ainda não chegou seu mês / dia') AS aniversario, IF(grau IN ('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13'), 'Dependente', 'Titular') AS grau  ";
+            string tabela = " asdepen ";
+            string condicao = " WHERE associado = '" + Id + "' AND cnscanmom IS NULL ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            string xRet = "";
+            if (ObjDados.MsgErro == "")
+            {
+                if (dados.Rows.Count > 0)
+                {
+                    //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Titular: " + dados.Rows[0]["aniversario"].ToString() + "</p>";
+
+                    for (int i = 0; i < dados.Rows.Count; i++)
+                    {
+                        //if (dados.Rows[i]["aniversario"].ToString() != "")
+
+
+                        //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Todos: " + dados.Rows[i]["nome"].ToString() + ", " + dados.Rows[i]["aniversario"].ToString() + "</p>";
+
+                        if (dados.Rows[i]["aniversario"].ToString() == "Aniversariante")
+                        {
+                            if (dados.Rows[i]["grau"].ToString() == "Dependente")
+                            {
+                                xRet += "<div class='aniversario'>";
+                                xRet += "<p style='width: 100%; min-height: 10px; text-align: left; color: #f26907 '>" + "Hoje é o aniversário do seu dependente: " + dados.Rows[i]["nome"].ToString() + ". Desejamos Muitas felicidades e realizações. " + "</p>";
+                                xRet += "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='aniversario'>";
+                                xRet += "<p style='width: 100%; min-height: 10px; text-align: left; color: #f26907 '>" + "Parabéns " + dados.Rows[i]["nome"].ToString() + ", hoje é o seu dia! Muitas Felicidades e Realizações. " + "</p>";
+                                xRet += "</div>";
+                            }
+                        }
+                        else
+                        {
+                           // xRet += "<div class='aniversario'>";
+                           // xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Dependente: " + dados.Rows[i]["aniversario"].ToString() + "</p>";
+                           // xRet += "</div>";
+                        }
+
+                    }
+                }
+                //xRet += "<p>" + dados.Rows[0]["aniversario"].ToString() + "</p>";
+                //xRet += "<p>" + dados.Rows[0]["nome"].ToString() + "</p>";                
+            }
+            else
+            {
+                xRet += "Deu Erro:" + ObjDados.MsgErro;
+            }
+
+
+            return xRet;
+        }
+
+        public string idCep { get; set; }
+        public string Endereco { get; set; }
+        public string Complemento { get; set; }
+        public string cBairro { get; set; }
+        public string cCidade { get; set; }
+        public string UF { get; set; }
+
+        public void buscarCep(string id)
+        {
+            this.idCep = id;
+            string Msg = "";
+
+            using (var ws = new SRCorreios.AtendeClienteClient())
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    Msg = "Campo Cep Precisa ser Preenchido";
+                }
+                else
+                {
+                    try
+                    {
+                        var Correios = ws.consultaCEP(idCep);
+
+                        //Associado
+                        Rua = Correios.end;
+                        Complemento = Correios.complemento2;
+                        cBairro = Correios.bairro;
+                        cCidade = Correios.cidade;
+                        UF = Correios.uf;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Msg = "Erro ao Consultar o CEP!!! " + ex.Message;
+                    }
+                }
+            }
+        }//buscarCep
+
+
+    }//class Apoio
 }

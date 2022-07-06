@@ -3,26 +3,33 @@
     padding: 0;
 }
 
-table {    
-    width: 100%;
+.defaultTable {
+
 }
 
-caption {
-    background-color: #22396f;
-    margin: 0;
-    margin-top: 30px;
-    padding: 10px 0 2px;
-    font-size: 1.8em;
-    color: white;
-}
+    .defaultTable table {
+        
+    }
 
-tr, td, th {
-    /*border: thin solid #ccc;*/
-    border-bottom: none;
-    border-right: none;
-    padding: 5px 18px 2px 18px;
-    font-size: .9em;
-}
+    .defaultTable caption {
+        background-color: #22396f;
+        margin: 0;
+        margin-top: 30px;
+        padding: 10px 0 2px;
+        font-size: 1.8em;
+        color: white;
+    }
+
+    .defaultTable tr, td, th {
+        /*border: thin solid #ccc;*/
+        min-width: 15px;
+        height: auto;
+        border-bottom: none;
+        border-right: none;
+        padding: 5px 18px 2px 18px;
+        /*font-size: .9em;*/
+        font-size: 11px;
+    }
 
 @media(max-width: 1000px) {
     table{
@@ -34,24 +41,24 @@ tr, td, th {
 }
 
 
-td {
+.defaultTable td {
     text-align: center;
 }
 
-th {
+.defaultTable th {
     text-align: left;
 }
 
-thead th {
+.defaultTable thead th {
     text-align: center;
     background-color: #f26907;
 }
 
-thead td {
+.defaultTable thead td {
     background-color: #7693d5;
 }
 
-thead tr th:first-child {
+.defaultTable thead tr th:first-child {
     /*text-align: center;*/
 }
 
@@ -72,7 +79,7 @@ thead tr th:first-child {
     color: #fff;
 }
 
-tfoot td {
+.defaultTable tfoot td {
     font-size: 1.8em;
     color: white;
     background-color: #7693d5;
@@ -88,7 +95,7 @@ tfoot td {
     text-align: left;
 }
 
-tbody tr:nth-child(odd) { /*Altera a cor da linha*/
+.defaultTable tbody tr:nth-child(odd) { /*Altera a cor da linha*/
     background-color: #ebf0f9;
     background-color: #d8e1f3;
 }

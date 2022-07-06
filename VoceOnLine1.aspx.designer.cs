@@ -33,15 +33,6 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblUsuLogado;
 
         /// <summary>
-        /// Controle lbtDeslogar.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lbtDeslogar;
-
-        /// <summary>
         /// Controle mwVoceOnLine.
         /// </summary>
         /// <remarks>
@@ -294,6 +285,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblErroAssoc;
 
         /// <summary>
+        /// Controle iLogradouroAssoc.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iLogradouroAssoc;
+
+        /// <summary>
         /// Controle iRuaAssoc.
         /// </summary>
         /// <remarks>
@@ -528,6 +528,60 @@ namespace Site
         protected global::System.Web.UI.WebControls.View vwAssocCartoes;
 
         /// <summary>
+        /// Controle btnEscolherCartao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEscolherCartao;
+
+        /// <summary>
+        /// Controle divAlteraSenhaCartao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divAlteraSenhaCartao;
+
+        /// <summary>
+        /// Controle iNovaSenhaCartao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iNovaSenhaCartao;
+
+        /// <summary>
+        /// Controle iConfirmaNovaSenhaCartao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iConfirmaNovaSenhaCartao;
+
+        /// <summary>
+        /// Controle btntrocaSenhaCartao.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btntrocaSenhaCartao;
+
+        /// <summary>
+        /// Controle lblListaCartoes.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblListaCartoes;
+
+        /// <summary>
         /// Controle vwAssocSenha.
         /// </summary>
         /// <remarks>
@@ -600,6 +654,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.View vwConvVenda;
 
         /// <summary>
+        /// Controle secCompVenda.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl secCompVenda;
+
+        /// <summary>
         /// Controle iNumCartao.
         /// </summary>
         /// <remarks>
@@ -636,6 +699,15 @@ namespace Site
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword iSenha;
 
         /// <summary>
+        /// Controle comunicando.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl comunicando;
+
+        /// <summary>
         /// Controle btnVender.
         /// </summary>
         /// <remarks>
@@ -643,6 +715,33 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnVender;
+
+        /// <summary>
+        /// Controle lblMsgVenda.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsgVenda;
+
+        /// <summary>
+        /// Controle compVenda.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl compVenda;
+
+        /// <summary>
+        /// Controle btnFinalizaVenda.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFinalizaVenda;
 
         /// <summary>
         /// Controle lblRetorno.
@@ -759,7 +858,7 @@ namespace Site
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iLogradouroConv;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iLogradouroConv;
 
         /// <summary>
         /// Controle iRuaConv.
@@ -879,22 +978,22 @@ namespace Site
         protected global::System.Web.UI.WebControls.View vwConvRelEntrega;
 
         /// <summary>
-        /// Controle ddlMes.
+        /// Controle iDataIni.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMes;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataIni;
 
         /// <summary>
-        /// Controle ddlAno.
+        /// Controle iDataFin.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlAno;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataFin;
 
         /// <summary>
         /// Controle btnGerarData.
@@ -915,6 +1014,42 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblPeriodo;
 
         /// <summary>
+        /// Controle lblRelEntrega.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRelEntrega;
+
+        /// <summary>
+        /// Controle divPrintRelEntregaPre.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPrintRelEntregaPre;
+
+        /// <summary>
+        /// Controle retRelEntregaPre.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl retRelEntregaPre;
+
+        /// <summary>
+        /// Controle lblRelEntregaPre.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRelEntregaPre;
+
+        /// <summary>
         /// Controle vwConvFatura.
         /// </summary>
         /// <remarks>
@@ -922,6 +1057,42 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.View vwConvFatura;
+
+        /// <summary>
+        /// Controle ddlFatMensalMes.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFatMensalMes;
+
+        /// <summary>
+        /// Controle ddlFatMensalAno.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFatMensalAno;
+
+        /// <summary>
+        /// Controle Button2.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
+
+        /// <summary>
+        /// Controle lblFaturaMensal.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFaturaMensal;
 
         /// <summary>
         /// Controle vwConvExtrato.
@@ -960,22 +1131,22 @@ namespace Site
         protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
-        /// Controle btnPdfConv.
+        /// Controle lblExtratoConvenio.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPdfConv;
+        protected global::System.Web.UI.WebControls.Label lblExtratoConvenio;
 
         /// <summary>
-        /// Controle Button2.
+        /// Controle lblExtratoConvenioPre.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Label lblExtratoConvenioPre;
 
         /// <summary>
         /// Controle vwConvSenha.

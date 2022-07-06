@@ -264,7 +264,9 @@ namespace Site.Eventos
 
                 string tabela = " e_pessoas ";
                 string campos = " id_evento, idassoc, nome, cod_tipo, cod_status, STATUS, unidade, tempofiliacao, observacao, cadmom, cadusu ";
+#pragma warning disable CS0219 // A variável "campoId" é atribuída, mas seu valor nunca é usado
                 string campoId = " * ";
+#pragma warning restore CS0219 // A variável "campoId" é atribuída, mas seu valor nunca é usado
                 string valores = String.Format("'" + Session["Id_Evento"] + "'," +
                                                   "'" + lblIdAssoc.Text + "'," +
                                                   "'" + iNome.Value + "'," +
@@ -345,9 +347,15 @@ namespace Site.Eventos
         {
             BLL ObjDados = new BLL(conectSite);
 
+#pragma warning disable CS0219 // A variável "valores" é atribuída, mas seu valor nunca é usado
             string valores = " cnmom, canusu";
+#pragma warning restore CS0219 // A variável "valores" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "tabela" é atribuída, mas seu valor nunca é usado
             string tabela = " e_pessoa ";
+#pragma warning restore CS0219 // A variável "tabela" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "condicao" é atribuída, mas seu valor nunca é usado
             string condicao = "";
+#pragma warning restore CS0219 // A variável "condicao" é atribuída, mas seu valor nunca é usado
 
             //ObjDados.EditRegistro(tabela, valores, condicao);
 

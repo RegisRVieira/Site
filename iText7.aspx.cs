@@ -98,7 +98,9 @@ namespace Site
 
 
             string xRet = "";
+#pragma warning disable CS0219 // A variável "xPdf" é atribuída, mas seu valor nunca é usado
             string xPdf = "";
+#pragma warning restore CS0219 // A variável "xPdf" é atribuída, mas seu valor nunca é usado
 
 
 
@@ -114,9 +116,15 @@ namespace Site
 
             DataTable dados = ObjDados.RetCampos();
 
+#pragma warning disable CS0219 // A variável "gastos" é atribuída, mas seu valor nunca é usado
             double gastos = 0;
+#pragma warning restore CS0219 // A variável "gastos" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "limite" é atribuída, mas seu valor nunca é usado
             double limite = 0;
+#pragma warning restore CS0219 // A variável "limite" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
             double saldo = 0;
+#pragma warning restore CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
 
             double totalExtrato = double.Parse(dados.Rows[0]["gastos"].ToString()) * (-1);
 
@@ -136,7 +144,9 @@ namespace Site
             
             Table table = new Table(UnitValue.CreatePercentArray(colunas)).UseAllAvailableWidth(); //Com esse cara. Vão determinar a largura da coluna
 
+#pragma warning disable CS0219 // A variável "simg" é atribuída, mas seu valor nunca é usado
             string simg = @"K:\Projetos\Web\Site\Site\Img\Logo.png";
+#pragma warning restore CS0219 // A variável "simg" é atribuída, mas seu valor nunca é usado
 
             //**
 

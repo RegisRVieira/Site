@@ -905,4 +905,90 @@ $(function () {
 
 /* - - - - FIM - - - - */
 
+/* - - - -  Impressões - - - - */
 
+function printBy(selector) {
+    //alert("Você clicou para imprimir, se vai ou não são outros 500");
+
+    var $print = $(selector)
+        .clone()
+        .addClass('print')
+        .prependTo('div');
+
+
+    // Stop JS execution
+    window.print();
+    //printable.print();
+    // Remove div once printed
+    $print.remove();
+}
+
+/* - - -  Impressão: Fim - - - */
+
+/*<script type="text/javascript">*/
+/*
+function PrintElem(elem) {
+    Popup(document.getElementById(elem).innerHTML);
+}
+*/
+/* Exemplo
+var win = window.open('','printwindow');
+win.document.write('<html><head><title>Print it!</title><link rel="stylesheet" type="text/css" href="styles.css"></head><body>');
+win.document.write($("#content").html());
+win.document.write('</body></html>');
+win.print();
+win.close();
+ */
+
+/*
+function Popup(data) {
+    var mywindow = window.open('Comprovante', 'comprovante', 'width=900, height=600');
+    mywindow.document.write('<html><head><title>Comprovante</title>');
+    //optional stylesheet //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+    //mywindow.document.write('<link rel="stylesheet" href="Css/Print.css" />')
+    //mywindow.document.write('</head><body style="font-family:Courier New;font-size:12px;"><table style="font-size:8px;" > ');
+    mywindow.document.write('</head><body>');
+    
+    mywindow.document.write(data);
+    
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus();
+    mywindow.print();
+    mywindow.close();
+
+    //mywindow.close();
+
+    // Teste para alterar tamanho da Fonte, porém, é para alterar a fonte apenas na impressão
+    //var printRelEntPos = document.querySelector("#lblPeriodo");
+    //var printRelEntPre = document.querySelector("#lblRelEntregaPre");
+
+    //printRelEntPos.style.fontSize = "20px";
+    //printRelEntPre.style.fontSize = "16px";
+    
+
+    return true;
+}
+*/
+
+function PrintElem(elem, largura, titulo) {
+    Popup($(elem).html(), largura, titulo);
+}
+
+function Popup(data, largura, titulo) {
+    var mywindow = window.open('Imprimir', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');
+    mywindow.document.write('<html><head><title>Imprimir</title>');
+    mywindow.document.write('</head><body style="font-family:Courier New;font-size:11px;"><table align="center" style="font-size:14px;"><tr><td><img src="Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
+
+    mywindow.document.write(data);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus();
+    /*mywindow.print();
+    mywindow.close();*/
+    /*mywindow.close();*/
+
+    /*return true;*/
+}

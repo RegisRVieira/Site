@@ -82,9 +82,15 @@ namespace Site.VOnLine
             int tamanhocampo = codAcesso.Length;
             bool validacpf = true; //Variável para checar se o campo cpf tem 11 ou 14 caracteres, se não tiver emite mensagem de erro. 
 
+#pragma warning disable CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
             string rDigVerifica;
+#pragma warning restore CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
+#pragma warning disable CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
             string wdv = "";
+#pragma warning restore CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
             string idCartao = "";
+#pragma warning restore CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
 
             if (String.IsNullOrEmpty(iCpf.Value) || String.IsNullOrEmpty(iSenha.Value))
             {
@@ -152,7 +158,7 @@ namespace Site.VOnLine
 
                                 Session.Add("CodAcesso", codAcesso);
                                 //Session.Add("iDAssoc", dados.Rows[0]["associado"].ToString());
-                                Response.Redirect("VoceOnLine.aspx");
+                                Response.Redirect("../VoceOnLine1.aspx");
                                 /*
                                 if (tamanhocampo == 9 || tamanhocampo == 11)
                                 {
@@ -168,7 +174,7 @@ namespace Site.VOnLine
                             else //É conveniado
                             {
                                 lblResult.Text = "Usuário ou Senha incorreto(s)";
-                                Response.Redirect("VoceOnLine.aspx");
+                                Response.Redirect("../VoceOnLine1.aspx");
                                 //MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
                             }
                         }

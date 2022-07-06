@@ -1120,7 +1120,9 @@ namespace Site.Adm
             string valores = String.Format("'" + nome + "'" + ", " + "'" + usuario + "'" + ", " + "'" + senha + "'" + ", " + "'" + email + "'" + ", " + "'" + cpf + "'" + ", " + "'" + Session["LoginUsuario"].ToString() + "'" + ", " + "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'" + ", " + "'" + 1 + "'" + ", " + "'" + 1 + "'");
             string sql = "";
 
+#pragma warning disable CS0219 // A variável "contador" é atribuída, mas seu valor nunca é usado
             int contador = 0;
+#pragma warning restore CS0219 // A variável "contador" é atribuída, mas seu valor nunca é usado
 
             ObjUsuario.Tabela = tabela;
             ObjUsuario.Campo = campos;

@@ -365,6 +365,7 @@
                         <asp:View ID="vwConvDownloads" runat="server">Downloads</asp:View>
                         <asp:View ID="vwConvOfertas" runat="server">Ofertas</asp:View>
                     </asp:MultiView>
+                    <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>
             </div>
             <asp:Label ID="lblResult" runat="server"></asp:Label>

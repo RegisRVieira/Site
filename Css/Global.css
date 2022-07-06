@@ -254,24 +254,25 @@
     margin: 0;
 }
 
-.lblUsuLogado {
+.lblUsuLogado {    
     margin-left: 5px;
     margin-top: -.5px;
     position: absolute;
-    cursor: pointer;
+    cursor: pointer;    
 }
 .BoxVOLoginMenu{                            
-    width: 250px; 
+    width: 400px; 
     float: right;
-    height: 20px;
+    height: 20px;    
 }
 .BoxVOLoginMenu ul{
     margin: 0;
     padding: 0;
     list-style: none;         
-    color: #7495d0;
+    color: #7495d0;    
 }
-.BoxVOLoginMenu ul li{                            
+.BoxVOLoginMenu ul li{                                
+    padding-left: 5px;
     float: left;
     position: relative;
 }

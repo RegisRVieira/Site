@@ -74,7 +74,9 @@ namespace Site
                         lblResp.Text = xRet;
                     }
                 }
+#pragma warning disable CS0168 // A variável "ex" está declarada, mas nunca é usada
                 catch (Exception ex)
+#pragma warning restore CS0168 // A variável "ex" está declarada, mas nunca é usada
                 {
                     //lblResp.Text = ex.Message;
                     if (ddlEscolha.SelectedValue == "0")
@@ -117,6 +119,12 @@ namespace Site
                 string conectstring = "Server: " + WebConfigurationManager.AppSettings["ServerVegas"] + " - " + " DataBase: " + WebConfigurationManager.AppSettings["DBVegas"] + " - " + " Usuário: " + WebConfigurationManager.AppSettings["UserVegas"] + " - Porta: " + WebConfigurationManager.AppSettings["PortVegas"];
                 lblResp.Text = "Você escolheu Vegas" + " ### " + conectstring;
             }
+        }
+
+        public void executarTest(object sender, EventArgs e)
+        {
+            string msg = "Você clicou!!!";
+            lblMsg.Text = msg;
         }
     }
 }

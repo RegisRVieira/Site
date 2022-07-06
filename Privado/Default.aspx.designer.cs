@@ -33,6 +33,15 @@ namespace Site.Privado
         protected global::System.Web.UI.WebControls.Label lblLogado;
 
         /// <summary>
+        /// Controle lbtEncerrar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtEncerrar;
+
+        /// <summary>
         /// Controle lbtAdm.
         /// </summary>
         /// <remarks>
@@ -103,5 +112,14 @@ namespace Site.Privado
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtTesteGravarHTML;
+
+        /// <summary>
+        /// Controle btnQS.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor btnQS;
     }
 }

@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../Css/pStyle.css" />
     <title>Pessoal</title>
     <style>
         .secPrincipal {
@@ -61,14 +62,18 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <section class="secPrincipal">
-            <section class="areaLogin">
-                <asp:Label ID="lblLogado" runat="server"></asp:Label>
-            </section>
+        <section class="secPrincipal">            
+            <div class="pDivLogin" >
+                <p style="color: #fbb888; font-size: 14px; text-align: left;">                    
+                    Você está logado como:
+                    <asp:Label ID="lblLogado" runat="server" CssClass="corLogin"></asp:Label>&nbsp&nbsp&nbsp&nbsp<asp:LinkButton ID="lbtEncerrar" runat="server" Text="Sair" OnClick="encerrarLogin"></asp:LinkButton>
+                </p>
+            </div>
             <section class="secLogo">
                 <div style="width: 60%; height: 60px; margin: 0 auto;">
                     <div style="width: 40px; height: 60px; display: inline-block; float: left;">
-                        <img style="width: 100%;" src="../Img/Logo Régis-2.png" /></div>
+                        <img style="width: 100%;" src="../Img/Logo Régis-2.png" />
+                    </div>
                     <div style="width: 200px; height: 50px; display: inline-block; float: left;">
                         <p style="margin: 0; padding-top: 10px; display: inline-block; color: #f26907;">Tecnologia</p>
                     </div>
@@ -115,6 +120,11 @@
             <div class="btnPrincipal">
                 <a id="lbtTesteGravarHTML" runat="server" href="testesGravarHtml.aspx">
                     <p>Recuperação de Tags HTML</p>
+                </a>
+            </div>
+            <div class="btnPrincipal">
+                <a id="btnQS" runat="server" href="P1.aspx">
+                    <p>QueryStribg</p>
                 </a>
             </div>
 

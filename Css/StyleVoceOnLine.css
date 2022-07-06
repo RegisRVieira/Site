@@ -18,6 +18,14 @@
 .corpo{
     background-color: aqua;
 }
+.aniversario{
+    margin-top: 10px;
+    width: 100%;
+    min-height: 10px;
+    /*background-color: blue;*/
+    text-align: left;
+    /*border: 1px groove #f26907;*/
+}
 .extAssocNormal{    
     width: 600px;
     min-height: 50px;        
@@ -41,7 +49,8 @@
     font-size: 0.8em;           
 }
 .TabPeridoExtrato {
-    width: 53.7%;        
+    width: 53.7%;  
+    width:300px;
 }
 .BtnPeriodoExtrato{ 
     
@@ -161,8 +170,52 @@
     cursor: pointer;
 }
 
+/* - - - - Formulário : Dados Cadastrais - - - - */
+
+.secFormDados {
+    width: 60%;
+    max-height: 840px;
+    min-height: 700px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    padding: 10px;
+    overflow: scroll;    
+}
+
+.titFormCad {    
+    font-size: 1.5em;
+    font-family: 'Futura Md BT';
+    padding-top: 30px;
+    width: 81%;
+    color: #605e5e;
+}
+.btnFormCad {
+    width: 84%;
+}
+
+.compVendaOff {
+    display: none;
+}
+.compVendaOn{
+    display: inline-block;
+
+}
+
+.btnCompVenda {
+    margin: 10px 0 60px 0;
+    width: 400px;
+}
+
+
 
 /* - - - - Extrato do Associado - - - - */
+
+.cTopico {
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
 
 .extratoassoc {    
     margin: 0 auto;    
@@ -248,8 +301,16 @@ slinhalimete {
     left: 0;
 }
 
-/* - - - - Tornando o Site Responsivo - - - - */
 
+.mostrarCampos{
+    display: inline;
+}
+.esconderCampos{
+    display: none;
+}
+
+
+/* - - - - Tornando o Site Responsivo - - - - */
 @media (max-width: 1921px) { /*Monitor de 20'*/
     .contassoc {        
         /*background-color: #b200ff;*/

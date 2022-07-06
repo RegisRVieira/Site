@@ -31,7 +31,9 @@ namespace Site.Eventos
 
             DataTable dados = ObjDados.RetCampos();
 
+#pragma warning disable CS0219 // A variável "identifica" é atribuída, mas seu valor nunca é usado
             string identifica = "";
+#pragma warning restore CS0219 // A variável "identifica" é atribuída, mas seu valor nunca é usado
 
             if (ObjDados.MsgErro == "")
             {
