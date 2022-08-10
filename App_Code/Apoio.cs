@@ -182,11 +182,10 @@ namespace Site.App_Code
         {
             string mesAtual = DateTime.Now.Month.ToString();
             string anoAtual = DateTime.Now.Year.ToString();
-            Xret = "";
+            Xret = "";            
 
             if (Mes == mesAtual)
             {
-
                 if (Mes == "1") //Janeiro
                 {
                     Xret += "'" + (Convert.ToInt32(Ano) - 1) + "-" + "12" + "-20' AND ";
@@ -217,7 +216,6 @@ namespace Site.App_Code
                         Xret += "'" + Ano + "-" + (Convert.ToInt32(Mes) - 1) + "-20' AND ";
                         Xret += "'" + Ano + "-" + (Convert.ToInt32(Mes)).ToString() + "-19'";
                     }
-
                 }
             }
             return Xret;

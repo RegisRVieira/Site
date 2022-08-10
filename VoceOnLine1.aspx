@@ -478,8 +478,6 @@
                                 </div>
                             </section>
                         </asp:View>
-
-
                         <asp:View ID="vwConvFatura" runat="server">
                             <div>                                
                                 <table class="TabPeridoExtrato defaultTable">
@@ -598,9 +596,12 @@
                                 </div>
                             </section>
                         </asp:View>
-                        <asp:View ID="vwConvSenha" runat="server">Altera Senha</asp:View>
-                        <asp:View ID="vwConvDownloads" runat="server">Downloads</asp:View>
-                        <asp:View ID="vwConvOfertas" runat="server">Ofertas</asp:View>
+                        <asp:View ID="vwConvSenha" runat="server">Em Breve, aguarde!</asp:View>
+                        <asp:View ID="vwConvDownloads" runat="server">                            
+                            <%# listarArquivosConvenios() %>
+                            <asp:Label ID="lblArquivosConvenio" runat="server"></asp:Label>
+                        </asp:View>
+                        <asp:View ID="vwConvOfertas" runat="server">Em Breve, aguarde!</asp:View>
                     </asp:MultiView>
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>

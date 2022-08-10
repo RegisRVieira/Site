@@ -1167,6 +1167,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.View vwConvDownloads;
 
         /// <summary>
+        /// Controle lblArquivosConvenio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblArquivosConvenio;
+
+        /// <summary>
         /// Controle vwConvOfertas.
         /// </summary>
         /// <remarks>

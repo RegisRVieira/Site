@@ -992,3 +992,26 @@ function Popup(data, largura, titulo) {
 
     /*return true;*/
 }
+
+aceitarTermo.addEventListener("mousemove", function () {
+    alert("Passou o Mouse!!!");
+});
+
+//#### Esse cara Não funcionou
+function aceitarTermo() {    
+    
+    var desativa = document.querySelector("#termo");
+    /*
+    window.onsubmit = function () {
+        desativa.style.display = 'none';
+    }*/
+
+    desativa.classList.remove('ativa');
+    desativa.classList.add('desativa');
+
+
+    preventDefault();
+    alert("No caminho");
+}
+//##### Fim aceitaTermo
+

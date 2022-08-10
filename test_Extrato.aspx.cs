@@ -22,6 +22,56 @@ namespace Site
             }
         }
 
+        protected void evoluirPerioro(object sender, EventArgs e)
+        {
+            Apoio Apoio = new Apoio();
+
+            string xRet = "";
+
+            Apoio.Mes = ddlMes.SelectedValue;
+            Apoio.Ano = ddlAno.SelectedValue;
+
+            string xMes = ddlMes.SelectedValue;
+            string xAno = ddlAno.SelectedValue;
+            int x;
+            x = (Convert.ToInt32(xMes));
+
+            int y = 12 - x;
+            string xMudaAno = "";
+
+            for (int i = 0; i < (y - 1); i++)
+            {
+                //xMudaAno += "" + (12 - i);
+                if ((12 - i) == 12)
+                {
+                    xRet += "<p>" + " dtvencime = " + "2021-" + (12 - i) + "-20" + " AND " + "2022-" + "01" + "-19" + "</p>" + "\n";
+                }
+                else
+                {
+
+                    xRet += "<p>" + " dtvencime = " + "2021-" + (12 - i) + "-20" + " AND " + "2021-" + ((12 - i) + 1) + "-19" + "</p>" + "\n";
+                }
+            }
+
+            for (int i = 1; i <= 10; i++)
+            {
+                if (x != 0)
+                {
+
+                    while (x > 1)
+                    {
+                        xRet +="<p>" + " dtvencime = " + "2022-" + (x - i) + "-20" + " AND " + "2022-" + ((x - 1) + 1) + "-19" + "</p>" + "\n";
+                        //xRet += x - i;
+                        x--;
+                    }
+                }
+            }
+
+
+
+
+            lblMsgPeriodo.Text = xRet + " - " + xMudaAno;
+        }
         protected void atualizaPeriodoDdls()
         {
             string anoAtual = DateTime.Now.Year.ToString();
@@ -50,7 +100,7 @@ namespace Site
 
             string mesAtual = DateTime.Now.Month.ToString();
             string anoAtual = DateTime.Now.Year.ToString();
-                        
+
 
             if (ddlMes.SelectedValue == mesAtual)
             {
@@ -108,7 +158,7 @@ namespace Site
                 lblMsg.Text = xRet;
             }
         }
-    
+
         protected void metodoPeriodo(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectVegas);
@@ -116,10 +166,10 @@ namespace Site
 
             Apoio.Ano = ddlAno.SelectedValue;
             Apoio.Mes = ddlMes.SelectedValue;
-            
-            
+
+
             lblMsg.Text = Apoio.Periodo();
-            
+
         }
     }//Fim
 }

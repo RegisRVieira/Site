@@ -26,6 +26,16 @@ namespace Site
 
         }
 
+        protected void desativaTermo(object sender, EventArgs e)
+        {
+            termo.Attributes["class"] = "desativa";
+            
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            lblMsg.Text = "Você aceitou o Termo!!! " + IP;
+        }
+
         public string GeraDigMod11(long intNumero)
         {
             string cDigito = "";
