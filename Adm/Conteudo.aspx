@@ -12,7 +12,7 @@
                 <div class="cad-esquerda">                  
                     <ul>                        
                         <li><asp:LinkButton ID="lbtCadConteudo" runat="server" Text="Conteudo do Site" OnClick="ativarVwCadConteudo"></asp:LinkButton></li>
-                        <li><asp:LinkButton ID="lbtNossaEntidade" runat="server" Text="Nossa Entidade"></asp:LinkButton></li>
+                        <li><asp:LinkButton ID="lbtNossaEntidade" runat="server" Text="Nossa Entidade" OnClick="ativarVwNossaEntidade"></asp:LinkButton></li>
                         <li><asp:LinkButton ID="lbtAssociados" runat="server" Text="Associados"></asp:LinkButton></li>
                         <li><asp:LinkButton ID="lbtConvenios" runat="server" Text="Convênios"></asp:LinkButton></li>
                     </ul>
@@ -41,6 +41,35 @@
                             <SortedDescendingHeaderStyle BackColor="#15524A" />
                         </asp:GridView>
                         <asp:label id="lblTeste" runat="server"></asp:label>
+                    </asp:View>
+                    <asp:View ID="vwGridNossaEntidade" runat="server">
+                        <h1>Nossa Entidade</h1>
+                        <!--<ul>
+                            <li>A ASU</li>
+                            <li>Nossas Pessoas</li>
+                            <li>Departamento de Aposentados</li>
+                            <li>Clube de Campo</li>
+                            <li>Estatuto Social</li>
+                            <li>Regimeto Auxilio Funeral</li>
+                            <li>Prestação de Contas</li>
+                            <li>Jornal</li>
+                        </ul>-->
+                        <asp:GridView ID="GvNossaEntidade" runat="server" CellPadding="2" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="2" AllowPaging="True" OnPageIndexChanging="paginarGvNossaEntidade" OnSelectedIndexChanged="selecionarRegistroGvNossaEntidade">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:CommandField ShowSelectButton="True" />
+                            </Columns>
+                            <EditRowStyle BackColor="#7C6F57" />
+                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#E3EAEB" />
+                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                        </asp:GridView>
                     </asp:View>
                 </asp:MultiView>
             </div>            
@@ -76,27 +105,57 @@
                             <asp:Button ID="btnEditarConteudo" runat="server" Text="Editar" OnClick="editarConteudo" />
                             <asp:Button ID="btnExcluirConteudo" runat="server" Text="Excluir" OnClick="excluirConteudo" />                            
                         </asp:View>
-                        <asp:View ID="vwFormCadConteudo" runat="server">                            
-                            <h1><asp:Label ID="lblTipo" runat="server"></asp:Label></h1>
-                            <label class="labelinpdate">Destaque:</label>
-                            <select id="stContMenu" runat="server" style="width: 578px; display: block; margin-bottom: 10px; margin-left: 2px; border: 1px solid #999; padding: 8px; border-radius: 3px;"></select>
-                            <textarea id="taContTitulo" runat="server" placeholder="Título" class="alturainput"></textarea>
-                            <textarea id="taContIntroducao" runat="server" placeholder="Introdução" class="alturainput"></textarea>
-                            <textarea id="taContConteudo" runat="server" placeholder="Contexto" class="alturainput"></textarea>
-                            <textarea id="taContComplemento" runat="server" placeholder="Complemento" class="alturainput"></textarea>
-                            <textarea id="taContConclusao" runat="server" placeholder="Conclusão" class="alturainput"></textarea>                             
-                            <input id="iAbrirImagens" runat="server" type="submit" value="Cadastrar Imagens" onclick="abrirImagens()" />
-                            <input id="iDataPubIni" runat="server" type="date" />
-                            <input id="iDataPubFim" runat="server" type="date" />
-                            <input id="iContFonte" runat="server" placeholder="Fonte" />
-                            <input id="iContAutor" runat="server" placeholder="Autor" />
-                            <asp:Button ID="btnContCadatro" runat="server" Text="Inserir" OnClick="cadastrarContConteudo" />
-                            <asp:Button ID="btnContEditar" runat="server" Text="Editar" OnClick="editarContConteudo" />
-                            <asp:Button ID="btnContExcluir" runat="server" Text="Excluir" OnClick="excluirContConteudo" />                            
+                        <asp:View ID="vwFormNossaEntidade" runat="server">                                                            
+                            <h1 style="width: 100%; background: gray; font-size: 28px; color: #cccaca; margin-bottom: 8px;">Nossa Entidade</h1>                            
+                            <input id="iTituloNE" runat="server" type="text" placeholder="Exemplo: A Nossa entidade..." />
+                            <textarea id="taIntroducaoNE" runat="server" placeholder="Exemplo: A Nossa entidade é uma entidade sem Fins Lucrativos..." class="alturainput"></textarea>                            
+                            <input id="iValidador" type="text" runat="server" visible="false" />
+                            <div class="intervaloDatas">
+                                <div style="width: 100%;">
+                                    <asp:Label ID="lblDuracao" runat="server" CssClass="labelinpdate">Duração da Propaganda (dias)</asp:Label>
+                                    <input id="iNEDuracaoPub" runat="server" type="number" value="10" onchange="atualizaDataFim" />
+                                </div>
+                                <div>
+                                    <asp:Label ID="lblNEDataIni" runat="server" CssClass="labelinpdate">Data Inicial</asp:Label>
+                                    <input id="iPubIniNE" runat="server" type="date" oninit="carregarData" />
+                                </div>
+                                <div>
+                                    <asp:Label ID="lblNEDataFim" runat="server" CssClass="labelinpdate"> Data Final</asp:Label>
+                                    <input id="iPublFimNE" runat="server" type="date" oninit="carregarData" />
+                                </div>
+                            </div>
+                            <div>
+                                <asp:Button ID="btnCadNossaEntidade" runat="server" Text="Cadastrar" OnClick="cadastrarNossaEntidade"/>
+                            </div>
+                            <br />
+                            <h1 style="width: 100%; background: gray; font-size: 28px; color: #cccaca;">Imagens</h1>
+                            <section>
+                                <label class="labelinpdate">Tipo: Nossa Entidade </label>                                
+                                <input id="iImgTitulo" runat="server" type="text" placeholder="Título" />
+                                <input id="iImgDescricao" runat="server" type="text" placeholder="Descrição" />
+                                <input id="iImgFonte" runat="server" type="text" placeholder="Fonte da Imagem" />
+                                <input id="iImgAutor" runat="server" type="text" placeholder="Autor da Imagem" />
+                                <input id="iImgHint" runat="server" type="text" placeholder="Hint" />
+                                <input id="iLink" runat="server" type="tel" placeholder="Link" />
+                                <asp:MultiView ID="mwImg" runat="server">
+                                    <asp:View ID="vwImg" runat="server">
+                                        <asp:Label ID="lblDados" runat="server"></asp:Label>
+                                        <asp:ListBox ID="lbDados" runat="server" CssClass="ListBoxDados"></asp:ListBox>
+                                    </asp:View>
+                                </asp:MultiView>
+                                <asp:FileUpload ID="fuImgCont" runat="server" AllowMultiple="true" />
+                                <label id="lblResp" runat="server"></label>
+                                <br />
+                                <asp:Button ID="btnCadImg" runat="server" Text="Inserir Imagem"  />
+                                <asp:Button ID="btnTamImg" runat="server" Text="Checar Tamanho da Imagem"/>
+                            </section>
+
+                                           
                         </asp:View>
                     </asp:MultiView>
                 </div>
             </div>
+            <asp:Label ID="lblMsg" runat="server" CssClass="lblMsg"></asp:Label>
         </section>
     </form>
 </asp:Content>

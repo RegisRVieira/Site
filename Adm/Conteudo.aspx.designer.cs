@@ -96,6 +96,24 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.Label lblTeste;
 
         /// <summary>
+        /// Controle vwGridNossaEntidade.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwGridNossaEntidade;
+
+        /// <summary>
+        /// Controle GvNossaEntidade.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GvNossaEntidade;
+
+        /// <summary>
         /// Controle mwFormConteudo.
         /// </summary>
         /// <remarks>
@@ -312,147 +330,237 @@ namespace Site.Adm
         protected global::System.Web.UI.WebControls.Button btnExcluirConteudo;
 
         /// <summary>
-        /// Controle vwFormCadConteudo.
+        /// Controle vwFormNossaEntidade.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.View vwFormCadConteudo;
+        protected global::System.Web.UI.WebControls.View vwFormNossaEntidade;
 
         /// <summary>
-        /// Controle lblTipo.
+        /// Controle iTituloNE.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTipo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iTituloNE;
 
         /// <summary>
-        /// Controle stContMenu.
+        /// Controle taIntroducaoNE.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stContMenu;
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea taIntroducaoNE;
 
         /// <summary>
-        /// Controle taContTitulo.
+        /// Controle iValidador.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea taContTitulo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iValidador;
 
         /// <summary>
-        /// Controle taContIntroducao.
+        /// Controle lblDuracao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea taContIntroducao;
+        protected global::System.Web.UI.WebControls.Label lblDuracao;
 
         /// <summary>
-        /// Controle taContConteudo.
+        /// Controle iNEDuracaoPub.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea taContConteudo;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iNEDuracaoPub;
 
         /// <summary>
-        /// Controle taContComplemento.
+        /// Controle lblNEDataIni.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea taContComplemento;
+        protected global::System.Web.UI.WebControls.Label lblNEDataIni;
 
         /// <summary>
-        /// Controle taContConclusao.
+        /// Controle iPubIniNE.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTextArea taContConclusao;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iPubIniNE;
 
         /// <summary>
-        /// Controle iAbrirImagens.
+        /// Controle lblNEDataFim.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputSubmit iAbrirImagens;
+        protected global::System.Web.UI.WebControls.Label lblNEDataFim;
 
         /// <summary>
-        /// Controle iDataPubIni.
+        /// Controle iPublFimNE.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataPubIni;
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iPublFimNE;
 
         /// <summary>
-        /// Controle iDataPubFim.
+        /// Controle btnCadNossaEntidade.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataPubFim;
+        protected global::System.Web.UI.WebControls.Button btnCadNossaEntidade;
 
         /// <summary>
-        /// Controle iContFonte.
+        /// Controle iImgTitulo.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText iContFonte;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iImgTitulo;
 
         /// <summary>
-        /// Controle iContAutor.
+        /// Controle iImgDescricao.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText iContAutor;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iImgDescricao;
 
         /// <summary>
-        /// Controle btnContCadatro.
+        /// Controle iImgFonte.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnContCadatro;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iImgFonte;
 
         /// <summary>
-        /// Controle btnContEditar.
+        /// Controle iImgAutor.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnContEditar;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iImgAutor;
 
         /// <summary>
-        /// Controle btnContExcluir.
+        /// Controle iImgHint.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnContExcluir;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iImgHint;
+
+        /// <summary>
+        /// Controle iLink.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iLink;
+
+        /// <summary>
+        /// Controle mwImg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.MultiView mwImg;
+
+        /// <summary>
+        /// Controle vwImg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwImg;
+
+        /// <summary>
+        /// Controle lblDados.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDados;
+
+        /// <summary>
+        /// Controle lbDados.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox lbDados;
+
+        /// <summary>
+        /// Controle fuImgCont.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuImgCont;
+
+        /// <summary>
+        /// Controle lblResp.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblResp;
+
+        /// <summary>
+        /// Controle btnCadImg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCadImg;
+
+        /// <summary>
+        /// Controle btnTamImg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTamImg;
+
+        /// <summary>
+        /// Controle lblMsg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsg;
     }
 }

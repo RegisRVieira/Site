@@ -50,7 +50,7 @@
             <%# montarConteudo(64) %>
         </asp:View>
         <asp:View ID="vwBalancete" runat="server">
-            <p>Balancete</p>
+            <%# montarBalancete() %>
             
         </asp:View>
         <asp:View ID="vwJornal" runat="server">

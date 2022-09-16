@@ -51,6 +51,24 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblTeste;
 
         /// <summary>
+        /// Controle ibtnComercio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnComercio;
+
+        /// <summary>
+        /// Controle ibtnSaude.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ibtnSaude;
+
+        /// <summary>
         /// Controle lblResult.
         /// </summary>
         /// <remarks>

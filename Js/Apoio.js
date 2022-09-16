@@ -979,7 +979,7 @@ function PrintElem(elem, largura, titulo) {
 function Popup(data, largura, titulo) {
     var mywindow = window.open('Imprimir', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');
     mywindow.document.write('<html><head><title>Imprimir</title>');
-    mywindow.document.write('</head><body style="font-family:Courier New;font-size:11px;"><table align="center" style="font-size:14px;"><tr><td><img src="Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
+    mywindow.document.write('</head><body style="font-family:Courier New;font-size:11px;"><table align="center" style="font-size:14px;"><tr><td><img src="../Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="../Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
 
     mywindow.document.write(data);
     mywindow.document.write('</body></html>');

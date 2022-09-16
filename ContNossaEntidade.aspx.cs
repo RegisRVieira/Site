@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -72,156 +73,185 @@ namespace Site
             mwConteudo.ActiveViewIndex = 8;
         }
 
+        protected String montarBalancete()
+        {
+
+            /*Exibir Arquivos no Diretório*/
+            DirectoryInfo diretorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\Balancetes\");
+
+            //Executa função GetFile(Lista os arquivos desejados de acordo com o parametro)
+            FileInfo[] Arquivos = diretorio.GetFiles("*.*");
+
+            string arquivos = "";
+            string xArq = "";
+
+            xArq += "<div style='margin-top: 30px; width: 600px; height: auto; '>";
+            //xArq += "<p style='height: 30px; color: white; text-align: left; background-image: linear-gradient(to left, rgba(242,105,7,0), rgba(242,105,7,95));'>" + "Arquivos" + "</p>";
+            xArq += "<p style='height: 30px; color: white; text-align: left; background-image: linear-gradient(to left, rgba(34,57,111,0), rgba(34,57,111,44));'>" + "Balancete Mensal" + "</p>";
+            xArq += "<div style='padding: 10px'>";
+            foreach (FileInfo fileinfo in Arquivos)
+            {
+                arquivos = fileinfo.Name;
+                xArq += "<p style='text-align: left; margin: 5px 0 0 10px; padding: 0 0 0 0; '>";
+                xArq += "<div style='width: 20px; height: 20px; float: left'>";
+                xArq += "<img style='width: 22px;' src='Img/Icon/Balancete.png' />";
+                xArq += "</div>";
+                xArq += "<div style='width: 300px; height: 20px; float: left;'>";
+                xArq += "<p style='text-align: left; margin: 0; margin-left: 10px; padding: 0;'> <a style='' href='" + @"Downloads\Balancetes\" + arquivos + "' target=_blanck>" + arquivos + "</a></p>";
+                xArq += "</div>";
+                xArq += "</p><br>";                
+            }
+            xArq += "</div>";
+            xArq += "</div>";
+
+            return xArq;
+        }
 
         public String montarConteudo(int ID)
         {
             BLL ObjDbASU = new BLL(conectSite);
             BLL ObjDbImg = new BLL(conectSite);
 
-            string xRet = " ";            
+            string xRet = " ";
 
-            if (ObjDbASU.MsgErro == "" || ObjDbImg.MsgErro == "")
+            try
             {
-
-                ObjDbASU.Campo = " * ";
-                ObjDbASU.Tabela = " st_conteudo ";
-                ObjDbASU.Condicao = " WHERE ID = '" + ID + "' ";
-
-                ObjDbImg.Campo = " *, ali.descricao ";
-                ObjDbImg.Tabela = " st_imagens AS i ";
-                ObjDbImg.Left = " INNER JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod ";
-                ObjDbImg.Condicao = " WHERE id_conteudo = '" + ID + "' ";
-
-
-                DataTable dados = ObjDbASU.RetCampos();
-                DataTable imgs = ObjDbImg.RetCampos();
-
-                int contador = dados.Rows.Count;
-                int contaImg = imgs.Rows.Count;
-
-                xRet += "<section class='publicidade'>";
-                //xRet += "<img src='../../Img/Banner Publicidade Materia2.jpg' />";
-
-                for (int i = 0; i < contaImg; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                if (ObjDbASU.MsgErro == "" || ObjDbImg.MsgErro == "")
                 {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICEXT")
-                    {
-                        xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
-                    }
-                }
 
-                xRet += "</section>";
+                    ObjDbASU.Campo = " * ";
+                    ObjDbASU.Tabela = " st_conteudo ";
+                    ObjDbASU.Condicao = " WHERE ID = '" + ID + "' ";
 
-                //Título
-#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                if (dados.Rows[0]["titulo"] == "" || dados.Rows[0]["titulo"] is null)
-#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                {
-                }
-                else
-                {
-                    xRet += "<section class='titulo'>";
-                    xRet += "<p>" + dados.Rows[0]["titulo"] + "</p>";
+                    ObjDbImg.Campo = " *, ali.descricao ";
+                    ObjDbImg.Tabela = " st_imagens AS i ";
+                    ObjDbImg.Left = " INNER JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod ";
+                    ObjDbImg.Condicao = " WHERE id_conteudo = '" + ID + "' ";
+
+
+                    DataTable dados = ObjDbASU.RetCampos();
+                    DataTable imgs = ObjDbImg.RetCampos();
+
+                    int contador = dados.Rows.Count;
+                    int contaImg = imgs.Rows.Count;
+
+                    xRet += "<section class='publicidade'>";
+                    //xRet += "<img src='../../Img/Banner Publicidade Materia2.jpg' />";
+
                     for (int i = 0; i < contaImg; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
                     {
-                        if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICTIT")
+                        if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICEXT")
                         {
                             xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
                         }
                     }
-                    xRet += "</section>";
-                }
-                //Introdução
-#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                if (dados.Rows[0]["introducao"] == "" || dados.Rows[0]["introducao"] is null)
-#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                {
 
-                }
-                else
-                {
-                    xRet += "<section class='introducao texto'>";
-                    xRet += "<p>" + dados.Rows[0]["introducao"] + "</p>";
-                    for (int i = 0; i < contaImg; i++)
-                    {
-                        if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICINT")
-                        {
-                            xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
-                        }
-                    }
                     xRet += "</section>";
-                }
-                //Conteúdo
-#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                if (dados.Rows[0]["conteudo"] == "" || dados.Rows[0]["conteudo"] is null)
-#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                {
-                }
-                else
-                {
-                    xRet += "<section class='contexto texto'>";
-                    for (int i = 0; i < contaImg; i++)
-                    {
-                        if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCON")
-                        {
-                            xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
-                        }
-                    }
-                    xRet += "<p>" + dados.Rows[0]["conteudo"] + "</p>";
-                    xRet += "</section>";
-                }
 
-                //Complemento
-#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                if (dados.Rows[0]["complemento"] == "" || dados.Rows[0]["complemento"] is null)
-#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                {
+                    //Título
+                    if (String.IsNullOrEmpty(dados.Rows[0]["titulo"].ToString()))
+                    {
+                    }
+                    else
+                    {
+                        xRet += "<section class='titulo'>";
+                        xRet += "<p>" + dados.Rows[0]["titulo"] + "</p>";
+                        for (int i = 0; i < contaImg; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                        {
+                            if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICTIT")
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
+                        xRet += "</section>";
+                    }
+                    //Introdução
+                    if (String.IsNullOrEmpty(dados.Rows[0]["introducao"].ToString()))
+                    {
 
+                    }
+                    else
+                    {
+                        xRet += "<section class='introducao texto'>";
+                        xRet += "<p>" + dados.Rows[0]["introducao"] + "</p>";
+                        for (int i = 0; i < contaImg; i++)
+                        {
+                            if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICINT")
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
+                        xRet += "</section>";
+                    }
+                    //Conteúdo
+                    if (String.IsNullOrEmpty(dados.Rows[0]["conteudo"].ToString()))
+                    {
+                    }
+                    else
+                    {
+                        xRet += "<section class='contexto texto'>";
+                        for (int i = 0; i < contaImg; i++)
+                        {
+                            if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCON")
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
+                        xRet += "<p>" + dados.Rows[0]["conteudo"] + "</p>";
+                        xRet += "</section>";
+                    }
+
+                    //Complemento
+                    if (String.IsNullOrEmpty(dados.Rows[0]["complemento"].ToString()))
+                    {
+
+                    }
+                    else
+                    {
+                        xRet += "<section class='complemento texto'>";
+                        for (int i = 0; i < contaImg; i++)
+                        {
+                            if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCOM")
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
+                        xRet += "<p>" + dados.Rows[0]["complemento"] + "</p>";
+                        xRet += "</section>";
+                    }
+                    //Conclusão
+                    if (String.IsNullOrEmpty(dados.Rows[0]["conclusao"].ToString()))
+                    {
+                    }
+                    else
+                    {
+                        xRet += "<section class='conclusao texto'>";
+                        for (int i = 0; i < contaImg; i++)
+                        {
+                            if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCONC")
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
+                        xRet += "<p>" + dados.Rows[0]["conclusao"] + "</p>";
+                        xRet += "</section>";
+                    }
+                    xRet += "<section style='margin-bottom: 80px;'>" + "</section>";
                 }
                 else
                 {
-                    xRet += "<section class='complemento texto'>";
-                    for (int i = 0; i < contaImg; i++)
+                    if (ObjDbASU.MsgErro != "")
                     {
-                        if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCOM")
-                        {
-                            xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
-                        }
+                        xRet += ObjDbASU.MsgErro;
                     }
-                    xRet += "<p>" + dados.Rows[0]["complemento"] + "</p>";
-                    xRet += "</section>";
-                }
-                //Conclusão
-#pragma warning disable CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                if (dados.Rows[0]["conclusao"] == "" || dados.Rows[0]["conclusao"] is null)
-#pragma warning restore CS0252 // Comparação de referência não intencional possível; para obter uma comparação de valor, converta o lado esquerdo para o tipo "string"
-                {
-                }
-                else
-                {
-                    xRet += "<section class='conclusao texto'>";
-                    for (int i = 0; i < contaImg; i++)
+                    else
                     {
-                        if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCONC")
-                        {
-                            xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
-                        }
+                        xRet += ObjDbImg.MsgErro;
                     }
-                    xRet += "<p>" + dados.Rows[0]["conclusao"] + "</p>";
-                    xRet += "</section>";
                 }
-                xRet += "<section style='margin-bottom: 80px;'>" + "</section>";
             }
-            else
-            {
-                if (ObjDbASU.MsgErro!="")
-                {
-                    xRet += ObjDbASU.MsgErro;
-                }
-                else
-                {
-                    xRet += ObjDbImg.MsgErro;
-                }
+            catch (Exception e) {
+                xRet += "Erro: " + e.Message;
             }
 
             return xRet;

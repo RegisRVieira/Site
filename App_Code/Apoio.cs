@@ -350,11 +350,19 @@ namespace Site.App_Code
             double gastos = 0.00;
             double credito = 0.00;
 
+            string xRet = "";
 
-            gastos = double.Parse(dGastos.Rows[0]["gastos"].ToString());
-            credito = double.Parse(dCredito.Rows[0]["credito"].ToString());
-
-            saldo = credito - ((gastos) * -1);
+            if (!String.IsNullOrEmpty(dGastos.Rows[0]["gastos"].ToString()))
+            {                
+                gastos = double.Parse(dGastos.Rows[0]["gastos"].ToString());                
+                credito = double.Parse(dCredito.Rows[0]["credito"].ToString());
+                saldo = credito - ((gastos) * -1);
+            }
+            else
+            {
+                credito = double.Parse(dCredito.Rows[0]["credito"].ToString());
+                saldo = credito;
+            }            
 
             return saldo;
         }
@@ -371,8 +379,14 @@ namespace Site.App_Code
 
             DataTable dcredito = ObjDados.RetCampos();
 
-            limite = double.Parse(dcredito.Rows[0]["credito"].ToString());
+            if (!String.IsNullOrEmpty(dcredito.Rows[0]["credito"].ToString())) {
 
+                limite = double.Parse(dcredito.Rows[0]["credito"].ToString());
+            }
+            else
+            {
+                limite = 0.00;
+            }
             return limite;
         }
 
@@ -423,11 +437,6 @@ namespace Site.App_Code
         {
             BLL ObjDados = new BLL(conectVegas);
 
-#pragma warning disable CS0219 // A variável "msgNiver" é atribuída, mas seu valor nunca é usado
-            string msgNiver = "";
-#pragma warning restore CS0219 // A variável "msgNiver" é atribuída, mas seu valor nunca é usado
-
-
             //string campos = " associado, iddepen, nome, dtnasci,CONCAT((YEAR(CURDATE()) - (YEAR(dtnasci) + 1)), ' ano(s)') AS Idade,  IF(EXTRACT(MONTH FROM CURDATE()) = EXTRACT(MONTH FROM dtnasci), IF((EXTRACT(DAY FROM CURDATE()) = EXTRACT(DAY FROM dtnasci)), CONCAT(EXTRACT(YEAR FROM CURDATE()) - (EXTRACT(YEAR FROM dtnasci)), ', " + "Hoje é o seu aniversário, Parabéns!!!" + "'), ''), '') AS aniversario, grau";
             string campos = " associado, iddepen, nome,  dtnasci,  CONCAT((YEAR(CURDATE()) - (YEAR(dtnasci)+1)), ' ano(s)') AS Idade,  IF(EXTRACT(MONTH FROM CURDATE()) = EXTRACT(MONTH FROM dtnasci),IF((EXTRACT(DAY FROM CURDATE()) = EXTRACT(DAY FROM dtnasci)),'Aniversariante' ,'Ainda não é o dia do seu aniversário'),'Ainda não chegou seu mês / dia') AS aniversario, IF(grau IN ('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13'), 'Dependente', 'Titular') AS grau  ";
             string tabela = " asdepen ";
@@ -440,51 +449,56 @@ namespace Site.App_Code
             DataTable dados = ObjDados.RetCampos();
 
             string xRet = "";
-            if (ObjDados.MsgErro == "")
+            try
             {
-                if (dados.Rows.Count > 0)
+                if (ObjDados.MsgErro == "")
                 {
-                    //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Titular: " + dados.Rows[0]["aniversario"].ToString() + "</p>";
-
-                    for (int i = 0; i < dados.Rows.Count; i++)
+                    if (dados.Rows.Count > 0)
                     {
-                        //if (dados.Rows[i]["aniversario"].ToString() != "")
+                        //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Titular: " + dados.Rows[0]["aniversario"].ToString() + "</p>";
 
-
-                        //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Todos: " + dados.Rows[i]["nome"].ToString() + ", " + dados.Rows[i]["aniversario"].ToString() + "</p>";
-
-                        if (dados.Rows[i]["aniversario"].ToString() == "Aniversariante")
+                        for (int i = 0; i < dados.Rows.Count; i++)
                         {
-                            if (dados.Rows[i]["grau"].ToString() == "Dependente")
+                            //if (dados.Rows[i]["aniversario"].ToString() != "")
+
+
+                            //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Todos: " + dados.Rows[i]["nome"].ToString() + ", " + dados.Rows[i]["aniversario"].ToString() + "</p>";
+
+                            if (dados.Rows[i]["aniversario"].ToString() == "Aniversariante")
                             {
-                                xRet += "<div class='aniversario'>";
-                                xRet += "<p style='width: 100%; min-height: 10px; text-align: left; color: #f26907 '>" + "Hoje é o aniversário do seu dependente: " + dados.Rows[i]["nome"].ToString() + ". Desejamos Muitas felicidades e realizações. " + "</p>";
-                                xRet += "</div>";
+                                if (dados.Rows[i]["grau"].ToString() == "Dependente")
+                                {
+                                    xRet += "<div class='aniversario'>"; //
+                                    xRet += "<p>" + "Hoje é o aniversário do seu dependente: " + dados.Rows[i]["nome"].ToString() + ". " + "\n" + "Desejamos Muitas felicidades e realizações. " + "</p>";
+                                    xRet += "</div>";
+                                }
+                                else
+                                {
+                                    xRet += "<div class='aniversario'>";
+                                    xRet += "<p style='width: 100%; min-height: 10px; text-align: left; color: #f26907 '>" + "Parabéns " + dados.Rows[i]["nome"].ToString() + ", hoje é o seu dia! Muitas Felicidades e Realizações. " + "</p>";
+                                    xRet += "</div>";
+                                }
                             }
                             else
                             {
-                                xRet += "<div class='aniversario'>";
-                                xRet += "<p style='width: 100%; min-height: 10px; text-align: left; color: #f26907 '>" + "Parabéns " + dados.Rows[i]["nome"].ToString() + ", hoje é o seu dia! Muitas Felicidades e Realizações. " + "</p>";
-                                xRet += "</div>";
+                                // xRet += "<div class='aniversario'>";
+                                // xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Dependente: " + dados.Rows[i]["aniversario"].ToString() + "</p>";
+                                // xRet += "</div>";
                             }
-                        }
-                        else
-                        {
-                           // xRet += "<div class='aniversario'>";
-                           // xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Dependente: " + dados.Rows[i]["aniversario"].ToString() + "</p>";
-                           // xRet += "</div>";
-                        }
 
+                        }
                     }
+                    //xRet += "<p>" + dados.Rows[0]["aniversario"].ToString() + "</p>";
+                    //xRet += "<p>" + dados.Rows[0]["nome"].ToString() + "</p>";                
                 }
-                //xRet += "<p>" + dados.Rows[0]["aniversario"].ToString() + "</p>";
-                //xRet += "<p>" + dados.Rows[0]["nome"].ToString() + "</p>";                
+                else
+                {
+                    xRet += "Deu Erro:" + ObjDados.MsgErro;
+                }
             }
-            else
-            {
-                xRet += "Deu Erro:" + ObjDados.MsgErro;
+            catch (Exception e) {
+                xRet += "Erro: " + e.Message;
             }
-
 
             return xRet;
         }
@@ -529,6 +543,42 @@ namespace Site.App_Code
             }
         }//buscarCep
 
+        public void fazerDownload()
+        {
+            
+            /*Exibir Arquivos no Diretório*/
+            DirectoryInfo diretorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\Convenios\");
+
+            //Executa função GetFile(Lista os arquivos desejados de acordo com o parametro)
+            FileInfo[] Arquivos = diretorio.GetFiles("*.*");
+
+            string arquivos = "";
+            string xArq = "";
+
+            xArq += "<div style='margin-top: 30px; width: 600px; height: auto; '>";
+            //xArq += "<p style='height: 30px; color: white; text-align: left; background-image: linear-gradient(to left, rgba(242,105,7,0), rgba(242,105,7,95));'>" + "Arquivos" + "</p>";
+            xArq += "<p style='height: 30px; color: white; text-align: left; background-image: linear-gradient(to left, rgba(34,57,111,0), rgba(34,57,111,44));'>" + "Arquivos" + "</p>";
+            xArq += "<div style='padding: 10px'>";
+            foreach (FileInfo fileinfo in Arquivos)
+            {
+                arquivos = fileinfo.Name;
+                xArq += "<p style='text-align: left; margin: 5px 0 0 10px; padding: 0 0 0 0; '>";
+                xArq += "<div style='width: 20px; height: 20px; float: left'>";
+                xArq += "<img style='width: 18px;' src='Img/Icon/ArquivosDownloadsCD.png' />";
+                xArq += "</div>";
+                xArq += "<div style='width: 300px; height: 20px; float: left;'>";
+                xArq += "<p style='text-align: left; margin: 0; margin-left: 10px; padding: 0;'> <a style='' href='" + @"Downloads\Convenios\" + arquivos + "' target=_blanck>" + arquivos + "</a></p>";
+                xArq += "</div>";
+                xArq += "</p><br>";
+
+
+                //lblArquivos.Text = xArq;
+            }
+            xArq += "</div>";
+            xArq += "</div>";
+
+            //return xArq;
+        }
 
     }//class Apoio
 }

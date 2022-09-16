@@ -33,6 +33,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblUsuLogado;
 
         /// <summary>
+        /// Controle lblMsgIP.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsgIP;
+
+        /// <summary>
         /// Controle mwVoceOnLine.
         /// </summary>
         /// <remarks>
@@ -517,6 +526,33 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblArquivos;
+
+        /// <summary>
+        /// Controle secPremio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl secPremio;
+
+        /// <summary>
+        /// Controle btnPremio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPremio;
+
+        /// <summary>
+        /// Controle lbtnNegar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnNegar;
 
         /// <summary>
         /// Controle vwAssocCartoes.

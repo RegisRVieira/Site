@@ -14,7 +14,7 @@
 <body>
     <nav class="navHome-Internas">
         <p>
-            <a href="Home.aspx">
+            <a href="../Home.aspx">
                 <img class="navHome-Internas-Img" src="../Img/Logo ASU-White-Espaçado.png" /></a>
         </p>
     </nav>
@@ -29,7 +29,56 @@
             <div style="width: 600px; margin: 0 auto;">
                 <asp:Label ID="lblResult" runat="server" CssClass="lblMsg"></asp:Label>
             </div>            
-            
+             <style>
+                .ativa{
+                    display: block;
+                }
+                .desativa{
+                    display: none;                    
+                }
+                .dv_termo{
+                    
+                    position: fixed;                    
+                    top: 60px;
+                    left: 50%;
+                    width:50%;
+                    height: 300px;
+                    margin-left: -25%;
+                    border-radius: 8px;
+                    
+                    /*background-color: rgba(247, 67, 5, 0.5);*/
+                    background-color: white;
+                }
+                .termo{
+                    width: 100%;
+                    height: 88%;
+                    overflow-y: scroll;
+                    opacity: 0.5;
+                    cursor: pointer;
+                }
+                .aprova{
+                    margin: 0 auto;
+                    width: 50%;
+                    height: 10%;
+                }
+            </style>            
+            <div id="termo" class="dv_termo" runat="server">
+                <div class="termo" >
+                    <h1>Termo de Privacidade Você OnLine</h1>                    
+                    
+                    <p> A ASU atende à Lei nº 13.709/18 – Lei Geral de Proteção de Dados Pessoais (LGPD), 
+                        que dispõe sobre o tratamento de dados pessoais com o objetivo de proteger os direitos fundamentais de liberdade e 
+                        de privacidade e o livre desenvolvimento da personalidade da pessoa natural. Na página www.asu.com.br está disponível 
+                        a descrição do tratamento que a ASU dará a seus dados pessoais, bem como o meio disponível para que os titulares exerçam seus direitos elencados no artigo 18 da LGPD.
+                    </p>
+                </div>
+                <div class="aprova" >                    
+                    <asp:Button ID="btnDesativaTermo" runat="server" Text="Aceitar (C#)" OnClick="desativaTermo" />
+                </div>
+            </div>    
+            <div>
+                <asp:Label ID="lblMsg" runat="server"></asp:Label>
+            </div>
         </form>
     </main>
     <footer class="footerHome">

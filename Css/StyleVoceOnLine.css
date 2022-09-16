@@ -26,6 +26,22 @@
     text-align: left;
     /*border: 1px groove #f26907;*/
 }
+    .aniversario p {
+        width: 100%; 
+        min-height: 10px; 
+        text-align: left; 
+        color: #f26907
+    }
+
+@media ( max-width: 1000px) {
+.aniversario p{
+    font-size: 40px;
+    text-align: center;
+    width: 120%;    
+}
+
+}
+
 .extAssocNormal{    
     width: 600px;
     min-height: 50px;        
@@ -35,10 +51,16 @@
     display: none;
 }
 
-.ddlVcOnLine{        
-    font-size: 2em;    
-    border-radius: 3px;          
+.extAssocFluido tbody tr:nth-child(odd) { /*Altera a cor da linha*/
+    background-color: #ebf0f9;
+    background-color: #d8e1f3;
 }
+    .extAssocFluido caption, tfoot {
+        font-size: 30px;
+        background-color: #2a4370;
+        color: white;
+    }
+
 
 .SecPeriodoExtrato {
     min-height: 900px;
@@ -62,8 +84,8 @@
 }
 @media (max-width: 1000px) {
     .ddlVcOnLine {
-        font-size: 1.5em;        
-        width: 95%;
+        font-size: 4.5em;        
+        width: 95%;        
     }
     .SecPeriodoExtrato{
         

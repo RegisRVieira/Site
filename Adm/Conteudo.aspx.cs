@@ -21,14 +21,89 @@ namespace Site.Adm
             if (!Page.IsPostBack)
             {
                 carregarGvConteudo();
-                popularStCategoria();
-                popularStMenu();
-                popularStTipo();
-                carregarTipo();
+                popularStCategoria();                
+                popularStTipo();                
             }
             this.DataBind();
         }
 
+        protected void carregarData(object sender, EventArgs e)
+        {            
+            int periodoNE = Convert.ToInt32(iNEDuracaoPub.Value);
+            //int periodoB100 = Convert.ToInt32(iB100DuracaoPub.Value);
+
+
+            DateTime hoje = DateTime.Now;
+            DateTime p30 = DateTime.Now.AddDays(periodoNE);
+            //DateTime p30B33 = DateTime.Now.AddDays(periodoB33);
+            //DateTime p30B100 = DateTime.Now.AddDays(periodoB100);
+
+
+
+            iPubIniNE.Value = hoje.ToString("yyyy-MM-dd");
+            iPublFimNE.Value = p30.ToString("yyyy-MM-dd");
+
+            iPubIniNE.Value = hoje.ToString("yyyy-MM-dd");
+            iPubIniNE.Value = DateTime.Now.AddDays(periodoNE).ToString("yyyyy-MM-dd");
+                     
+
+            iPubIniNE.Value = hoje.ToString("yyyy-MM-dd");
+
+        }
+        public void cadastrarNossaEntidade(object sender, EventArgs e)
+        {
+            string xRet = "";
+
+            BLL ObjDados = new BLL(conectSite);
+            BLL ObjValida = new BLL(conectSite);
+
+            DateTime dt_ini = DateTime.Now;
+            DateTime dt_fin = DateTime.Now;
+
+            iPubIniNE.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
+            iPublFimNE.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string tabela = " st_conteudo ";
+            string campos = " cod_tipo, titulo, introducao, dt_publIni, dt_PublFim, dt_cad ";
+            string campoID = " * ";
+            string condicao = " ORDER BY id DESC LIMIT 1 ";
+            string valores = String.Format("'" + "NENT" + "'," +
+                                           "'" + iTitulo.Value + "'," +
+                                           "'" + taIntroducao.Value.ToString() + "'," +
+                                           "'" + iPubIniNE.Value + "'," +
+                                           "'" + iPublFimNE.Value + "'," +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
+            //Dados para Inserção
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Valores = valores;
+
+            if (!String.IsNullOrEmpty(iTitulo.Value))
+            {
+                ObjDados.InsertRegistro(tabela, campos, valores);
+
+                iImgTitulo.Focus();
+                lblMsg.Text = "Cadastro Realizado com Sucesso!";
+                iValidador.Value = "Validado";
+                btnCadNossaEntidade.Enabled = false;
+            }
+            else
+            {
+                iTitulo.Value = String.Empty;
+                taIntroducao.Value = String.Empty;
+
+                lblMsg.Text = "É preciso preencher os Dados!!!";
+                iTitulo.Focus();
+            }
+
+            //MessageBox.Show("INSERT INTO" + tabela + "(" + campos + ")" + " VALUES(" + valores + ")");
+
+            //Dados para Validação
+            ObjValida.Tabela = tabela;
+            ObjValida.Campo = campoID;
+            ObjValida.Condicao = condicao;
+
+        }//cadastrarContSlider
         protected void cadastrarImagens(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -102,26 +177,49 @@ namespace Site.Adm
             gvConteudo.PageIndex = e.NewPageIndex;
             gvConteudo.DataBind();
         }
-        protected void ativarVwCadConteudo(object sender, EventArgs e)
-        {
-            mwGridConteudo.ActiveViewIndex = 0;
-            mwFormConteudo.ActiveViewIndex = 1;
-            carregarGvConteudo();
-        }
 
-        public void popularStMenu() //Popula "DropDownList" com dados da tabela st_destaque
+        protected void carregarGvNossaEntidade()
+        {
+            BLL ObjDados = new BLL();
+
+            ObjDados.Campo = " " + " id, id_empresa, cod_menu, cod_categoria, titulo, conteudo, dt_publini, dt_publfim, fonte, autor, ordem, cadmom, cadusu ";
+            ObjDados.Tabela = " " + " st_conteudo ";
+            ObjDados.Left = "";
+            //ObjDados.Condicao = " WHERE cod_categoria = 'NENT'";
+            ObjDados.Condicao = " WHERE cod_categoria = 'NOV' "; //Teste
+
+            GvNossaEntidade.DataSource = ObjDados.RetCampos();
+            GvNossaEntidade.DataBind();
+        }
+        protected void paginarGvNossaEntidade(object sender, GridViewPageEventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
 
-            ObjDados.Tabela = " st_menu ";
-            ObjDados.Campo = " * ";
-            ObjDados.Condicao = " order by cadmom desc ";
+            string tabela = " st_conteudo ";
+            string campos = " * ";
+            string condicao = "";
 
-            stContMenu.DataSource = ObjDados.RetCampos();
-            stContMenu.DataValueField = "cod";
-            stContMenu.DataTextField = "descricao";
-            stContMenu.DataBind();
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Condicao = condicao;
+
+            GvNossaEntidade.DataSource = ObjDados.RetCampos();
+            GvNossaEntidade.PageIndex = e.NewPageIndex;
+            GvNossaEntidade.DataBind();
         }
+        protected void ativarVwCadConteudo(object sender, EventArgs e)
+        {
+            mwGridConteudo.ActiveViewIndex = 0;
+            mwFormConteudo.ActiveViewIndex = 0;
+            carregarGvConteudo();
+        }
+        protected void ativarVwNossaEntidade(object sender, EventArgs e)
+        {
+            mwGridConteudo.ActiveViewIndex = 1;
+            mwFormConteudo.ActiveViewIndex = 1;
+            carregarGvNossaEntidade();
+        }
+     
         public void popularStTipo() //Popula "DropDownList" com dados da tabela st_tipo
         {
             BLL ObjDados = new BLL(conectSite);
@@ -230,46 +328,42 @@ namespace Site.Adm
             */
             //gvConteudo.DeleteRow(i);
         }
+        protected void selecionarRegistroGvNossaEntidade(object sender, EventArgs e)
+        {
+           /* iExcluEmpresaMot.Visible = false;
+            iExcluEmpresaMot.Value = String.Empty;
+            btnExcEmpresa.Visible = false;
+            btnMotExcEmpresa.Visible = true;
+
+            lblIdEmpresa.Text = gvEmpresa.SelectedRow.Cells[1].Text;
+            iNome.Value = gvEmpresa.SelectedRow.Cells[2].Text;
+
+            //MessageBox.Show(gvEmpresa.SelectedRow.Cells[1].Text);
+
+            string nome = iNome.Value;*/
+
+
+//            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+  /*          if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iNome.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iNome.Value = string.Join("", iNome.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }*/
+
+
+        }
 
         protected void excluirConteudo(object sender, EventArgs e)
         {
             MessageBox.Show("Clicou para Excluir. Cuidado Cabeçudo!!!");
         }
         /**/
-        public string MostrarTipo { get; set; }
-        public void carregarTipo()
-        {
-            //MessageBox.Show("Tem que fazer: carregar Tipo!!!");
-            BLL ObjDados = new BLL(conectSite);
-            
+        
+       
 
-
-            ObjDados.Campo = "" + " * ";
-            ObjDados.Tabela = "" + " st_tipo ";
-            ObjDados.Condicao = "" + " WHERE cod = 'cont' ";
-
-            DataTable dados = ObjDados.RetCampos();
-            //string tipo = dados.Rows[0]["descricao"].ToString();
-            MostrarTipo = dados.Rows[0]["descricao"].ToString();
-            int contador = dados.Rows.Count;
-
-            lblTipo.Text = "Cadastro de " + MostrarTipo;
-
-            /*
-            stTipoConteudo.DataSource = ObjDados.RetCampos();
-            stTipoConteudo.DataValueField = "cod";
-            stTipoConteudo.DataTextField = "descricao";
-            stTipoConteudo.DataBind();
-            
-            ddlTipo.DataSource = ObjDbASU.RetCamposASU();
-            ddlTipo.DataValueField = "cod";
-            ddlTipo.DataTextField = "descricao";
-            ddlTipo.DataBind();
-            */
-
-            //MostrarTipo = dados.Rows[0]["descricao"].ToString();
-
-        }
         public void selecionarTipo(object sender, EventArgs e)
         {
             MessageBox.Show("Mudou a bagaça!!!");
@@ -283,7 +377,8 @@ namespace Site.Adm
                 MessageBox.Show("Ofertas");
             }*/
         }
-
+        
+        /*
         protected void cadastrarContConteudo(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -339,6 +434,7 @@ namespace Site.Adm
             MessageBox.Show(ObjDados.Msg);            
         }
 
+        */
         protected void editarContConteudo(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL();

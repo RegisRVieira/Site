@@ -4,6 +4,249 @@
 }
 /* = = = = = = = = = Home = = = = = = = = = */
 
+.secMsgHome{
+    width: 100%;
+    height: auto;    
+    position: absolute;
+    z-index: 6;
+}
+
+.secBrinde {
+    margin: 0 auto;
+    right: 40%;
+    margin-top: 10px;
+    position: fixed;
+    width: 450px;
+    height: 520px;
+    background-color: white;
+    border-radius: 18px;
+    background-image: linear-gradient(to right top, #2f61d6, #ab48c0, #e82790, #fe3755, #f26907);
+    background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+    background-image: linear-gradient(to right top, #22396f, #515988, #7a7ca2, #a2a1bd, #cac8d9, #d8cee6, #e8d4f1, #fbd9fa, #ffb6de, #ff92ab, #ff7468, #f26907);
+    background-image: linear-gradient(to right top, #22396f, #22396f, #22396f, #22396f, #22396f, #3c3b78, #563b7f, #6f3a82, #a5327c, #d12d67, #ec4244, #f26907);
+    background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+    background-image: linear-gradient(to right top, #051937, #233659, #40567d, #5d78a3, #7c9ccb);
+}
+.secBrindeMsg {
+    width: 100%;
+    height: 440px;
+    /*background-color: dodgerblue;*/
+}
+.secBrindeTexto {
+    width: 100%;
+    height: 338px;
+    padding: 15px;
+    font-size: 1.3em; 
+    text-align: justify;                
+}
+    .secBrindeTexto p {
+        font-size: 1.1em; 
+        color: white;
+    }
+.secBrindePeriodo{
+    margin: 0 auto;
+    width: 90%;
+    height: 99px;
+    border: 1px solid #e1e0e0;    
+    border-radius: 12px;    
+    
+}
+    .secBrindePeriodo p{
+        padding-top: 4px;
+        padding-left: 10px;
+        font-size: 1em;
+        font-family: 'Lucida Sans Unicode';
+        color: #f26907;
+        z-index: 2;
+    }
+
+    .btn_Brinde {
+        width: 100%;
+        height: 64px;         
+    }
+    .btn_Brinde div {
+        width: 65%; 
+        height: 74px;
+        margin: 0 auto;                 
+        font-size: 20px;        
+        padding-top: 28px;
+        /*background-color: palegoldenrod;*/
+    }
+    .btn_Brinde div:after{
+        content:"";
+        display: table;
+        clear: both;
+    }
+
+.btn_Brinde a{        
+    background-color: white;
+    padding: 16px;
+    color: #22396f;
+    border-radius: 10px;
+}
+    .btn_Brinde a:hover {
+        background-color: #f26907;        
+        color: white;        
+    }
+
+@media(max-width: 1000px) {
+ .secBrindeMsg{ 
+    height: 428px;
+ }
+.secBrinde {        
+    right: 7%;
+    width: 850px;
+    height: 540px;    
+}
+
+.secBrindeTexto {    
+    height: 300px;
+}
+    .secBrindeTexto p {
+        font-size: 1.5em;         
+    }
+.secBrindePeriodo{        
+    height: 125px;    
+    border: 1px solid #e1e0e0;    
+    border-radius: 12px;    
+}
+    .secBrindePeriodo p{
+        font-size: 1.5em;
+        font-family: 'Lucida Sans Unicode';
+        color: #f26907;
+        z-index: 2;
+    }
+.btn_Brinde {
+        width: 100%;
+        height: 110px;        
+    }
+    .btn_Brinde div {
+        width: 70%;                                         
+        height: 109px;
+        padding-top: 33px;        
+    }
+.btn_Brinde a{    
+    background-color: white;    
+    padding: 24px;
+    color: #22396f;
+    border-radius: 10px;
+    font-size: 1.8em;
+}
+
+}
+
+.dv_termo {
+    margin: 0 auto;
+    margin-top: 700px;    
+    left: 25%;
+    position: fixed;
+    width: 900px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    background-color: #22396f;
+}
+
+.texto_termo {
+    width: 80%; 
+    float:left; 
+    height: 99px; 
+    padding: 15px;
+}
+    .texto_termo p {
+        font-size: 1.1em; 
+        color: white;
+    }
+
+.btn_termo {
+    width: 19%; float: left; height: 99px;
+}
+    .btn_termo div {
+        width: 80%; 
+        margin: 0 auto;         
+        margin-top: 35px; 
+        font-size: 20px;
+    }
+.btn_termo a{    
+    background-color: white;
+    padding: 14px;
+    color: #22396f;
+    border-radius: 10px;
+}
+.btnRecusaTermo{                        
+    width: 130px;
+    height: 30px;
+    margin-left: 250px;
+    margin-top: -12px;                        
+}
+.btnRecusaTermo a{
+    font-size: 16px;
+    color: #22396f;
+    text-align: center;
+    padding: 5px;
+    background-color: white;
+    border-radius: 6px;
+}
+.ativa_termo {
+    display: initial;
+    /*
+    margin: 0 auto;
+    margin-top: 700px;
+    left: 25%;
+    position: fixed;
+    width: 900px;
+    height: 100px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 18px;
+    background-color: #22396f;*/
+}
+.desativa_termo{
+    display:none;    
+}
+
+@media( max-width: 1000px) {
+    .dv_termo {
+        position: fixed;             
+        margin-top: 1250px;        
+        width: 810px;
+        height: 160px;        
+        border: 3px solid #22396f;
+        left: 5%;        
+    }
+    .texto_termo{
+        font-size: 20px;
+    }
+.aprova_termo{
+    padding: 20px;
+    font-size: 40px;
+    margin-top: -60px;
+}
+.btnRecusaTermo{
+    background-color: cornflowerblue;
+    margin-top: -24px;
+}
+
+.btn_termo{    
+    height: 155px;
+}
+.btn_termo div{
+    font-size: 24px;    
+    padding-top: 30px;
+    width: 100%;    
+}
+.btn_termo a{    
+    background-color: white;
+    padding: 20px;
+    color: #22396f;
+    border-radius: 10px;
+}
+
+
+
+}
+
 /* * * * *  N A V  * * * * */
 .navHome {
     background-color: #22396f;
@@ -11,7 +254,6 @@
     height: 104px;
     margin: 0;
     padding: 0;
-    
 }
 .navHome-Internas {
     height: 52px;
@@ -316,7 +558,7 @@
     margin: 0px auto;
     width: 1165px;
     width: 100%;
-    padding: 0;
+    padding: 0;    
 }
 
 /* * * * *  Fim CORPO  * * * * */
@@ -351,14 +593,14 @@
     width: 630px;
     width: 99.5%;
     height: 258px;
-    height: 99%;
+    height: 99%;        
     border: 2px solid #4f405f;
     border: none;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    float: left;    
+    float: left;
 }
 
 .slider a {
@@ -391,7 +633,7 @@
     border: 1px solid #8ba1d3;
     border: 0px solid #8ba1d3;        
     float: left;
-    box-sizing: border-box;
+    box-sizing: border-box;    
 }
 
 .BoxSlider-VoceOnLine p{
@@ -467,7 +709,7 @@
 }
 .BoxVOImg{
     width: 412px;
-    height: 231px;     
+    height: 231px;         
 }
 
 .BoxVOImg a img{    

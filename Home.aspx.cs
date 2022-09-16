@@ -23,10 +23,228 @@ namespace Site
             if (!Page.IsPostBack)
             {
                 usuarioLogado();
+                checarTermoPrivacidade();
+                gravarIPLogAcesso();
             }
             this.DataBind();
         }
 
+        protected void checarTermoPrivacidade()
+        {
+            BLL ObjAcesso = new BLL(conectSite);
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string tabela = " st_termo_privacidade ";
+            string campos = " ip, status ";
+            string condicao = " WHERE IP='" + IP + "'";
+
+            ObjAcesso.Tabela = tabela;
+            ObjAcesso.Campo = campos;
+            ObjAcesso.Condicao = condicao;
+
+            DataTable dados = ObjAcesso.RetCampos();
+
+            if (String.IsNullOrEmpty(ObjAcesso.MsgErro))
+            {
+                if (dados.Rows.Count > 0)
+                {
+                    if (dados.Rows[0]["ip"].ToString() == IP)
+                    {
+                        //MessageBox.Show(dados.Rows[0]["id"].ToString() + " - " + IP);
+                        if (dados.Rows[0]["status"].ToString() == "Recusado")
+                        {
+                            
+                        }
+                        else
+                        {
+                            TermoPrivacidade.Attributes["class"] = "desativa_termo";
+                        }
+                    }
+                    else
+                    {
+                        //MessageBox.Show("Aceite para Navegar!");
+                    }
+                }
+            }
+            else
+            {
+                lblMsg.Text = "Há problemas com a Conexão: " + ObjAcesso.MsgErro;
+            }
+        }//checarLogAcesso
+        protected void gravarIPLogAcesso()
+        {
+            BLL ObjLog = new BLL(conectSite);
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string tabela = " st_log_acesso "; //Tabela
+            string campos = " ip, id_empresa, cadMom, cadUsu  "; //Campos 
+            string valores = String.Format("'" + IP + "'," + //Valores                                                           
+                               "'" + "1" + "'," +
+                               "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + "Site" + "'");
+            string condicao = " WHERE IP='" + IP + "'"; //Condicao
+
+            //Dados para Inserção
+            ObjLog.Tabela = tabela;
+            ObjLog.Campo = campos;
+            ObjLog.Valores = valores;
+            ObjLog.Condicao = condicao;
+
+            DataTable dados = ObjLog.RetCampos();
+
+            string xRet = "";
+
+            if (String.IsNullOrEmpty(ObjLog.MsgErro))
+            {
+                ObjLog.InsertRegistro(tabela, campos, valores);
+                /*if (dados.Rows.Count > 0)
+                {
+                    //xRet += "" + dados.Rows[0]["id"].ToString() + " - " + dados.Rows[0]["ip"].ToString();
+                    xRet += "Há registro de Log deste usuário";
+
+                }
+                else
+                {
+                    ObjLog.InsertRegistro(tabela, campos, valores);
+
+                    //xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
+
+                    //MessageBox.Show(xRet);
+                }*/
+            }
+            else
+            {
+                lblMsg.Text = "Há problemas com a Conexão: " + ObjLog.MsgErro;
+            }
+
+            //MessageBox.Show(xRet);
+
+        }//gravarIPLogAcesso
+
+        protected void gravarTermoPrivacidade(string status)
+        {
+            BLL ObjLog = new BLL(conectSite);
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string tabela = " st_termo_privacidade "; //Tabela
+            string campos = " ip, id_empresa, status, cadMom, cadUsu  "; //Campos 
+            string valores = String.Format("'" + IP + "'," + //Valores                                                           
+                               "'" + "1" + "'," +
+                               "'" + status + "'," +
+                               "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + "Site" + "'");
+            string condicao = " WHERE IP='" + IP + "'"; //Condicao
+
+            //Dados para Inserção
+            ObjLog.Tabela = tabela;
+            ObjLog.Campo = campos;
+            ObjLog.Valores = valores;
+            ObjLog.Condicao = condicao;
+
+            DataTable dados = ObjLog.RetCampos();
+
+            string xRet = "";
+
+            if (String.IsNullOrEmpty(ObjLog.MsgErro))
+            {
+                if (dados.Rows.Count > 0)
+                {
+                    //xRet += "" + dados.Rows[0]["id"].ToString() + " - " + dados.Rows[0]["ip"].ToString();
+                    xRet += "Há registro de Log deste usuário";
+
+                }
+                else
+                {
+                    ObjLog.InsertRegistro(tabela, campos, valores);
+
+                    //xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
+
+                    //MessageBox.Show(xRet);
+                }
+            }
+            else
+            {
+                lblMsg.Text = "Há problemas com a Conexão: " + ObjLog.MsgErro;
+            }
+
+            //MessageBox.Show(xRet);
+
+        }//gravarTermoPrivacidade
+        protected void desativarItem(object sender, EventArgs e)
+        {
+            darBrinde.Attributes["class"] = "desativa_termo";
+        }
+
+        protected void aceitarTermoPrivacidade(object sender, EventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+            BLL ObjEdit = new BLL(conectSite);
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string xRet = "";
+            string tabela = " st_termo_privacidade ";
+            string campos = " status, ip ";
+            //string valores = " status = 'Aceito' ";
+            string valores = " status = 'Aceito'," 
+                           + " AltUsu = 'Site', " 
+                           + " AltMom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+            string editcondicao = " IP = '" + IP + "'";
+            string condicao = " WHERE IP = '" + IP + "'";            
+            //string condicao = " WHERE Login_Acesso='" + Session["CodAcesso"].ToString() + "'"; //Condicao            
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Valores = valores;
+            ObjDados.Condicao = condicao;
+
+            ObjEdit.Tabela = tabela;
+            ObjEdit.Valores = valores;
+            ObjEdit.Condicao = editcondicao;
+
+            DataTable dados = ObjDados.RetCampos();
+            
+            //MessageBox.Show("UPDATE" + tabela + "SET" + valores + "WHERE" + editcondicao);
+
+            if (String.IsNullOrEmpty(ObjDados.Msg))
+            {
+                if (dados.Rows.Count > 0)
+                {
+                    if (dados.Rows[0]["IP"].ToString() == IP.ToString())
+                    {
+                        if (dados.Rows[0]["status"].ToString() == "Recusado")
+                        {
+                            ObjDados.EditRegistro(tabela, valores, editcondicao);
+                            //MessageBox.Show("Já tem um registro: " + dados.Rows[0]["status"].ToString());
+                        }                        
+                    }
+                }
+                else
+                {
+                    gravarTermoPrivacidade("Aceito");
+                    //MessageBox.Show("Você Aceitou! Vou gravar, não tem nada ainda.");
+                }
+
+            }
+            else
+            {
+                lblMsg.Text = "Erro: " + ObjDados.MsgErro.ToString();
+            }            
+
+            TermoPrivacidade.Attributes["class"] = "desativa_termo";
+        }
+        protected void negarTermoPrivacidade(object sender, EventArgs e)
+        {
+            gravarTermoPrivacidade("Recusado");
+            TermoPrivacidade.Attributes["class"] = "desativa_termo";
+        }//negarTermoPrivacidade
         public void usuarioLogado()
         {
             string usuario = "";
@@ -51,8 +269,7 @@ namespace Site
 
 
             //return xRet;
-        }
-
+        }//usuarioLogado
         public String montarMateriasHome()
         {
             BLL ObjConexao = new BLL(conectSite);
@@ -60,7 +277,7 @@ namespace Site
 
             string xRet = "";
             string xImg = "";
-            string IDMat = "";            
+            string IDMat = "";
 
             //xRet += dados.Rows[0]["introducao"].ToString();
 
@@ -72,144 +289,132 @@ namespace Site
                                 " LEFT JOIN st_imagens as i ON c.id = i.id_conteudo ";
             string condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' ORDER BY c.id DESC LIMIT 2 ";
 
-            if (ObjConexao.MsgErro == "" || ObjConectVegas.MsgErro == "")
+            try
             {
-                ObjConexao.Campo = campos;
-                ObjConexao.Tabela = tabela;
-                ObjConexao.Left = left;
-                ObjConexao.Condicao = condicao;
-
-                DataTable dados = ObjConexao.RetCampos();
-
-                //MessageBox.Show(campos + tabela + left + condicao);                    
-
-                int contador = 0;
-                int contMat = 0;
-
-                if (dados.Rows.Count > 0)
+                if (ObjConexao.MsgErro == "" || ObjConectVegas.MsgErro == "")
                 {
-                    contador = dados.Rows.Count;
+                    ObjConexao.Campo = campos;
+                    ObjConexao.Tabela = tabela;
+                    ObjConexao.Left = left;
+                    ObjConexao.Condicao = condicao;
 
-                    for (int i = 0; i < contador; i++)
+                    DataTable dados = ObjConexao.RetCampos();
+
+                    //MessageBox.Show(campos + tabela + left + condicao);                    
+
+                    int contador = 0;
+                    int contMat = 0;
+                    if (String.IsNullOrEmpty(ObjConexao.MsgErro))
                     {
-                        xImg += dados.Rows[i]["tipoImg"].ToString();
-                        if (xImg == "CHA")
+                        if (dados.Rows.Count > 0)
                         {
-                            xImg += dados.Rows[i]["tipoImg"];
-                            contMat++;
+                            contador = dados.Rows.Count;
+
+                            for (int i = 0; i < contador; i++)
+                            {
+                                xImg += dados.Rows[i]["tipoImg"].ToString();
+                                if (xImg == "CHA")
+                                {
+                                    xImg += dados.Rows[i]["tipoImg"];
+                                    contMat++;
+                                }
+                            }
                         }
+                        else
+                        {
+                            MessageBox.Show("Problema de conexão com o provedor do Site, verifique!");
+                        }
+
+                        for (int i = 0; i < 2; i++) //Para pegar apenas xImg = CHA
+                        {
+                            //Remove Tags do Texto para Exibição da Home
+
+                            string x = dados.Rows[i]["titulo"].ToString();
+                            string y = dados.Rows[i]["introducao"].ToString();
+
+                            //MessageBox.Show("Como tem que ficar: " + (tagIni + 1) + ", " + ((tagFim - 1) - (tagIni + 1)));
+                            //MessageBox.Show("Como tem que ficar: " + x.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))));
+                            //
+
+                            if (xImg == "MAT")
+                            {
+                                //xRet += "<div style='display: inline-block; background-color: yellow;'>" + "<img style='width: 627px; height: 146px' src =" + "'../.." + Linha["PathImg"] + "'" + "/>" + "</div>";
+                                xRet += "</a>";
+                            }
+                            else
+                            {
+                                IDMat = dados.Rows[i]["id"].ToString();
+
+                                string dtpublica = dados.Rows[i]["dt_publini"].ToString();
+
+                                xRet += "<div class='HomeMateria'> ";
+                                xRet += "<img src='" + dados.Rows[i]["PathImg"] + "' />";
+                                //xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
+                                if (x.Substring(0, 1) == "<")
+                                {
+                                    int tagIni = 0;
+                                    int tagFim = 0;
+
+                                    while (x.Substring(tagIni, 1) != ">")
+                                    {
+                                        tagIni++;
+                                    }
+                                    while (x.Substring(tagFim, 1) != "/")
+                                    {
+                                        tagFim++;
+                                    }
+                                    xRet += "<h1 class='HomeMateriaTitulo'>" + x.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))) + "</h1>";
+                                }
+                                else
+                                {
+                                    xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
+                                }
+                                xRet += "<p class='HomeMateriaCategoria'>" + dados.Rows[i]["categoria"] + "</p>";
+                                //xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
+                                if (y.Substring(0, 1) == "<")
+                                {
+                                    int tagIni = 0;
+                                    int tagFim = 0;
+
+                                    while (y.Substring(tagIni, 1) != ">")
+                                    {
+                                        tagIni++;
+                                    }
+                                    while (y.Substring(tagFim, 1) != "/")
+                                    {
+                                        tagFim++;
+                                    }
+                                    xRet += "<div class='HomeMateriaTexto'>" + y.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))) + "</div>";
+                                }
+                                else
+                                {
+                                    xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
+                                }
+                                xRet += "<p class='HomeMateriaData'>" + Convert.ToDateTime(dtpublica).ToString("dd-MM-yyyy") + "</p>";
+                                xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p style='text-align: right;'>" + /*dados.Rows[i]["PathImg"] +*/  "Leia Mais..." + "</p></a></div>";
+                                //MessageBox.Show(dados.Rows[i]["id"].ToString());                    
+                            }
+                            xRet += "</div>";
+                        }
+                    }
+                    else
+                    {
+                        lblMsg.Text = "Erro: " + ObjConexao.MsgErro.ToString();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Problema de conexão com o provedor do Site, verifique!");
-                }
-
-                for (int i = 0; i < 2; i++) //Para pegar apenas xImg = CHA
-                {
-                    //Remove Tags do Texto para Exibição da Home
-
-                    string x = dados.Rows[i]["titulo"].ToString();
-                    string y = dados.Rows[i]["introducao"].ToString();
-
-                    //MessageBox.Show("Como tem que ficar: " + (tagIni + 1) + ", " + ((tagFim - 1) - (tagIni + 1)));
-                    //MessageBox.Show("Como tem que ficar: " + x.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))));
-                    //
-
-                    if (xImg == "MAT")
-                    {
-                        //xRet += "<div style='display: inline-block; background-color: yellow;'>" + "<img style='width: 627px; height: 146px' src =" + "'../.." + Linha["PathImg"] + "'" + "/>" + "</div>";
-                        xRet += "</a>";
-                    }
-                    else
-                    {
-                        IDMat = dados.Rows[i]["id"].ToString();
-
-                        string dtpublica = dados.Rows[i]["dt_publini"].ToString();
-
-                        xRet += "<div class='HomeMateria'> ";
-                        xRet += "<img src='" + dados.Rows[i]["PathImg"] + "' />";
-                        //xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
-                        if (x.Substring(0, 1) == "<")
-                        {
-                            int tagIni = 0;
-                            int tagFim = 0;
-
-                            while (x.Substring(tagIni, 1) != ">")
-                            {
-                                tagIni++;
-                            }
-                            while (x.Substring(tagFim, 1) != "/")
-                            {
-                                tagFim++;
-                            }
-                            xRet += "<h1 class='HomeMateriaTitulo'>" + x.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))) + "</h1>";
-                        }
-                        else
-                        {
-                            xRet += "<h1 class='HomeMateriaTitulo'>" + dados.Rows[i]["titulo"] + "</h1>";
-                        }
-                        xRet += "<p class='HomeMateriaCategoria'>" + dados.Rows[i]["categoria"] + "</p>";
-                        //xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
-                        if (y.Substring(0, 1) == "<")
-                        {
-                            int tagIni = 0;
-                            int tagFim = 0;
-
-                            while (y.Substring(tagIni, 1) != ">")
-                            {
-                                tagIni++;
-                            }
-                            while (y.Substring(tagFim, 1) != "/")
-                            {
-                                tagFim++;
-                            }
-                            xRet += "<div class='HomeMateriaTexto'>" + y.Substring((tagIni + 1), ((tagFim - 1) - (tagIni + 1))) + "</div>";
-                        }
-                        else
-                        {
-                            xRet += "<div class='HomeMateriaTexto'>" + dados.Rows[i]["introducao"] + "</div>";
-                        }
-                        xRet += "<p class='HomeMateriaData'>" + Convert.ToDateTime(dtpublica).ToString("dd-MM-yyyy") + "</p>";
-                        xRet += "<div class='HomeMateriaMais'><a href='ContMaterias.aspx?IDContMat=" + IDMat + "'><p style='text-align: right;'>" + /*dados.Rows[i]["PathImg"] +*/  "Leia Mais..." + "</p></a></div>";
-                        //MessageBox.Show(dados.Rows[i]["id"].ToString());                    
-                    }
-                    xRet += "</div>";
+                    //string MsgErro = ObjConexao.MsgErro;
+                    xRet = "Erro: " + ObjConexao.MsgErro;
+                    return null;
                 }
             }
-            else
-            {
-                //string MsgErro = ObjConexao.MsgErro;
-                xRet = "Erro: " + ObjConexao.MsgErro;
-                return null;
+            catch (Exception e) {
+                xRet += "Erro: " + e.Message;
             }
 
             return xRet;
-        }
-
-
-        public void teste()
-        {
-            BLL ObjConexao = new BLL(conectSite);
-
-            string xRet = "";
-
-            ObjConexao.Campo = " * ";
-            ObjConexao.Tabela = " st_usuario ";
-
-            DataTable dados = ObjConexao.RetCampos();
-
-            if (ObjConexao.MsgErro != "")
-            {
-                MessageBox.Show("Deu erro");
-            }
-            else
-            {
-                xRet += "Metodo";
-            }
-
-        }
-
+        }//montarMateriasHome
         public String montarSlider()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -226,28 +431,32 @@ namespace Site
             ObjDados.Condicao = condicao;
 
             DataTable dados = ObjDados.RetCampos();
-
-            if (ObjDados.MsgErro == "")
+            try
             {
-
-
-                xRet += "<div class='BoxSlider-Propaganda'>";
-                xRet += "<section class='slider'>";
-                for (int i = 0; i < dados.Rows.Count; i++)
+                if (ObjDados.MsgErro == "")
                 {
-                    xRet += "<img class='STop' src='" + dados.Rows[i]["path_img"] + "' />";
+
+
+                    xRet += "<div class='BoxSlider-Propaganda'>";
+                    xRet += "<section class='slider'>";
+                    for (int i = 0; i < dados.Rows.Count; i++)
+                    {
+                        xRet += "<img class='STop' src='" + dados.Rows[i]["path_img"] + "' />";
+                    }
+                    xRet += "</section>";
+                    xRet += "</div>";
                 }
-                xRet += "</section>";
-                xRet += "</div>";
+                else
+                {
+                    xRet += "<label>" + ObjDados.MsgErro + "</label>";
+                }
             }
-            else
-            {
-                xRet += "<label>" + ObjDados.MsgErro + "</label>";
+            catch (Exception e) { 
+                xRet = "Erro: " + e.Message; 
             }
 
             return xRet;
-        }
-
+        }//montarSlider
         public String montarBoxServicos()
         {
 
@@ -269,8 +478,7 @@ namespace Site
             }
 
             return xRet;
-        }
-
+        }//montarBoxServicos
         public String montarBox33()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -288,73 +496,87 @@ namespace Site
 
             string xRet = "";
 
-            //Sessão 1
-            xRet += "<div class='tituloBox-33' >" + "O que temos para Você" + "</div>";
-            xRet += "<section class='s1'>";
-            xRet += "<section class='Box33'>";
-            for (int i = 0; i < dados.Rows.Count; i++)
+            try
             {
-                //Criar método para checar se o arquivo existe             
-                if (dados.Rows[i]["TipoImg"].ToString() == "B33S1")
+                if (String.IsNullOrEmpty(ObjDados.MsgErro))
                 {
-                    xRet += "<img class='BoxS1' src='" + dados.Rows[i]["path_img"] + "'>";
-                }
-            }
-            xRet += "<div class='s-titulo'>";
-            xRet += "<p>Promoção Vale Compras</p>";
-            xRet += "</div>";
-            xRet += "<div id = 'black-Box-Text' class='botaoSaibaMais'> ";
-            xRet += "<a href = '#' > Saiba Mais</a>";
-            xRet += "</div>";
-            xRet += "</section>";
-            xRet += "</section>";
+                    //Sessão 1
+                    xRet += "<div class='tituloBox-33' >" + "O que temos para Você" + "</div>";
+                    xRet += "<section class='s1'>";
+                    xRet += "<section class='Box33'>";
+                    for (int i = 0; i < dados.Rows.Count; i++)
+                    {
+                        //Criar método para checar se o arquivo existe             
+                        if (dados.Rows[i]["TipoImg"].ToString() == "B33S1")
+                        {
+                            xRet += "<img class='BoxS1' src='" + dados.Rows[i]["path_img"] + "'>";
+                        }
+                    }
+                    xRet += "<div class='s-titulo'>";
+                    xRet += "<p>Promoção Vale Compras</p>";
+                    xRet += "</div>";
+                    xRet += "<div id = 'black-Box-Text' class='botaoSaibaMais'> ";
+                    xRet += "<a href = '#' > Saiba Mais</a>";
+                    xRet += "</div>";
+                    xRet += "</section>";
+                    xRet += "</section>";
 
 
-            //Sessão 2
-            xRet += "<section class='s2'>";
-            xRet += "<section class='Box33'>";
-            for (int i = 0; i < dados.Rows.Count; i++)
-            {
-                if (dados.Rows[i]["TipoImg"].ToString() == "B33S2")
-                {
-                    xRet += "<img class='BoxS2' src='" + dados.Rows[i]["path_img"] + "'>";
-                }
-            }
-            xRet += "<div class='s-titulo'>";
-            xRet += "<p>Promoção Tanque Cheio</p>";
-            xRet += "</div>";
-            xRet += "<div id = '' class='botaoSaibaMais'>";
-            xRet += "<a href='ContMaterias.aspx?IDContMat=70' > Saiba Mais</a>";
-            xRet += "</div>";
-            xRet += "</section>";
-            xRet += "</section>";
+                    //Sessão 2
+                    xRet += "<section class='s2'>";
+                    xRet += "<section class='Box33'>";
+                    for (int i = 0; i < dados.Rows.Count; i++)
+                    {
+                        if (dados.Rows[i]["TipoImg"].ToString() == "B33S2")
+                        {
+                            xRet += "<img class='BoxS2' src='" + dados.Rows[i]["path_img"] + "'>";
+                        }
+                    }
+                    xRet += "<div class='s-titulo'>";
+                    xRet += "<p>Promoção Tanque Cheio</p>";
+                    xRet += "</div>";
+                    xRet += "<div id = '' class='botaoSaibaMais'>";
+                    xRet += "<a href='ContMaterias.aspx?IDContMat=70' > Saiba Mais</a>";
+                    xRet += "</div>";
+                    xRet += "</section>";
+                    xRet += "</section>";
 
-            //Sessão 3
-            xRet += "<section class='s3'>";
-            xRet += "<section class='Box33'>";
-            for (int i = 0; i < dados.Rows.Count; i++)
-            {
-                if (dados.Rows[i]["TipoImg"].ToString() == "B33S3")
+                    //Sessão 3
+                    xRet += "<section class='s3'>";
+                    xRet += "<section class='Box33'>";
+                    for (int i = 0; i < dados.Rows.Count; i++)
+                    {
+                        if (dados.Rows[i]["TipoImg"].ToString() == "B33S3")
+                        {
+                            xRet += "<img class='BoxS3' src='" + dados.Rows[i]["path_img"] + "'>";
+                        }
+                    }
+                    xRet += "<div class='s-titulo'>";
+                    xRet += "<p>Próximos Eventos</p>";
+                    xRet += "</div>";
+                    xRet += "<div id = '' class='botaoSaibaMais'>";
+                    xRet += "<a href = 'ContASU.aspx' > Saiba Mais</a>";
+                    xRet += "</div>";
+                    xRet += "</section>";
+                    xRet += "</section>";
+                }
+                else
                 {
-                    xRet += "<img class='BoxS3' src='" + dados.Rows[i]["path_img"] + "'>";
+                    xRet += "Erro: " + ObjDados.MsgErro;
                 }
             }
-            xRet += "<div class='s-titulo'>";
-            xRet += "<p>Próximos Eventos</p>";
-            xRet += "</div>";
-            xRet += "<div id = '' class='botaoSaibaMais'>";
-            xRet += "<a href = 'ContASU.aspx' > Saiba Mais</a>";
-            xRet += "</div>";
-            xRet += "</section>";
-            xRet += "</section>";
+            catch (Exception e) {
+                xRet += "Erro: " + e.Message;
+            }
 
 
             return xRet;
-        }
-
+        }//montarBox33
         public String montarBox100()
         {
             BLL ObjDados = new BLL(conectSite);
+
+            string xRet = "";
 
             string campos = " i.id, i.codtipo AS TipoImg, c.Cod_tipo AS TipoCont, i.cod_destaque, i.titulo, i.path_img, i.fonte, i.autor, i.hint, c.dt_publini, c.dt_publfim, c.id, c.cod_menu,  c.cod_categoria, c.titulo ";
             string tabela = " st_imagens AS i ";
@@ -369,21 +591,27 @@ namespace Site
             DataTable dados = ObjDados.RetCampos();
 
             //MessageBox.Show(campos +"\n" + tabela+"\n" + left + "\n" + condicao);
-
-            string xRet = "";
-
-            xRet += "<p class='tituloBox-1'>" + "Nossos Momentos" + "</p>";
-            xRet += "<div class='BoxImg100'>";
-            for (int i = 0; i < dados.Rows.Count; i++)
+            try
             {
-                xRet += "<img class='Box100' src='" + dados.Rows[i]["path_img"] + "'/>";
-            }
-            xRet += "</div>";
-            xRet += "</div>";
-
+                if (String.IsNullOrEmpty(ObjDados.MsgErro))
+                {
+                    xRet += "<p class='tituloBox-1'>" + "Nossos Momentos" + "</p>";
+                    xRet += "<div class='BoxImg100'>";
+                    for (int i = 0; i < dados.Rows.Count; i++)
+                    {
+                        xRet += "<img class='Box100' src='" + dados.Rows[i]["path_img"] + "'/>";
+                    }
+                    xRet += "</div>";
+                    xRet += "</div>";
+                }
+                else
+                {
+                    xRet += "Erro: " + ObjDados.MsgErro;
+                }
+            }catch(Exception e) { xRet += "Erro: " + e.Message; }
 
             return xRet;
-        }
+        }//montarBox100
 
 
     }//Fim

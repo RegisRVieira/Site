@@ -47,17 +47,184 @@ namespace Site
                 carregarDadosConv();
                 usuarioLogado();
                 atualizaDdlExtrato();
-
+                gravarTermoPrivacidade();
+                desativaBrinde();
             }
             this.DataBind();
         }
 
+        protected void negarBrinde(object sender, EventArgs e)
+        {
+            secPremio.Attributes["class"] = "desativa_termo";
+        }
+
+        protected void desativaBrinde()
+        {
+            BLL ObjBrinde = new BLL(conectSite);
+            BLL ObjContar = new BLL(conectSite);
+
+            string tabela = " st_premiacao ";
+            string campos = " id_assoc, usuario ";
+            string condicao = " WHERE id_assoc = '" + Session["IdAssoc"].ToString() + "'";
+
+            string xRet = "";
+
+            ObjBrinde.Tabela = tabela;
+            ObjBrinde.Campo = campos;
+            ObjBrinde.Condicao = condicao;
+
+            ObjContar.Tabela = tabela;
+            ObjContar.Campo = campos;
+
+            DataTable dados = ObjBrinde.RetCampos();
+            DataTable contar = ObjContar.RetCampos();
+
+            //MessageBox.Show("Tem: " + contar.Rows.Count);
+            //MessageBox.Show(Session["IdAssoc"].ToString());
+
+            if (String.IsNullOrEmpty(ObjBrinde.MsgErro))
+            {
+                if (contar.Rows.Count <= 10)
+                {
+                    if (dados.Rows.Count > 0)
+                    {
+                        //xRet = "Você é o: " + (contar.Rows.Count) + "º a Participar." + "\n" + "Parabéns!!!";
+                        xRet += "Você está Participando" + "\n" + "Parabéns!";
+                        secPremio.Attributes["class"] = "desativa_termo";
+                    }
+                    else
+                    {
+                        //MessageBox.Show("Aperta aí pra participar!!!");
+                    }
+                }
+
+            }
+            else
+            {
+                xRet += "Erro: " + ObjBrinde.MsgErro;
+            }
+
+            lblResult.Text = xRet;
+
+            //MessageBox.Show("Login Usuario: " + Session["LoginUsuario"].ToString() + " Identifica: " + Session["Identifica"].ToString() + " IDAssoc: " + Session["IdAssoc"].ToString());
+
+        }//desativaBrinde
+        protected void gravarBrinde(object sender, EventArgs e)
+        {
+            BLL ObjBrinde = new BLL(conectSite);
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string tabela = " st_premiacao "; //Tabela
+            string campos = " login_acesso, ip, usuario, id_conf, id_conv, id_assoc, cadMom, cadUsu  "; //Campos 
+            string valores = String.Format("'" + Session["CodAcesso"].ToString() + "'," + //Valores
+                               "'" + IP + "'," +
+                               "'" + Session["LoginUsuario"].ToString() + "'," +
+                               "'" + "1" + "'," +
+                               "'" + "224" + "'," +
+                               "'" + Session["IdAssoc"].ToString() + "'," +
+                               "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + "Site" + "'");
+
+            //Dados para Inserção
+            ObjBrinde.Tabela = tabela;
+            ObjBrinde.Campo = campos;
+            ObjBrinde.Valores = valores;
+
+            DataTable dados = ObjBrinde.RetCampos();
+
+            string xRet = "";
+
+            //Testes
+            //xRet += " INSERT INTO " + tabela + " (" + campos + ")" + " VALUES (" + valores +")";
+            //xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
+            //MessageBox.Show(xRet);
+            //Fim Testes                       
+
+            if (String.IsNullOrEmpty(ObjBrinde.MsgErro))
+            {
+                ObjBrinde.InsertRegistro(tabela, campos, valores);
+
+                desativaBrinde();
+
+                if (xRet != "")
+                {
+                    MessageBox.Show(xRet);
+                }
+
+            }
+            else
+            {
+                xRet += "Erro: " + ObjBrinde.MsgErro;
+            }
+
+            lblMsg.Text = xRet;
+
+        }//gravarBrinde
+        protected void gravarTermoPrivacidade()
+        {
+            BLL ObjLog = new BLL(conectSite);
+
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string tabela = " st_termo_privacidade "; //Tabela
+            string campos = " Login_Acesso, ip, id_empresa, status, usuario, cadMom, cadUsu  "; //Campos             
+            //string campos = " ip, id_empresa, status, cadMom, cadUsu  "; //Campos 
+            string valores = String.Format("'" + Session["CodAcesso"].ToString() + "'," + //Valores
+                               "'" + IP + "'," +
+                               "'" + "1" + "'," +
+                               "'" + "Aceito" + "'," +
+                               "'" + Session["LoginUsuario"].ToString() + "'," +
+                               "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                               "'" + "Site" + "'");            
+            string condicao = " WHERE Login_Acesso='" + Session["CodAcesso"].ToString() + "'"; //Condicao
+
+            //Dados para Inserção
+            ObjLog.Tabela = tabela;
+            ObjLog.Campo = campos;
+            ObjLog.Valores = valores;
+            ObjLog.Condicao = condicao;
+
+            DataTable dados = ObjLog.RetCampos();
+
+            string xRet = "";
+
+            xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
+            //MessageBox.Show(xRet + "Count:" + dados.Rows.Count);
+            //MessageBox.Show(dados.Rows[0]["Login_Acesso"].ToString() + " * " + Session["CodAcesso"].ToString() );
+            
+
+            if (String.IsNullOrEmpty(ObjLog.MsgErro))
+            {                
+
+                if (dados.Rows.Count == 0)
+                {
+                    //MessageBox.Show("Não há registro");
+                    ObjLog.InsertRegistro(tabela, campos, valores);
+                }
+                else
+                {
+                    //MessageBox.Show("Já tem registro");
+                    if (dados.Rows[0]["Login_Acesso"].ToString() == Session["CodAcesso"].ToString())
+                    {
+
+                    }
+                    else
+                    {
+                        ObjLog.InsertRegistro(tabela, campos, valores);
+                    }
+                }                
+            }
+
+            //MessageBox.Show(xRet);
+
+        }//gravarTermoPrivacidade
+
         /* - - -  Operações e Validações - - - */
         public void usuarioLogado()
-        {
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+        {            
             string codAcesso = Session["CodAcesso"].ToString();
             int tCampo = codAcesso.Length;
             string usuario = "";
@@ -91,7 +258,7 @@ namespace Site
             limpaExtratos();
 
             //return xRet;
-        }
+        }//usuarioLogado
 
         public void checarSessao()
         {
@@ -118,7 +285,7 @@ namespace Site
                 ativarConveniado();
             }
             else { MessageBox.Show("Alguma coisa deu errada..."); }
-        }
+        }//checarSessao
 
         public void ativarExtratoOuVenda()
         {
@@ -143,7 +310,7 @@ namespace Site
             {
                 mwContConv.ActiveViewIndex = 0;
             }
-        }
+        }//ativarExtratoOuVenda
 
         /* - - - FIM Validações - - - */
 
@@ -601,19 +768,6 @@ namespace Site
                     DataTable dados = ObjDbASU.RetCampos();
                     int contador = dados.Rows.Count;
 
-#pragma warning disable CS0219 // A variável "gastosSaldo" é atribuída, mas seu valor nunca é usado
-                    double gastosSaldo = 0;
-#pragma warning restore CS0219 // A variável "gastosSaldo" é atribuída, mas seu valor nunca é usado
-#pragma warning disable CS0219 // A variável "gastos" é atribuída, mas seu valor nunca é usado
-                    double gastos = 0;
-#pragma warning restore CS0219 // A variável "gastos" é atribuída, mas seu valor nunca é usado
-#pragma warning disable CS0219 // A variável "limite" é atribuída, mas seu valor nunca é usado
-                    double limite = 0;
-#pragma warning restore CS0219 // A variável "limite" é atribuída, mas seu valor nunca é usado
-#pragma warning disable CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
-                    double saldo = 0;
-#pragma warning restore CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
-
                     Apoio.IdAssoc = IdAssoc; //Atribui Id do associado ao Método para calcular os gastos
 
                     string mesAtual = DateTime.Now.Month.ToString();
@@ -704,7 +858,7 @@ namespace Site
                     xRet += "<tbody>";
                     xRet += "<tr>";
                     xRet += "<td>" + "Seu Limite: " + "</td>";
-                    xRet += "<td style='font-size: 30px;'>" + "R$ " + Apoio.limiteAssociado().ToString("F2", CultureInfo.InvariantCulture) + "</td>";
+                    xRet += "<td style='font-size: 30px; '>" + "R$ " + Apoio.limiteAssociado().ToString("F2", CultureInfo.InvariantCulture) + "</td>";
                     //xRet += "</tr>";
                     //xRet += "<tr>";
                     xRet += "<td>" + "Seu Saldo: " + "</td>";
@@ -1355,7 +1509,7 @@ namespace Site
         {
             BLL ObjDadosLinha = new BLL(conectVegas);
             BLL ObjDadosColuna = new BLL(conectVegas);
-            Apoio Apoio = new Apoio();            
+            Apoio Apoio = new Apoio();
 
             Apoio.Ano = ddlFatMensalAno.SelectedValue;
             Apoio.Mes = ddlFatMensalMes.SelectedValue;
@@ -1380,9 +1534,9 @@ namespace Site
             string condicao_coluna = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.dtDataInicio() + " AND " + Apoio.dtDataFim() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
             //string parc2 = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.Periodo() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
             //string parc3 = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.Periodo() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
-            string parc4 = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.dtDataInicio() +" AND " + Apoio.dtDataFim() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
+            string parc4 = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.dtDataInicio() + " AND " + Apoio.dtDataFim() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
 
-            
+
 
             if (ObjDadosLinha.MsgErro == "" || ObjDadosColuna.MsgErro == "")
             {
@@ -1401,8 +1555,8 @@ namespace Site
 
                 //########
                 //Checar se DV do Id do Convênio confere                
-                string dv = GeraDigMod11(Convert.ToInt64(dados_linha.Rows[0]["idConv"])).ToString();              
-                
+                string dv = GeraDigMod11(Convert.ToInt64(dados_linha.Rows[0]["idConv"])).ToString();
+
                 //MessageBox.Show(dv);
                 //########
 
@@ -1461,7 +1615,7 @@ namespace Site
                 {
                     double valor = Convert.ToDouble(dados_linha.Rows[i]["valor"]);
                     xTab += "<td>" + (valor * (-1)).ToString("C2") + "</td>";
-                }                
+                }
                 xTab += "<td>" + (Convert.ToDouble(dados_linha.Rows[0]["gastos"]) * (1)).ToString("C2") + "</td>";
                 xTab += "</tr>";
                 //Obter Parcelas Futuras
@@ -1469,7 +1623,7 @@ namespace Site
                 {
                     xTab += "<tr>";
                     xTab += "<td> Ref. Parcela " + (i + 1) + "</td>";
-                    xTab += "<td>" + (Convert.ToDecimal(dados_coluna.Rows[i]["valor"]) * (-1)).ToString("C2") + "</td>";                    
+                    xTab += "<td>" + (Convert.ToDecimal(dados_coluna.Rows[i]["valor"]) * (-1)).ToString("C2") + "</td>";
                     // for (int j = 0; j < 2; i++)
                     //{
                     xTab += "<td>" + "</td>";
@@ -1484,7 +1638,7 @@ namespace Site
                     xTab += "<td>" + "</td>";
                     //}
                     xTab += "</tr>";
-                }                
+                }
                 xTab += "<td>Total</td>";
                 xTab += "<td>" + Convert.ToDecimal(dados_coluna.Rows[1]["tot_vendas"]).ToString("C2") + "</td>";
                 xTab += "<td>" + "" + "</td>";
@@ -1498,7 +1652,7 @@ namespace Site
                 xTab += "<td></td>";
                 xTab += "<td></td>";
                 xTab += "</tr>";
-                xTab += "<tr>";                
+                xTab += "<tr>";
                 xTab += "</tbody>";
                 xTab += "<tfoot></tfoot>";
                 xTab += "</table>";
@@ -2054,13 +2208,13 @@ namespace Site
             //Montar Relatório de Entrega
             string iDAcesso = Session["codAcesso"].ToString();
             int tCampo = iDAcesso.Length;
-            if (tCampo == 14 || tCampo < 7)            
+            if (tCampo == 14 || tCampo < 7)
             {
                 if ("" + Session["LoginUsuario"] != "")
                 {
                     montarRelMensal();
                 }
-            }            
+            }
 
         }
 
@@ -2550,7 +2704,7 @@ namespace Site
 
         public void realizaVenda(object sender, EventArgs e)
         {
-            
+
             string IdConv = Session["CodAcesso"].ToString();
             if (String.IsNullOrEmpty(iNumCartao.Value) || String.IsNullOrEmpty(iValorVenda.Value) || String.IsNullOrEmpty(iSenha.Value))
             {
@@ -2561,11 +2715,11 @@ namespace Site
                 //caminho físico
                 string pathDocumento = "" + WebConfigurationManager.AppSettings["CaminhoVendaENV"];
 
-                DirectoryInfo dir = new DirectoryInfo(pathDocumento);                
+                DirectoryInfo dir = new DirectoryInfo(pathDocumento);
 
                 //Cria arquivo         
                 //string cVersao = "00001.03";
-                string cVersao = "00001.04";                
+                string cVersao = "00001.04";
                 //string cConvenio = "" + 63193;
                 string cConvenio = "" + IdConv;
                 //string cConvenio = "" + idCobv + "00"; //Não funciona com DV 00
@@ -2591,8 +2745,8 @@ namespace Site
                 //string cArq_tit = "" + Session["conveniado"] + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
                 //Cr=iando o Arquivo  
                 string cArq_tit = "" + IdConv + "_" + DateTime.Now.ToString("dd-MM-yyyy_hh.mm.ss") + ".ENV";// + DateTime.Now;
-                                                                                                             //try
-                                                                                                             //{
+                                                                                                            //try
+                                                                                                            //{
                 GravaArquivo(System.IO.Path.Combine(pathDocumento, cArq_tit), cArq_cont);
                 //}
                 //catch
@@ -2611,7 +2765,7 @@ namespace Site
 
                 //MessageBox.Show(cArq_cont);
                 //MessageBox.Show(idCobv);
-                                
+
                 Processar_retorno();
             }
 
@@ -3440,8 +3594,8 @@ namespace Site
         /**/
 
         public String listarArquivosConvenios()
-        {            
-            /*Exibir Arquivos no Diretório*/            
+        {
+            /*Exibir Arquivos no Diretório*/
             DirectoryInfo diretorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\Convenios\");
 
             //Executa função GetFile(Lista os arquivos desejados de acordo com o parametro)
@@ -3450,10 +3604,10 @@ namespace Site
             string arquivos = "";
             string xArq = "";
 
-            xArq += "<div style='margin-top: 30px; width: 600px; height: auto; '>";            
+            xArq += "<div style='margin-top: 30px; width: 600px; height: auto; '>";
             //xArq += "<p style='height: 30px; color: white; text-align: left; background-image: linear-gradient(to left, rgba(242,105,7,0), rgba(242,105,7,95));'>" + "Arquivos" + "</p>";
             xArq += "<p style='height: 30px; color: white; text-align: left; background-image: linear-gradient(to left, rgba(34,57,111,0), rgba(34,57,111,44));'>" + "Arquivos" + "</p>";
-            xArq += "<div style='padding: 10px'>";            
+            xArq += "<div style='padding: 10px'>";
             foreach (FileInfo fileinfo in Arquivos)
             {
                 arquivos = fileinfo.Name;
@@ -3463,9 +3617,9 @@ namespace Site
                 xArq += "</div>";
                 xArq += "<div style='width: 300px; height: 20px; float: left;'>";
                 xArq += "<p style='text-align: left; margin: 0; margin-left: 10px; padding: 0;'> <a style='' href='" + @"Downloads\Convenios\" + arquivos + "' target=_blanck>" + arquivos + "</a></p>";
-                xArq+="</div>";
+                xArq += "</div>";
                 xArq += "</p><br>";
-                
+
 
                 //lblArquivos.Text = xArq;
             }

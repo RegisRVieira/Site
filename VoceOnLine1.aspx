@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="VoceOnLine1.aspx.cs" Inherits="Site.VoceOnLine1" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="VoceOnLine1.aspx.cs" Inherits="Site.VoceOnLine1" ValidateRequest="false" %>
 
 <!DOCTYPE html>
 
@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="Css/Global.css" />
     <link rel="stylesheet" href="Css/Global-Fluido.css" />
     <link rel="stylesheet" href="Css/Table-Extrato.css" />
-    <link rel="stylesheet" media="print" href="Css/Print.css" />
-    
+    <link rel="stylesheet" media="print" href="Css/Print.css" />    
     <script type="text/javascript" src="Js/Apoio.js"></script>
     <script type="text/javascript" src="Js/jQuery 3.4.1.js"></script>
 </head>
@@ -31,10 +30,8 @@
                     <img src="Img/icon/usuLogin.svg" />
                     <div class="BoxVOLoginMenu">
                         <ul>
-                            <li>
-                                <asp:Label ID="lblUsuLogado" runat="server" CssClass=""></asp:Label>                             
-                            </li>
-
+                            <li><asp:Label ID="lblUsuLogado" runat="server" CssClass=""></asp:Label></li>
+                            <li><asp:Label ID="lblMsgIP" runat="server"></asp:Label></li>
                         </ul>
                     </div>
                 </div>
@@ -47,16 +44,11 @@
                         <asp:View ID="vwAssociado" runat="server">
                             <div>
                                 <ul>
-                                    <li>
-                                        <asp:LinkButton ID="lbtDadosAssociado" runat="server" Text="Dados Cadastrais" OnClick="ativarAssocDados"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtExtratoSocio" runat="server" Text="Extrato" OnClick="ativarAssocExtrato"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtDadosAssociado" runat="server" Text="Dados Cadastrais" OnClick="ativarAssocDados"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtExtratoSocio" runat="server" Text="Extrato" OnClick="ativarAssocExtrato"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
                                 </ul>
@@ -65,24 +57,15 @@
                         <asp:View ID="vwConvênio" runat="server">
                             <div>
                                 <ul>
-                                    <li>
-                                        <asp:LinkButton ID="lbtVoceOnLine" runat="server" Text="Venda OnLine" OnClick="ativarConvVenda"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtDadosConvenio" runat="server" Text="Dados Cadastrais" OnClick="ativarConvDados"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtRelEntrega" runat="server" Text="Relatório de Entrega" OnClick="ativarConvRelEntrega"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtFaturaMensal" runat="server" Text="Faturamento Mensal" OnClick="ativarConvFatura"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtExtratoConvenio" runat="server" Text="Extrato" OnClick="ativarConvExtrato"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtASenhaConvenio" runat="server" Text="Alterar Senha" OnClick="ativarConvSenha"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtVoceOnLine" runat="server" Text="Venda OnLine" OnClick="ativarConvVenda"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtDadosConvenio" runat="server" Text="Dados Cadastrais" OnClick="ativarConvDados"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtRelEntrega" runat="server" Text="Relatório de Entrega" OnClick="ativarConvRelEntrega"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtFaturaMensal" runat="server" Text="Faturamento Mensal" OnClick="ativarConvFatura"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtExtratoConvenio" runat="server" Text="Extrato" OnClick="ativarConvExtrato"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtASenhaConvenio" runat="server" Text="Alterar Senha" OnClick="ativarConvSenha"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
                                 </ul>
@@ -188,13 +171,93 @@
                                     <div style="margin-top: 20px; margin-bottom: 180px; background-color: #eae5e5">
                                         <asp:Label ID="lblArquivos" runat="server"></asp:Label>
                                     </div>
-
                                 </div>
+                                <style>
+                                    .premiacao{
+                                        position: absolute;
+                                        top: 80px;
+                                        right: 600px;
+                                        width: 300px; 
+                                        min-height: 250px; 
+                                        background-color: #fef3ec;
+                                        border-radius: 8px;
+                                        border: 1px solid #f26907;
+                                    }
+                                    .premioTexto{
+                                        width: 100%;
+                                        height: 200px;
+                                        padding: 10px 5px 0 5px;                                        
+                                        font-size: 1.5em;
+                                    }
+                                    .premioTexto img{
+                                        margin-top: 5px;
+                                        width: 140px;
+                                    }
+                                    .premioBotao{
+                                        margin: 0 auto;
+                                        margin-top: 5px;                                        
+                                        width: 60%;
+                                        min-height: 40px;                                        
+                                    }
+                                    .btnPremio{                                        
+                                        border-radius: 12px;                                        
+                                        font-weight: 900;
+                                        font-size: 1.2em;
+                                        font-family: 'Book Antiqua';
+                                        padding: 6px;
+                                        
+                                    }
+                                    .btnNegarBrinde{
+                                        display: none;
+                                    }
+                                    @media(max-width: 1000px){
+                                     .premiacao{
+                                        top: 190px;
+                                        right: 7%;
+                                        width: 700px; 
+                                        min-height: 360px; 
+                                        background-color: #fef3ec;
+                                        border-radius: 8px;
+                                        border: 1px solid #f26907;
+                                    }
+                                    .premioTexto{
+                                        width: 98%;
+                                        font-size: 1.8em;                                        
+                                    }
+                                    .premioTexto img{
+                                        margin-top: 5px;
+                                        width: 140px;
+                                    }
+                                    .premioBotao{                                                                                                               
+                                        width: 98%;
+                                        margin-left: 50%;
+                                        min-height: 40px;                                                                                
+                                    }
+                                    .btnPremio{                                        
+                                        font-size: 1.2em;                                        
+                                        padding: 6px;                                        
+                                        
+                                    }   
+                                    .btnNegarBrinde{
+                                        font-size: 2em;
+                                        display: inline;                                        
+                                    }
+                                    }
+                                </style>
+                                <section id="secPremio" runat="server" class="premiacao" style="">
+                                    <div class="premioTexto">
+                                        <p>Quero Ganhar um Prêmio do Grupo Berimbau!</p>
+                                        <img src="~/Img/Publicidade/Brinde - Berimbau.png" runat="server" />
+                                    </div>
+                                    <div class="premioBotao">
+                                        <asp:Button ID="btnPremio" runat="server" Text="Participar" CssClass="btnPremio" OnClick="gravarBrinde"/>
+                                        <asp:LinkButton ID="lbtnNegar" runat="server" Text="Não, Obrigado" CssClass="btnPremio btnNegarBrinde" OnClick="negarBrinde"></asp:LinkButton>
+                                    </div>
+                                </section>
                                 <section id="margemRodape"></section>
-                            </section>
+                            </section>                            
                         </asp:View>
                         <asp:View ID="vwAssocCartoes" runat="server">
-
                             <div style="float: left; width: 100%; min-height: 250px;">
                                 <%# metodoCartoesAssoc() %>                                                              
                             </div>
@@ -623,9 +686,7 @@
         </main>
     </form>
     <script>       
-
         atualizaDataRelEntrega();
-
     </script>
 </body>
 </html>

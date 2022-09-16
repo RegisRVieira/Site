@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../Css/Global-Fluido.css" />
     <link rel="stylesheet" href="../Css/StyleVoceOnLine.css" />
     <link rel="stylesheet" href="../Css/Table-Extrato.css" />
+    <link rel="stylesheet" media="print" href="../Css/Print.css" />
     <script type="text/javascript" src="../Js/Apoio.js"></script>
     <script type="text/javascript" src="../Js/jQuery 3.4.1.js"></script>
 </head>
@@ -29,34 +30,24 @@
                     <img  src="../Img/icon/usuLogin.svg"/>                    
                     <div class="BoxVOLoginMenu">
                         <ul>
-                            <li><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label> 
-                                <ul>                                    
-                                    <li>Sobre</li>
-                                    <li>Voltar à Home</li>
-                                    <asp:LinkButton ID="lbtDeslogar" runat="server" Text="Sair" OnClick="fazerLogof"><li>Sair</li></asp:LinkButton>
-                                </ul>
-                            </li>
-                            
+                            <li><asp:Label ID="lblUsuLogado" runat="server" CssClass=""></asp:Label></li>
+                            <li><asp:Label ID="lblMsgIP" runat="server"></asp:Label></li>
                         </ul>
                     </div>    
                 </div>
             </div>            
         </nav>
-        <main style="background-color: green">
+        <main>
             <div class="lateral">
                 <div id="menuflutua" class="menuflutua">
                     <asp:MultiView ID="mwVoceOnLine" runat="server">
                         <asp:View ID="vwAssociado" runat="server">
                             <div>
                                 <ul>
-                                    <li>
-                                        <asp:LinkButton ID="lbtDadosAssociado" runat="server" Text="Dados Cadastrais" OnClick="ativarAssocDados"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtExtratoSocio" runat="server" Text="Extrato" OnClick="ativarAssocExtrato"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtDadosAssociado" runat="server" Text="Dados Cadastrais" OnClick="ativarAssocDados"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtExtratoSocio" runat="server" Text="Extrato" OnClick="ativarAssocExtrato"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
@@ -66,22 +57,14 @@
                         <asp:View ID="vwConvênio" runat="server">
                             <div>
                                 <ul>
-                                    <li>
-                                        <asp:LinkButton ID="lbtVoceOnLine" runat="server" Text="Venda OnLine" OnClick="ativarConvVenda"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtDadosConvenio" runat="server" Text="Dados Cadastrais" OnClick="ativarConvDados"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtRelEntrega" runat="server" Text="Relatório de Entrega" OnClick="ativarConvRelEntrega"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtFaturaMensal" runat="server" Text="Faturamento Mensal" OnClick="ativarConvFatura"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtExtratoConvenio" runat="server" Text="Extrato" OnClick="ativarConvExtrato"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtASenhaConvenio" runat="server" Text="Alterar Senha" OnClick="ativarConvSenha"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
-                                    <li>
-                                        <asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtVoceOnLine" runat="server" Text="Venda OnLine" OnClick="ativarConvVenda"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtDadosConvenio" runat="server" Text="Dados Cadastrais" OnClick="ativarConvDados"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtRelEntrega" runat="server" Text="Relatório de Entrega" OnClick="ativarConvRelEntrega"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtFaturaMensal" runat="server" Text="Faturamento Mensal" OnClick="ativarConvFatura"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtExtratoConvenio" runat="server" Text="Extrato" OnClick="ativarConvExtrato"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtASenhaConvenio" runat="server" Text="Alterar Senha" OnClick="ativarConvSenha"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
@@ -95,109 +78,150 @@
                 <div class="contassoc">
                     <asp:MultiView ID="mwContAssoc" runat="server">
                         <asp:View ID="vwAssocDados" runat="server">
-                            <div style="width: 60%; max-height: 850px; margin: 0 auto; padding: 10px; overflow: scroll;">
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Dados Pessoais</p>
+                            <section class="secFormDados">
+                                <p class="titFormCad">Dados Pessoais</p>
                                 <input id="iNomeAssoc" runat="server" type="text" placeholder="Nome" style="font-size: .9em; padding: 12px 0 12px 15px; height: 12px;" />
                                 <input id="iCpfAssoc" runat="server" type="text" placeholder="CPF" />
                                 <input id="iRgAssoc" runat="server" type="text" placeholder="RG" />
                                 <input id="iEmailAssoc" runat="server" type="text" placeholder="E-mail" />
-                                <input id="iFoneAssoc" runat="server" type="text" placeholder="Telefone" />
-                                <input id="iCelAssoc" runat="server" type="text" placeholder="Celular" />
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Dados de Endereço</p>
+                                <input id="iFoneAssoc" runat="server" type="tel" placeholder="Telefone" />
+                                <input id="iCelAssoc" runat="server" type="tel" placeholder="Celular" />
+                                <p class="titFormCad">Dados de Endereço</p>
                                 <input id="iCepAssoc" runat="server" type="text" maxlength="8" placeholder="CEP" style="font-size: .9em; padding: 12px 0 12px 15px; height: 12px;" />
-                                <asp:Button ID="btnBuscarCep" runat="server" Text="Buscar Cep" OnClick="buscarCep" />
+                                <div class="btnFormCad">
+                                    <asp:Button ID="btnBuscarCep" runat="server" Text="Buscar Cep" OnClick="buscarCepAssoc" />
+                                </div>
                                 <asp:Label ID="lblErroAssoc" runat="server"></asp:Label>
+                                <input id="iLogradouroAssoc" runat="server" type="text" placeholder="Logradouro" />
                                 <input id="iRuaAssoc" runat="server" type="text" placeholder="Rua" />
                                 <input id="iNumCasaAssoc" runat="server" type="text" placeholder="Número" />
                                 <input id="iBairroAssoc" runat="server" type="text" placeholder="Bairro" />
                                 <input id="iComplemAssoc" runat="server" type="text" placeholder="Complemento" />
                                 <input id="iCidadeAssoc" runat="server" type="text" placeholder="Cidade" />
                                 <input id="iEstadoAssoc" runat="server" type="text" placeholder="Estado" />
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Dados do Trabalho</p>
+                                <p class="titFormCad">Dados do Trabalho</p>
                                 <input id="iUnidadeAssoc" runat="server" type="text" placeholder="Unidade" />
                                 <input id="iDepartAssoc" runat="server" type="text" placeholder="Departamento" />
                                 <input id="iSetorAssoc" runat="server" type="text" placeholder="Setor" />
                                 <input id="iFuncaoAssoc" runat="server" type="text" placeholder="Função" />
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Dados Bancários</p>
+                                <p class="titFormCad">Dados Bancários</p>
                                 <input id="iBancoAssoc" runat="server" type="text" placeholder="Banco" />
                                 <input id="iAgenciaAssoc" runat="server" type="text" placeholder="Agência" />
                                 <input id="iContaAssoc" runat="server" type="text" placeholder="Conta Corrente" />
-                                <asp:Button ID="btnEnviar" runat="server" Text="Enviar para Alteração" OnClick="enviarDadosCorrecao" />
-                            </div>
+                                <div class="btnFormCad">
+                                    <asp:Button ID="btnEnviar" runat="server" Text="Enviar para Alteração" OnClick="enviarDadosCorrecao" />
+                                </div>
+                            </section>
                             <div>
                                 <asp:Label ID="lblDados" runat="server"></asp:Label>
                                 <asp:Label ID="lblResultado" runat="server"></asp:Label>
                             </div>
                         </asp:View>
                         <asp:View ID="vwAssocExtrato" runat="server">
-                            <section style="min-height: 900px;">
-                                <div style="width: 100%; font-size: 0.8em;">
-                                    <table style="width: 80%;">
+                            <section class="SecPeriodoExtrato">
+                                <div class="BoxDdlPeriodoExtrato defaultTable">
+                                    <table class="TabPeridoExtrato">
                                         <caption>Período</caption>
                                         <tbody>
                                             <tr>
-                                                <td>
+                                                <td class="tdPeridoExtratoMes">
                                                     <asp:DropDownList ID="ddlMesExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
-                                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                                        <asp:ListItem Value="4" Text="Maio" ></asp:ListItem>
-                                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                                        <asp:ListItem Value="6" Text="Julho" Selected=""></asp:ListItem>
-                                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
+                                                        <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="Março"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="abril"></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Maio"></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Julho"></asp:ListItem>
+                                                        <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
+                                                        <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
+                                                        <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
+                                                        <asp:ListItem Value="11" Text="Novembro"></asp:ListItem>
+                                                        <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
-                                                <td>
-                                                    <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server" CssClass="ddlVcOnLine">
-                                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
+                                                <td class="tdPeridoExtratoAno">
+                                                    <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server" CssClass="ddlVcOnLine">                                                        
+                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
+                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                        <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
+                                                        <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
+                                                        <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
+                                                        <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
                                                     </asp:DropDownList></td>
                                                 <td>
-                                                    <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" /></td>
+                                                    <div class="BtnPeriodoExtrato">
+                                                        <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <asp:Label ID="lblPeriodoAssoc" runat="server"></asp:Label>
-                                </div>
+                                </div>                                
                                 <div style="width: 77.8%;">
                                     <%# extratoAssociado() %>
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
-                                    <section id="margemRodape"></section>
-                                    <asp:Button ID="btnPdf" runat="server" Text="Gerar PDF" OnClick="gerarPdfExtratoAssoc" />
+                                    <div class="BtnGerarPDfAssoc">
+                                    <asp:Button ID="btnPdfAssoc" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />                                                                                                                    
+                                    </div>
+                                    <div style="width: 100px; height: 50px; float: left">
+                                        <asp:Label ID="lblExtratoPdf" runat="server"></asp:Label>
+                                    </div>
+                                    <div style="margin-top: 20px; margin-bottom: 180px; background-color: #eae5e5">
+                                        <asp:Label ID="lblArquivos" runat="server"></asp:Label>
+                                    </div>
                                 </div>
+                                <section id="margemRodape"></section>
                             </section>
                         </asp:View>
                         <asp:View ID="vwAssocCartoes" runat="server">                            
+                            <div style="float: left; width: 100%; min-height: 250px;">
+                                <%# metodoCartoesAssoc() %>                                                              
+                            </div>
+                            <!-- Remover Display NONE quando for trabalha a troca da senha -->                            
+                            <div style="width: 150px; min-height: 20px; display: none; float: left; margin: 10px 0 20px 0;" > 
+                                <asp:Button ID="btnEscolherCartao"  runat="server" Text="Trocar Senha" OnClick="escolherCartao"/>
+                            </div>                                                        
+                            <div runat="server" id="divAlteraSenhaCartao" style="margin: 0 auto; float: left; margin-top: 20px; border: 1px solid #ffd800; border-radius: 6px; padding: 12px 6px;" class="esconderCampos">
+                                <p style="width: 100%; ">Trocar Senha do Seu Cartao ASU OnLine</p>
+                                <input id="iNovaSenhaCartao" runat="server" type="text" placeholder="Digite a Nova Senha" />
+                                <input id="iConfirmaNovaSenhaCartao" runat="server" type="text" placeholder="Confirme a Nova Senha" />
+                                <asp:Button ID="btntrocaSenhaCartao" runat="server" Text="Trocar Senha"  OnClick="trocarSenhaCartao"/>
+                            </div>
                             <div>
-                                <%# metodoCartoesAssoc() %>
-                            </div>                            
+                                <asp:Label ID="lblListaCartoes" runat="server"></asp:Label>                                
+                            </div>
                         </asp:View>
                         <asp:View ID="vwAssocSenha" runat="server">
                             <section style="margin: 0 auto; margin-top: 30px; width: 60%; border: 2px solid #cfcfcf;">
                                 <div style="width: 100%">
-                                    <p style=" margin-top: 5px; color: #22396f; text-align: center; font-size: 2em;">Trocar Senha</p>
-                                    <input id="iSenhaAtual" runat="server" type="password" placeholder="Senha Atual" />
+                                    <p style="margin-top: 5px; color: #22396f; text-align: center; font-size: 2em;">Trocar Senha</p>
+                                    <input id="iSenhaAtual" runat="server" type="password" placeholder="Sua Senha" />
                                     <input id="iSenhaNova" runat="server" type="password" placeholder="Nova Senha" />
                                     <input id="iSenhaConfirma" runat="server" type="password" placeholder="Confirma Nova Senha" />
                                     <asp:Button ID="btnTrocaSenha" runat="server" Text="Troca Senha" OnClick="trocarSenhaAssoc" />
-                                    <asp:label ID="lblTrocaSenha" runat="server"></asp:label>
+                                    <asp:Label ID="lblTrocaSenha" runat="server"></asp:Label>
                                 </div>
                             </section>
                         </asp:View>
                     </asp:MultiView>
                     <asp:MultiView ID="mwContConv" runat="server">
                         <asp:View ID="vwConvVenda" runat="server">
-                            <div class="form-guia">
+                            <div id="secCompVenda" runat="server" class="form-guia compVendaOn">
                                 <h1>Venda OnLine</h1>
-                                <input id="iNumCartao" runat="server" type="text" placeholder="Digite o Número do Cartão" maxlength="9" autocomplete="off" />
+                                <style>
+                                    .CompVendaNumCartao {
+                                        min-height: 45px;
+                                        font-size: 21px;
+                                    }
+
+                                        .CompVendaNumCartao:hover {
+                                            font-size: 22px;
+                                        }
+                                </style>
+                                
+                                <input id="iNumCartao" runat="server" type="text" placeholder="Digite o Número do Cartão" maxlength="9" autocomplete="off" class="CompVendaNumCartao"  />
                                 <script>
                                     String.prototype.reverse = function () {
                                         return this.split('').reverse().join('');
@@ -221,8 +245,8 @@
                                         campo.value = resultado.reverse();
                                     }
                                 </script>
-                                <input id="iValorVenda" runat="server" type="text" placeholder="Valor da Venda" autocomplete="off" onkeyup="mascaraMoeda(this, event)" />
-                                <select id="stParcelas" runat="server">
+                                <input id="iValorVenda" runat="server" type="text" placeholder="Valor da Venda" autocomplete="off" onkeyup="mascaraMoeda(this, event)" class="CompVendaNumCartao" />
+                                <select id="stParcelas" runat="server" style="width: 520px; min-height: 35px; font-size: 30px; color: #7890c2; border: 1px solid #d8e1f3; border-radius: 6px;">
                                     <option value="01" selected="selected"></option>
                                     <option value="02"></option>
                                     <option value="03"></option>
@@ -235,26 +259,47 @@
                                     <option value="10"></option>
                                 </select>
                                 <input id="iSenha" runat="server" type="password" placeholder="Senha do cartão" />
-                                <asp:Button ID="btnVender" runat="server" Text="Realizar Venda" OnClick="realizaVenda" />
-                                <a href="VoceOnLineComprovante.aspx">Comprovante</a>
-                            </div>
-                            <div>
-                                <asp:Label ID="lblRetorno" runat="server"></asp:Label>
+                                <div id="comunicando" runat="server" class="compVendaOff" style="width: 500px; height: 60px; margin-top:20px;margin-left:0px; ">
+                                    <img style="width: 150px" src="Img/comunicando.gif" />
+                                </div>
+                                    <script>
+                                        function processando() {
+                                            document.getElementById("comunicando").className = "compVendaOn";
+                                        }
+                                    </script>
+                                <div style="width: 540px;" >
+                                    <asp:Button ID="btnVender"  runat="server" Text="Realizar Venda" OnClick="realizaVenda" OnClientClick="processando()" />
+                                </div>
+                                <asp:Label ID="lblMsgVenda" runat="server"></asp:Label>
+                            </div>                            
+                            <div id="compVenda" runat="server" class="compVendaOff" >
+                                <div class="btnCompVenda">
+                                    <input id="btnImprimeCompVenda" type="submit" value="Imprimir" onclick="printBy()"/>
+                                    <asp:Button  ID="btnFinalizaVenda" runat="server" Text="Finalizar Venda" OnClick="finalizarVenda" />
+                                </div>
+                                <p style="font-size: 20px; color: white; background-color: #7890c2;">Comprovante de Venda</p>
+                                <div style=" margin-bottom: 50px; padding: 8px; border: 1px solid #7890c2; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
+                                    <div id="printable" class="printable">
+                                        <asp:Label ID="lblRetorno" runat="server"></asp:Label>                                    
+                                    </div>
+                                </div>
                             </div>
                         </asp:View>
                         <asp:View ID="vwConvDados" runat="server">
-                            <div style="width: 60%; max-height: 850px; min-height: 700px; margin: 0 auto; padding: 10px; overflow: scroll;">
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Dados Cadastrais</p>
+                            <section class="secFormDados">
+                                <p class="titFormCad">Dados Cadastrais</p>
                                 <input id="iNomeConv" runat="server" type="text" placeholder="Convênio" />
-                                <input id="iRazaoSocial" runat="server" type="text" placeholder="Razão Social" />
+                                <input id="iRazaoSocial" runat="server" type="tel" placeholder="Razão Social" />
                                 <input id="iCnpj" runat="server" type="text" placeholder="CNPJ/CPF" />
                                 <input id="iTipoConv" runat="server" type="text" placeholder="Tipo Convênio" />
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Telefones e Endereço</p>
+                                <p class="titFormCad">Telefones e Endereço</p>
                                 <input id="iDddConv" runat="server" type="text" placeholder="DDD" />
-                                <input id="iTelefoneConv" runat="server" type="text" placeholder="Telefone" />
-                                <input id="iCelularConv" runat="server" type="text" placeholder="Celular" />
+                                <input id="iTelefoneConv" runat="server" type="tel" placeholder="Telefone" />
+                                <input id="iCelularConv" runat="server" type="tel" placeholder="Celular" />
                                 <input id="iCepConv" runat="server" type="text" placeholder="Cep" />
-                                <asp:Button ID="btnBuscarCepConv" runat="server" Text="Buscar Cep" OnClick="buscarCep" />
+                                <div class="btnFormCad">
+                                    <asp:Button ID="btnBuscarCepConv" runat="server" Text="Buscar Cep"  OnClick="buscarCepConv"/>
+                                </div>
                                 <asp:Label ID="lblErroConv" runat="server"></asp:Label>
                                 <input id="iLogradouroConv" runat="server" type="text" placeholder="Logradouro" />
                                 <input id="iRuaConv" runat="server" type="text" placeholder="Rua" />
@@ -263,14 +308,16 @@
                                 <input id="iComplementConv" runat="server" type="text" placeholder="Complemento" />
                                 <input id="iCidadeConv" runat="server" type="text" placeholder="Cidade" />
                                 <input id="iEstadoConv" runat="server" type="text" placeholder="Estado" />
-                                <p style="font-size: 1.5em; font-family: 'Futura Md BT'; padding-top: 30px;">Dados Bancários</p>
+                                <p class="titFormCad">Dados Bancários</p>
                                 <input id="iBancoConv" runat="server" type="text" placeholder="Banco" />
                                 <input id="iAgenciaConv" runat="server" type="text" placeholder="Agência" />
                                 <input id="iContaCorrenteConv" runat="server" type="text" placeholder="Conta Corrente" />
                                 <input id="iDigCCConv" runat="server" type="text" placeholder="Dígito" />
                                 <br />
-                                <asp:Button ID="btnEnviarCorrecao" runat="server" Text="Enviar para Correção" OnClick="enviarDadosDoConvCorrecao" />
-                            </div>
+                                <div class="btnFormCad">
+                                    <asp:Button ID="btnEnviarCorrecao" runat="server" Text="Enviar para Correção" OnClick="enviarDadosDoConvCorrecao" />
+                                </div>
+                            </section>
                             <div style="min-height: 50px;">
                                 <style>
                                     .msgErroConv {
@@ -282,88 +329,260 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwConvRelEntrega" runat="server">
-                            <div style="width: 100%; font-size: 0.8em;">
-                                <div style="width: 200px; float: left">
-                                    <asp:DropDownList ID="ddlMes" runat="server">
-                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
-                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                                <div style="width: 150px; float: left">
-                                    <asp:DropDownList ID="ddlAno" runat="server">
-                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-                                <div style="width: 250px; font-size: 20px;">
-                                    <asp:Button ID="btnGerarData" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
-                                </div>
-                            </div>
-                            <style>
-                                .lblperiodo {
-                                    text-align: left;
-                                }
-                            </style>
-                            <asp:Label ID="lblPeriodo" runat="server" CssClass="lblperiodo"></asp:Label>
-                            <div style="width: 200px;">
-                                <!--< %# criarDDL() %> -->
-                            </div>
+                           <section class="SecPeriodoExtrato">
+                                <div class="BoxDdlPeriodoExtrato defaultTable">
+                                    <table class="TabPeridoExtrato">
+                                        <caption>Período</caption>
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdPeridoExtratoMes">
+                                                    <style>
+                                                        input[type="date"] {
+                                                            /*input[type="submit"]*/
+                                                            width: 130px;
+                                                            height: auto;
+                                                        }
+                                                    </style>
+                                                    <input id="iDataIni" runat="server" type="date" />
+                                                </td>
+                                                <td class="tdPeridoExtratoAno">
+                                                    <input id="iDataFin" runat="server" type="date" />
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="btnGerarData" runat="server" Text="Visualizar Período" OnClick="montarRelEntrega" />                                                    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>                                
+                            
+                                <style>
+                                    .lblperiodo {
+                                        text-align: left;
+                                    }
+                                </style>
+                                <script>
 
-                            <%# montarRelEntrega() %>
+                                    function atualizaDataRelEntrega() {
+                                        //preventDefault();
+
+                                        var agora = new Date();
+
+                                        var mes = "";
+                                        var dia = agora.getDate();
+                                        var dia_atual = agora.getDate();
+
+                                        //Coloca 0 no mês menos que 10
+                                        if (agora.getMonth() < 10) {
+                                            mes = "0" + (agora.getMonth() + 1);
+                                        } else {
+                                            mes = (agora.getMonth() + 1);
+                                        }
+
+                                        // Verifica o dia do Mês para gerar o período a ser carregado no Calendário
+                                        if (iDataIni.value == "") {//Executa apenas se o calendário não estiver preenchido
+
+                                            if (dia <= 10) {
+                                                dia_ini = "20";
+                                                dia_fin = "09";
+
+                                                if (agora.getMonth() < 10) {
+                                                    var Calendar_ini = agora.getFullYear() + "-" + "0" + (agora.getMonth()) + "-" + dia_ini;
+                                                } else {
+                                                    var Calendar_ini = agora.getFullYear() + "-" + (agora.getMonth()) + "-" + dia_ini;
+                                                }
+
+                                                var Calendar_fin = agora.getFullYear() + "-" + mes + "-" + dia_fin;
+
+                                                iDataIni.value = Calendar_ini;
+                                                iDataFin.value = Calendar_fin;
+
+                                                //alert("<=10");
+
+                                            }
+
+                                            if (dia > 10 && dia < 20) {
+                                                var dia_ini = "10";
+                                                var dia_fin = agora.getDate();
+
+                                                var Calendar_ini = agora.getFullYear() + "-" + mes + "-" + dia_ini;
+                                                var Calendar_fin = agora.getFullYear() + "-" + mes + "-" + dia_fin;
+
+                                                iDataIni.value = Calendar_ini;
+                                                iDataFin.value = Calendar_fin;
+
+                                                //alert(">10 e <20");
+                                            }
+
+                                            if (dia >= 20) {
+                                                dia_ini = "10";
+                                                dia_fin = "19";
+
+                                                var Calendar_ini = agora.getFullYear() + "-" + mes + "-" + dia_ini;
+                                                var Calendar_fin = agora.getFullYear() + "-" + mes + "-" + dia_fin;
+
+                                                iDataIni.value = Calendar_ini;
+                                                iDataFin.value = Calendar_fin;
+
+                                                //alert(">=20");                                     
+                                            }
+                                        }
+
+                                        //alert(wCalendar + " Mês: " + mes + " - Dia: " + dia);
+                                    }
+
+                                </script>                                                     
+                                <div style="width: 100%; min-height: 50px; background-color: #d8e1f3" >
+                                    <div class="left" style="margin-top: 7px;  margin-left: 5px;">
+                                        <a href="#" onclick="PrintElem('#retRelEntrega', 1080, 'RELATÓRIO DE ENTREGA <%# Titulo() %>')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Relatório de Entrega</p>
+                                    </div>    
+                                </div>                              
+                                <div id="retRelEntrega" style='height: 350px; overflow: scroll; font-family:Courier New; font-size:12px;'>
+                                    <asp:Label ID="lblPeriodo" runat="server" CssClass="lblperiodo"></asp:Label>         <!-- Foi utilizado para testar se o intervalo, período, estava correto -->
+                                    <asp:Label ID="lblRelEntrega" runat="server" CssClass="lblperiodo"></asp:Label>                                
+                                </div>
+                            
+                                <div style="width: 100%; min-height: 50px; background-color: #d8e1f3" >
+                                    <div id="divPrintRelEntregaPre" runat="server" class="left" style="margin-top: 7px;  margin-left: 5px;">
+                                        <a href="#" onclick="PrintElem('#retRelEntregaPre', 1080, 'RELATÓRIO DE ENTREGA - PRÉ PAGO <%# Titulo() %>')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Relatório de Entrega - Pré Pago</p>
+                                    </div>    
+                                </div>         
+                                
+                                <div id="retRelEntregaPre" runat="server" style="height: 250px; overflow: scroll;" >
+                                    <asp:Label ID="lblRelEntregaPre" runat="server" CssClass="lblperiodo"></asp:Label>
+                                </div>
+                            </section>
                         </asp:View>
                         <asp:View ID="vwConvFatura" runat="server">
-                            <div><a href="javascript:window.print()" id="A4"><b>Imprimir</b></a></div>
-                            <div><%# montarRelMensal() %></div>
+                            <div>                                
+                                <table class="TabPeridoExtrato defaultTable">
+                                        <caption>Período</caption>
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdPeridoExtratoMes">
+                                                    <asp:DropDownList ID="ddlFatMensalMes" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="Março"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="abril"></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Maio"></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Julho"></asp:ListItem>
+                                                        <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
+                                                        <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
+                                                        <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
+                                                        <asp:ListItem Value="11" Text="Novembro"></asp:ListItem>
+                                                        <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td class="tdPeridoExtratoAno">
+                                                    <asp:DropDownList ID="ddlFatMensalAno" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
+                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                        <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
+                                                        <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
+                                                        <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button2" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                            <div  style="width: 100%; max-height: 300px;" >                                   
+                                <asp:Label ID="lblFaturaMensal" runat="server" CssClass="lblperiodo" ></asp:Label>
+                            </div>    
                         </asp:View>
                         <asp:View ID="vwConvExtrato" runat="server">
-                            <div style="width: 100%; font-size: 0.8em;">
-                                <div style="width: 200px; float: left">
-                                    <asp:DropDownList ID="ddlMesExtrato" runat="server">
-                                        <asp:ListItem Value="0" Text="Janeiro"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="Fevereiro"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="Março"></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="abril"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="Maio" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="5" Text="Junho"></asp:ListItem>
-                                        <asp:ListItem Value="6" Text="Julho"></asp:ListItem>
-                                        <asp:ListItem Value="7" Text="Agosto"></asp:ListItem>
-                                        <asp:ListItem Value="8" Text="Setembro"></asp:ListItem>
-                                        <asp:ListItem Value="9" Text="Outubro"></asp:ListItem>
-                                        <asp:ListItem Value="10" Text="Novembro"></asp:ListItem>
-                                        <asp:ListItem Value="11" Text="Dezembro"></asp:ListItem>
-                                    </asp:DropDownList>
+                            <section class="SecPeriodoExtrato">
+                                <!--<div style="width: 100%; font-size: 0.8em;">-->
+                                <div class="BoxDdlPeriodoExtrato defaultTable">
+                                    <table class="TabPeridoExtrato">
+                                        <caption>Período</caption>
+                                        <tbody>
+                                            <tr>
+                                                <td class="tdPeridoExtratoMes">
+                                                    <asp:DropDownList ID="ddlMesExtratoConv" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="1" Text="Janeiro"></asp:ListItem>
+                                                        <asp:ListItem Value="2" Text="Fevereiro"></asp:ListItem>
+                                                        <asp:ListItem Value="3" Text="Março"></asp:ListItem>
+                                                        <asp:ListItem Value="4" Text="abril"></asp:ListItem>
+                                                        <asp:ListItem Value="5" Text="Maio"></asp:ListItem>
+                                                        <asp:ListItem Value="6" Text="Junho"></asp:ListItem>
+                                                        <asp:ListItem Value="7" Text="Julho"></asp:ListItem>
+                                                        <asp:ListItem Value="8" Text="Agosto"></asp:ListItem>
+                                                        <asp:ListItem Value="9" Text="Setembro"></asp:ListItem>
+                                                        <asp:ListItem Value="10" Text="Outubro"></asp:ListItem>
+                                                        <asp:ListItem Value="11" Text="Novembro"></asp:ListItem>
+                                                        <asp:ListItem Value="12" Text="Dezembro"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td class="tdPeridoExtratoAno">
+                                                    <asp:DropDownList ID="ddlAnoExtratoConv" runat="server" CssClass="ddlVcOnLine">
+                                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
+                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                        <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
+                                                        <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
+                                                        <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
+                                                    </asp:DropDownList>
+                                                </td>
+                                                <td>
+                                                    <asp:Button ID="Button1" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div style="width: 150px; float: left">
-                                    <asp:DropDownList ID="ddlAnoExtrato" runat="server">
-                                        <asp:ListItem Value="0" Text="2019"></asp:ListItem>
-                                        <asp:ListItem Value="1" Text="2020"></asp:ListItem>
-                                        <asp:ListItem Value="2" Text="2021" Selected=""></asp:ListItem>
-                                        <asp:ListItem Value="3" Text="2022"></asp:ListItem>
-                                        <asp:ListItem Value="4" Text="2023"></asp:ListItem>
-                                    </asp:DropDownList>
+                                <div style="width: 100%; min-height: 50px; background-color: #d8e1f3">
+                                    <div class="BtnGerarPDfAssoc" style="margin-top: 7px;  margin-left: 5px;">                                        
+                                        <a href="#" onclick="PrintElem('#retExtratoConvenio', 1080, 'EXTRATO CONVÊNIO <%# Titulo() %>')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>
+                                        <br />
+                                    </div>                                                                       
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Extrato Pós Pago</p>
+                                    </div>
                                 </div>
-                                <div style="width: 250px; font-size: 20px;">
-                                    <asp:Button ID="Button1" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+
+                                                                
+                                <div id="retExtratoConvenio"  style="width: 100%; max-height: 300px; overflow: scroll; overflow-x: auto;" >                                   
+                                    <asp:Label ID="lblExtratoConvenio" runat="server" CssClass="lblperiodo" ></asp:Label>
                                 </div>
-                            </div>
-                            <%# montarExtratoConv() %>
+                                
+                                <div style="margin-top: 20px; width: 100%; min-height: 50px;  background-color: #d8e1f3"">
+                                    <div class="BtnGerarPDfAssoc" style="margin-top: 7px;  margin-left: 5px;">                                        
+                                        <a href="#" onclick="PrintElem('#retExtratoConvenioPre', 1080, 'EXTRATO CONVÊNIO - PRÉ PAGO <%# Titulo() %>')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>
+                                        <br />
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px;" >Extrato Pré Pago</p>
+                                    </div>
+                                </div>
+                                
+                                <div id="retExtratoConvenioPre" style="width: 100%; max-height: 250px; overflow: scroll; overflow-x: auto;">                                    
+                                    <asp:Label ID="lblExtratoConvenioPre" runat="server" CssClass="printable2"></asp:Label>
+                                </div>
+                                
+                                <div>
+                                    <section class="margemRodape"></section>
+                                </div>
+                            </section>
                         </asp:View>
-                        <asp:View ID="vwConvSenha" runat="server">Altera Senha</asp:View>
-                        <asp:View ID="vwConvDownloads" runat="server">Downloads</asp:View>
-                        <asp:View ID="vwConvOfertas" runat="server">Ofertas</asp:View>
+                        <asp:View ID="vwConvSenha" runat="server">Em Breve, Aguarde!</asp:View>
+                        <asp:View ID="vwConvDownloads" runat="server">
+                            <%# listarArquivosConvenios() %>
+                            <asp:Label ID="lblArquivosConvenio" runat="server"></asp:Label>
+                        </asp:View>
+                        <asp:View ID="vwConvOfertas" runat="server">Em Breve, aguarde!</asp:View>
                     </asp:MultiView>
                     <asp:Label ID="lblMsg" runat="server"></asp:Label>
                 </div>
@@ -384,5 +603,8 @@
             </footer>
         </main>
     </form>
+    <script>       
+        atualizaDataRelEntrega();
+    </script>
 </body>
 </html>

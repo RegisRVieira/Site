@@ -37,7 +37,7 @@
                 .desativa{
                     display: none;                    
                 }
-                .dv_termo{
+                .dv_termo_login{
                     
                     position: fixed;                    
                     top: 60px;
@@ -60,45 +60,40 @@
                 .aprova{
                     margin: 0 auto;
                     width: 50%;
-                    height: 10%;
+                    height: 10%;                    
+                }
+                @media(max-width: 1000px){
+                    .dv_termo_login{                                            
+                        top: 120px;
+                        left: 3%;
+                        width: 96%;
+                        height: 450px;
+                        margin-left: 0;                              
+                    }
+                    .termo{
+                        height: 70%;                        
+                    }
+                    .aprova{                        
+                        width: 50%;                                                
+                    }
+                    .aprova input[type=submit]{                        
+                        font-size: 2.5em;
+                    }
+                    
                 }
             </style>            
-            <div id="termo" class="dv_termo" runat="server">
+            <div id="termo" class="dv_termo_login" runat="server">
                 <div class="termo" >
                     <h1>Termo de Privacidade Você OnLine</h1>                    
                     
-                    <p>Este regamento termo dita o uso do Portal bem como os serviços/produtos oferecidos e fornecidos pela Associação dos Servidores da Unesp, pessoa jurídica com sede no Campus da Unesp Botucatu, s/nº. – Estado de São Paulo, cep ******* inscrita no CNPJ sob o nº   *****************,  aos usuários de Internet.
-
-                        Ao acessar pelo Portal,  você implica na aceitação integral e plena deste Termo e Política de Privacidade. Deste modo, é importante que você o leia com atenção.
-
-                        Ao navegar através  do Portal também se submete aos demais, avisos, termos, regulamentos de uso e instruções disponibilizados ao usuário e as futuras atualizações.
-                        1. Condições de acesso e utilização do portal
-                        Você poderá utilizar o portal por qualquer veículo de comunicação, como celular, computador ou tablet, através de cadastro e login quando exigidos ou livremente quando assim se permitir.  Também, se for o caso,  possibilitará o acesso a informações e serviços de forma integrada e interativa por outros caminhos, como Google ou Facebook. 
-
-                        Sempre é bom lembrar que, independentemente, do caminho ou modo escolhido, o login e senha de acesso são pessoais, intransferíveis  e de sua responsabilidade. Por isso, é importante que você os mantenha sob sigilo.
-
-
-                        O mau uso do Portal, infringindo leis, disposições deste Termo de Uso ou da Política de Privacidade, a ASU poderá suspender ou mesmo interromper os serviços prestados
-
-                        Fica vedado a reprodução, cópia, distribuição, permissão de  acesso público e, ainda,  transformar e/ou modificar o seu  conteúdo, a menos que possua a prévia autorização. 
-                        O simples fato do uso do Portal ou dos serviços não transfere a  propriedade intelectual sob o conteúdo acessado.
-                        Por ser um espaço amplo e plural, terceiros que dele se utilizavam para qualquer divulgação, são totalmente responsáveis pelo seu conteúdo e por eventuais danos causados, restringido a ASU o direito de suspender a sua veiculação se entender a prática de qualquer ilícito ou contrariedade ao estatuto da associação, independentemente de notificação ou aviso. 
-                        O Portal da ASU  permite  interação com as diversas redes sociais, podendo compartilhar conteúdos e informações de seu interesse. Ao acessar seus links, é bom observar os  Termos de Uso e Política de Privacidade do site. 
-                        Também é importante observar que criança ou adolescente  deve sempre  ter permissão e ser supervisionada pelos pais ou responsáveis
-
-
-                        2. Das responsabilidades
-                        A ASU prima em disponibilizar produtos de qualidade e fornecer serviços que satisfaça a necessidade de seus associados pelo PORTAL.  Quaisquer interrupções, em razão de ocorrências técnicas, operacionais ou imprevisíveis em razão da natureza do serviço oferecido, serão solucionadas de maneira célere e efetiva possível. Caso tenha qualquer problema na utilização de nossos serviços, não deixe de contatar nossa central de relacionamento.
-
-                        O Portal possui ícones denominados “links de acesso”, tais como banners, botões, diretórios e ferramentas de busca que facilitam o acesso, direcionando ao destino desejado, cuja responsabilidade é de seu titular.
-                        Da mesma forma, havendo espaço para comentários do usuário, a opinião será de responsabilidade de qual a publicou, não havendo qualquer relação, revisão, cerceamento  e fiscalização pela ASU. Caso você identifique algum conteúdo ofensivo disponibilizado no Portal ou nos Serviços, comunique a ASU, por meio do endereço eletrônico ***@***.
-
-                        3. Segurança
-                        A ASU preza pela segurança, confidencialidade e inviolabilidade de todos os dados cadastrais fornecidos por você. No entanto, você deve estar ciente que as medidas de proteção não são infalíveis. Deste modo,  a ASU não se responsabiliza por danos e/ou prejuízos decorrentes de caso fortuito ou força maior.
+                    <p> A ASU atende à Lei nº 13.709/18 – Lei Geral de Proteção de Dados Pessoais (LGPD), 
+                        que dispõe sobre o tratamento de dados pessoais com o objetivo de proteger os direitos fundamentais de liberdade e 
+                        de privacidade e o livre desenvolvimento da personalidade da pessoa natural. Na página www.asu.com.br está disponível 
+                        a descrição do tratamento que a ASU dará a seus dados pessoais, bem como o meio disponível para que os titulares exerçam seus direitos elencados no artigo 18 da LGPD.
                     </p>
                 </div>
                 <div class="aprova" >                    
-                    <asp:Button ID="btnDesativaTermo" runat="server" Text="Aceitar (C#)" OnClick="desativaTermo" />
+                    <asp:Button ID="btnLiberaAcessoVO" runat="server" Text="Aceitar" OnClick="LiberarAcessoVO" />
                 </div>
             </div>    
             <div>

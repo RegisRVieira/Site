@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="refresh" content="60" />
     <title>ASU - Associação dos Servidores da Unesp</title>
     <link  rel="stylesheet" href="Css/Global.css"/>
     <link rel="stylesheet" href="Css/Global-Fluido.css" />
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="Css/Botoes.css" />
     <script src="Js/jQuery 3.4.1.js"></script>
     <script type="text/javascript" src="Js/Apoio.js"></script>
-    <link rel="sortcut icon" type="image/png" href="Img/Logo-nav.png" />
+    <link rel="sortcut icon" type="image/png" href="Img/Logo-nav.png" /> <!-- Exibe Imagem na Aba do Navegador -->
 </head>
 <body>
     <script src="https://static.zenvia.com/embed/js/zenvia-chat.min.js"></script><script>  var chat = new ZenviaChat('b0ec78cf08497aecd5aeffd29b7bf5f9').embedded('button').build();</script>
@@ -42,15 +43,20 @@
                             <img src="../Img/Icon/usuLogin.svg"/>                            
                             <div class="BoxVOLoginMenu">
                                 <ul>
-                                    <li><a href="LoginVoceOnLine.aspx"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a> 
-                                        <ul>                                                                                                                         
-                                            <a href="http://asu.no-ip.info/voceonline/" target="_blank"><li>Você OnLine</li></a>
-                                            <a href="testPdf.aspx" target="_blank"><li>Teste PDF</li></a>                                            
-                                            <a href="VOnLine/Login.aspx">Você On Line - Local</a>
-                                            <a href="Adm/LoginAdm.aspx" target="_blank"><li>Adm</li></a>
-                                            <a href="Adm/InsertRegistro.aspx"> <li>Teste - Insert</li></a>
-                                            <a href="Privado/pLogin.aspx" target="_blank"><li>Privado</li></a>
-                                            <a href="test_Extrato.aspx">Teste Período</a>
+                                    <li><a href="LoginVoceOnLine.aspx"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>
+                                    <!--<li><a href="VOnline/Login.aspx"><p><asp:Label ID="lblUsuLogadoX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>-->
+                                    <!--Este é o cara para acessar o Você Online Local!!!! Trocar lblUsuLogadoXXX, por lblUsuLogado-->
+                                    <!--<li><a href="http://asu.no-ip.info/vonline/"><p><asp:Label ID="lblUsuLogadoXXX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a> -->
+                                        <ul>                                                                                        
+                                            <!--
+                                                <a href="VOnLine/Login.aspx">Você On Line - Local</a>
+                                                <a href="http://asu.no-ip.info/voceonline/" target="_blank"><li>Você OnLine</li></a>
+                                                <a href="testPdf.aspx" target="_blank"><li>Teste PDF</li></a>                                                                                        
+                                                <a href="Adm/LoginAdm.aspx" target="_blank"><li>Adm</li></a>
+                                                <a href="Adm/InsertRegistro.aspx"> <li>Teste - Insert</li></a>
+                                                <a href="Privado/pLogin.aspx" target="_blank"><li>Privado</li></a>
+                                                <a href="test_Extrato.aspx">Teste Período</a>
+                                            -->
                                         </ul>
                                     </li>                            
                                 </ul>
@@ -77,7 +83,56 @@
                 </div>
             </section>
         </nav>
+        <form id="formHome" runat="server">
         <main class="corpoHome">
+            <section class="secMsgHome">
+                <!-- Termo de Privacidade do Site -->
+                <section id="TermoPrivacidade" runat="server" class="dv_termo">                 
+                   <div class="texto_termo"> 
+                        <p>
+                            A <b>ASU</b> salva dados da sua visita para melhorar a sua experiência, de acordo com a nossa <a href="#">Política de Privacidade</a> e, 
+                            ao continuar navegando, você concorda com estas condições.
+                        </p>
+                        <div class="btnRecusaTermo">
+                            <asp:LinkButton ID="lbtRecusaTermo" runat="server" Text="Recusar" OnClick="negarTermoPrivacidade"></asp:LinkButton>
+                        </div>
+                   </div>                   
+                    <div class="btn_termo"> 
+                        <div >
+                            <asp:LinkButton ID="lbtAceitaTermo" runat="server" Text="Continuar" OnClick="aceitarTermoPrivacidade"></asp:LinkButton>                            
+                        </div>
+                    </div>                   
+                </section>
+                <section id="darBrinde" runat="server" class="secBrinde" >
+                    <div class="secBrindeMsg">
+                        <div class="secBrindeTexto"> 
+                            <p>
+                                Seja Bem Vindo(a) ao Novo Site da <b>ASU</b>. 
+                                É com muito prazer que desenvolvemos um ambiente adaptativo para você navegar utilizando seu <b>Computador</b>, ou seu <b>Celular</b>.
+                                <!--Esperamos que você goste do novo visual que preparamos para você.
+                                Agora você poderá navegar utilizando seu Celular, pos o site se adaptara à ele. -->
+                                <br /><br />
+                                Temos um brinde para os primeiros <b>Associados</b> que acessarem. Faça seu login em <a style="font-size: 30px; font-style: oblique; font-weight: 700;" href="VoceOnLine1.aspx">Você OnLine</a> e participe.
+                            </p>
+                       </div>
+                        <div class="secBrindePeriodo">
+                            <p style="text-align: center; font-size: 24px; padding-top: 15px;">
+                              Não perca tempo, pegue o seu!
+                            </p>
+                            <p style="text-align: center; font-size: 14px;">
+                                Exclusivo para <b>Associados</b>, não deixe de Participar!
+                            </p>
+                        </div>
+                   </div>
+                    <div class="btn_Brinde"> 
+                        <div>
+                            <asp:LinkButton ID="lbtnDesativar" runat="server" Text="Fechar" OnClick="desativarItem"></asp:LinkButton>
+                            <a href="VoceOnLine1.aspx">Eu Quero participar</a>                            
+                        </div>
+                    </div>
+                </section>
+            </section>
+            <div><asp:Label ID="lblMsg" runat="server"></asp:Label></div>
             <section class="BoxSlider">
                 <div class="BoxSlider-Interno">
                    <%# montarSlider() %>                    
@@ -352,8 +407,9 @@
                     </section>
                 </a>
             </section>
-            <section id="margemRodape"></section>
+            <section id="margemRodape"></section>            
         </main>
+        </form>
         <footer class="footerHome">                   
             <div class="footerHome-Dados">
             <small>&reg; 1969 -

@@ -14,8 +14,9 @@ namespace Site
 {
     public partial class LoginVoceOnLine : System.Web.UI.Page
     {
+
         public string conectVegas = ConfigurationManager.AppSettings["ConectVegas"];
-        public string conectSite = ConfigurationManager.AppSettings["ConectSite"];
+        public string conectSite = ConfigurationManager.AppSettings["ConectSite"];        
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,16 +25,70 @@ namespace Site
                 Session.Abandon();
             }
 
+            if (!Page.IsPostBack)
+            {
+                checarTermoPrivacidade();
+            }
         }
 
-        protected void desativaTermo(object sender, EventArgs e)
+        protected void checarTermoPrivacidade()
         {
-            termo.Attributes["class"] = "desativa";
-            
+            BLL ObjDados = new BLL(conectSite);
+
             string IP = "";
             IP = Request.UserHostAddress;
 
-            lblMsg.Text = "Você aceitou o Termo!!! " + IP;
+            string tabela = " st_termo_privacidade ";
+            string campos = " id, ip, status ";
+            //string condicao = " WHERE IP='" + IP + "' OR id IS NULL  ";
+            string condicao = " WHERE IP='" + IP + "'";
+
+            string xRet = "";
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            //MessageBox.Show(" SELECT " + campos + " FROM " + tabela + condicao);
+
+            if (String.IsNullOrEmpty(ObjDados.MsgErro))
+            {                
+                for (int i = 0; i < dados.Rows.Count; i++)
+                {                    
+                    if (dados.Rows[i]["ip"].ToString() == IP && String.IsNullOrEmpty(dados.Rows[i]["id"].ToString()))
+                    {
+                        //MessageBox.Show("Tem que Gravar!");
+                        //MessageBox.Show(dados.Rows[0]["id"].ToString() + " - " + IP);
+                        //termo.Attributes["class"] = "desativa";
+                    }
+                    else
+                    {
+                        if (dados.Rows.Count > 0)
+                        {
+                            if (dados.Rows[0]["IP"].ToString() == IP.ToString())
+                            {
+                                if (dados.Rows[0]["status"].ToString() != "Recusado")
+                                {
+                                    termo.Attributes["class"] = "desativa";
+                                }                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            else
+            {
+                lblMsg.Text = "Há problemas com a Conexão: " + ObjDados.MsgErro;
+            }
+            //lblMsg.Text = xRet;
+        }
+
+        protected void LiberarAcessoVO(object sender, EventArgs e)
+        {
+            termo.Attributes["class"] = "desativa";
         }
 
         public string GeraDigMod11(long intNumero)
@@ -77,7 +132,7 @@ namespace Site
 
             return intDigito;
         }
-
+                
         protected void LogarVoceOnLine(object sender, EventArgs e)
         {
             BLL ObjDbVegas = new BLL(conectVegas);
@@ -85,6 +140,7 @@ namespace Site
             string codAcesso = iCpf.Value;
             string Senha = iSenha.Value;
 
+            
             string campo = "";
             string tabela = "";
             string left = "";
@@ -92,15 +148,9 @@ namespace Site
             int tamanhocampo = codAcesso.Length;
             bool validacpf = true; //Variável para checar se o campo cpf tem 11 ou 14 caracteres, se não tiver emite mensagem de erro. 
 
-#pragma warning disable CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
             string rDigVerifica;
-#pragma warning restore CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
-#pragma warning disable CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
             string wdv = "";
-#pragma warning restore CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
-#pragma warning disable CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
-            string idCartao = "";
-#pragma warning restore CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
+            string idCartao = "";                        
 
             if (String.IsNullOrEmpty(iCpf.Value) || String.IsNullOrEmpty(iSenha.Value))
             {
@@ -111,7 +161,7 @@ namespace Site
 
                 if (ObjDbVegas.MsgErro == "")
                 {
-                    if (tamanhocampo == 11 || tamanhocampo == 9)
+                    if (tamanhocampo == 11 || tamanhocampo == 9)//Associado
                     {
                         //MessageBox.Show("Associado");
                         campo = " d.associado AS idassoc, d.iddepen, d.nome AS nomeAssoc, d.cnpj_cpf AS cpf, a.senha ";
@@ -121,7 +171,7 @@ namespace Site
                         condicao = " WHERE(d.cnpj_cpf = '" + codAcesso + "' OR(EXISTS(SELECT NULL FROM asdepcar AS car WHERE d.iddepen = car.dependen AND car.idcartao = '" + codAcesso.Substring(0, 7) + "'))) AND a.senha = '" + Senha + "' AND a.cnscanmom IS NULL ";
 
                     }
-                    else if (tamanhocampo == 14 || tamanhocampo < 7)//else if (tamanhocampo == 14 || tamanhocampo == 5)
+                    else if (tamanhocampo == 14 || tamanhocampo < 7) //Convênio
                     {
                         //MessageBox.Show("Convênio");
                         campo = " idconven AS id, nome AS nomeConv, cnpj_cpf AS cnpj, senha_adm AS senha  ";
@@ -161,16 +211,20 @@ namespace Site
                                 {
                                     Session.Add("LoginUsuario", dados.Rows[0]["nomeConv"].ToString());
                                     Session.Add("Identifica", dados.Rows[0]["cnpj"].ToString());
-                                }                                
+                                    Session.Add("IdAssoc", 0);
+                                }
                                 Session.Add("VoceOnLine", "Sim");
 
                                 Session.Add("CodAcesso", codAcesso);
+
                                 Response.Redirect("VoceOnLine1.aspx");
+                                //Response.Redirect("VOnLine/VoceOnLine.aspx");
+                                //Response.Redirect("http://asu.no-ip.info/vonline/");
                             }
                             else //É conveniado
                             {
                                 lblResult.Text = "Usuário ou Senha incorreto(s)";
-                                
+
                                 //MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
                             }
                         }
@@ -187,7 +241,10 @@ namespace Site
                     string msgErro = "Erro: " + ObjDbVegas.MsgErro;
                     MessageBox.Show(msgErro);
                 }
-            }
+
+             
+            }            
+            
         }
     }
 }

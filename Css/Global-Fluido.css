@@ -295,6 +295,9 @@ float: none;
     margin-right: 30px;
     margin-bottom: 30px;       
 }
+/*# # # # Guia de Convênios # # # #*/
+
+
 .HomeMateria-Guia {
     margin-top: 45px;    
 }
@@ -322,6 +325,7 @@ float: none;
  border-radius: 16px 16px 5px 5px;
 }
 
+/* # Fim Guia # */
 
 /* Títulos */
 .tituloBox-1 {
@@ -647,43 +651,43 @@ float: none;
     width: 33.3%;
     height: 100%;        
     box-sizing: border-box;    
-    background-image: url(../Img/Icon/Icon-Face-Site.png);
+    background-image: url(../Img/Icon/Icon-Face-Oficial.png);
     background-repeat: no-repeat;    
     background-position: center;
     background-size: 110px;    
     background-position-y: 5px;
 }
-.redeSocialHome-Box1:hover{
-    background-image: url(../Img/Icon/Icon-Face-Oficial.png);
-}
+    .redeSocialHome-Box1:hover{
+        background-image: url(../Img/Icon/Icon-Face-Site.png);
+    }
 .redeSocialHome-Box2{
     float: left;
     width: 33.3%;
     height: 100%;        
     box-sizing: border-box;    
-    background-image: url(../Img/Icon/map.svg);
+    background-image: url(../Img/Icon/map2.svg);
     background-repeat: no-repeat;    
     background-position: center;
     background-size: 100px;    
     background-position-y: 5px;
 }
-.redeSocialHome-Box2:hover{
-    background-image: url(../Img/Icon/map2.svg);
-}
+    .redeSocialHome-Box2:hover{
+        background-image: url(../Img/Icon/map.svg);
+    }
 .redeSocialHome-Box3{
     float: left;
     width: 33.3%;
     height: 100%;        
     box-sizing: border-box;        
-    background-image: url(../Img/Icon/whatsapp.svg);
+    background-image: url(../Img/Icon/whatsapp2.svg);
     background-repeat: no-repeat;    
     background-position: center;
     background-size: 100px;    
     background-position-y: 5px;
 }
-.redeSocialHome-Box3:hover{
-       background-image: url(../Img/Icon/whatsapp2.svg);
-}
+    .redeSocialHome-Box3:hover{
+           background-image: url(../Img/Icon/whatsapp.svg);
+    }
 
 .footerHome {
     font-size: 1.8em;    
