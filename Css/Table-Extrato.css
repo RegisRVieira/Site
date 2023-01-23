@@ -3,6 +3,30 @@
     padding: 0;
 }
 
+/*Comprovante de Vendas*/
+
+.CompVenda tr, td, th {
+    font-size: 1.1em;
+    font-weight: 700;
+}
+
+.CompVenda {
+    font-size: 14px;
+}
+
+    .CompVenda table {
+        width: 360px;
+    }
+
+.cvTopico {
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 17px;
+    font-weight: 700;
+}
+/*# Fim - Comprovante de Venda #*/
+
 .defaultTable {    
 }
 
@@ -25,8 +49,9 @@
         border-bottom: none;
         border-right: none;
         padding: 5px 18px 2px 18px;
-        font-size: .8em;
+        font-size: 0.85em;
         /*font-size: 11px;*/
+        font-weight: 300;
     }
 
 @media(max-width: 1000px) {
@@ -107,15 +132,3 @@
     
 }
 
-/*Comprovante de Vendas*/
-
-.CompVenda tr, td, th {
-    font-size: .9em;
-}
-.cvTopico {    
-    text-align: center;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    font-size:17px;
-    font-weight: 700;
-}

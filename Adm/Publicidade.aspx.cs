@@ -59,6 +59,7 @@ namespace Site.Adm
             }
         }
         */
+                
         public void carregaConvenio(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectVegas);
@@ -68,8 +69,6 @@ namespace Site.Adm
 
             DataTable dados = ObjDados.RetCampos();
 
-
-
             if (!String.IsNullOrEmpty(iIdConv.Value))
             {
                 ObjDados.Condicao = " WHERE idconven = '" + iIdConv.Value + "'";
@@ -78,6 +77,7 @@ namespace Site.Adm
                 if (dados.Rows.Count > 0)
                 {
                     iNomeConv.Value = dados.Rows[0]["nome"].ToString();
+                    Session.Add("idConvPublicidade", dados.Rows[0]["idconven"].ToString());
                 }
                 else
                 {
@@ -91,6 +91,7 @@ namespace Site.Adm
                 if (dados.Rows.Count > 0)
                 {
                     iNomeConvLogo.Value = dados.Rows[0]["nome"].ToString();
+                    Session.Add("idConvPublicidade", dados.Rows[0]["idconven"].ToString());
                 }
                 else
                 {
@@ -98,10 +99,11 @@ namespace Site.Adm
                 }
             }
 
+            
 
         }
 
-        public void cadastrarDestaqueGuia(object sender, EventArgs e)
+        public void cadastrarPublicidadeGuia(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectVegas);
 
@@ -110,6 +112,10 @@ namespace Site.Adm
             string caminho = "";
             string caminho2 = "";
             string CaminhoArquivo = "";
+
+            //MessageBox.Show(Session["idConvPublicidade"].ToString());
+
+            string idConv = Session["idConvPublicidade"].ToString();
 
             if (ObjDados.MsgErro == "")
             {
@@ -170,12 +176,13 @@ namespace Site.Adm
                                         lblMsg.Text = "UpLoad de Arquivo realizado com Sucesso";
 
                                         /* * * * # FIM - UpLoad da Imagem # * * * */
+                                        
 
                                         // # # # # # # # # # Insere Dados na Tabela # # # # # # # # #
                                         string campos = " convenio, tipo, descricao, cnscadusu, cnscadmom, dt_inicio ";
                                         string tabela = " coinfo ";
-                                        string condicao = " WHERE convenio = '" + iIdConv.Value + "'";
-                                        string valores = String.Format("'" + iIdConv.Value + "'," +
+                                        string condicao = " WHERE convenio = '" + idConv + "'";
+                                        string valores = String.Format("'" + idConv + "'," +
                                                                        "'" + "SGUIADEST" + "'," +
                                                                        "'" + caminho2 + arquivo + "'," +
                                                                        "'" + "Site" + "'," +
@@ -281,21 +288,25 @@ namespace Site.Adm
                                         // # # # # # # # # # Insere Dados na Tabela # # # # # # # # #
                                         string campos = " convenio, tipo, descricao, cnscadusu, cnscadmom, dt_inicio ";
                                         string tabela = " coinfo ";
-                                        string condicao = " WHERE convenio = '" + iIdConv.Value + "'";
-                                        string valores = String.Format("'" + iIdConv.Value + "'," +
+                                        string condicao = " WHERE convenio = '" + idConv + "'";
+                                        string valores = String.Format("'" + idConv + "'," +
                                                                        "'" + "SGUIALOGO" + "'," +
                                                                        "'" + caminho2 + arquivo + "'," +
                                                                        "'" + "Site" + "'," +
                                                                        "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                                                       //"'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
                                                                        "'" + DateTime.Now.ToString("yyyy-MM-dd") + "'");
 
                                         ObjDados.Campo = campos;
                                         ObjDados.Tabela = tabela;
                                         ObjDados.Condicao = condicao;
+                                        ObjDados.Valores = valores;
 
                                         DataTable dados = ObjDados.RetCampos();
 
-                                        ObjDados.InsertRegistro(tabela, campos, valores);
+                                        //MessageBox.Show("INSERT INTO" + ObjDados.Tabela + "(" + ObjDados.Campo + ")" + "VALUES " + "" + ObjDados.Valores + "");
+
+                                        ObjDados.InsertRegistro(tabela, campos, valores);                                                                                                                        
 
                                         //MessageBox.Show("Dados: " + ObjDados.Msg + "Validação: " + ObjValida.Msg);
 

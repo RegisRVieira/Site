@@ -38,6 +38,7 @@ namespace Site.Privado
             else
             {
                 Session.Abandon();
+                Response.Redirect("~pLogin.aspx");
             }
 
             string IP = "";

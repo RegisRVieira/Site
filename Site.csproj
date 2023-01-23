@@ -139,6 +139,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <Content Include="CompVenda.aspx" />
+    <Content Include="ConsultaSaldo.aspx" />
     <Content Include="ContAssoc.aspx" />
     <Content Include="ContASU.aspx" />
     <Content Include="ContConv.aspx" />
@@ -168,8 +169,16 @@
     <Content Include="DPDFConverterService\DynamicPDF.Converter.Service.exe" />
     <Content Include="DPDFConverterService\ReadMe.txt" />
     <Content Include="Eventos\Brindes.aspx" />
+    <Content Include="Eventos\CadEvento.aspx" />
+    <Content Include="Eventos\Css\Botoes.css" />
+    <Content Include="Eventos\Css\Global.css" />
+    <Content Include="Eventos\Css\Tables.css" />
     <Content Include="Eventos\eLogin.aspx" />
     <Content Include="Eventos\eMenu.aspx" />
+    <Content Include="Eventos\EventoConfig.aspx" />
+    <Content Include="Eventos\Eventos.aspx" />
+    <Content Include="Eventos\Mesa.aspx" />
+    <Content Include="Eventos\Pagamento.aspx" />
     <Content Include="FaleConosco.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Img\Logo ASU-White-Espaçado.png" />
@@ -183,6 +192,7 @@
     <Content Include="MontaGuia.aspx" />
     <Content Include="Pessoal.aspx" />
     <Content Include="Privado\Adm.aspx" />
+    <Content Include="Privado\Apps.aspx" />
     <Content Include="Privado\Cadastro.aspx" />
     <Content Include="Privado\Default.aspx" />
     <Content Include="Privado\eFormulario.aspx" />
@@ -199,6 +209,10 @@
     <Content Include="test_Extrato.aspx" />
     <Content Include="VoceOnLine1.aspx" />
     <Content Include="VOnLine\Index.aspx" />
+    <Content Include="VOnLine\js\Apoio.js" />
+    <Content Include="VOnLine\js\jQuery 3.4.1.js" />
+    <Content Include="VOnLine\js\Script2.js" />
+    <Content Include="VOnLine\js\Scripts.js" />
     <Content Include="VOnLine\Login.aspx" />
     <Content Include="VOnLine\VoceOnLine.aspx" />
     <Content Include="Web-BK.config" />
@@ -370,6 +384,8 @@
     <Content Include="Connected Services\SRCorreios\Site.SRCorreios.VerificaSeTodosObjetosCanceladosResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Privado\Web.config" />
+    <Content Include="Eventos\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -430,6 +446,7 @@
     <Compile Include="App_Code\Apoio.cs" />
     <Compile Include="App_Code\DAL.cs" />
     <Compile Include="App_Code\BLL.cs" />
+    <Content Include="App_Code\Venda.cs" />
     <Compile Include="CompVenda.aspx.cs">
       <DependentUpon>CompVenda.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -441,6 +458,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultaSaldo.aspx.cs">
+      <DependentUpon>ConsultaSaldo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultaSaldo.aspx.designer.cs">
+      <DependentUpon>ConsultaSaldo.aspx</DependentUpon>
     </Compile>
     <Compile Include="ContAssoc.aspx.cs">
       <DependentUpon>ContAssoc.aspx</DependentUpon>
@@ -505,6 +529,13 @@
     <Compile Include="Eventos\Brindes.aspx.designer.cs">
       <DependentUpon>Brindes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Eventos\CadEvento.aspx.cs">
+      <DependentUpon>CadEvento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\CadEvento.aspx.designer.cs">
+      <DependentUpon>CadEvento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Eventos\eLogin.aspx.cs">
       <DependentUpon>eLogin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -518,6 +549,34 @@
     </Compile>
     <Compile Include="Eventos\eMenu.aspx.designer.cs">
       <DependentUpon>eMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos\EventoConfig.aspx.cs">
+      <DependentUpon>EventoConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\EventoConfig.aspx.designer.cs">
+      <DependentUpon>EventoConfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos\Eventos.aspx.cs">
+      <DependentUpon>Eventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\Eventos.aspx.designer.cs">
+      <DependentUpon>Eventos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos\Mesa.aspx.cs">
+      <DependentUpon>Mesa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\Mesa.aspx.designer.cs">
+      <DependentUpon>Mesa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos\Pagamento.aspx.cs">
+      <DependentUpon>Pagamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos\Pagamento.aspx.designer.cs">
+      <DependentUpon>Pagamento.aspx</DependentUpon>
     </Compile>
     <Compile Include="FaleConosco.aspx.cs">
       <DependentUpon>FaleConosco.aspx</DependentUpon>
@@ -581,6 +640,13 @@
     </Compile>
     <Compile Include="Privado\Adm.aspx.designer.cs">
       <DependentUpon>Adm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\Apps.aspx.cs">
+      <DependentUpon>Apps.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Apps.aspx.designer.cs">
+      <DependentUpon>Apps.aspx</DependentUpon>
     </Compile>
     <Compile Include="Privado\Cadastro.aspx.cs">
       <DependentUpon>Cadastro.aspx</DependentUpon>
@@ -725,6 +791,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Downloads\" />
+    <Folder Include="Eventos\Js\" />
     <Folder Include="FTP\" />
     <Folder Include="Img\Conteudo\" />
     <Folder Include="Img\Dir\" />

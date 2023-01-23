@@ -4,7 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="refresh" content="360"  />
     <title>Guia de Convênios</title>
     <link rel="stylesheet" href="Css/Form-Clean.css" />
     <link rel="stylesheet" href="Css/Form-Fluido.css" />
@@ -20,7 +21,7 @@
 </head>
 <body>
    <nav class="navHome-Internas">
-        <p><a href="Home.aspx">
+        <p><a href="http://www.asu.com.br/Home.aspx">
             <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a></p>
     </nav>
     <div style="background-image: linear-gradient(to right, #83d12d, #bcae00, #e08300, #f2512f, #eb125e); width: 100%; height: 5px;">
@@ -33,26 +34,26 @@
             </div>            
                 <input id="iBuscar" runat="server"  type="text" placeholder="Digite o que você procura..." />                                             
             <div class="botaoBuscar">
-                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="buscarConvenios" />       
-            </div>                        
+                    <asp:Button ID="btnBuscar" runat="server" Text="Buscar" OnClick="MostrarConvenios" />       
+            </div>            
             <asp:Label ID="lblTeste" runat="server"></asp:Label>               
         </section>    
-        <section style="width: 100%; min-height: 210px;">
-            <div style="margin:0 auto; width: 500px; margin-top: 100px; height: 40px; text-align: center;">
+        <section style="width: 100%; min-height: 50px; margin-top: 90px;">
+            <div class= "areaDDLListaConvenio">                
+                <h1>Escolha por Ramo de Atividade.</h1>
+            <asp:DropDownList id="ddlBuscaPorRamo" runat="server"  CssClass="ddlListaConvenio" OnSelectedIndexChanged="MostrarConvenioDDL" AutoPostBack="true"></asp:DropDownList>
+            </div>
+        </section>
+        <section class="secBtnListaGuia" >
+            <div class="textListaConvenio">
                 <h1>Ou, veja a listagem Completa:</h1>                
             </div>
-            <div style="margin:0 auto; width: 400px; height: 20px; text-align: center;">                 
-                <style>
-                    .btnImage{
-                        width: 175px;
-                        border: solid 1px #FFF;
-                    }
-                </style>
-                <div style="width: 49%; float: left;">
-                    <asp:ImageButton ID="ibtnComercio" runat="server" ImageUrl="~/Img/Icon/Botões - Comércio.png" CssClass="btnImage" OnClick="executarConvenios"/>
+            <div class="areaBotoesListaConvenio">                
+                <div class="btnCorpoConvenio">
+                    <asp:ImageButton ID="ibtnComercio" runat="server" ImageUrl="~/Img/Icon/Botões - Comércio.png" CssClass="btnListaConvenio" OnClick="executarConvenios"/>
                 </div>
-                <div style="width: 49%; float: left;">
-                    <asp:ImageButton ID="ibtnSaude" runat="server" ImageUrl="~/Img/Icon/Botões - Saúde.png" CssClass="btnImage" OnClick="executarSaude"/>
+                <div class="btnCorpoConvenio">
+                    <asp:ImageButton ID="ibtnSaude" runat="server" ImageUrl="~/Img/Icon/Botões - Saúde.png" CssClass="btnListaConvenio" OnClick="executarSaude"/>
                 </div>
             </div>
         </section>
@@ -83,7 +84,8 @@
             })
 
         </script>
-        <asp:Label ID="lblResult" runat="server" ></asp:Label>
+        <asp:Label ID="lblRetDestaque" runat="server" ></asp:Label>
+        <asp:Label ID="lblRetLogo" runat="server" ></asp:Label>
         <asp:Label ID="lblMsgErro" runat="server"></asp:Label>        
     </section>
     <section id="margemRodape"></section>

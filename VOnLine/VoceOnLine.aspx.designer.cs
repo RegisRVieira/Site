@@ -24,6 +24,15 @@ namespace Site.VoceOnLine
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Controle hfTamanhoTela.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden hfTamanhoTela;
+
+        /// <summary>
         /// Controle lblUsuLogado.
         /// </summary>
         /// <remarks>
@@ -255,7 +264,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iFoneAssoc;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iFoneAssoc;
 
         /// <summary>
         /// Controle iCelAssoc.
@@ -264,7 +273,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iCelAssoc;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iCelAssoc;
 
         /// <summary>
         /// Controle iCepAssoc.
@@ -483,6 +492,15 @@ namespace Site.VoceOnLine
         protected global::System.Web.UI.WebControls.Button btnGerarPeriodoExtAssoc;
 
         /// <summary>
+        /// Controle tTela.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label tTela;
+
+        /// <summary>
         /// Controle lblPeriodoAssoc.
         /// </summary>
         /// <remarks>
@@ -490,6 +508,15 @@ namespace Site.VoceOnLine
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPeriodoAssoc;
+
+        /// <summary>
+        /// Controle lblRetExtratoAssoc.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRetExtratoAssoc;
 
         /// <summary>
         /// Controle btnLogof.
@@ -526,6 +553,60 @@ namespace Site.VoceOnLine
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblArquivos;
+
+        /// <summary>
+        /// Controle lblTestaTermo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTestaTermo;
+
+        /// <summary>
+        /// Controle secPremio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl secPremio;
+
+        /// <summary>
+        /// Controle btnPremio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPremio;
+
+        /// <summary>
+        /// Controle lbtnNegar.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtnNegar;
+
+        /// <summary>
+        /// Controle secMsg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl secMsg;
+
+        /// <summary>
+        /// Controle lblMsgPremio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsgPremio;
 
         /// <summary>
         /// Controle vwAssocCartoes.
@@ -699,13 +780,13 @@ namespace Site.VoceOnLine
         protected global::System.Web.UI.HtmlControls.HtmlSelect stParcelas;
 
         /// <summary>
-        /// Controle iSenha.
+        /// Controle iSenhaVenda.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword iSenha;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword iSenhaVenda;
 
         /// <summary>
         /// Controle comunicando.
@@ -786,7 +867,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iRazaoSocial;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iRazaoSocial;
 
         /// <summary>
         /// Controle iCnpj.
@@ -822,7 +903,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iTelefoneConv;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iTelefoneConv;
 
         /// <summary>
         /// Controle iCelularConv.
@@ -831,7 +912,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iCelularConv;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iCelularConv;
 
         /// <summary>
         /// Controle iCepConv.
@@ -993,7 +1074,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataIni;
+        protected global::System.Web.UI.WebControls.TextBox iDataIni;
 
         /// <summary>
         /// Controle iDataFin.
@@ -1002,7 +1083,7 @@ namespace Site.VoceOnLine
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataFin;
+        protected global::System.Web.UI.WebControls.TextBox iDataFin;
 
         /// <summary>
         /// Controle btnGerarData.

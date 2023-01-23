@@ -120,7 +120,7 @@ namespace Site.Eventos
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iBusca;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText iBusca;
 
         /// <summary>
         /// Controle btnBusca.

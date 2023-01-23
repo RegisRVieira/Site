@@ -20,6 +20,7 @@ namespace Site.App_Code
         public string Rcampos { get; set; }
         public string MsgErro { get; set; }
         public string TipoConexao { get; set; }
+        public string Query { get; set; }
         public string Msg { get; set; } //Para exibir Query
 
 
@@ -29,6 +30,41 @@ namespace Site.App_Code
             this.TipoConexao = tipoConexao;
         }
 
+        public DataTable RetQuery()
+        {
+            DAL ObjConexao = new DAL(TipoConexao);
+            
+            DataTable retorno;
+
+
+            if (ObjConexao.MsgError == "")
+            {
+                try
+                {
+                    Rcampos = (Query);
+
+                    retorno = ObjConexao.RetDataTable(Rcampos);
+
+                    if (ObjConexao.MsgError != "")
+                    {
+                        MsgErro = ObjConexao.MsgError;
+                        return null;
+                    }
+
+                    return retorno;
+                }
+                finally
+                {
+                    ObjConexao.DesconectDal();
+                }
+            }
+            else
+            {
+                MsgErro = ObjConexao.MsgError;
+                return null;
+            }
+
+        }
         public DataTable RetCampos()
         {
             DAL ObjCobexao = new DAL(TipoConexao);
@@ -178,23 +214,29 @@ namespace Site.App_Code
             {
                 if (ObjConexao.MsgError == "")
                 {
-                    if (ObjConexao.MsgError != "")
+                    try
                     {
-                        MsgErro = ObjConexao.MsgError;
+                        sql = String.Format("UPDATE" + tabela + "SET" + valores + "WHERE" + condicao);
+                        if (ObjConexao.MsgError != "")
+                        {
+                            MsgErro = ObjConexao.MsgError;
+                        }
+                        //Msg = "SQL:" + sql;
+                        ObjConexao.ExecutarComandoSQL(sql);                        
                     }
-
-                    sql = String.Format("UPDATE" + tabela + "SET" + valores + "WHERE" + condicao);
-
-                    ObjConexao.ExecutarComandoSQL(sql);
+                    finally
+                    {
+                        ObjConexao.DesconectDal();
+                    }                    
                 }
                 else
                 {
-                    MsgErro = ObjConexao.MsgError;
+                    MsgErro = ObjConexao.MsgError;  
                 }
             }
             Msg = "SQL: " + sql;
-        }
+        }//EditRegistro
 
-        //Fim Class BLL
-    }
+
+    }//Fim Class BLL
 }

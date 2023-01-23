@@ -13,7 +13,7 @@
 </head>
 <body>
     <nav class="navHome-Internas">
-        <p><a href="Home.aspx">
+        <p><a href="http://www.asu.com.br/Home.aspx">
             <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a></p>
     </nav>
     <main class="corpoContMateria">        

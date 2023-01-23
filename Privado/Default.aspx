@@ -113,6 +113,11 @@
                 </a>
             </div>
             <div class="btnPrincipal">
+                <a id="lbtApps" runat="server" href="Apps.aspx">
+                    <p>Apps</p>
+                </a>
+            </div>
+            <div class="btnPrincipal">
                 <a id="lbtTestes" runat="server" href="eTestes.aspx">
                     <p>Testes</p>
                 </a>

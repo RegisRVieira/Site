@@ -25,7 +25,8 @@ namespace Site.VOnLine
             }
             if (!Page.IsPostBack)
             {
-                checarLogAcesso();
+                //checarLogAcesso();
+                checarTermoPrivacidade();
             }
 
         }
@@ -41,7 +42,9 @@ namespace Site.VOnLine
             //string condicao = " WHERE IP='" + IP + "' OR id IS NULL  ";
             string condicao = " WHERE IP='" + IP + "'";
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             ObjAcesso.Tabela = tabela;
             ObjAcesso.Campo = campos;
@@ -74,7 +77,66 @@ namespace Site.VOnLine
             }
             //lblMsg.Text = xRet;
         }
+        protected void checarTermoPrivacidade()
+        {
+            BLL ObjDados = new BLL(conectSite);
 
+            string IP = "";
+            IP = Request.UserHostAddress;
+
+            string tabela = " st_termo_privacidade ";
+            string campos = " id, ip, status ";
+            //string condicao = " WHERE IP='" + IP + "' OR id IS NULL  ";
+            string condicao = " WHERE IP='" + IP + "'";
+
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+            string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            //MessageBox.Show(" SELECT " + campos + " FROM " + tabela + condicao);
+
+            if (String.IsNullOrEmpty(ObjDados.MsgErro))
+            {
+                for (int i = 0; i < dados.Rows.Count; i++)
+                {
+                    if (dados.Rows[i]["ip"].ToString() == IP && String.IsNullOrEmpty(dados.Rows[i]["id"].ToString()))
+                    {
+                        //MessageBox.Show("Tem que Gravar!");
+                        //MessageBox.Show(dados.Rows[0]["id"].ToString() + " - " + IP);
+                        termo.Attributes["class"] = "desativa";
+                    }
+                    else
+                    {
+                        if (dados.Rows.Count > 0)
+                        {
+                            if (dados.Rows[0]["IP"].ToString() == IP.ToString())
+                            {
+                                if (dados.Rows[0]["status"].ToString() != "Recusado")
+                                {
+                                    termo.Attributes["class"] = "desativa";
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+            else
+            {
+                lblMsg.Text = "Há problemas com a Conexão: " + ObjDados.MsgErro;
+            }
+            //lblMsg.Text = xRet;
+        }
+        protected void LiberarAcessoVO(object sender, EventArgs e)
+        {
+            termo.Attributes["class"] = "desativa";
+        }
         public string GeraDigMod11(long intNumero)
         {
             string cDigito = "";
@@ -84,7 +146,6 @@ namespace Site.VOnLine
 
             return cDigito;
         }
-
         public int DigitoModulo11(long intNumero)
         {
             int[] intPesos = { 2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -116,13 +177,14 @@ namespace Site.VOnLine
 
             return intDigito;
         }
-
         protected void LogarVoceOnLine(object sender, EventArgs e)
         {
             BLL ObjDbVegas = new BLL(conectVegas);
 
             string codAcesso = iCpf.Value;
             string Senha = iSenha.Value;
+
+            codAcesso.Replace(".", "").Replace("-", "").Replace(" ","").Replace("/","");
 
             string campo = "";
             string tabela = "";
@@ -131,13 +193,19 @@ namespace Site.VOnLine
             int tamanhocampo = codAcesso.Length;
             bool validacpf = true; //Variável para checar se o campo cpf tem 11 ou 14 caracteres, se não tiver emite mensagem de erro. 
 
+#pragma warning disable CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
             string rDigVerifica;
+#pragma warning restore CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
+#pragma warning disable CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
             string wdv = "";
+#pragma warning restore CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
             string idCartao = "";
+#pragma warning restore CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
 
-            MessageBox.Show("Vamos Logar");
+            //MessageBox.Show("Vamos Logar");
 
-            if (String.IsNullOrEmpty(iCpf.Value) || String.IsNullOrEmpty(iSenha.Value))
+            if (String.IsNullOrEmpty(codAcesso) || String.IsNullOrEmpty(iSenha.Value))
             {
                 lblResult.Text = "Preencha os campos para realizar o Login!!!";
             }
@@ -177,13 +245,11 @@ namespace Site.VOnLine
                         ObjDbVegas.Left = left;
                         ObjDbVegas.Condicao = condicao;
 
-                        DataTable dados = ObjDbVegas.RetCampos();
-
-                        int contador = dados.Rows.Count;
+                        DataTable dados = ObjDbVegas.RetCampos();                        
 
                         if (Session["VoceOnline"] == null)
                         {
-                            if (contador > 0)
+                            if (dados.Rows.Count > 0)
                             {
                                 if (tamanhocampo == 9 || tamanhocampo == 11)
                                 {
@@ -193,49 +259,29 @@ namespace Site.VOnLine
                                 }
                                 else
                                 {
-                                    Session.Add("LoginUsuario", dados.Rows[0]["nomeConv"].ToString());
+                                    Session.Add("LoginConvenio", dados.Rows[0]["nomeConv"].ToString());
                                     Session.Add("Identifica", dados.Rows[0]["cnpj"].ToString());
-                                }
-                                //Session.Abandon();
+                                    Session.Add("IdAssoc", 0);
+                                }                                
                                 
                                 Session.Add("VoceOnLine", "Sim");
 
-                                Session.Add("CodAcesso", codAcesso);
-                                //Session.Add("iDAssoc", dados.Rows[0]["associado"].ToString());
-                                //Response.Redirect("../VoceOnLine1.aspx");
-
-                                MessageBox.Show("Entrou. No primeiro Else!");
+                                Session.Add("CodAcesso", codAcesso);                                
 
                                 Response.Redirect("VoceOnLine.aspx");
                                                                 
-                                /*
-                                if (tamanhocampo == 9 || tamanhocampo == 11)
-                                {
-                                    MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
-                                }
-                                else
-                                {
-                                    MessageBox.Show(dados.Rows[0]["nomeConv"].ToString());
-                                }
-                                */
-                                //MessageBox.Show(dados.Rows[0]["nome"].ToString());
+                                
                             }
                             else //É conveniado
                             {
-                                lblResult.Text = "Usuário ou Senha incorreto(s)";
-                                //Response.Redirect("../VoceOnLine1.aspx");
-
-                                MessageBox.Show("Entrou! No Segundo Else!");
-                                Response.Redirect("VoceOnLine.aspx");
-
-                                //MessageBox.Show(dados.Rows[0]["nomeAssoc"].ToString());
-                             
+                                lblResult.Text = "Usuário ou Senha incorreto(s)";                                
                             }
                         }
                         else
                         {
-                            lblResult.Text = "Você estava Logado, deseja iniciar uma nova sessão?";
-                            //Session.Abandon();
+                            lblResult.Text = "Você estava Logado, faça um novo Login?";
+                            Session.Abandon();
+                            //Response.Redirect("Login.aspx");
                         }
                     }
                     //lblResult.Text = "Parabéns: Você está logado como: " + Session["LoginUsuario"];
@@ -243,7 +289,7 @@ namespace Site.VOnLine
                 else
                 {
                     string msgErro = "Erro: " + ObjDbVegas.MsgErro;
-                    MessageBox.Show(msgErro);
+                    lblMsg.Text =  msgErro;
                 }
             }
         }

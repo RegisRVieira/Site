@@ -1,0 +1,16 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+}
+
+.corpoUm{
+    width: 100%;
+    min-height: 50px;
+    border: 2px solid #f26907;
+}
+.corpoDois {
+    margin: 0 auto;
+    width: 760px;
+    min-height: 500px;
+    /*border: 2px solid #ffd800;*/
+}

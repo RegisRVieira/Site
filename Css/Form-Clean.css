@@ -47,6 +47,55 @@ input:focus {
     padding-top: 10px;
     padding-left: 48%;
 }
+/*# # #  Lista de Convênios # # #*/
+
+.secBtnListaGuia {
+    width: 100%;
+    min-height: 210px; 
+    margin-bottom: 20px;    
+}
+
+.textListaConvenio {
+    margin: 0 auto;
+    width: 500px;
+    margin-top: 100px;
+    height: 40px;
+    text-align: center;    
+}
+
+.areaDDLListaConvenio {
+    margin: 0 auto;
+    width: 40%;
+    min-height: 20px;
+}
+.ddlListaConvenio {
+    width: 100%;
+    min-height: 19px;
+    padding: 8px;
+    font-size: 1.8em;
+    color: #f26907;
+}
+
+.areaBotoesListaConvenio {
+    margin: 0 auto;
+    width: 400px;
+    min-height: 20px;
+    text-align: center;
+}    
+
+.btnListaConvenio{
+    width: 175px;
+    border: solid 1px #FFF;
+}
+
+
+.btnCorpoConvenio {
+    width: 49%;
+    float: left;
+}
+
+/* Fim da Lista*/
+
 
 .guia section {
     margin: 2px auto;
@@ -127,6 +176,9 @@ input:focus {
     margin: 0;
     padding: 0;    
     font-size: 2em;    
+}
+.linha-dadosconv a img{
+    width: 20px;
 }
 
 .linha-dadosconvramo {
@@ -476,6 +528,35 @@ select {
     margin-bottom: 2px;
     width: 120px;
 }
+
+/*# # # # Tela de Venda # # # #*/
+
+#iNumCartao, #iValorVenda, #iSenhaVenda {
+    height: 60px;
+    font-size: 1.5em;
+    width: 102%;
+}
+    #iNumCartao:hover, #iValorVenda:hover, #iSenhaVenda:hover {
+        font-size: 2.5em;
+        background-color: #F0F0F0;
+    }
+
+#btnVender{
+    border-radius: 6PX;
+    font-size: 20PX;
+    color: white;
+    background-color: #22396f;    
+}
+#btnVender:hover{
+    background-color: #f26907;
+    color: #22396f;
+}
+
+#btnVender, #stParcelas {
+    width: 96%;
+    height: 60px;
+}
+/*# Fim - Tela de Venda #*/
 
 footer {
     font-size: 14px;

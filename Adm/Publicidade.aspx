@@ -43,7 +43,7 @@
                             <asp:Button ID="btnCarregaDadosConv" runat="server" Text="Buscar Convênio" OnClick="carregaConvenio" />
                             <input id="iNomeConv" runat="server" type="text" disabled="disabled" />
                             <asp:FileUpload ID="fuDestaqueGuia" runat="server" />
-                            <asp:Button ID="btnDestaqueGuia" runat="server" Text="Gravar" OnClick="cadastrarDestaqueGuia"/>
+                            <asp:Button ID="btnDestaqueGuia" runat="server" Text="Gravar" OnClick="cadastrarPublicidadeGuia"/>
                             <section>
                                 <asp:MultiView ID="mwDadosDestaque" runat="server">
                                     <asp:View ID="vwDadosDestaque" runat="server">
@@ -54,11 +54,11 @@
                         </asp:View>
                         <asp:View ID="vwFormLogo" runat="server">
                             <h1>Logo</h1>                            
-                            <input id="iIdConvLogo" runat="server" type="text" placeholder="ID do Convênio" />
+                            <input id="iIdConvLogo" runat="server" type="text" placeholder="ID do Convênio" />                            
                             <asp:Button ID="btnDadosConvLogo" runat="server" Text="Buscar Convênio" OnClick="carregaConvenio" />
                             <input id="iNomeConvLogo" runat="server" type="text" disabled="disabled" />
                             <asp:FileUpload ID="fuLogoGuia" runat="server" />
-                            <asp:Button ID="btnLogoGuia" runat="server" Text="Gravar" OnClick="cadastrarDestaqueGuia"/>
+                            <asp:Button ID="btnLogoGuia" runat="server" Text="Gravar" OnClick="cadastrarPublicidadeGuia"/>
                             <section>
                                 <asp:MultiView ID="mwDadosLogo" runat="server">
                                     <asp:View ID="vwDadosLogo" runat="server">
@@ -66,7 +66,7 @@
                                     </asp:View>
                                 </asp:MultiView>
                             </section>
-                        </asp:View>
+                        </asp:View>                        
                     </asp:MultiView>
                     <asp:Label id="lblMsg" runat="server"></asp:Label>
                 </div>

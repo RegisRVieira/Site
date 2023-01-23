@@ -8,6 +8,7 @@
     <title>Menu Eventos ASU</title>
     <link rel="stylesheet" href="../Css/Global.css" />
     <link rel="stylesheet" href="../Css/Global-Fluido.css" />
+    <link rel="stylesheet" href="../Css/StyleEventos.css" />
     <link rel="sortcut icon" type="image/png" href="../Img/Logo-nav.png" />
     <script type="text/javascript" src="../Js/Apoio.js"></script>
 </head>
@@ -20,74 +21,7 @@
             </p>
         </nav>
         <style>
-            .eBotoes {
-                margin-left: 5px;
-                min-width: 48%;
-                height: 20px;
-                background-color: #ff0000;
-                background-color: #65368a;
-                border: 1px solid #f26907;
-                border-radius: 6px;
-                display: inline-block;
-                float: left;
-                font-size: 18px;
-                font-family: 'Verdana';
-                font-family: 'Courier New';
-                padding-top: 20px;
-                padding-bottom: 20px;
-                margin-top: 2px;
-                margin-bottom: 8px;
-            }
-
-                .eBotoes:hover {
-                    background-color: #6f87c2;
-                    color: #65368a;
-                }
-
-                .eBotoes p {
-                    margin: 0;
-                    padding: 0;
-                    padding-top: 20px;
-                    padding-bottom: 20px;
-                    text-align: center;
-                    color: white;
-                    font-size: 18px;
-                    font-family: 'Verdana';
-                    font-family: 'Courier New';
-                    text-decoration: none;
-                }
-
-            .ePainelEventos {
-                margin: 0 auto;
-                margin-top: 50px;
-                width: 98%;
-                height: 50px;
-            }
-
-                .ePainelEventos p {
-                    color: #f26907;
-                    text-align: center;
-                    font-size: 2.5em;
-                }
-
-            .BoxBotoes {
-                width: 50%;
-                min-height: 10px;
-                margin: 0 auto;
-                margin-top: 5px;
-            }
-
-            .eDivLogin {
-                width: 100%;
-                height: 30px;
-                text-align: right;
-                color: #f26907;
-                padding-top: 7px;
-            }
-
-            .corLogin {
-                color: #f26907;
-            }
+          
         </style>
         <section style="margin: 0 auto; width: 50%; min-height: 400px;">
             <div class="ePainelEventos">

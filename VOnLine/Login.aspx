@@ -14,7 +14,7 @@
 <body>
     <nav class="navHome-Internas">
         <p>
-            <a href="../Home.aspx">
+            <a href="http://www.asu.com.br/Home.aspx">
                 <img class="navHome-Internas-Img" src="../Img/Logo ASU-White-Espaçado.png" /></a>
         </p>
     </nav>
@@ -22,21 +22,22 @@
         <form id="form1" runat="server">
             <div class="BoxLogin">
                 <h1>Você OnLine</h1>
-                <input id="iCpf" runat="server" type="text" placeholder="CPF ou CNPJ" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                <input id="iCpf" runat="server" type="text" placeholder="Nº Cartão / ID. convênio" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                <script>iSenha.focus();</script>
                 <input id="iSenha" runat="server" type="password" placeholder="Senha" />
                 <asp:Button ID="btnLogin" runat="server" Text="Acessar" OnClick="LogarVoceOnLine" />                
             </div>
             <div style="width: 600px; margin: 0 auto;">
                 <asp:Label ID="lblResult" runat="server" CssClass="lblMsg"></asp:Label>
             </div>            
-             <style>
+            <style>
                 .ativa{
                     display: block;
                 }
                 .desativa{
                     display: none;                    
                 }
-                .dv_termo{
+                .dv_termo_login{
                     
                     position: fixed;                    
                     top: 60px;
@@ -59,10 +60,29 @@
                 .aprova{
                     margin: 0 auto;
                     width: 50%;
-                    height: 10%;
+                    height: 10%;                    
+                }
+                @media(max-width: 1000px){
+                    .dv_termo_login{                                            
+                        top: 120px;
+                        left: 3%;
+                        width: 96%;
+                        height: 450px;
+                        margin-left: 0;                              
+                    }
+                    .termo{
+                        height: 70%;                        
+                    }
+                    .aprova{                        
+                        width: 50%;                                                
+                    }
+                    .aprova input[type=submit]{                        
+                        font-size: 2.5em;
+                    }
+                    
                 }
             </style>            
-            <div id="termo" class="dv_termo" runat="server">
+            <div id="termo" class="dv_termo_login" runat="server">
                 <div class="termo" >
                     <h1>Termo de Privacidade Você OnLine</h1>                    
                     
@@ -73,7 +93,7 @@
                     </p>
                 </div>
                 <div class="aprova" >                    
-                    <asp:Button ID="btnDesativaTermo" runat="server" Text="Aceitar (C#)" OnClick="desativaTermo" />
+                    <asp:Button ID="btnLiberaAcessoVO" runat="server" Text="Aceitar" OnClick="LiberarAcessoVO" />
                 </div>
             </div>    
             <div>

@@ -6,24 +6,25 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Você OnLine</title>
+    <link rel="stylesheet" media="print" href="../Css/Print.css" />
     <link rel="stylesheet" href="../Css/Form-Clean.css" />
     <link rel="stylesheet" href="../Css/Form-Fluido.css" />
     <link rel="stylesheet" href="../Css/Global.css" />
     <link rel="stylesheet" href="../Css/Global-Fluido.css" />
     <link rel="stylesheet" href="../Css/StyleVoceOnLine.css" />
-    <link rel="stylesheet" href="../Css/Table-Extrato.css" />
-    <link rel="stylesheet" media="print" href="../Css/Print.css" />
+    <link rel="stylesheet" href="../Css/Table-Extrato.css" />    
     <script type="text/javascript" src="../Js/Apoio.js"></script>
     <script type="text/javascript" src="../Js/jQuery 3.4.1.js"></script>
 </head>
-<body>
+<body onload="detectarResolucao()">
     <form id="form1" runat="server">
+        <input id="hfTamanhoTela" type="hidden" runat="server" name="hfTamanhoTela" />
         <nav class="navHome-Internas">
             <div>
                 <p>
-                    <a href="../Home.aspx">
+                    <a href="http://www.asu.com.br/Home.aspx">
                         <img  class="navHome-Internas-Img" src="../Img/Logo ASU-White-Espaçado.png" /></a>
-                </p>
+                </p>                
             </div>
             <div runat="server" class="BoxVOLogin">
                 <div style=" color: white; float: right">
@@ -84,8 +85,8 @@
                                 <input id="iCpfAssoc" runat="server" type="text" placeholder="CPF" />
                                 <input id="iRgAssoc" runat="server" type="text" placeholder="RG" />
                                 <input id="iEmailAssoc" runat="server" type="text" placeholder="E-mail" />
-                                <input id="iFoneAssoc" runat="server" type="tel" placeholder="Telefone" />
-                                <input id="iCelAssoc" runat="server" type="tel" placeholder="Celular" />
+                                <input id="iFoneAssoc" runat="server" type="text" placeholder="Telefone" />
+                                <input id="iCelAssoc" runat="server" type="text" placeholder="Celular" />
                                 <p class="titFormCad">Dados de Endereço</p>
                                 <input id="iCepAssoc" runat="server" type="text" maxlength="8" placeholder="CEP" style="font-size: .9em; padding: 12px 0 12px 15px; height: 12px;" />
                                 <div class="btnFormCad">
@@ -118,7 +119,7 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwAssocExtrato" runat="server">
-                            <section class="SecPeriodoExtrato">
+                                 <section class="SecPeriodoExtrato">
                                 <div class="BoxDdlPeriodoExtrato defaultTable">
                                     <table class="TabPeridoExtrato">
                                         <caption>Período</caption>
@@ -150,30 +151,160 @@
                                                         <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
                                                     </asp:DropDownList></td>
                                                 <td>
-                                                    <div class="BtnPeriodoExtrato">
-                                                        <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" />
+                                                    <div class="BtnPeriodoExtrato">                                                        
+                                                        <asp:Button ID="btnGerarPeriodoExtAssoc" runat="server" Text="Visualizar Período" OnClick="atualizaPeriodo" OnClientClick="detectarResolucao()"/>
+                                                        
+                                                        
+                                                        <asp:Label ID="tTela" runat="server"></asp:Label>
                                                     </div>
-                                                </td>
+                                                </td>                                               
                                             </tr>
                                         </tbody>
                                     </table>
                                     <asp:Label ID="lblPeriodoAssoc" runat="server"></asp:Label>
                                 </div>                                
                                 <div style="width: 77.8%;">
-                                    <%# extratoAssociado() %>
+                                    <asp:Label ID="lblRetExtratoAssoc" runat="server" ><%# extratoAssociado() %></asp:Label>                                    
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
                                     <div class="BtnGerarPDfAssoc">
-                                    <asp:Button ID="btnPdfAssoc" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />                                                                                                                    
+                                    <!--<asp:Button ID="btnPdfAssoc" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />-->
+                                        <div class="left" style="margin-top: 7px;  margin-left: 5px;">                                            
+                                            <a href="#" onclick="PrintElem('#lblRetExtratoAssoc', 1080, 'Extrato do Associado')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp    <br />                                            
+                                        </div>
                                     </div>
                                     <div style="width: 100px; height: 50px; float: left">
                                         <asp:Label ID="lblExtratoPdf" runat="server"></asp:Label>
+                                        
                                     </div>
                                     <div style="margin-top: 20px; margin-bottom: 180px; background-color: #eae5e5">
                                         <asp:Label ID="lblArquivos" runat="server"></asp:Label>
                                     </div>
+                                    <style>
+                                        .xxx{
+                                                width: 300px;
+                                                height: 100px;
+                                                background-color: #f26907;
+                                            }
+                                    </style>
+                                    <asp:Label ID="lblTestaTermo" runat="server" CssClass="xxx"></asp:Label>
                                 </div>
+                                <style>
+                                    .premiacao{
+                                        position: absolute;
+                                        top: 80px;
+                                        right: 600px;
+                                        width: 300px; 
+                                        min-height: 250px; 
+                                        background-color: #fef3ec;
+                                        border-radius: 8px;
+                                        border: 1px solid #f26907;
+                                    }
+                                    .msgParticipacao{
+                                        position: absolute;
+                                        top: 80px;
+                                        right: 20px;
+                                        width: 300px; 
+                                        min-height: 50px; 
+                                        background-color: #fef3ec;
+                                        border-radius: 8px;
+                                        border: 1px solid #f26907;
+                                        
+                                        
+                                    }
+                                    @media(max-width: 1000px) {
+                                    .msgParticipacao{
+                                        position: sticky;
+                                        top: 184px;
+                                        right: 0px;
+                                        width: 90%;   
+                                        min-height: 0px;
+                                        margin-bottom: 120px;
+                                    }
+                                    }
+                                    .msgParticipacao {
+                                        padding: 9px;                                        
+                                        font-size: 20px;
+                                        color: #f26907;
+                                    }
+                                    .premioTexto{
+                                        width: 100%;
+                                        height: 200px;
+                                        padding: 10px 5px 0 5px;                                        
+                                        font-size: 1.5em;
+                                    }
+                                    .premioTexto img{
+                                        margin-top: 5px;
+                                        width: 140px;
+                                    }
+                                    .premioBotao{
+                                        margin: 0 auto;
+                                        margin-top: 5px;                                        
+                                        width: 60%;
+                                        min-height: 40px;                                        
+                                    }
+                                    .btnPremio{                                        
+                                        border-radius: 12px;                                        
+                                        font-weight: 900;
+                                        font-size: 1.2em;
+                                        font-family: 'Book Antiqua';
+                                        padding: 6px;
+                                        
+                                    }
+                                    .btnNegarBrinde{
+                                        display: none;
+                                    }
+                                    @media(max-width: 1000px){
+                                     .premiacao{
+                                        top: 190px;
+                                        right: 7%;
+                                        width: 700px; 
+                                        min-height: 360px; 
+                                        background-color: #fef3ec;
+                                        border-radius: 8px;
+                                        border: 1px solid #f26907;
+                                    }
+                                    .premioTexto{
+                                        width: 98%;
+                                        font-size: 1.8em;                                        
+                                    }
+                                    .premioTexto img{
+                                        margin-top: 5px;
+                                        width: 140px;
+                                    }
+                                    .premioBotao{                                                                                                               
+                                        width: 98%;
+                                        margin-left: 50%;
+                                        min-height: 40px;                                                                                
+                                    }
+                                    .btnPremio{                                        
+                                        font-size: 1.2em;                                        
+                                        padding: 6px;                                        
+                                        
+                                    }   
+                                    .btnNegarBrinde{
+                                        font-size: 2em;
+                                        display: inline;                                        
+                                    }
+                                    }
+                                </style>
+                                <section  style="">
+                                    <section id="secPremio" runat="server" class="premiacao">
+                                        <div class="premioTexto">
+                                            <p>Quero Ganhar um Prêmio da ASU!</p>
+                                            <img src="../Img/Publicidade/Brinde - ASU.png" runat="server" />
+                                        </div>
+                                        <div class="premioBotao">
+                                            <asp:Button ID="btnPremio" runat="server" Text="Participar" CssClass="btnPremio" OnClick="gravarBrinde"/>
+                                            <asp:LinkButton ID="lbtnNegar" runat="server" Text="Não, Obrigado" CssClass="btnPremio btnNegarBrinde" OnClick="negarBrinde"></asp:LinkButton>
+                                        </div>
+                                    </section>
+                                    <section id="secMsg" runat="server" class="desativa_termo">
+                                        <asp:Label ID="lblMsgPremio" runat="server" class=""></asp:Label>
+                                    </section>
+                                </section>
                                 <section id="margemRodape"></section>
-                            </section>
+                            </section>                            
+                        
                         </asp:View>
                         <asp:View ID="vwAssocCartoes" runat="server">                            
                             <div style="float: left; width: 100%; min-height: 250px;">
@@ -209,19 +340,8 @@
                     <asp:MultiView ID="mwContConv" runat="server">
                         <asp:View ID="vwConvVenda" runat="server">
                             <div id="secCompVenda" runat="server" class="form-guia compVendaOn">
-                                <h1>Venda OnLine</h1>
-                                <style>
-                                    .CompVendaNumCartao {
-                                        min-height: 45px;
-                                        font-size: 21px;
-                                    }
-
-                                        .CompVendaNumCartao:hover {
-                                            font-size: 22px;
-                                        }
-                                </style>
-                                
-                                <input id="iNumCartao" runat="server" type="text" placeholder="Digite o Número do Cartão" maxlength="9" autocomplete="off" class="CompVendaNumCartao"  />
+                                <h1>Venda OnLine</h1>                                                                
+                                <input id="iNumCartao" runat="server" type="text" placeholder="Digite o Número do Cartão" maxlength="9" autocomplete="off" /> <!-- CSS pelo ID -->
                                 <script>
                                     String.prototype.reverse = function () {
                                         return this.split('').reverse().join('');
@@ -245,7 +365,7 @@
                                         campo.value = resultado.reverse();
                                     }
                                 </script>
-                                <input id="iValorVenda" runat="server" type="text" placeholder="Valor da Venda" autocomplete="off" onkeyup="mascaraMoeda(this, event)" class="CompVendaNumCartao" />
+                                <input id="iValorVenda" runat="server" type="text" placeholder="Valor da Venda" autocomplete="off" onkeyup="mascaraMoeda(this, event)" />
                                 <select id="stParcelas" runat="server" style="width: 520px; min-height: 35px; font-size: 30px; color: #7890c2; border: 1px solid #d8e1f3; border-radius: 6px;">
                                     <option value="01" selected="selected"></option>
                                     <option value="02"></option>
@@ -258,9 +378,9 @@
                                     <option value="09"></option>
                                     <option value="10"></option>
                                 </select>
-                                <input id="iSenha" runat="server" type="password" placeholder="Senha do cartão" />
+                                <input id="iSenhaVenda" runat="server" type="password" placeholder="Senha do cartão" />
                                 <div id="comunicando" runat="server" class="compVendaOff" style="width: 500px; height: 60px; margin-top:20px;margin-left:0px; ">
-                                    <img style="width: 150px" src="Img/comunicando.gif" />
+                                    <img style="width: 150px" src="../Img/comunicando.gif" />                                    
                                 </div>
                                     <script>
                                         function processando() {
@@ -273,14 +393,25 @@
                                 <asp:Label ID="lblMsgVenda" runat="server"></asp:Label>
                             </div>                            
                             <div id="compVenda" runat="server" class="compVendaOff" >
-                                <div class="btnCompVenda">
-                                    <input id="btnImprimeCompVenda" type="submit" value="Imprimir" onclick="printBy()"/>
+                                <div class="btnCompVenda">                                    
                                     <asp:Button  ID="btnFinalizaVenda" runat="server" Text="Finalizar Venda" OnClick="finalizarVenda" />
                                 </div>
-                                <p style="font-size: 20px; color: white; background-color: #7890c2;">Comprovante de Venda</p>
+                                <!-- 24-10-2022: Novo modelo de impressão do Comprovante de Venda -->
+                                <div style="width: 100%; min-height: 50px; background-color: #d8e1f3" >
+                                    <div class="left" style="margin-top: 7px;  margin-left: 5px;">
+                                        <!--<a href="#" onclick="PrintElem('#lblRetorno', 1080, 'Comprovante de Venda < %# Titulo() %>')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>-->
+                                        <a href="#" onclick="PrintElem('#lblRetorno', 1080, 'Comprovante de Venda <%# Titulo() %>')"><span>Opção 1:</span><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp
+                                        <a href="#" onclick="PrintComprovante('#lblRetorno', 360, 'Comprovante de Venda <%# Titulo() %>')"><span>Opção 2:</span><img style="width: 40px;" src="../Img/Layout/btImprimir-3.png" border="0" /></a>                                        
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <!--<p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Comprovante de Venda</p>-->
+                                    </div>    
+                                </div>
+                                <!---->
+                                <!--<p style="font-size: 20px; color: white; background-color: #7890c2;">Comprovante de Venda</p>-->
                                 <div style=" margin-bottom: 50px; padding: 8px; border: 1px solid #7890c2; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
-                                    <div id="printable" class="printable">
-                                        <asp:Label ID="lblRetorno" runat="server"></asp:Label>                                    
+                                    <div>
+                                        <asp:Label ID="lblRetorno" runat="server"></asp:Label>
                                     </div>
                                 </div>
                             </div>
@@ -289,13 +420,13 @@
                             <section class="secFormDados">
                                 <p class="titFormCad">Dados Cadastrais</p>
                                 <input id="iNomeConv" runat="server" type="text" placeholder="Convênio" />
-                                <input id="iRazaoSocial" runat="server" type="tel" placeholder="Razão Social" />
+                                <input id="iRazaoSocial" runat="server" type="text" placeholder="Razão Social" />
                                 <input id="iCnpj" runat="server" type="text" placeholder="CNPJ/CPF" />
                                 <input id="iTipoConv" runat="server" type="text" placeholder="Tipo Convênio" />
                                 <p class="titFormCad">Telefones e Endereço</p>
                                 <input id="iDddConv" runat="server" type="text" placeholder="DDD" />
-                                <input id="iTelefoneConv" runat="server" type="tel" placeholder="Telefone" />
-                                <input id="iCelularConv" runat="server" type="tel" placeholder="Celular" />
+                                <input id="iTelefoneConv" runat="server" type="text" placeholder="Telefone" />
+                                <input id="iCelularConv" runat="server" type="text" placeholder="Celular" />
                                 <input id="iCepConv" runat="server" type="text" placeholder="Cep" />
                                 <div class="btnFormCad">
                                     <asp:Button ID="btnBuscarCepConv" runat="server" Text="Buscar Cep"  OnClick="buscarCepConv"/>
@@ -342,11 +473,15 @@
                                                             width: 130px;
                                                             height: auto;
                                                         }
-                                                    </style>
-                                                    <input id="iDataIni" runat="server" type="date" />
+                                                        .cPeriodo{
+                                                            width: 130px;
+                                                            height: auto;
+                                                        }
+                                                    </style>                                                                                                                                                                                                                                                                   
+                                                    <asp:TextBox ID="iDataIni" runat="server" type="date"></asp:TextBox>                                                    
                                                 </td>
-                                                <td class="tdPeridoExtratoAno">
-                                                    <input id="iDataFin" runat="server" type="date" />
+                                                <td class="tdPeridoExtratoAno">                                                    
+                                                    <asp:TextBox ID="iDataFin" runat="server" type="date"></asp:TextBox>                                                    
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="btnGerarData" runat="server" Text="Visualizar Período" OnClick="montarRelEntrega" />                                                    
@@ -482,13 +617,13 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="tdPeridoExtratoAno">
-                                                    <asp:DropDownList ID="ddlFatMensalAno" runat="server" CssClass="ddlVcOnLine">
-                                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                                    <asp:DropDownList ID="ddlFatMensalAno" runat="server" CssClass="ddlVcOnLine">                                                        
                                                         <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
                                                         <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
                                                         <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
                                                         <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
                                                         <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
+                                                        <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>
@@ -527,13 +662,13 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="tdPeridoExtratoAno">
-                                                    <asp:DropDownList ID="ddlAnoExtratoConv" runat="server" CssClass="ddlVcOnLine">
-                                                        <asp:ListItem Value="2017" Text="2017"></asp:ListItem>
+                                                    <asp:DropDownList ID="ddlAnoExtratoConv" runat="server" CssClass="ddlVcOnLine">                                                        
                                                         <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
                                                         <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
                                                         <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
                                                         <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
                                                         <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
+                                                        <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>
@@ -551,9 +686,7 @@
                                     <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
                                         <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Extrato Pós Pago</p>
                                     </div>
-                                </div>
-
-                                                                
+                                </div>                                                                
                                 <div id="retExtratoConvenio"  style="width: 100%; max-height: 300px; overflow: scroll; overflow-x: auto;" >                                   
                                     <asp:Label ID="lblExtratoConvenio" runat="server" CssClass="lblperiodo" ></asp:Label>
                                 </div>
@@ -578,7 +711,7 @@
                             </section>
                         </asp:View>
                         <asp:View ID="vwConvSenha" runat="server">Em Breve, Aguarde!</asp:View>
-                        <asp:View ID="vwConvDownloads" runat="server">
+                        <asp:View ID="vwConvDownloads" runat="server">                            
                             <%# listarArquivosConvenios() %>
                             <asp:Label ID="lblArquivosConvenio" runat="server"></asp:Label>
                         </asp:View>
@@ -601,10 +734,11 @@
                     <img src="../Img/Icon/Logo2 Régis-ASU.png" />
                 </div>
             </footer>
-        </main>
+            </main>
     </form>
     <script>       
         atualizaDataRelEntrega();
+        
     </script>
 </body>
 </html>

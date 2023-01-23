@@ -50,7 +50,7 @@ namespace Site.Adm
             }
             else
             {
-                MessageBox.Show("Usuário e/ou Senha, incorreto(s)!!!");
+                lblUsuário.Text =  "Usuário e/ou Senha, incorreto(s)!!!";
             }
         }
     }

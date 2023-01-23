@@ -317,11 +317,14 @@
                             </div>
                             <br />
                             <h1 style="width: 100%; background: gray; font-size: 28px; color: #cccaca;">Imagens</h1>
-                            <section>
-                                <label class="labelinpdate">Tipo: Matéria</label><br />     
+                            <section>                                
                                 <label class="labelinpdate">Tipo de Imagem</label>
-                                <select id="stMatImgTipo" runat="server" class="slTipo" onchange="proporcaoImgMateria"></select>
-                                <asp:Button ID="btntestarSelect" runat="server" Text="Testar Select" OnClick="proporcaoImgMateria" />
+                                <select id="stMatImgTipo" runat="server" class="slTipo"></select>
+                                <label class="labelinpdate">Alinhamento da Imagem</label>
+                                <select id="stMatImgAlinha" runat="server" class="slTipo"></select>
+                                <label class="labelinpdate">Local onde a Imagem deve ser Exibida</label>
+                                <select id="stMatImgCampoConteudo" runat="server" class="slTipo"></select>
+                                <!--<asp:Button ID="btntestarSelect" runat="server" Text="Testar Select" OnClick="proporcaoImgMateria" />-->
                                 <input id="iMatImgTitulo" runat="server" type="text" placeholder="Título" />
                                 <input id="iMatImgDesc" runat="server" type="text" placeholder="Descrição" />
                                 <input id="iMatImgFonte" runat="server" type="text" placeholder="Fonte da Imagem" />

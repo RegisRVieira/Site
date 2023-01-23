@@ -1005,6 +1005,24 @@ namespace Site.Adm
         protected global::System.Web.UI.HtmlControls.HtmlSelect stMatImgTipo;
 
         /// <summary>
+        /// Controle stMatImgAlinha.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect stMatImgAlinha;
+
+        /// <summary>
+        /// Controle stMatImgCampoConteudo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlSelect stMatImgCampoConteudo;
+
+        /// <summary>
         /// Controle btntestarSelect.
         /// </summary>
         /// <remarks>

@@ -22,7 +22,7 @@
         <form id="form1" runat="server">
             <div class="BoxLogin">
                 <h1>Você OnLine</h1>
-                <input id="iCpf" runat="server" type="text" placeholder="CPF ou CNPJ" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
+                <input id="iCpf" runat="server" type="text" placeholder="Nº Cartão / ID. convênio" onkeypress="return event.charCode >= 48 && event.charCode <= 57"/>
                 <script>iSenha.focus();</script>
                 <input id="iSenha" runat="server" type="password" placeholder="Senha" />
                 <asp:Button ID="btnLogin" runat="server" Text="Acessar" OnClick="LogarVoceOnLine" />                

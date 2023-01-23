@@ -39,7 +39,39 @@ namespace Site.App_Code
         //Associado
         public string IdAssoc { get; set; }
         public string IdConv { get; set; }
-        
+
+        public String hora()
+        {
+            string hora = "";
+            string min = "";
+            string horaAtual = "";
+            int h = DateTime.Now.Hour;
+            int m = DateTime.Now.Minute;
+            int s = DateTime.Now.Second;
+
+            if (h < 10)
+            {
+                hora = "0" + h;
+            }
+            else
+            {
+                hora = "" + h;
+            }
+
+            if (m < 10)
+            {
+                min = "0" + m;
+            }
+            else
+            {
+                min = "" + m;
+            }
+
+            horaAtual = hora + ":" + min;
+
+            return horaAtual.ToString();
+        }
+
         public string gerarPdf()
         {
             string PdfGerado = xPdf;
@@ -88,7 +120,7 @@ namespace Site.App_Code
 
             return IPAddress;
         }
-
+        //# # # # # # # # # # # # Operações com Data # # # # # # # # # # # #
         public String dtDataInicio()
         {
             string mesAtual = DateTime.Now.Month.ToString();
@@ -182,7 +214,7 @@ namespace Site.App_Code
         {
             string mesAtual = DateTime.Now.Month.ToString();
             string anoAtual = DateTime.Now.Year.ToString();
-            Xret = "";            
+            Xret = "";
 
             if (Mes == mesAtual)
             {
@@ -220,6 +252,119 @@ namespace Site.App_Code
             }
             return Xret;
         }
+
+        protected String dtIni_Saldo()
+        {
+            string periodo = "";
+
+            string hoje = DateTime.Now.ToString("dd-MM-yyyy");
+            string dia = DateTime.Now.Day.ToString();
+            string mes = DateTime.Now.ToString("MM");
+            string ano = DateTime.Now.Year.ToString();
+
+            //Chaca Janeiro
+            if (mes == "01")
+            {
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + mes + "-20'";
+                }
+                else
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) - 1) + "-" + "12" + "-20'";
+                }
+            }
+            else
+            {
+
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + mes + "-20'";
+                }
+                else
+                {
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) - 1).ToString().PadLeft(2, '0') + "-20'";
+                }
+            }
+
+            return periodo;
+        }//Início_Saldo
+
+        protected String DtFim_Saldo()
+        {
+            string periodo = "";
+
+            string hoje = DateTime.Now.ToString("dd-MM-yyyy");
+            string dia = DateTime.Now.Day.ToString();
+            string mes = DateTime.Now.ToString("MM");
+            string ano = DateTime.Now.Year.ToString();
+
+            //Chaca Janeiro
+            if (mes == "01")
+            {
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + ano + "-" + mes + "-19'";
+                }
+            }
+            else
+            {
+
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + ano + "-" + mes + "-19'";
+                }
+            }
+
+            return periodo;
+        }//Fim_Saldo
+
+        protected String DtFim_SaldoNovoCartao()
+        {
+            string periodo = "";
+
+            string hoje = DateTime.Now.ToString("dd-MM-yyyy");
+            string dia = DateTime.Now.Day.ToString();
+            string mes = DateTime.Now.ToString("MM");
+            string ano = DateTime.Now.Year.ToString();
+
+            //Chaca Janeiro
+            if (mes == "01")
+            {
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+                }
+            }
+            else
+            {
+
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+                }
+            }
+
+            return periodo;
+        }//FimSaldoNovoCartao
+
+        //# # # # # # # # # # # # Fim Operações com Data # # # # # # # # # # # #
 
         public double GastosAssociado()
         {
@@ -312,7 +457,101 @@ namespace Site.App_Code
             return gastos;
         }
 
-        public double SaldoAssociado()
+        public double DebitosAssociado()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            double gastos = 0;
+            string mesAtual = DateTime.Now.Month.ToString();
+            string diaAtual = DateTime.Now.Day.ToString();
+
+            //# # # # # Período do Extrato # # # # #
+
+            string dtInicio = "";
+            string dtFim = "";
+
+            if (Mes == mesAtual)
+            {
+                if (Mes == "1") //Janeiro
+                {
+                    dtInicio += "'" + (Convert.ToInt32(Ano) - 1) + "-" + "12" + "-20'";
+                    dtFim += "'" + Ano + "-" + (Convert.ToInt32(Mes)).ToString() + "-19'";
+                }
+                else
+                {
+                    dtInicio += "'" + Ano + "-" + (Convert.ToInt32(mesAtual) - 1).ToString() + "-20'";
+                    dtFim += "'" + Ano + "-" + (Convert.ToInt32(mesAtual)).ToString() + "-19'";
+                }
+            }
+            else
+            {
+                if (Mes == "1")
+                {
+                    dtInicio += "'" + (Convert.ToInt32(Ano) - 1) + "-" + "12" + "-20'";
+                    dtFim += "'" + Ano + "-" + (Convert.ToInt32(Mes)).ToString() + "-19'";
+                }
+                else
+                {
+                    if (Convert.ToInt32(mesAtual) < Convert.ToInt32(mesAtual))
+                    {
+                        dtInicio += "'" + Ano + "-" + (Convert.ToInt32(Ano) - 1).ToString() + "-20'";
+                        dtFim += "'" + Ano + "-" + Mes + "-19'";
+                    }
+                    else
+                    {
+                        dtInicio += "'" + Ano + "-" + (Convert.ToInt32(Mes) - 1) + "-20'";
+                        dtFim += "'" + Ano + "-" + (Convert.ToInt32(Mes)).ToString() + "-19'";
+                    }
+
+                }
+            }
+
+            //# # # # # FIM Período # # # # #
+            /* 
+            ObjDados.Query = " SELECT SUM(valor) FROM assocdeb " +
+                             " WHERE associado = '2747' AND dtvencim BETWEEN '2022-09-20' AND '2022-10-19' AND tipo NOT IN('FECHAM', 'RETBAN', 'RETBA2', 'RETCEF', 'RETNCX', 'RETSIC', 'RETBB', 'PAGEST' ) ";
+            */
+            ObjDados.Campo = " SUM(valor) AS gastos ";
+            ObjDados.Tabela = " assocdeb ";
+            //ObjGastos.Condicao = " WHERE associado = '2747' AND vencimento BETWEEN '2021-10-20' AND '2021-11-19' "; //Exemplo                                        
+
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) - 1).ToString();
+                //ObjDados.Condicao = " WHERE associado = '" + IdAssoc + "' AND vencimento BETWEEN " + dtInicio + " AND " + dtFim + " AND cnscanmom IS NULL ";
+                ObjDados.Condicao = " WHERE associado = '" + IdAssoc + "' AND dtvencim BETWEEN " + dtInicio + "AND " + dtFim + " AND tipo NOT IN('FECHAM', 'RETBAN', 'RETBA2', 'RETCEF', 'RETNCX', 'RETSIC', 'RETBB', 'PAGCON', 'PAGEST', 'PARFIN' ) AND CNSCANMOM IS NULL";
+            }
+            else
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) + 1).ToString();
+                //ObjDados.Condicao = " WHERE associado = '" + IdAssoc + "' AND vencimento BETWEEN " + dtInicio + " AND " + dtFim + " AND cnscanmom IS NULL ";
+                ObjDados.Condicao = " WHERE associado = '" + IdAssoc + "' AND dtvencim BETWEEN " + dtInicio + "AND " + dtFim + " AND tipo NOT IN('FECHAM', 'RETBAN', 'RETBA2', 'RETCEF', 'RETNCX', 'RETSIC', 'RETBB', 'PAGCON', 'PAGEST', 'PARFIN' ) AND CNSCANMOM IS NULL";
+            }
+
+            DataTable dados = ObjDados.RetCampos();
+            //MessageBox.Show("select " + ObjGastos.Campo + " FROM " + ObjGastos.Tabela + " " + ObjGastos.Condicao);
+
+            if (dados.Rows.Count > 0)
+            {
+                if (String.IsNullOrEmpty(dados.Rows[0]["gastos"].ToString()))
+                {
+                    gastos = 0.00;
+                }
+                else
+                {
+                    gastos = double.Parse(dados.Rows[0]["gastos"].ToString()) * -1;
+                }
+            }
+            else
+            {
+                gastos = 0.00;
+            }
+
+
+            return gastos;
+        }
+
+        public double SaldoAssociado_ate_03_11_2022()
         {
             BLL ObjGastos = new BLL(conectVegas);
             BLL ObjCredito = new BLL(conectVegas);
@@ -350,11 +589,13 @@ namespace Site.App_Code
             double gastos = 0.00;
             double credito = 0.00;
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             if (!String.IsNullOrEmpty(dGastos.Rows[0]["gastos"].ToString()))
-            {                
-                gastos = double.Parse(dGastos.Rows[0]["gastos"].ToString());                
+            {
+                gastos = double.Parse(dGastos.Rows[0]["gastos"].ToString());
                 credito = double.Parse(dCredito.Rows[0]["credito"].ToString());
                 saldo = credito - ((gastos) * -1);
             }
@@ -362,9 +603,311 @@ namespace Site.App_Code
             {
                 credito = double.Parse(dCredito.Rows[0]["credito"].ToString());
                 saldo = credito;
-            }            
+            }
 
             return saldo;
+        }
+
+        public double SaldoAssociadoBK()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string mesAtual = DateTime.Now.Month.ToString();
+            string diaAtual = DateTime.Now.Day.ToString();
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+            string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+
+            //# # # Calcula Gastos # # #
+            string query = "";
+            /*
+            query += " SELECT a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito FROM comovime AS m ";
+            query += " INNER JOIN associa AS a ON a.idassoc = m.associado "; */
+
+            //query += " SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito, (SUM(m.valor) + a.credito) AS Saldo FROM comovime AS m " +
+            query += " SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito,";
+            query += "(SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') AS compras, ";
+            query += " IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') IS NULL, (a.credito), (SUM(m.valor) + a.credito)) AS Saldo ";
+            query += " FROM comovime AS m ";
+            query += " INNER JOIN associa AS a ON a.idassoc = m.associado " ;
+            query += " WHERE idassoc IN('" + IdAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";
+
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) - 1).ToString();
+                //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual +           "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";                        
+                query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + DateTime.Now.Year + "-" + (mesAtual) + "-19', m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') ";
+            }
+            else
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) + 1).ToString();
+                //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year).ToString() + "-" + mesAtual + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL";
+                query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + DateTime.Now.Year + "-" + (mesAtual) + "-19', m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') ";
+            }
+
+
+            ObjDados.Query = query;
+            DataTable dados = ObjDados.RetQuery();
+
+            double saldo = 0;
+                        
+            if (dados.Rows.Count > 0)
+            {
+                if (!String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
+                {
+                    saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+                }
+                else
+                {
+                    saldo = 0.00;
+                }
+            }
+            else
+            {
+                saldo = 0.00;
+            }
+
+            return saldo;
+        }
+
+        public double SaldoAssociado()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string q = "SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito," +
+                " (SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '2022-12-20' AND '2023-01-19') AS compras," +
+                //" IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '2022-12-20' AND '2023-01-19') IS NULL, (SUM(m.valor) + a.credito), (SUM(m.valor) + a.credito)) AS Saldo" +
+                " IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito ) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = '" + IdAssoc + "' AND m.DATA BETWEEN '2022-12-20' AND '2023-01-19') = 0, a.credito, (SUM(m.valor) + a.credito)) as Saldo " +
+                " FROM comovime AS m" +
+                " INNER JOIN associa AS a ON a.idassoc = m.associado" +
+                " WHERE idassoc IN('" + IdAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL" +                
+                " AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2022-12-20' AND '2023-01-19', m.vencimento BETWEEN '2022-12-20' AND '2023-12-19')";
+
+            string queryXXX = "SELECT a.idassoc, a.titular,  IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) AS gastos, a.credmodelo, a.credito, " +
+                "(SELECT SUM(valor) FROM comovime WHERE associado = a.idassoc AND DATA BETWEEN '2023-01-20' AND '2023-02-19') AS compras, " +
+                "IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = '" + IdAssoc + "' AND m.DATA BETWEEN '2023-01-20' AND '2023-02-19') = 0, a.credito, (SUM(m.valor) + a.credito)) AS Saldo,  " +
+                "(SELECT SUM(valor) AS Debito FROM assocdeb WHERE associado = a.idassoc AND cnscanmom IS NULL) as Debito " +
+                "FROM comovime AS m " +
+                "INNER JOIN associa AS a ON a.idassoc = m.associado " +
+                "WHERE a.idassoc IN('"+ IdAssoc +"') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL " +
+                "AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2023-01-20' AND '2023-02-19', m.vencimento BETWEEN '2023-01-20' AND '2023-12-19')";
+
+            string query = " SELECT titular, credito, " +
+                           " (SELECT IF(m.valor IS NOT NULL, (SUM(m.valor) + a.credito), SUM(m.valor))" +
+                           " FROM comovime AS m" +
+                           "  LEFT JOIN associa AS a ON a.idassoc = m.associado" +
+                           " WHERE a.idassoc IN('" + IdAssoc + "')" +
+                           "  AND a.cnscanmom IS NULL" +
+                           "  AND m.cnscanmom IS NULL" +                           
+                           "  AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN " + dtIni_Saldo() + " AND " + DtFim_Saldo() + ", m.vencimento BETWEEN " + dtIni_Saldo() + " AND " + DtFim_SaldoNovoCartao() + ")) as Saldo " +
+                           " FROM associa" +
+                           " WHERE idassoc IN('" + IdAssoc + "')AND cnscanmom IS NULL";
+
+
+            ObjDados.Query = query;
+            DataTable dados = ObjDados.RetQuery();           
+
+            double saldo = 0;
+
+            string valida = dados.Rows[0]["saldo"].ToString();
+
+            if (String.IsNullOrEmpty(valida))
+            {
+                saldo = Convert.ToDouble(dados.Rows[0]["credito"].ToString());
+            }
+            else
+            {
+                saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+            }
+            /*
+            if (dados.Rows.Count > 0)
+            {
+                if (!String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
+                {
+                    saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+                }
+                else
+                {
+                    saldo = 0.00;
+                }
+            }
+            else
+            {
+                saldo = 0.00;
+            }
+            */
+
+            //return query;
+            return saldo;
+
+        }
+        public double SaldoAssociado_Original()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string mesAtual = DateTime.Now.Month.ToString();
+            string diaAtual = DateTime.Now.Day.ToString();
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+            string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+
+            //# # # Calcula Gastos # # #
+            string query = "";
+            /*
+            query += " SELECT a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito FROM comovime AS m ";
+            query += " INNER JOIN associa AS a ON a.idassoc = m.associado "; */
+
+            //query += " SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito, (SUM(m.valor) + a.credito) AS Saldo FROM comovime AS m " +
+            query += " SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito,";
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) - 1).ToString();
+                //query += "(SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') AS compras, ";
+                //query += " IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') IS NULL, (a.credito), (SUM(m.valor) + a.credito)) AS Saldo ";
+                query += "(SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + "2023" + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') AS compras, ";
+                query += " IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') IS NULL, (a.credito), (SUM(m.valor) + a.credito)) AS Saldo ";
+
+            }
+            else
+            {
+                mesAtual = (Convert.ToInt32(mesAtual)).ToString();
+                query += "(SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') AS compras, ";
+                query += " IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') IS NULL, (a.credito), (SUM(m.valor) + a.credito)) AS Saldo ";
+            }
+            query += " FROM comovime AS m ";
+            query += " INNER JOIN associa AS a ON a.idassoc = m.associado ";
+            query += " WHERE idassoc IN('" + IdAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";
+
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual)).ToString();
+                //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual +           "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";                        
+                query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-19', m.vencimento " +
+                                                                           "BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') ";
+            }
+            else
+            {
+                mesAtual = (Convert.ToInt32(mesAtual)).ToString();
+                //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year).ToString() + "-" + mesAtual + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL";
+                query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + DateTime.Now.Year + "-" + mesAtual + "-19', m.vencimento " +
+                                                                           "BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + mesAtual + "-19') ";
+            }
+
+
+            ObjDados.Query = query;
+            DataTable dados = ObjDados.RetQuery();
+
+            double saldo = 0;
+
+            if (dados.Rows.Count > 0)
+            {
+                if (!String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
+                {
+                    saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+                }
+                else
+                {
+                    saldo = 0.00;
+                }
+            }
+            else
+            {
+                saldo = 0.00;
+            }
+
+
+            //return query;
+            return saldo;
+        }
+
+        public String SaldoAssociadoT()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string mesAtual = DateTime.Now.Month.ToString();
+            string diaAtual = DateTime.Now.Day.ToString();
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+            string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
+
+            //# # # Calcula Gastos # # #
+            string query = "";
+            /*
+            query += " SELECT a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito FROM comovime AS m ";
+            query += " INNER JOIN associa AS a ON a.idassoc = m.associado "; */
+
+            /* query += " SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito, (SUM(m.valor) + a.credito) AS Saldo FROM comovime AS m " +
+                      " INNER JOIN associa AS a ON a.idassoc = m.associado " +
+                      " WHERE idassoc IN('" + IdAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";
+
+             if (Convert.ToInt32(diaAtual) < 20)
+             {
+                 mesAtual = (Convert.ToInt32(mesAtual) - 1).ToString();
+                 //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual +           "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";                        
+                 query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + DateTime.Now.Year + "-" + (mesAtual + 1) + "-19', m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') ";
+             }
+             else
+             {
+                 mesAtual = (Convert.ToInt32(mesAtual) + 1).ToString();
+                 //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year).ToString() + "-" + mesAtual + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL";
+                 query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + DateTime.Now.Year + "-" + (mesAtual + 1) + "-19', m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') ";
+             }
+
+             */
+
+            query += " SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito,";
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) - 1).ToString();
+                query += "(SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') AS compras, ";
+                query += " IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') IS NULL, (a.credito), (SUM(m.valor) + a.credito)) AS Saldo ";
+            }
+            else
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) + 1).ToString();
+                query += "(SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') AS compras, ";
+                query += " IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') IS NULL, (a.credito), (SUM(m.valor) + a.credito)) AS Saldo ";
+            }
+            query += " FROM comovime AS m ";
+            query += " INNER JOIN associa AS a ON a.idassoc = m.associado ";
+            query += " WHERE idassoc IN('" + IdAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";
+
+            if (Convert.ToInt32(diaAtual) < 20)
+            {
+                mesAtual = (Convert.ToInt32(mesAtual)).ToString();
+                //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual +           "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL ";                        
+                query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-19', m.vencimento " +
+                                                                           "BETWEEN '" + DateTime.Now.Year + "-" + mesAtual + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + DateTime.Now.Month + "-19') ";
+            }
+            else
+            {
+                mesAtual = (Convert.ToInt32(mesAtual) + 1).ToString();
+                //query += " WHERE m.associado = '" + IdAssoc + "' AND m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year).ToString() + "-" + mesAtual + "-19' AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL";
+                query += " AND IF(a.credmodelo IN ('vlparce'), m.vencimento BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + DateTime.Now.Year + "-" + mesAtual + "-19', m.vencimento " +
+                                                                           "BETWEEN '" + DateTime.Now.Year + "-" + DateTime.Now.Month + "-20' AND '" + Convert.ToInt32(DateTime.Now.Year + 1).ToString() + "-" + mesAtual + "-19') ";
+            }
+
+            ObjDados.Query = query;
+            DataTable dados = ObjDados.RetQuery();
+
+            string xQuery = query;
+
+#pragma warning disable CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
+            double saldo = 0;
+#pragma warning restore CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
+
+            if (dados.Rows.Count > 0)
+            {
+                //saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+                saldo = 10.00;
+            }
+            else
+            {
+                saldo = 0.00;
+            }
+
+            //return saldo;
+            return xQuery;
         }
 
         public double limiteAssociado()
@@ -379,7 +922,8 @@ namespace Site.App_Code
 
             DataTable dcredito = ObjDados.RetCampos();
 
-            if (!String.IsNullOrEmpty(dcredito.Rows[0]["credito"].ToString())) {
+            if (!String.IsNullOrEmpty(dcredito.Rows[0]["credito"].ToString()))
+            {
 
                 limite = double.Parse(dcredito.Rows[0]["credito"].ToString());
             }
@@ -496,7 +1040,8 @@ namespace Site.App_Code
                     xRet += "Deu Erro:" + ObjDados.MsgErro;
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 xRet += "Erro: " + e.Message;
             }
 
@@ -545,7 +1090,7 @@ namespace Site.App_Code
 
         public void fazerDownload()
         {
-            
+
             /*Exibir Arquivos no Diretório*/
             DirectoryInfo diretorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\Convenios\");
 
@@ -579,6 +1124,8 @@ namespace Site.App_Code
 
             //return xArq;
         }
+
+
 
     }//class Apoio
 }

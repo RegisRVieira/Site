@@ -555,6 +555,24 @@ namespace Site
         protected global::System.Web.UI.WebControls.LinkButton lbtnNegar;
 
         /// <summary>
+        /// Controle secMsg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl secMsg;
+
+        /// <summary>
+        /// Controle lblMsgPremio.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsgPremio;
+
+        /// <summary>
         /// Controle vwAssocCartoes.
         /// </summary>
         /// <remarks>
@@ -1020,7 +1038,7 @@ namespace Site
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataIni;
+        protected global::System.Web.UI.WebControls.TextBox iDataIni;
 
         /// <summary>
         /// Controle iDataFin.
@@ -1029,7 +1047,7 @@ namespace Site
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputGenericControl iDataFin;
+        protected global::System.Web.UI.WebControls.TextBox iDataFin;
 
         /// <summary>
         /// Controle btnGerarData.

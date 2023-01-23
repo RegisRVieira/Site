@@ -43,7 +43,9 @@ namespace Site
             //string condicao = " WHERE IP='" + IP + "' OR id IS NULL  ";
             string condicao = " WHERE IP='" + IP + "'";
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
@@ -61,7 +63,7 @@ namespace Site
                     {
                         //MessageBox.Show("Tem que Gravar!");
                         //MessageBox.Show(dados.Rows[0]["id"].ToString() + " - " + IP);
-                        //termo.Attributes["class"] = "desativa";
+                        termo.Attributes["class"] = "desativa";
                     }
                     else
                     {
@@ -148,9 +150,15 @@ namespace Site
             int tamanhocampo = codAcesso.Length;
             bool validacpf = true; //Variável para checar se o campo cpf tem 11 ou 14 caracteres, se não tiver emite mensagem de erro. 
 
+#pragma warning disable CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
             string rDigVerifica;
+#pragma warning restore CS0168 // A variável "rDigVerifica" está declarada, mas nunca é usada
+#pragma warning disable CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
             string wdv = "";
+#pragma warning restore CS0219 // A variável "wdv" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
             string idCartao = "";                        
+#pragma warning restore CS0219 // A variável "idCartao" é atribuída, mas seu valor nunca é usado
 
             if (String.IsNullOrEmpty(iCpf.Value) || String.IsNullOrEmpty(iSenha.Value))
             {

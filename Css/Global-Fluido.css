@@ -9,6 +9,132 @@ html, body{
     clear: both;    
 }
 
+/*## CSS - Cartões ##*/
+    
+.divCartao {        
+    margin-left: 10px;
+    width: 752px;
+    height: 486px;    
+}
+
+.divCartaoImg {
+    width: 752px;
+    height: 486px;
+}
+    .divCartaoImg img {
+        width: 750px;
+    }
+.divCartaoNome {
+    padding: 0;    
+    width: 720px;
+    font-size: 1.5em;
+}
+.divCartaoNumero {    
+    width: 720px;
+    font-size: 2.5em;
+    padding-left: 30px;
+}
+.divCartaoValidade {    
+    margin-left: 28px;
+    width: 720px;
+    font-size: 1.5em;
+    text-align: right;
+    padding-right: 30px;
+}
+
+/*## Fim - Cartões ##*/
+
+
+/*# # Home # #*/
+
+.secBrindeMsg{ 
+    height: 428px;
+ }
+.secBrinde {        
+    right: 7%;
+    width: 850px;
+    height: 540px;    
+}
+
+.secBrindeTexto {    
+    height: 300px;
+}
+    .secBrindeTexto p {
+        font-size: 1.42em;         
+    }
+.secBrindePeriodo{        
+    height: 125px;    
+    border: 1px solid #e1e0e0;    
+    border-radius: 12px;    
+}
+    .secBrindePeriodo h1{
+        font-size: 2.5em;
+    }
+    .secBrindePeriodo h2{
+        font-size: 1.5em;
+        margin-top: -35px;
+    }
+.btn_Brinde {
+        width: 100%;
+        height: 110px;        
+    }
+    .btn_Brinde div {
+        width: 70%;                                         
+        height: 109px;
+        padding-top: 33px;        
+    }
+.btn_Brinde a{    
+    background-color: white;    
+    padding: 24px;
+    color: #22396f;
+    border-radius: 10px;
+    font-size: 1.8em;
+}
+
+/*## Termo de Privacidade ##*/
+
+ .dv_termo {
+        position: fixed;             
+        margin-top: 1250px;        
+        /*margin-top: 600px;        */
+        width: 810px;
+        height: 160px;        
+        border: 3px solid #22396f;
+        left: 5%;        
+    }
+    .texto_termo p{
+        font-size: 24px;
+    }
+.aprova_termo{
+    padding: 20px;
+    font-size: 40px;
+    margin-top: -60px;
+}
+.btnRecusaTermo{    
+    margin-top: -10px;
+    width: 150px;    
+}
+    .btnRecusaTermo a {        
+        padding-left: 30px;
+        padding-right: 30px;
+        font-size: 20px;        
+    }
+
+.btn_termo{    
+    height: 155px;
+}
+.btn_termo div{
+    font-size: 24px;    
+    padding-top: 30px;
+    width: 100%;    
+}
+.btn_termo a{    
+    background-color: white;
+    padding: 20px;
+    color: #22396f;
+    border-radius: 10px;
+}
+
 
 /* * * * *  N A V  * * * * */
 .navHome {

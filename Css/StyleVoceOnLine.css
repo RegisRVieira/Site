@@ -41,10 +41,14 @@
 }
 
 }
+.saldoAssocNormal{
+    width: 900px;
+    min-height: 20px; 
+}
 
-.extAssocNormal{    
-    width: 600px;
-    min-height: 50px;        
+.extAssocNormal {
+    width: 800px;
+    min-height: 50px;
 }
 
 .extAssocFluido {
@@ -160,6 +164,7 @@
     color: #7495d0;        
     padding-top: 14px;
     padding-bottom: 12px;
+    height: 42px;
 }
 .menuflutua li:hover{
     background-color: #7495d0;
@@ -226,6 +231,7 @@
 .btnCompVenda {
     margin: 10px 0 60px 0;
     width: 400px;
+    
 }
 
 
@@ -387,11 +393,14 @@ slinhalimete {
 }
 
 /* - - - - - - - - Menu Lateral - - - - - - - - - - */
-
+    
 
 .extAssocNormal{
     display: none;    
 
+}
+.saldoAssocNormal{
+    display: none;
 }
 .extAssocFluido{
     display: inline;    

@@ -14,11 +14,13 @@
 <body>
     <nav class="navHome-Internas">
         <p>
-            <a href="Home.aspx">
+            <a href="http://www.asu.com.br/Home.aspx">
                 <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
         </p>
     </nav>
     <main class="corpoContASU">
+        <p>Em Breve</p>
+        <!--
         <section class="secContCalendar">
             <h1>Calendário de Eventos</h1>
             <div class="calendar efeito-1">
@@ -61,8 +63,9 @@
                     <img src="../../Img/Daruma.jpg" />
                 </div>
                 <div class="BoxContLocal-Img">
+            -->
                     <!--<img src="../../Img/Mapa-Clube.jpg" />-->
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.2547596022328!2d-48.44683698444747!3d-22.9408429448559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c6de8c104164bb%3A0x32ccd8cd68ddd330!2sSabor%20%26%20Mordomia%20Buffet%2FEspa%C3%A7o%20Daruma%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1624576770337!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
+               <!--     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3674.2547596022328!2d-48.44683698444747!3d-22.9408429448559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c6de8c104164bb%3A0x32ccd8cd68ddd330!2sSabor%20%26%20Mordomia%20Buffet%2FEspa%C3%A7o%20Daruma%20Eventos!5e0!3m2!1spt-BR!2sbr!4v1624576770337!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </section>
         </section>
@@ -100,6 +103,7 @@
                 </section>
             </div>
         </section>
+        -->
     </main>
     <footer class="footerHome">            
             <div class="footerHome-Dados">

@@ -46,20 +46,44 @@ namespace Site.Adm
             carregarGvImgCampoCont();
             carregarGvImgPosicao();
             carregarGvImgAlinha();
-            carregarGvImagens();            
+            carregarGvImagens();
         }
 
+        protected void ativarViewsConfig(int ativa)
+        {
+            mwGridConfig.ActiveViewIndex = ativa;
+            mwConfiguracoes.ActiveViewIndex = ativa;
+        }
+        protected void btnGridConfigTermo(object sender, EventArgs e)
+        {
+            ativarViewsConfig(0);
+            carregarGvConfigTermo();
+            popularEmpresa();
+        }
+        protected void btnGridTermo(object sender, EventArgs e)
+        {
+            ativarViewsConfig(1);
+            carregarGvTermo();            
+        }
+        protected void btnGridConfigBrinde(object sender, EventArgs e)
+        {
+            ativarViewsConfig(2);
+            carregarGvConfigBrinde();
+        }
+        protected void btnGridBrinde(object sender, EventArgs e)
+        {
+            ativarViewsConfig(3);
+            carregarGvBrinde();
+        }
         public void ativarViews(int ativa)
         {
             mwForm.ActiveViewIndex = ativa;
             mwGrid.ActiveViewIndex = ativa;
-
         }
         public void ativarVwEmpresa(object sender, EventArgs e)
         {
             ativarViews(0);
         }
-
         public void ativarVwCategoria(object sender, EventArgs e)
         {
             ativarViews(1);
@@ -102,6 +126,426 @@ namespace Site.Adm
         {
             ativarViews(10);
         }
+
+        /*Configurações*/
+
+        //Cobfiguração Termo
+        public void carregarGvConfigTermo()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " * ";
+            string tabela = " st_termo_privacidade_conf ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvConfigTermo.DataSource = dados;
+            gvConfigTermo.DataBind();
+        }
+        public void paginarGvConfigTermo(object sender, GridViewPageEventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " id, texto, texto2, dtini, dtfim, cadusu, cadmom ";
+            string tabela = " st_termo_privacidade_conf ";
+            string condicao = " order by id desc ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvConfigTermo.DataSource = dados;
+            gvConfigTermo.PageIndex = e.NewPageIndex;
+            gvConfigTermo.DataBind();
+        }
+        protected void selecionarRegistroGvConfigTermo(object sender, EventArgs e)
+        {
+            lblConfigTermo.Text = gvConfigTermo.SelectedRow.Cells[1].Text;
+            taTextConfigTermo.Value = gvConfigTermo.SelectedRow.Cells[4].Text;
+            taText2ConfigTermo.Value = gvConfigTermo.SelectedRow.Cells[5].Text;
+
+            string nome = iNome.Value;
+
+            //bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[^a-zA-Z0-9]"));
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iNome.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iNome.Value = string.Join("", iNome.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+        public void popularEmpresa() //Popula "DropDownList" com dados da tabela
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            ObjDados.Tabela = " st_empresa ";
+            ObjDados.Campo = " * ";
+            ObjDados.Condicao = " order by cadmom asc ";
+
+            stEmpresaConfigTermo.DataSource = ObjDados.RetCampos();
+            stEmpresaConfigTermo.DataValueField = "id";
+            stEmpresaConfigTermo.DataTextField = "nome";
+            stEmpresaConfigTermo.DataBind();
+        }
+        protected void cadastrarConfigTermo(object sender, EventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+            Apoio Apoio = new Apoio();
+
+            string Inicio = iDtIni_ConfigTermo.Value;
+            string Fim = iDtFim_ConfigTermo.Value;
+            string xValores = "";
+            
+            xValores += "'" + stEmpresaConfigTermo.Value + "',";
+            xValores += "'" + taTextConfigTermo.Value + "',";
+            xValores += "'" + taText2ConfigTermo.Value + "',";
+            if (!String.IsNullOrWhiteSpace(Inicio))
+            {
+                xValores += "'" + Inicio + " " + Apoio.hora() + "',";
+            }
+            else
+            {
+                xValores += "null" + ",";
+            };
+            if (!String.IsNullOrEmpty(Fim))
+            {
+                xValores += "'" + Fim + " " + Apoio.hora() + "',";
+            }
+            else
+            {                
+                xValores += "null" + ",";
+            }
+            xValores += "'" + Session["LoginUsuario"].ToString() + "',";
+            xValores += "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'";
+
+            string campos = " id_empresa, texto, texto2, dtIni, dtFim, cadusu, cadmom";
+            string tabela = " st_termo_privacidade_conf ";
+            string condicao = " WHERE id_empresa = '" + stEmpresaConfigTermo.Value + "' ";
+            string valores = String.Format(xValores);
+
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Condicao = condicao;
+            ObjDados.Valores = valores;
+
+            DataTable dados = ObjDados.RetCampos();                       
+            
+            //MessageBox.Show("INSERT iNTO " + ObjDados.Tabela + "(" + ObjDados.Campo + ") Values " + " (" + ObjDados.Valores  + ")");
+            
+
+            if (ObjDados.MsgErro == "")
+            {
+                //Exibir query antes de executar            
+
+                if (!String.IsNullOrEmpty(taTextConfigTermo.Value))
+                {
+                    ObjDados.InsertRegistro(tabela, campos, valores);
+                    carregarGvConfigTermo();
+                }
+                else
+                {
+                    lblMsg.Text = "É preciso Preencher os Campos.";
+                }
+                lblResult.Text = String.Empty;
+                taTextConfigTermo.Value = String.Empty;
+                taText2ConfigTermo.Value = String.Empty;
+                taTextConfigTermo.Focus();                       
+            }
+            else
+            {
+                lblResult.Text = "Erro:" + ObjDados.MsgErro;
+            }
+        }
+        protected void editarConfigTermo(object sender, EventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+            Apoio Apoio = new Apoio();
+
+            string Inicio = iDtIni_ConfigTermo.Value;
+            string fim = iDtFim_ConfigTermo.Value;
+            string idConfigTermo = "";
+
+            if (gvConfigTermo.SelectedIndex != (-1))
+            {
+                idConfigTermo = gvConfigTermo.SelectedRow.Cells[1].Text;
+
+                string tabela = " st_termo_privacidade_conf ";
+                string valores = "";
+                valores += " id = '" + idConfigTermo + "'";
+                valores += ", texto = '" + taTextConfigTermo.Value + "'";
+                valores += ", texto2 = '" + taText2ConfigTermo.Value + "'";
+                if (!String.IsNullOrEmpty(iDtIni_ConfigTermo.Value))
+                {
+                    valores += ", dtIni = '" + Inicio + " " + Apoio.hora() + "'";
+                };
+                if (!String.IsNullOrEmpty(iDtFim_ConfigTermo.Value))
+                {
+                    valores += ", dtFim = '" + fim + " " + Apoio.hora() + "'";
+                };
+                valores += ", altusu = '" + Session["LoginUsuario"].ToString() + "'";
+                valores += ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+
+                string condicao = " id = '" + idConfigTermo + "'";
+
+                ObjDados.Tabela = tabela;
+                ObjDados.Valores = valores;
+                ObjDados.Condicao = condicao;
+
+                //MessageBox.Show("UPDATE " + ObjDados.Tabela + " (" + ObjDados.Valores + ")" + "WHERE " + ObjDados.Condicao);            
+
+                if (ObjDados.MsgErro == "")
+                {
+                    ObjDados.EditRegistro(tabela, valores, condicao);
+                    lblMsg.Text = "Dados alterados com sucesso!";
+                    carregarGvConfigTermo();
+                }
+                else
+                {
+                    lblMsg.Text = "Erro: " + ObjDados.MsgErro.ToString();
+                }
+            }
+            else
+            {
+                lblMsg.Text = "Selecione um regsitro para Editar.";
+            }
+
+            iDescTipo.Value = String.Empty;
+            iCodTipo.Value = String.Empty;
+
+        }
+        protected void excluirConfigTermo(object sender, EventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string idConfiTermo = "";
+            string xRet = "";
+            xRet += "<script>";
+
+            xRet += btnExcConfigTermo + "= document.querySelector('" + "iMotCancela" + "');";
+            xRet += btnExcConfigTermo + ".onclick = function() {";//Início Função            
+
+            xRet += "var x= prompt('Digite!');";
+            xRet += "};";//Fim Função
+            xRet += "</script>";
+
+            //iMotCancela.Visible = true;
+
+            if (gvConfigTermo.SelectedIndex != (-1))
+            {
+                idConfiTermo = gvConfigTermo.SelectedRow.Cells[1].Text;
+
+                string motivo = "";
+
+                string tabela = " st_termo_privacidade_conf ";
+                string valores = " canusu = '" + Session["LoginUsuario"].ToString() + "'" +
+                                 ", canmot = '" + motivo + "' " +
+                                 ", canmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
+                string condicao = " id = '" + idConfiTermo + "'";
+
+                ObjDados.Tabela = tabela;
+                ObjDados.Valores = valores;
+                ObjDados.Condicao = condicao;
+
+                //MessageBox.Show("UPDATE " + tabela + "(" + valores + ") " + "Where " + condicao);
+
+                if (ObjDados.MsgErro == "")
+                {
+                    ObjDados.EditRegistro(tabela, valores, condicao);
+                    lblMsg.Text = "Registro Cancelado com sucesso!";
+                    carregarGvConfigTermo();                    
+                }
+                else
+                {
+                    lblMsg.Text = "Erro: " + ObjDados.MsgErro;
+                }
+            }
+            else
+            {
+                lblMsg.Text = "É preciso Selcecionar um Registro!";
+            }
+            //MessageBox.Show(ObjDados.Msg);
+
+            taTextConfigTermo.Value = String.Empty;                        
+        }
+
+        //Fim: Configuração Termo
+
+        //Exibe Termo de Privacidade
+
+        public void carregarGvTermo()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " * ";
+            string tabela = " st_termo_privacidade ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvTermo.DataSource = dados;
+            gvTermo.DataBind();
+        }
+        public void paginarGvTermo(object sender, GridViewPageEventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " id, login_acesso, ip, status, cadusu, cadmom ";
+            string tabela = " st_termo_privacidade ";
+            string condicao = " order by id desc ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvTermo.DataSource = dados;
+            gvTermo.PageIndex = e.NewPageIndex;
+            gvTermo.DataBind();
+        }
+        protected void selecionarRegistroGvTermo(object sender, EventArgs e)
+        {
+            lblTermo.Text = gvTermo.SelectedRow.Cells[1].Text;
+            //taTextConfigTermo.Value = GvTermo.SelectedRow.Cells[4].Text;
+            //taText2ConfigTermo.Value = GvTermo.SelectedRow.Cells[5].Text;
+
+            string nome = iNome.Value;
+
+            //bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[^a-zA-Z0-9]"));
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iNome.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iNome.Value = string.Join("", iNome.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+
+        //Fim: Exibe Termo de Privacidade
+
+
+        //Exibe Configuração Brinde
+
+        public void carregarGvConfigBrinde()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " * ";
+            string tabela = " st_premiacao_conf ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvConfigBrinde.DataSource = dados;
+            gvConfigBrinde.DataBind();
+        }
+        public void paginarGvConfigBrinde(object sender, GridViewPageEventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " id, nome, exclusivo, dtIni, dtfim, cadusu, cadmom ";
+            string tabela = " st_premiacao_conf ";
+            string condicao = " order by id desc ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvConfigBrinde.DataSource = dados;
+            gvConfigBrinde.PageIndex = e.NewPageIndex;
+            gvConfigBrinde.DataBind();
+        }
+        protected void selecionarRegistroGvConfigBrinde(object sender, EventArgs e)
+        {
+            lblConfigBrind.Text = gvConfigBrinde.SelectedRow.Cells[1].Text;
+
+            string nome = iNome.Value;
+
+            //bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[^a-zA-Z0-9]"));
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iNome.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iNome.Value = string.Join("", iNome.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+
+        //Fim: Exibe Termo de Privacidade
+
+        //Exibe Configuração Brinde
+
+        public void carregarGvBrinde()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " * ";
+            string tabela = " st_premiacao ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvPremios.DataSource = dados;
+            gvPremios.DataBind();
+        }
+        public void paginarGvBrinde(object sender, GridViewPageEventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string campos = " id, nome, exclusivo, dtIni, dtfim, cadusu, cadmom ";
+            string tabela = " st_premiacao ";
+            string condicao = " order by id desc ";
+
+            ObjDados.Campo = campos;
+            ObjDados.Tabela = tabela;
+            ObjDados.Condicao = condicao;
+
+            DataTable dados = ObjDados.RetCampos();
+
+            gvPremios.DataSource = dados;
+            gvPremios.PageIndex = e.NewPageIndex;
+            gvPremios.DataBind();
+        }
+        protected void selecionarRegistroGvBrinde(object sender, EventArgs e)
+        {
+            lblBrinde.Text = gvPremios.SelectedRow.Cells[1].Text;
+
+            string nome = iNome.Value;
+
+            //bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[^a-zA-Z0-9]"));
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iNome.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iNome.Value = string.Join("", iNome.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+        }
+
+        //Fim: Exibe Termo de Privacidade
+        /*Fim Configurações*/
         public void ultimoRegistro()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -134,7 +578,7 @@ namespace Site.Adm
             //ObjDados.Campo = "" + " c.titulo, c.fonte, c.autor, i.path_img, i.titulo, i.descritivo, i.cadusu, t.descricao ";
             ObjDados.Campo = "" + " i.titulo, i.fonte, i.autor, i.path_img, i.descritivo,  i.cadusu, i.hint, id_conteudo ";
             ObjDados.Tabela = "" + " st_imagens AS i ";
-            
+
             //ObjDados.Left = "" + " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
             //                     " INNER JOIN st_tipo AS t ON t.cod = c.cod_tipo ";
             //ObjDbASU.Condicao = " WHERE i.id_conteudo = '55' ";
@@ -143,7 +587,7 @@ namespace Site.Adm
             gvImagens.DataSource = ObjDados.RetCampos();
             gvImagens.DataBind();
         }
-        
+
         public void carregarGvEmpresa()
         {
             BLL ObjAdm = new BLL(conectSite);
@@ -208,10 +652,10 @@ namespace Site.Adm
             lblCodCategoria.Text = gvCategoria.SelectedRow.Cells[1].Text;
             iCodCategoria.Value = gvCategoria.SelectedRow.Cells[1].Text;
             iDescCategoria.Value = gvCategoria.SelectedRow.Cells[4].Text;
-            
+
             string nome = iDescCategoria.Value;
 
-            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));            
+            bool existeCaracterEspecial = Regex.IsMatch(nome, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
 
             if (existeCaracterEspecial)
             {
@@ -266,7 +710,7 @@ namespace Site.Adm
             iSenhaUsuario.Value = gvUsuarios.SelectedRow.Cells[6].Text;
             iEmailUsuario.Value = gvUsuarios.SelectedRow.Cells[7].Text;
             iCPFUsuario.Value = gvUsuarios.SelectedRow.Cells[8].Text;
-            
+
 
             string nome = iUsuarioUsu.Value;
 
@@ -283,7 +727,7 @@ namespace Site.Adm
         {
             lblCodTipo.Text = gvTipo.SelectedRow.Cells[1].Text;
             iCodTipo.Value = gvTipo.SelectedRow.Cells[1].Text;
-            iDescTipo.Value = gvTipo.SelectedRow.Cells[3].Text;            
+            iDescTipo.Value = gvTipo.SelectedRow.Cells[3].Text;
 
             string nome = iDescTipo.Value;
 
@@ -351,13 +795,13 @@ namespace Site.Adm
         {
             string idImagem = gvImagens.SelectedRow.Cells[1].Text;
 
-            iImgTitulo.Value = gvImagens.SelectedRow.Cells[1].Text;            
+            iImgTitulo.Value = gvImagens.SelectedRow.Cells[1].Text;
             iImgFonte.Value = gvImagens.SelectedRow.Cells[2].Text;
             iImgAutor.Value = gvImagens.SelectedRow.Cells[3].Text;
             iImgPath.Value = gvImagens.SelectedRow.Cells[4].Text;
             iImgDescricao.Value = gvImagens.SelectedRow.Cells[5].Text;
             iImgHint.Value = gvImagens.SelectedRow.Cells[7].Text;
-            
+
             //" i.titulo, i.fonte, i.autor, i.path_img, i.descritivo,  i.cadusu, i.hint, id_conteudo "
         }
         public void carregarGvCategoria()
@@ -577,7 +1021,7 @@ namespace Site.Adm
             gvImgAlinha.DataSource = ObjAlinha.RetCampos();
             gvImgAlinha.PageIndex = e.NewPageIndex;
             gvImgAlinha.DataBind();
-        }        
+        }
         protected void cadastrarEmpresa(object sender, EventArgs e)
         {
             BLL ObjEmpresa = new BLL(conectSite);
@@ -634,7 +1078,7 @@ namespace Site.Adm
             //MessageBox.Show("UPDATE" + tabela + " SET " + valores + condicao);
             carregarGvEmpresa();
 
-        }                
+        }
         protected void ativarMotivo(object sender, EventArgs e)
         {
             System.Windows.Forms.Button btn = sender as System.Windows.Forms.Button;
@@ -650,7 +1094,7 @@ namespace Site.Adm
             {
                 lblMsg.Text = "Algo Errado...";
             }
-            
+
             /*iExcluEmpresaMot.Visible = true;
             btnExcEmpresa.Visible = true;
             btnMotExcEmpresa.Visible = false;*/
@@ -672,7 +1116,7 @@ namespace Site.Adm
             ObjDados.Condicao = condicao;
 
             if (ObjDados.MsgErro == "")
-            {                
+            {
                 if (!String.IsNullOrEmpty(iExcluEmpresaMot.Value))
                 {
                     ObjDados.EditRegistro(tabela, valores, condicao);
@@ -688,11 +1132,11 @@ namespace Site.Adm
                 {
                     lblMsg.Text = "Obrigatório preeenchimento do Motivo";
                 }
-                
+
             }
 
-           
-            
+
+
             carregarGvEmpresa();
         }
         protected void cadastrarCategoria(object sender, EventArgs e)
@@ -751,7 +1195,7 @@ namespace Site.Adm
             string valores = " cod = '" + iCodCategoria.Value + "'" +
                              ", descricao = '" + iDescCategoria.Value + "'" +
                              ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
-                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";                                              
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
             string condicao = " cod = '" + lblCodCategoria.Text + "'";
 
             ObjDados.Tabela = tabela;
@@ -844,7 +1288,7 @@ namespace Site.Adm
             string codMenu = lblCodMenu.Text;
 
             string tabela = " st_menu ";
-            string valores = " cod = '" + iCodMenu.Value + "'" +                             
+            string valores = " cod = '" + iCodMenu.Value + "'" +
                              ", descricao = '" + iDescMenu.Value + "'" +
                              ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
                              ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
@@ -1056,7 +1500,7 @@ namespace Site.Adm
             string codTipo = lblCodTipo.Text;
 
             string tabela = " st_tipo ";
-            string valores = " cod = '" + codTipo + "'" +                             
+            string valores = " cod = '" + codTipo + "'" +
                              ", descricao = '" + iDescTipo.Value + "'" +
                              ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
                              ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
@@ -1184,7 +1628,7 @@ namespace Site.Adm
             iSenhaUsuario.Value = String.Empty;
             iEmailUsuario.Value = String.Empty;
             iCPFUsuario.Value = String.Empty;
-                        
+
             carregarGvUsuarios();
         }
         protected void excluirUsuario(object sender, EventArgs e)
@@ -1269,11 +1713,11 @@ namespace Site.Adm
 
             string tabela = " st_imgcampoconteudo ";
             string valores = " cod = '" + codCampoConteudo + "'" +
-                             ", descricao = '" + iDescCampConteudo.Value + "'" +                             
+                             ", descricao = '" + iDescCampConteudo.Value + "'" +
                              ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
                              ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
             string condicao = " cod = '" + codCampoConteudo + "'";
-                        
+
 
             ObjDados.Tabela = tabela;
             ObjDados.Valores = valores;
@@ -1287,7 +1731,7 @@ namespace Site.Adm
             //MessageBox.Show(ObjDados.Msg);
 
             iCodCampConteudo.Value = String.Empty;
-            iDescCampConteudo.Value = String.Empty;            
+            iDescCampConteudo.Value = String.Empty;
 
             carregarGvImgCampoCont();
         }
@@ -1557,7 +2001,7 @@ namespace Site.Adm
                              ", autor = '" + iImgAutor.Value + "'" +
                              ", path_img = '" + iImgPath.Value + "'" +
                              ", altusu = '" + Session["LoginUsuario"].ToString() + "'" +
-                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";            
+                             ", altmom = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "' ";
             string condicao = " cod = '" + idImagem + "'";
 
             ObjDados.Tabela = tabela;
@@ -1577,7 +2021,7 @@ namespace Site.Adm
             iImgAutor.Value = String.Empty;
             iImgPath.Value = String.Empty;
 
-            carregarGvImagens();            
+            carregarGvImagens();
 
         }
 

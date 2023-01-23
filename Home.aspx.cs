@@ -25,6 +25,8 @@ namespace Site
                 usuarioLogado();
                 checarTermoPrivacidade();
                 gravarIPLogAcesso();
+                finalizaBrindeLancamentoSite();
+                //Response.Redirect("http://asu2.web21f63.uni5.net/Default.aspx");
             }
             this.DataBind();
         }
@@ -96,7 +98,9 @@ namespace Site
 
             DataTable dados = ObjLog.RetCampos();
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             if (String.IsNullOrEmpty(ObjLog.MsgErro))
             {
@@ -180,7 +184,25 @@ namespace Site
         {
             darBrinde.Attributes["class"] = "desativa_termo";
         }
+        protected void finalizaBrindeLancamentoSite()
+        {
+            BLL ObjDados = new BLL(conectSite);
 
+            string query = "";
+
+            query = " SELECT id_assoc, usuario FROM st_premiacao ";
+
+            ObjDados.Query = query;
+
+            DataTable dados = ObjDados.RetQuery();
+
+            //MessageBox.Show(dados.Rows.Count.ToString());
+
+            //if (dados.Rows.Count == 50)
+            //{
+                darBrinde.Attributes["class"] = "desativa_termo";
+            //}            
+        }
         protected void aceitarTermoPrivacidade(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -189,7 +211,9 @@ namespace Site
             string IP = "";
             IP = Request.UserHostAddress;
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string tabela = " st_termo_privacidade ";
             string campos = " status, ip ";
             //string valores = " status = 'Aceito' ";
@@ -251,7 +275,17 @@ namespace Site
 
             if (Session["VoceOnline"] != null)
             {
-                usuario = Session["LoginUsuario"].ToString();
+                string iDAcesso = Session["codAcesso"].ToString();
+                int tCampo = iDAcesso.Length;
+
+                if (tCampo == 9 || tCampo == 11)
+                {
+                    usuario = Session["LoginUsuario"].ToString();
+                }
+                else
+                {
+                    usuario = Session["LoginConvenio"].ToString();
+                }
 
                 string primeiroNome = usuario.Split(' ').FirstOrDefault();
                 string primeiraLetra = usuario.Split(' ').FirstOrDefault();

@@ -679,14 +679,15 @@ function ActiveIndex(index) {
 }
 
 //Imprimir Páginas
-
+/*
 function PrintElem(elem, largura, titulo) {
     Popup($(elem).html(), largura, titulo);
 }
 function Popup(data, largura, titulo) {
     var mywindow = window.open('Imprimir', 'imprimir', 'width=' + 300 + ',height=800,scrollbars=yes');
     //mywindow.document.write('<div>Imprimir</div>');
-    /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+    //*optional stylesheet
+    //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
     mywindow.document.write('</head><body style="font-family:Courier New;font-size:12px;"><table align="center" style="font-size:18px;"><tr><td><img src="../../Img/Logo.png" /></td><td style="padding-left:20px;">' + "Título" + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
 
     mywindow.document.write(data);
@@ -694,14 +695,13 @@ function Popup(data, largura, titulo) {
 
     mywindow.document.close();
     mywindow.focus();
-    /*mywindow.print();
-    mywindow.close();*/
-    /*mywindow.close();*/
+    //*mywindow.print();
+    mywindow.close();
+    //*mywindow.close();
 
-    /*return true;*/
+    //*return true;
 }
-
-
+*/
 /* # # # # # B O X 33 # # # # # */
 
 /* - - - Box33 - S6 - - - */
@@ -977,9 +977,14 @@ function PrintElem(elem, largura, titulo) {
 }
 
 function Popup(data, largura, titulo) {
-    var mywindow = window.open('Imprimir', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');
+    var mywindow = window.open('Impressão', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');    
+    //mywindow.document.write('<link rel="stylesheet" href="Table-Extrato.css" type="text/css" />');/*optional stylesheet*/
+    //mywindow.document.write('<link rel="\"stylesheet"" href="\Table-Extrato.css\"" type="\text/css\" />');/*optional stylesheet*/
+    //mywindow.document.write('<link rel="\"stylesheet\"" href="\StyleVoceOnLine.css\"" type="\"text/css\"/" >');/*optional stylesheet*/
+    //mywindow.document.write('<link rel="\"stylesheet\"" href = "\"PrintCss.css\"" type = "\"text/css\"/" > ' ); Exemplo
+
     mywindow.document.write('<html><head><title>Imprimir</title>');
-    mywindow.document.write('</head><body style="font-family:Courier New;font-size:11px;"><table align="center" style="font-size:14px;"><tr><td><img src="../Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="../Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
+    mywindow.document.write('</head><body style="font-family:Courier New;font-size:12px;"><table align="center" style="font-size:14px;"><tr><td><img src="../Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="../Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
 
     mywindow.document.write(data);
     mywindow.document.write('</body></html>');
@@ -991,6 +996,84 @@ function Popup(data, largura, titulo) {
     /*mywindow.close();*/
 
     /*return true;*/
+}
+
+//Imprimir Extrato Associado
+function PrintExtAssoc(elem, largura, titulo) {
+    PopupExtAssoc($(elem).html(), largura, titulo);
+}
+
+function PopupExtAssoc(data, largura, titulo) {
+    var mywindow = window.open('Imprimir', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');
+    mywindow.document.write('<html><head><title>Extrato Associado</title>');
+    mywindow.document.write('</head><body style="font-family:Courier New;font-size:8px;"><table align="center" style="font-size:10px;"><tr style="font-size:10px;"><td style="font-size:10px;"><img src="../Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="../Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
+
+    mywindow.document.write(data);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus();    
+}
+
+//Imprimir Relatório de entrega
+function PrintRelEntrega(elem, largura, titulo) {
+    PopupRelEntrega($(elem).html(), largura, titulo);
+}
+
+function PopupRelEntrega(data, largura, titulo) {
+    var mywindow = window.open('Imprimir', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');
+    mywindow.document.write('<html><head><title>Extrato Associado</title>');
+    mywindow.document.write('</head><body style="font-family:Courier New;font-size:8px;"><table align="center" style="font-size:10px;"><tr style="font-size:10px;"><td style="font-size:10px;"><img src="../Img/Layout/asulogo.png" /></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" src="../Img/Layout/btImprimir.jpg" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
+
+    mywindow.document.write(data);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus();
+}
+
+//Imprimir Comprovante de Venda
+
+function PrintComprovante(elem, largura, titulo) {
+    PopupCV($(elem).html(), largura, titulo);
+}
+
+function PopupCV(data, largura, titulo) {
+    var mywindow = window.open('Imprimir', 'imprimir', 'width=' + largura + ',height=800,scrollbars=yes');
+    /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="Table-Extrato.css" type="text/css" />');
+    mywindow.document.write('<html><head><title>Comprovante de Venda</title>');
+    mywindow.document.write('</head><body style="width: 220px; font-family:Courier New; font-size: 8px "><table align="center" style="font-size:14px; font-weight: 700;"><tr><td></td><td style="padding-left:20px;">' + titulo + '</td><td><a href="#" onclick=document.getElementById("btImpressao").style.display="none";window.print();window.close();><img id="btImpressao" style="width: 40px;" src="../Img/Layout/btImprimir-3.png" border="0" style="padding-left:40px;cursor:pointer;" /></a></td></tr></table><br><br><br>');
+
+    mywindow.document.write(data);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close();
+    mywindow.focus();
+    /*mywindow.print();
+    mywindow.close();*/
+    /*mywindow.close();*/
+
+    /*return true;*/
+}
+
+// Fim - Impressão Comprovante
+
+
+//Capturar o Tamanho do Monitor para executar no PC ou no celular
+function resolucaoTela() {
+
+    var largura = document.documentElement.clientWidth;    
+
+    if (document.querySelector("#hfTamanhoTela").value != null) {
+        document.querySelector("#hfTamanhoTela").value = largura;
+    }
+
+    //alert(largura);
+}
+
+function detectarResolucao() {
+    
+    resolucaoTela();
 }
 
 aceitarTermo.addEventListener("mousemove", function () {
@@ -1015,3 +1098,6 @@ function aceitarTermo() {
 }
 //##### Fim aceitaTermo
 
+function test() {
+    alert("Foi!");
+}

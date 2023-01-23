@@ -49,6 +49,7 @@ namespace Site
                 atualizaDdlExtrato();
                 gravarTermoPrivacidade();
                 desativaBrinde();
+                //carregarData();
             }
             this.DataBind();
         }
@@ -57,14 +58,13 @@ namespace Site
         {
             secPremio.Attributes["class"] = "desativa_termo";
         }
-
         protected void desativaBrinde()
         {
             BLL ObjBrinde = new BLL(conectSite);
             BLL ObjContar = new BLL(conectSite);
-
-            string tabela = " st_premiacao ";
+                        
             string campos = " id_assoc, usuario ";
+            string tabela = " st_premiacao ";
             string condicao = " WHERE id_assoc = '" + Session["IdAssoc"].ToString() + "'";
 
             string xRet = "";
@@ -79,32 +79,47 @@ namespace Site
             DataTable dados = ObjBrinde.RetCampos();
             DataTable contar = ObjContar.RetCampos();
 
-            //MessageBox.Show("Tem: " + contar.Rows.Count);
+            //lblMsgPremio.Text = Session["IdAssoc"].ToString();
             //MessageBox.Show(Session["IdAssoc"].ToString());
 
-            if (String.IsNullOrEmpty(ObjBrinde.MsgErro))
+            //MessageBox.Show("Tem: " + contar.Rows.Count);
+            
+            try
             {
-                if (contar.Rows.Count <= 10)
+                if (String.IsNullOrEmpty(ObjBrinde.MsgErro))
                 {
-                    if (dados.Rows.Count > 0)
+                    if (contar.Rows.Count <=50)
                     {
-                        //xRet = "Você é o: " + (contar.Rows.Count) + "º a Participar." + "\n" + "Parabéns!!!";
-                        xRet += "Você está Participando" + "\n" + "Parabéns!";
+                        //MessageBox.Show("Acabou");
                         secPremio.Attributes["class"] = "desativa_termo";
                     }
-                    else
+
+                    if (dados.Rows.Count > 0)
                     {
-                        //MessageBox.Show("Aperta aí pra participar!!!");
+                        //MessageBox.Show("Você já está participando!!!");
+                        //xRet += "Você está Participando" + "\n" + "Parabéns!";
+
+                        xRet += "<section class='msgParticipacao'>"; 
+                        xRet += "<p>" + "Você está Participando da Premiação pelo lanaçamento do Novo Site, Parabéns!" + "</p>";
+                        xRet += "<p>" + "Retirada do Brinde: 07/11/2022" + "</p>";
+                        xRet += "</section>";
+                        
+                        secPremio.Attributes["class"] = "desativa_termo";
+                        secMsg.Attributes["class"] = "ativa_termo";
                     }
                 }
-
+                else
+                {
+                    xRet += "Erro: " + ObjBrinde.MsgErro;
+                }
             }
-            else
+            catch (Exception e)
             {
-                xRet += "Erro: " + ObjBrinde.MsgErro;
-            }
+                xRet += "Erro: " + e.Message;
 
-            lblResult.Text = xRet;
+            }
+            
+            lblMsgPremio.Text = xRet;
 
             //MessageBox.Show("Login Usuario: " + Session["LoginUsuario"].ToString() + " Identifica: " + Session["Identifica"].ToString() + " IDAssoc: " + Session["IdAssoc"].ToString());
 
@@ -141,25 +156,30 @@ namespace Site
             //xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
             //MessageBox.Show(xRet);
             //Fim Testes                       
-
-            if (String.IsNullOrEmpty(ObjBrinde.MsgErro))
+            try
             {
-                ObjBrinde.InsertRegistro(tabela, campos, valores);
-
-                desativaBrinde();
-
-                if (xRet != "")
+                if (String.IsNullOrEmpty(ObjBrinde.MsgErro))
                 {
-                    MessageBox.Show(xRet);
+                    ObjBrinde.InsertRegistro(tabela, campos, valores);
+
+                    desativaBrinde();
+
+                    if (xRet != "")
+                    {
+                        lblMsgPremio.Text = xRet;
+                    }
+
                 }
-
+                else
+                {
+                    xRet += "Erro: " + ObjBrinde.MsgErro;
+                }
             }
-            else
-            {
-                xRet += "Erro: " + ObjBrinde.MsgErro;
+            catch (Exception x) {
+                xRet += "Erro: " + x.Message;
             }
 
-            lblMsg.Text = xRet;
+            lblMsgPremio.Text = xRet;
 
         }//gravarBrinde
         protected void gravarTermoPrivacidade()
@@ -189,9 +209,11 @@ namespace Site
 
             DataTable dados = ObjLog.RetCampos();
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
-            xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
+            //xRet += " SELECT " + ObjLog.Campo + " FROM " + ObjLog.Tabela + " " + ObjLog.Condicao;
             //MessageBox.Show(xRet + "Count:" + dados.Rows.Count);
             //MessageBox.Show(dados.Rows[0]["Login_Acesso"].ToString() + " * " + Session["CodAcesso"].ToString() );
             
@@ -240,12 +262,13 @@ namespace Site
             {
                 usuario = Session["LoginUsuario"].ToString();
             }
+
             string primeiroNome = usuario.Split(' ').FirstOrDefault();
             string primeiraLetra = usuario.Split(' ').FirstOrDefault();
-            string segundoNome = usuario.Split(' ')[1];
-            string primeiraLetraSegundoNome = usuario.Split(' ')[1];
+            //string segundoNome = usuario.Split(' ')[1];
+            //string primeiraLetraSegundoNome = usuario.Split(' ')[1];
             int tNome = primeiroNome.Length;
-            int tSnome = segundoNome.Length;
+            //int tSnome = segundoNome.Length;
 
             //xRet += "" + primeiraLetra.Substring(0, 1) + primeiroNome.Substring(1, (tNome-1)).ToLower();
             //lblUsuLogado.Text = primeiraLetra.Substring(0, 1) + primeiroNome.Substring(1, (tNome - 1)).ToLower();
@@ -328,7 +351,7 @@ namespace Site
         }
         public void ativarAssocExtrato(object sender, EventArgs e)
         {
-            mwContAssoc.ActiveViewIndex = 1;
+            mwContAssoc.ActiveViewIndex = 1;            
         }
         public void ativarAssocCartoes(object sender, EventArgs e)
         {
@@ -354,11 +377,13 @@ namespace Site
         public void ativarConvRelEntrega(object sender, EventArgs e)
         {
             mwContConv.ActiveViewIndex = 2;
+            carregarData();
+            //MessageBox.Show("Relatório de Entrega!");
         }
         public void ativarConvFatura(object sender, EventArgs e)
         {
             mwContConv.ActiveViewIndex = 3;
-            montarRelMensal();
+            //montarRelMensal();
         }
         public void ativarConvExtrato(object sender, EventArgs e)
         {
@@ -1062,6 +1087,17 @@ namespace Site
             return retorno;
         }
 
+        protected void carregarData()
+        {
+            int periodo = 10;            
+
+            DateTime hoje = DateTime.Now;
+            DateTime p30 = DateTime.Now.AddDays(periodo);            
+
+            iDataIni.Text = hoje.ToString("yyyy-MM-dd");
+            iDataFin.Text = p30.ToString("yyyy-MM-dd");                       
+        }
+
         public void montarRelEntrega(object sender, EventArgs e)
         {
             BLL ObjDbExtPos = new BLL(conectVegas);
@@ -1079,35 +1115,21 @@ namespace Site
             string xRet = "";
             string xRet_Pre = "";
 
-            var Calendar_ini = iDataIni.Value;
-            var Calendar_fin = iDataFin.Value;
+            var Calendar_ini = iDataIni.Text;
+            var Calendar_fin = iDataFin.Text;
 
-            /*
-            if (Calendar_ini)
-            {
-                MessageBox.Show("Início não pode ser maior que fim");
-            }*/
-
-
-            //Apoio.Ano = ddlAno.SelectedValue;
-            //Apoio.Mes = ddlMes.SelectedValue;
-
-            //MessageBox.Show(iDataIni.Value + " AND " + iDataFin.Value);
-
-            //MessageBox.Show(Apoio.Ano.ToString());
-            //MessageBox.Show(Apoio.Mes.ToString());
-
+                                             
             if (ObjDbExtPos.MsgErro == "" || ObjDbExtPre.MsgErro == "" || ObjDBRelEnt.MsgErro == "")
             {
 
                 //string camposPos = " m.cnscadmom AS Momento, m.idmovime AS Autorizacao, m.parcela, m.parctot, m.convenio, m.lote, co.nome AS conveniado, a.titular, m.depcartao AS cartao, m.associado, m.dependen , d.nome AS Comprador, (m.valor *-1) AS valor, m.vencimento, m.data,  a.credito, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN " +Apoio.Periodo() + " LIMIT 1) AS gastos ";
-                string camposPos = " m.cnscadmom AS Momento, m.idmovime AS Autorizacao, m.parcela, m.parctot, m.convenio, m.lote, co.nome AS conveniado, a.titular, m.depcartao AS cartao, m.associado, m.dependen , d.nome AS Comprador, (m.valor *-1) AS valor, m.vencimento, m.data,  a.credito, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' LIMIT 1) AS gastos ";
+                string camposPos = " m.cnscadmom AS Momento, m.idmovime AS Autorizacao, m.parcela, m.parctot, m.convenio, m.lote, co.nome AS conveniado, a.titular, m.depcartao AS cartao, m.associado, m.dependen , d.nome AS Comprador, (m.valor *-1) AS valor, m.vencimento, m.data,  a.credito, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN '" + Calendar_ini + "' AND '" + Calendar_fin + "' LIMIT 1) AS gastos ";
                 string tabelaPos = " comovime AS m ";
                 string leftPos = " INNER JOIN coconven AS co ON co.idconven = m.convenio " +
                                  " INNER JOIN associa AS a ON m.associado = a.idassoc " +
                                  " INNER JOIN asdepen AS d ON m.dependen = d.iddepen ";
                 //string condicaoPos = " WHERE (m.convenio ='" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf ='" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.data BETWEEN " + Apoio.Periodo() + " GROUP BY m.link ORDER BY m.cnscadmom DESC ";
-                string condicaoPos = " WHERE (m.convenio ='" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf ='" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.data BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' GROUP BY m.link ORDER BY m.cnscadmom DESC ";
+                string condicaoPos = " WHERE (m.convenio ='" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf ='" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.data BETWEEN '" + Calendar_ini + "' AND '" + Calendar_fin + "' GROUP BY m.link ORDER BY m.cnscadmom DESC ";
 
                 ObjDbExtPos.Campo = camposPos;
                 ObjDbExtPos.Tabela = tabelaPos;
@@ -1125,13 +1147,13 @@ namespace Site
                 }
 
                 //string camposRel = " m.cnscadmom AS Momento, m.idmovime AS Autorizacao, m.parcela, m.parctot, m.convenio, m.lote, co.nome AS convenio, a.titular, m.depcartao AS cartao, m.associado, m.dependen , d.nome AS Comprador, (m.valor *-1) AS valor, m.vencimento, m.data,  a.credito, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN " + Apoio.Periodo() + " LIMIT 1) AS gastos ";
-                string camposRel = " m.cnscadmom AS Momento, m.idmovime AS Autorizacao, m.parcela, m.parctot, m.convenio, m.lote, co.nome AS convenio, a.titular, m.depcartao AS cartao, m.associado, m.dependen , d.nome AS Comprador, (m.valor *-1) AS valor, m.vencimento, m.data,  a.credito, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' LIMIT 1) AS gastos ";
+                string camposRel = " m.cnscadmom AS Momento, m.idmovime AS Autorizacao, m.parcela, m.parctot, m.convenio, m.lote, co.nome AS convenio, a.titular, m.depcartao AS cartao, m.associado, m.dependen , d.nome AS Comprador, (m.valor *-1) AS valor, m.vencimento, m.data,  a.credito, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN '" + Calendar_ini + "' AND '" + Calendar_fin + "' LIMIT 1) AS gastos ";
                 string tabelaRel = " comovime AS m ";
                 string leftRel = " INNER JOIN coconven AS co ON co.idconven = m.convenio " +
                                  " INNER JOIN associa AS a ON m.associado = a.idassoc " +
                                  " INNER JOIN asdepen AS d ON m.dependen = d.iddepen ";
                 //string condicaoRel = " WHERE (m.convenio ='" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf ='" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.data BETWEEN " + Apoio.Periodo() + " GROUP BY m.link ORDER BY m.cnscadmom DESC ";
-                string condicaoRel = " WHERE (m.convenio ='" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf ='" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.data BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' ORDER BY m.cnscadmom DESC ";
+                string condicaoRel = " WHERE (m.convenio ='" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf ='" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.data BETWEEN '" + Calendar_ini + "' AND '" + Calendar_fin + "' ORDER BY m.cnscadmom DESC ";
 
                 ObjDBRelEnt.Campo = camposRel;
                 ObjDBRelEnt.Tabela = tabelaRel;
@@ -1153,7 +1175,7 @@ namespace Site
 
                 //string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN " + Apoio.Periodo() + " LIMIT 1 ) AS gastosPre ";
                 //string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT SUM(valor *-1) FROM comovime AS mov WHERE (mov.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = mov.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND mov.cnscanmom IS NULL AND mov.data BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' LIMIT 1 ) AS gastosPre ";
-                string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT SUM(m.qtde * -1) FROM cgc_movime AS m WHERE (m.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = m.conv_origid AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' LIMIT 1 ) AS gastosPre ";
+                string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT SUM(m.qtde * -1) FROM cgc_movime AS m WHERE (m.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = m.conv_origid AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN '" + Calendar_ini + "' AND '" + Calendar_fin + "' LIMIT 1 ) AS gastosPre ";
                 //(SELECT SUM(m.qtde * -1) FROM cgc_movime AS m WHERE (m.conv_origid = '14'                                          OR EXISTS(SELECT NULL FROM coconven AS c WHERE  c.idconven = m.conv_origid AND c.cnpj_cpf = '14'))               AND m.cnscanmom IS NULL AND m.vencimento BETWEEN '2022-02-20' AND '2022-06-19' LIMIT 1 ) AS gastosPre
                 string tabelaPre = " CGC_MOVIME  AS mov ";
                 string leftPre = " LEFT OUTER JOIN CGC_TPMOVIME tp ON tp.CODTIPO = mov.TPMOVIME " +
@@ -1166,7 +1188,7 @@ namespace Site
                                  " LEFT OUTER JOIN base_ASSOCDEP dpto ON dpto.DEPTO = assoc.TRAB_DPTO " +
                                  " LEFT OUTER JOIN COCONVEN CONV ON conv.IDCONVEN = mov.CONV_ORIGID AND mov.CONV_ORIGTAB = 'COCONVEN' ";
                 //string condicaoPre = " WHERE mov.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' AND mov.vencimento BETWEEN " + Apoio.Periodo() + " ";
-                string condicaoPre = " WHERE mov.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' AND mov.vencimento BETWEEN '" + iDataIni.Value + "' AND '" + iDataFin.Value + "' ";
+                string condicaoPre = " WHERE mov.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' AND mov.vencimento BETWEEN '" + Calendar_ini + "' AND '" + Calendar_fin + "' ";
 
                 ObjDbExtPre.Campo = camposPre;
                 ObjDbExtPre.Tabela = tabelaPre;
@@ -1185,7 +1207,7 @@ namespace Site
                     /*Relatório de Entrega Pós Pago*/
                     xRet += "<div >";
                     xRet += "<div style='height: 25px; width:100%; text-align:left;'>" + dadosPos.Rows[0]["conveniado"] + "</div>";
-                    xRet += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + iDataIni.Value + " à " + iDataFin.Value + "</div>";
+                    xRet += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + Calendar_ini + " à " + Calendar_fin + "</div>";
                     xRet += "<div>";
                     //xRet += "<asp:label ID='lblPeriodo' Visible='true' >" + lblPeriodo.Text + "</asp:label>";
                     xRet += "</div>";
@@ -1430,7 +1452,7 @@ namespace Site
 
                     xRet_Pre += "<div >";
                     xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + dadosPos.Rows[0]["conveniado"] + "</div>";
-                    xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + iDataIni.Value + " à " + iDataFin.Value + "</div>";
+                    xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + Calendar_ini + " à " + Calendar_fin + "</div>";
                     xRet_Pre += "<section Class='defaultTable'>";
                     xRet_Pre += "<table>";
                     xRet_Pre += "<caption>"; //Caption
@@ -1536,7 +1558,8 @@ namespace Site
             //string parc3 = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.Periodo() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
             string parc4 = " WHERE(m.convenio = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS(SELECT NULL FROM coconven AS c WHERE c.idconven = m.convenio AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.cnscanmom IS NULL AND m.vencimento BETWEEN " + Apoio.dtDataInicio() + " AND " + Apoio.dtDataFim() + " GROUP BY m.parcela ORDER BY m.cnscadmom DESC ";
 
-
+            //MessageBox.Show("Coluna: SELECT " + campos_coluna + " FROM " + tabela + "" + left + "" + condicao_coluna);
+            //MessageBox.Show("Linha: SELECT " + campos_linha + " FROM " + tabela + "" + left + "" + condicao_linha);
 
             if (ObjDadosLinha.MsgErro == "" || ObjDadosColuna.MsgErro == "")
             {
@@ -1552,14 +1575,7 @@ namespace Site
 
                 DataTable dados_linha = ObjDadosLinha.RetCampos();
                 DataTable dados_coluna = ObjDadosColuna.RetCampos();
-
-                //########
-                //Checar se DV do Id do Convênio confere                
-                string dv = GeraDigMod11(Convert.ToInt64(dados_linha.Rows[0]["idConv"])).ToString();
-
-                //MessageBox.Show(dv);
-                //########
-
+                               
                 //MessageBox.Show("Coluna: SELECT " + campos_coluna + " FROM " + tabela + "" + left + "" + condicao_coluna);
                 //MessageBox.Show("Linha: SELECT " + campos_linha + " FROM " + tabela + "" + left + "" + condicao_linha);
 
@@ -1640,7 +1656,14 @@ namespace Site
                     xTab += "</tr>";
                 }
                 xTab += "<td>Total</td>";
-                xTab += "<td>" + Convert.ToDecimal(dados_coluna.Rows[1]["tot_vendas"]).ToString("C2") + "</td>";
+                if (dados_coluna.Rows[0]["tot_vendas"].ToString() != "")
+                {
+                    xTab += "<td>" + Convert.ToDecimal(dados_coluna.Rows[0]["tot_vendas"]).ToString("C2") + "</td>";
+                }
+                else
+                {
+                    xTab += "<td>" + "0,00" + "</td>";
+                }
                 xTab += "<td>" + "" + "</td>";
                 xTab += "<td>" + "" + "</td>";
                 xTab += "<td>" + "" + "</td>";
@@ -1680,7 +1703,9 @@ namespace Site
             string iDAcesso = Session["codAcesso"].ToString();
             int tCampo = iDAcesso.Length;
             string gastos = "";
+#pragma warning disable CS0219 // A variável "gastosPre" é atribuída, mas seu valor nunca é usado
             string gastosPre = "";
+#pragma warning restore CS0219 // A variável "gastosPre" é atribuída, mas seu valor nunca é usado
             string xRet = "";
 
             //Retorna o Digito Verificador 
@@ -2125,89 +2150,16 @@ namespace Site
         }
 
         public void atualizaPeriodo(object sender, EventArgs e)
-        {
-            //string wMes = ddlMes.SelectedValue;
-            string dtIni = "";
-            string dtFim = "";
-            string msgPeriodo = "";
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-
-            //MessageBox.Show(wMes);
-            /*
-            switch (wMes)
-            {
-                case "0":
-                    dtIni = "20-12-" + (Convert.ToInt32(ddlAno.SelectedItem.Text) - 1);
-                    dtFim = "19-01-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "1":
-                    dtIni = "20-01-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-02-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "2":
-                    dtIni = "20-02-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-03-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "3":
-                    dtIni = "20-03-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-04-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "4":
-                    dtIni = "20-04-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-05-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "5":
-                    dtIni = "20-05-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-06-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "6":
-                    dtIni = "20-06-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-07-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "7":
-                    dtIni = "20-07-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-08-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "8":
-                    dtIni = "20-08-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-09-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "9":
-                    dtIni = "20-09-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-10-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "10":
-                    dtIni = "20-10-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-11-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-                case "11":
-                    dtIni = "20-11-" + ddlAno.SelectedItem.Text;
-                    dtFim = "19-12-" + ddlAno.SelectedItem.Text;
-                    msgPeriodo = "Período: " + dtIni + " à " + dtFim;
-                    break;
-            }
-            */
+        {  
 
             //lblPeriodo.Text = msgPeriodo;
 
             montarExtratoConv();
             montarExtratoPreConv();
             //Montar Relatório de Entrega
-            string iDAcesso = Session["codAcesso"].ToString();
+            string iDAcesso = Session["codAcesso"].ToString();         
             int tCampo = iDAcesso.Length;
+
             if (tCampo == 14 || tCampo < 7)
             {
                 if ("" + Session["LoginUsuario"] != "")
@@ -2425,7 +2377,9 @@ namespace Site
 
             //ObjUpDate.EditRegistro(l_tabela, l_valores, l_condicao);
 
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
 
 
@@ -2472,22 +2426,52 @@ namespace Site
         public void troarSenhaCartao(object sender, EventArgs e)
         {
             //LayOut de Dados
+#pragma warning disable CS0219 // A variável "codTransa" é atribuída, mas seu valor nunca é usado
             string codTransa = "910";//1-3
+#pragma warning restore CS0219 // A variável "codTransa" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "versao" é atribuída, mas seu valor nunca é usado
             string versao = "01.04";//4-5
+#pragma warning restore CS0219 // A variável "versao" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "codConv" é atribuída, mas seu valor nunca é usado
             string codConv = "000000000";//9-9
+#pragma warning restore CS0219 // A variável "codConv" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "codCart" é atribuída, mas seu valor nunca é usado
             string codCart = "000000000"; //18-9
+#pragma warning restore CS0219 // A variável "codCart" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "valor" é atribuída, mas seu valor nunca é usado
             string valor = "000000000000"; //27-12
+#pragma warning restore CS0219 // A variável "valor" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "parcela" é atribuída, mas seu valor nunca é usado
             string parcela = "00"; //39-2
+#pragma warning restore CS0219 // A variável "parcela" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "codRet" é atribuída, mas seu valor nunca é usado
             string codRet = "000"; //41-3
+#pragma warning restore CS0219 // A variável "codRet" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "autoriza" é atribuída, mas seu valor nunca é usado
             string autoriza = "000000000"; //44-9
+#pragma warning restore CS0219 // A variável "autoriza" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "chaveUsuar" é atribuída, mas seu valor nunca é usado
             string chaveUsuar = "000000000"; //53-9
+#pragma warning restore CS0219 // A variável "chaveUsuar" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "nome" é atribuída, mas seu valor nunca é usado
             string nome = "0000000000000000000000000000000000000000"; //62-40
+#pragma warning restore CS0219 // A variável "nome" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "observa" é atribuída, mas seu valor nunca é usado
             string observa = "000000000000000000000000000000";//102-30
+#pragma warning restore CS0219 // A variável "observa" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "cpfCnpj" é atribuída, mas seu valor nunca é usado
             string cpfCnpj = "00000000000000"; //132-14
+#pragma warning restore CS0219 // A variável "cpfCnpj" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
             string saldo = "00000000000000"; //146-14
+#pragma warning restore CS0219 // A variável "saldo" é atribuída, mas seu valor nunca é usado
+#pragma warning disable CS0219 // A variável "senha" é atribuída, mas seu valor nunca é usado
             string senha = "novaSenha"; //160-20
+#pragma warning restore CS0219 // A variável "senha" é atribuída, mas seu valor nunca é usado
 
+#pragma warning disable CS0219 // A variável "trocaSenha" é atribuída, mas seu valor nunca é usado
             string trocaSenha = "";
+#pragma warning restore CS0219 // A variável "trocaSenha" é atribuída, mas seu valor nunca é usado
 
             //Modelo do Arquivo a ser criado
             //string cArq_cont = "910" + "01.04" + "000000000" + Session["cartaosenha"] + "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" + txtSenha_nova_confirma.Text;
@@ -2992,7 +2976,7 @@ namespace Site
                     cArquivo_mostra += "<tr><td colspan='2' class='cvTopico'>.</td></tr>";
                     cArquivo_mostra += "<tr> ";
                     cArquivo_mostra += "<tr>";
-                    cArquivo_mostra += "<td colspan = '2' id='nome2' class='cvTopico tFontExtrato' style='border-top: 2px solid black;' >" + cNome + "</td>";
+                    cArquivo_mostra += "<td colspan = '2' id='nome2' class='cvTopico tFontExtrato' style='border-top: 2px solid black;' >" + cNome + "</td>"; //**********
                     cArquivo_mostra += "</tr>";
                     cArquivo_mostra += "<tr><td colspan='2' class='cvTopico'>.</td></tr>";
                     cArquivo_mostra += "<tr><td colspan='2' class='cvTopico'> - - - - - - - - - - - - - - - - - - - - </td></tr>";
@@ -3417,7 +3401,9 @@ namespace Site
             Apoio Apoio = new Apoio();
 
             string xRet = "";
+#pragma warning disable CS0219 // A variável "xPdf" é atribuída, mas seu valor nunca é usado
             string xPdf = "";
+#pragma warning restore CS0219 // A variável "xPdf" é atribuída, mas seu valor nunca é usado
 
             //Criar Variáveis para: Associado, Data início e Fim - Criado 02-04-2021
             //int idAssoc = 2747;

@@ -52,7 +52,9 @@ namespace Site.Adm
         }
         public void cadastrarNossaEntidade(object sender, EventArgs e)
         {
+#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
             string xRet = "";
+#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);

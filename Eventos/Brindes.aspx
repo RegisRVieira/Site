@@ -247,7 +247,7 @@
                         <section class="cadBory">
                             <p>Cadastrar Participantes</p>
                             <section class="cadConteudo">
-                                <input id="iBusca" type="search" runat="server" placeholder="Busca" />
+                                <input id="iBusca" type="text" runat="server" placeholder="Busca" />
                                 <asp:Button ID="btnBusca" runat="server" CssClass="" Text="Localizar Associado" OnClick="procurarAssoc" />
                             </section>
                             <section id="secCadGrid" runat="server" class="cadGrid">

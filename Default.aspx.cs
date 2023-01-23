@@ -19,6 +19,7 @@ namespace Site
         protected void Page_Load(object sender, EventArgs e)
         {
             this.DataBind();
+            Response.Redirect("Home.aspx");
         }
 
         public void escolherConexao(object sender, EventArgs e)

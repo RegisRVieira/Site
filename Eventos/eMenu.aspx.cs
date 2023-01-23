@@ -8,7 +8,7 @@ using System.Data;
 using System.Configuration;
 using Site.App_Code;
 using System.Net;
-
+using System.Windows.Forms;
 namespace Site.Eventos
 {
     public partial class eMenu : System.Web.UI.Page
@@ -30,11 +30,32 @@ namespace Site.Eventos
         }
         protected void abrirFestas(object sender, EventArgs e)
         {
-            lblMsg.Text = "Em construção, aguarde!!!";
+            Response.Redirect("Eventos.aspx");
         }
         protected void abrirConfig(object sender, EventArgs e)
         {
-            lblMsg.Text = "Em construção, aguarde!!!";
+            BLL ObjDados = new BLL(conectSite);
+
+            ObjDados.Query = " SELECT * FROM e_usuario " +
+                             " WHERE usuario = '" + Session["LoginEventos"].ToString() + "' ";
+
+            DataTable dados = ObjDados.RetQuery();
+            try
+            {
+                if (dados.Rows[0]["nivel"].ToString() == "Adm")
+                {
+                    Response.Redirect("EventoConfig.aspx");
+                }
+                else
+                {
+                    lblMsg.Text = "Solicite acesso à um Administrador.";
+                }
+            }
+            catch (Exception x)
+            {
+                lblMsg.Text = "Erro: " + x.Message;
+            }
+            
         }
 
         public void mostrarLogado()

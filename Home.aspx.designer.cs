@@ -15,15 +15,6 @@ namespace Site
     {
 
         /// <summary>
-        /// Controle lblUsuLogado.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuLogado;
-
-        /// <summary>
         /// Controle lblUsuLogadoX.
         /// </summary>
         /// <remarks>
@@ -33,13 +24,22 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblUsuLogadoX;
 
         /// <summary>
-        /// Controle lblUsuLogadoXXX.
+        /// Controle lblUsuLogadoXX.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblUsuLogadoXXX;
+        protected global::System.Web.UI.WebControls.Label lblUsuLogadoXX;
+
+        /// <summary>
+        /// Controle lblUsuLogado.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUsuLogado;
 
         /// <summary>
         /// Controle formHome.

@@ -32,7 +32,7 @@ namespace Site
             ObjValida.Left += " " + " INNER JOIN st_menu AS d ON c.cod_menu = d.cod ";
             ObjValida.Left += " " + " INNER JOIN st_tipo AS t ON c.cod_tipo = t.cod ";
             ObjValida.Left += " " + " LEFT JOIN st_imagens as i ON c.id = i.id_conteudo ";
-            ObjValida.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "'";
+            ObjValida.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' AND dt_PublFim IS NULL";
 
             DataTable valida = ObjValida.RetCampos();
 
@@ -41,6 +41,9 @@ namespace Site
             string idContMat = Request.QueryString["IDContMat"];
 
             string xRet = " ";
+
+            //MessageBox.Show(" Validação: SELECT " + ObjValida.Campo + " FROM " + ObjValida.Tabela + " " + ObjValida.Left + "" + ObjValida.Condicao);
+
 
             if (ObjDbASU.MsgErro == "")
             {
@@ -52,16 +55,18 @@ namespace Site
                 ObjDbASU.Left += " " + " LEFT JOIN st_imagens as i ON c.id = i.id_conteudo ";
                 if (qtde < 6)
                 {
-                    ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "'" + " ORDER BY c.id DESC LIMIT " + qtde ;                                    
+                    ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "'" + " ORDER BY c.id DESC LIMIT " + qtde;
                 }
                 else
                 {
-                    ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' ORDER BY c.id DESC LIMIT 6 ";                    
+                    ObjDbASU.Condicao = " " + " WHERE c.cod_tipo = '" + "MAT" + "' AND i.cod_destaque = '" + "MAT" + "' AND i.codtipo = '" + "CHA" + "' ORDER BY c.id DESC LIMIT 6 ";
                 }
 
                 DataTable dados = ObjDbASU.RetCampos();
 
                 int contador = dados.Rows.Count;
+
+                //MessageBox.Show(" Matéria:  SELECT " + ObjDbASU.Campo + " FROM " + ObjDbASU.Tabela + " " + ObjDbASU.Left + "" + ObjDbASU.Condicao);
 
                 string IdMat = "";
 
@@ -72,7 +77,7 @@ namespace Site
                     xRet += "<a href='ContMaterias.aspx?IDContMat=" + IdMat + "' >";
                     //xRet += "<img src='../Img/Av Major Matheus 2.JPG' />"; // Capturar Foto do Banco de Dados
                     xRet += "<img src='" + dados.Rows[i]["Pathimg"] + "' />";
-                    xRet += "<p class='pl-Titulo'>" + dados.Rows[i]["titulo"] + qtde + "</p>";
+                    xRet += "<p class='pl-Titulo'>" + dados.Rows[i]["titulo"] + "</p>";
                     xRet += "<p class='pl-Data'>" + dados.Rows[i]["dt_PublIni"] + "</p>";
                     xRet += "</a>";
                     xRet += "</section>";
@@ -89,120 +94,178 @@ namespace Site
 
         public String montarContMateria()
         {
-            BLL ObjDbASU = new BLL(conectSite);
-            BLL ObjDbImg = new BLL(conectSite);
+            BLL ObjDados = new BLL(conectSite);
 
             string idContMat = Request.QueryString["IDContMat"];
             string xRet = " ";
 
-            if (ObjDbASU.MsgErro == "" || ObjDbImg.MsgErro == "")
+            if (String.IsNullOrEmpty(ObjDados.MsgErro))
             {
+                string query = "";
+              
+                query = " SELECT c.*, i.*, ali.descricao AS alinha  FROM st_imagens AS i " +
+                        " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
+                        " INNER JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod " +
+                        " WHERE c.id = '" + idContMat + "' ";
 
-                ObjDbASU.Campo = " * ";
-                ObjDbASU.Tabela = " st_conteudo ";
-                ObjDbASU.Condicao = " WHERE ID = '" + idContMat + "' ";
-                //ObjDbASU.Condicao = " WHERE ID = '" + "73" + "' ";
+                ObjDados.Query = query;
 
-                ObjDbImg.Campo = " *, ali.descricao ";
-                ObjDbImg.Tabela = " st_imagens AS i ";
-                ObjDbImg.Left = " INNER JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod ";
-                ObjDbImg.Condicao = " WHERE i.id_conteudo = '" + idContMat + "' ";
+                DataTable dadosQuery = ObjDados.RetQuery();
 
                 //Testar integridade das Querys
                 //MessageBox.Show("Conteudo: " + "SELECT " + ObjDbASU.Campo + "  FROM " + ObjDbASU.Tabela + " " + ObjDbASU.Condicao);
                 //MessageBox.Show("Imagens: " + "SELECT " + ObjDbImg.Campo + " FROM " + ObjDbImg.Tabela + ObjDbImg.Left + " " + ObjDbImg.Condicao);
 
-                DataTable dados = ObjDbASU.RetCampos();
-                DataTable imgs = ObjDbImg.RetCampos();
+                //Publicidade da Matéria
+                xRet += "<section class='publicidade' >";
+                //xRet += "Query: " + ObjDados.Query.ToString();                
+                int ValidaImagens = 0;
 
-                if (dados.Rows.Count > 0)
+                //## Checa se há Publicidade cadastrada
+                for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                {                                        
+                    if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICPROP")
+                    {                        
+                        ValidaImagens++;                        
+                    }
+                }                
+
+                //Se houver Publicidade, exibe-a. Do contrário, exibe uma imagem padrão.
+                if (ValidaImagens > 0)
                 {
-                    int contador = dados.Rows.Count;
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                    {
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICPROP")
+                        {
+                            xRet += "<img ' src='" + dadosQuery.Rows[i]["path_img"] + "' />";
+                        }                        
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Algum erro");
+                    xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
                 }
-
-                int contaImg = imgs.Rows.Count;
-
-
-                xRet += "<section class='publicidade'>";
-                //xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
-
-                //Caso haja conteúdo com o Tipo='ICPROP', ele deverá exibir a imagem do DB, se não houver ele deverá exibis uma imagem padrão
-                for (int i = 0; i < contaImg; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
-                {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICPROP")
-                    {
-                        xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
-                        xRet += "<img ' src='" + imgs.Rows[i]["path_img"] + "' />";
-                    }
-                    else
-                    {
-                        xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
-                    }
-
-                }
-
-
                 xRet += "</section>";
+
+                //Titulo da Matéria
                 xRet += "<section class='titulo'>";
-                xRet += "<p>" + dados.Rows[0]["titulo"] + "</p>";
-                for (int i = 0; i < contaImg; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                xRet += "<p>" + dadosQuery.Rows[0]["titulo"] + "</p>";
+
+
+                if (ValidaImagens > 0)
                 {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICTIT")
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
-                        xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
-                    }
-                }
-                xRet += "</section>";
-                xRet += "<section class='introducao texto'>";
-                xRet += "<p>" + dados.Rows[0]["introducao"] + "</p>";
-                for (int i = 0; i < contaImg; i++)
-                {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICINT")
-                    {
-                        xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICTIT")
+                        {
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
                     }
                 }
                 xRet += "</section>";
 
+                //Introdução
+                xRet += "<section class='introducao texto'>";
+                xRet += "<p>" + dadosQuery.Rows[0]["introducao"] + "</p>";
+                if (ValidaImagens > 0)
+                {
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
+                    {
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICINT")
+                        {
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float: " + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
+                    }
+                }
+                xRet += "</section>";
+
+                //Contexto
                 xRet += "<section class='contexto texto'>";
-                for (int i = 0; i < contaImg; i++)
+                if (ValidaImagens > 0)
                 {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCON")
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
-                        xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCON")
+                        {
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
                     }
                 }
-                xRet += "<p>" + dados.Rows[0]["conteudo"] + "</p>";
+                xRet += "<p>" + dadosQuery.Rows[0]["conteudo"] + "</p>";
                 xRet += "</section>";
+
+                //Complemento
                 xRet += "<section class='complemento texto'>";
-                for (int i = 0; i < contaImg; i++)
+                if (ValidaImagens > 0)
                 {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCOM")
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
-                        xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCOM")
+                        {
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
                     }
                 }
-                xRet += "<p>" + dados.Rows[0]["complemento"] + "</p>";
+                xRet += "<section class='complemento texto'>";                
+                xRet += "<p>" + dadosQuery.Rows[0]["complemento"] + "</p>";
                 xRet += "</section>";
+
+                //Conclusão
                 xRet += "<section class='conclusao texto'>";
-                for (int i = 0; i < contaImg; i++)
+                if (ValidaImagens > 0)
                 {
-                    if (imgs.Rows[i]["cod_campoconteudo"].ToString() == "ICCONC")
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
-                        xRet += "<div class='matImg'>" + "<img style='float:" + imgs.Rows[i]["descricao"].ToString() + "' src='" + imgs.Rows[i]["path_img"] + "' />" + "</div>";
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCONC")
+                        {
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                            }
+                        }
                     }
-                }
-                xRet += "<p>" + dados.Rows[0]["conclusao"] + "</p>";
+                }               
+                xRet += "<p>" + dadosQuery.Rows[0]["conclusao"] + "</p>";
                 xRet += "</section>";
             }
             else
             {
-                xRet += "Erro: " + ObjDbASU.MsgErro;
+                xRet += "Erro: " + ObjDados.MsgErro;
             }
+
+
             return xRet;
         }
 

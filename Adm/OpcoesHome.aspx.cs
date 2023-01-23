@@ -23,10 +23,9 @@ namespace Site.Adm
         {
             if (!Page.IsPostBack)
             {
-                carregarGvBox100();
-                carregarGvBox33();
-                popularImgTipo();
-                popularMatImgTipo();                
+                //carregarGvBox100();
+                //carregarGvBox33();
+                //popularAlinhamento();
             }
 
             this.DataBind();
@@ -45,15 +44,21 @@ namespace Site.Adm
         public void ativarVwBox33(object sender, EventArgs e)
         {
             ativaViews(1);
+            popularImgTipo();
+            carregarGvBox33();
         }
         public void ativarVwBox100(object sender, EventArgs e)
         {
             ativaViews(2);
+            carregarGvBox100();
         }
         public void ativarVwMateria(object sender, EventArgs e)
         {
             ativaViews(3);
             carregarGvMateria();
+            popularAlinhamento();
+            popularMatImgTipo();
+            popularCampoConteudo();
         }
         public void ativarVwPublicidade(object sender, EventArgs e)
         {
@@ -85,13 +90,44 @@ namespace Site.Adm
             stImgTipo.DataTextField = "descricao";
             stImgTipo.DataBind();
         }
+        public void popularAlinhamento()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string query = " SELECT cod, descricao, 1 AS ordem FROM st_imgalinhamento " +
+                           " WHERE cod = 'NEN' " +
+                           " UNION " +
+                           " SELECT cod, descricao, 2 AS ordem FROM st_imgalinhamento  ";
+
+            ObjDados.Query = query;            
+
+            stMatImgAlinha.DataSource = ObjDados.RetQuery();
+            stMatImgAlinha.DataValueField = "cod";
+            stMatImgAlinha.DataTextField = "descricao";
+            stMatImgAlinha.DataBind();
+        }
+        public void popularCampoConteudo()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string query = " SELECT cod, descricao, 1 AS ordem FROM st_imgcampoconteudo " +
+                           " WHERE cod = 'NEN' " +
+                           " UNION " +
+                           " SELECT cod, descricao, 2 AS ordem FROM st_imgcampoconteudo  ";
+            ObjDados.Query = query;
+
+            stMatImgCampoConteudo.DataSource = ObjDados.RetQuery();
+            stMatImgCampoConteudo.DataValueField = "cod";
+            stMatImgCampoConteudo.DataTextField = "descricao";
+            stMatImgCampoConteudo.DataBind();
+        }
         public void popularMatImgTipo()
         {
             BLL ObjDados = new BLL(conectSite);
 
             ObjDados.Campo = " * ";
             ObjDados.Tabela = " st_img_tipo ";
-            ObjDados.Condicao = " WHERE cod IN ('cha', 'des', 'd2', 'gal')";
+            ObjDados.Condicao = " WHERE cod IN ('cha', 'des', 'd2', 'gal', 'ptop')";
 
             stMatImgTipo.DataSource = ObjDados.RetCampos();
             stMatImgTipo.DataValueField = "cod";
@@ -552,7 +588,8 @@ namespace Site.Adm
 
             string text = "Você selecionou a opção: ";
 
-
+            //16-10-2022
+            //Não tenho ideia do que pretendia com esse código 
 
             for (int i = 0; i <= stMatImgTipo.Items.Count - 1; i++)
             {
@@ -570,11 +607,7 @@ namespace Site.Adm
         }
 
         public void cadastrarMateria(object sender, EventArgs e)
-        {
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-
+        {            
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
 
@@ -583,10 +616,24 @@ namespace Site.Adm
 
 
             iMatPubIni.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
-            iMatPubFim.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string FinalizaPublicacao = "";
+                                    
+            if (!String.IsNullOrEmpty(iMatPubFim.Value))
+            {
+                iMatPubFim.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
+
+                FinalizaPublicacao = "'" + iMatPubFim.Value + "',";
+            }
+            else
+            {
+                FinalizaPublicacao = "" + "NULL" + ",";
+            }
+
+            //MessageBox.Show(iMatPubFim.Value);
 
             string tabela = " st_conteudo ";
-            string campos = " cod_tipo, cod_categoria, cod_menu, titulo, introducao, conteudo, complemento, conclusao, fonte, autor, dt_publIni, dt_PublFim, id_empresa, dt_cad, cadMom, cadUsu  ";
+            string campos = " cod_tipo, cod_categoria, cod_menu, titulo, introducao, conteudo, complemento, conclusao, fonte, autor, dt_publIni, dt_PublFim, id_empresa, dt_cad, cadMom, cadUsu  ";            
             string campoID = " * ";
             string condicao = " ORDER BY id DESC LIMIT 1 ";
             string valores = String.Format("'" + "MAT" + "'," +
@@ -600,16 +647,22 @@ namespace Site.Adm
                                            "'" + iMatFonte.Value + "'," +
                                            "'" + iMatAutor.Value + "'," +
                                            "'" + iMatPubIni.Value + "'," +
-                                           "'" + iMatPubFim.Value + "'," +
+                                           //"'" + iMatPubFim.Value + "'," +
+                                           FinalizaPublicacao +
                                            "'" + 1 + "'," +
                                            "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                            "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
                                            "'" + Session["LoginUsuario"].ToString() + "'");
 
+            
+
             //Dados para Inserção
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
             ObjDados.Valores = valores;
+
+            //MessageBox.Show("INSERT INTO" + tabela + "(" + campos + ")" + " VALUES(" + valores + ")");
+                        
 
             if (!String.IsNullOrEmpty(iMatTitulo.Value))
             {
@@ -1292,9 +1345,6 @@ namespace Site.Adm
         protected void InserirImgMateria(object sender, EventArgs e)
         {
             string xRet = "";
-#pragma warning disable CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
-            string xImg = "";
-#pragma warning restore CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);
@@ -1337,8 +1387,8 @@ namespace Site.Adm
                                 try
                                 {//Gravar Arquivo
                                     CaminhoArquivo = ConfigurationManager.AppSettings["caminhoArquivo"].Replace(@"\", "/"); //Esse cara "insere" um espaço na última barra - 13-08-2021: Checar!
-                                    caminho = Server.MapPath(@"~/Img/Conteudo/").Replace(@"\", "/");
-                                    caminho2 = ("/Img/Conteudo/").Replace(@"\", "/");
+                                    caminho = Server.MapPath(@"~/Img/Materia/").Replace(@"\", "/");
+                                    caminho2 = ("/Img/Materia/").Replace(@"\", "/");
                                     arquivo = fuMatImg.FileName;
                                     string path = caminho.Replace(@"\", "/");
 
@@ -1368,8 +1418,15 @@ namespace Site.Adm
 
                                         //MessageBox.Show(" SELECT " + ObjValida.Campo + " FROM " + ObjValida.Tabela + " " + ObjValida.Condicao);
 
-                                        int contador = dadosID.Rows.Count;
-                                        IDConteudo = dadosID.Rows[0]["ID"].ToString();
+
+                                        if (dadosID.Rows.Count > 0)
+                                        {
+                                            IDConteudo = dadosID.Rows[0]["ID"].ToString();
+                                        }
+                                        else
+                                        {
+                                            MessageBox.Show("* " + dadosID.Rows.Count);
+                                        }
 
                                         //MessageBox.Show("Quant.: " + contador + " ID: " + IDConteudo);                                        
                                         
@@ -1378,11 +1435,13 @@ namespace Site.Adm
                                         stMatImgTipo.DataValueField = "cod";
 
                                         string tabela = " st_imagens ";
-                                        string campos = " id_conteudo, codtipo, cod_destaque, titulo, descritivo, fonte, autor, hint, cadmom, cadusu, path_img, id_empresa, id_noticia ";
+                                        string campos = " id_conteudo, codtipo, cod_destaque, cod_campoconteudo, cod_alinhamento, titulo, descritivo, fonte, autor, hint, cadmom, cadusu, path_img, id_empresa";
                                         string condicao = " WHERE id = '" + IDConteudo + "'";
                                         string valores = String.Format("'" + IDConteudo + "'," +
-                                                                       "'" + stMatImgTipo.Value + "'," +
+                                                                       "'" + stMatImgTipo.Value + "'," +                                                                       
                                                                        "'" + "MAT" + "'," +
+                                                                       "'" + stMatImgCampoConteudo.Value + "'," +
+                                                                       "'" + stMatImgAlinha.Value + "'," +
                                                                        "'" + iMatImgTitulo.Value + "'," +
                                                                        "'" + iMatImgDesc.Value + "'," +
                                                                        "'" + iMatImgFonte.Value + "'," +
@@ -1391,8 +1450,7 @@ namespace Site.Adm
                                                                        "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                                                                        "'" + Session["LoginUsuario"].ToString() + "', " +
                                                                        "'" + caminho2 + arquivo + "', " +
-                                                                       "'" + 1 + "', " +
-                                                                       "'" + 2 + "'");
+                                                                       "'" + 1 + "'");                                                                       
 
                                         ObjDados.Tabela = tabela;
                                         ObjDados.Campo = campos;
@@ -1410,7 +1468,7 @@ namespace Site.Adm
 
                                         ObjDados.InsertRegistro(tabela, campos, valores);
 
-                                        if (contador > 0) // Executa se houver retorno de registro
+                                        if (dadosID.Rows.Count > 0) // Executa se houver retorno de registro
                                         {
                                             mwImgMat.ActiveViewIndex = 0;
                                             lbMatDados.Items.Add(xRet);

@@ -34,7 +34,8 @@
             margin: 0;
             padding: 0;
             border: 0;
-            font-size: 70px;
+            /*font-size: 70px;*/
+            font-size: 16px;
             border: none;
             visibility: visible;
         }
@@ -53,7 +54,8 @@
             margin: 0;
             padding: 0;
             border: 0;
-            font-size: 40px;
+            /*font-size: 40px;*/
+            font-size: 14px;
             border: none;
             visibility: visible;
     }
@@ -90,4 +92,122 @@
 #lblPeriodo{
     font-size: 10px;
     background-color: forestgreen;
+}
+
+@media PrintExtAssoc {
+    
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+/*# Extrato Associado #*/
+
+.defaultTable {    
+}
+
+    .defaultTable table {        
+    }
+
+    .defaultTable caption {
+        background-color: #22396f;
+        margin: 0;
+        margin-top: 30px;
+        padding: 10px 0 2px;
+        font-size: 2.8em;
+        color: white;
+    }
+
+    .defaultTable tr, td, th {
+        /*border: thin solid #ccc;*/
+        min-width: 15px;
+        height: auto;
+        border-bottom: none;
+        border-right: none;
+        padding: 5px 18px 2px 18px;
+        font-size: 2.85em;
+        /*font-size: 11px;*/
+        font-weight: 300;
+    }
+
+@media(max-width: 1000px) {
+    table{
+        width: 120%;        
+    }
+    tr, td, th {
+        font-size: 1.3em;
+    }
+}
+
+
+.defaultTable td {
+    text-align: center;
+}
+
+.defaultTable th {
+    text-align: left;
+}
+
+.defaultTable thead th {
+    text-align: center;
+    background-color: #f26907;
+}
+
+.defaultTable thead td {
+    background-color: #7693d5;
+}
+
+.defaultTable thead tr th:first-child {
+    /*text-align: center;*/
+}
+
+.x {
+    width: 70%;
+    margin: 0 auto;
+    background-color: red;
+    width: 100% -20px;
+    text-align: left;
+    background-color: #cfcaca;
+    padding: 0 0 5px 20px;
+    margin: 0;
+    text-align: center;
+    background-color: #808080;
+    font-size: 2em;
+    margin: 0;
+    padding: 15px 0 5px 0;
+    color: #fff;
+}
+
+.defaultTable tfoot td {
+    font-size: 1.8em;
+    color: white;
+    background-color: #7693d5;
+    padding: 5px 0;
+}
+
+.right {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.left {
+    text-align: left;
+}
+
+.defaultTable tbody tr:nth-child(odd) { /*Altera a cor da linha*/
+    background-color: #ebf0f9;
+    background-color: #d8e1f3;
+}
+
+/*tbody tr:nth-child(even) {
+    background-color: #666;
+}
+    */
+.coluna1 {
+    background-color: #f26907;
+    
+}
+
+
 }

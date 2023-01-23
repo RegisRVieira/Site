@@ -1,11 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="Site.Home" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" EnableEventValidation="false" CodeBehind="Home.aspx.cs" Inherits="Site.Home" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta http-equiv="refresh" content="60" />
+    <meta http-equiv="refresh" content="300" />
     <title>ASU - Associação dos Servidores da Unesp</title>
     <link  rel="stylesheet" href="Css/Global.css"/>
     <link rel="stylesheet" href="Css/Global-Fluido.css" />
@@ -16,7 +16,8 @@
     <link rel="sortcut icon" type="image/png" href="Img/Logo-nav.png" /> <!-- Exibe Imagem na Aba do Navegador -->
 </head>
 <body>
-    <script src="https://static.zenvia.com/embed/js/zenvia-chat.min.js"></script><script>  var chat = new ZenviaChat('b0ec78cf08497aecd5aeffd29b7bf5f9').embedded('button').build();</script>
+    <!--<script src="https://static.zenvia.com/embed/js/zenvia-chat.min.js"></script>
+    <script>  var chat = new ZenviaChat('b0ec78cf08497aecd5aeffd29b7bf5f9').embedded('button').build();</script>-->
     <main>
         <header>
         </header>
@@ -28,8 +29,8 @@
                 <a href="https://www.facebook.com/ASUBotucatu" target="_blank">
                     <section class="navHome-Box2" >                     
                     </section>
-                </a>
-                <a href="https://www.google.com.br/maps/place/ASU+Sub-sede+Aposentados+Unesp/@-22.8706326,-48.4498872,19z/data=!4m5!3m4!1s0x94c7213a0b41cb85:0xa5f0199ffa5db304!8m2!3d-22.8706746!4d-48.449568" target="_blank">
+                </a>                
+                <a href="https://www.google.com/maps/place/Associa%C3%A7%C3%A3o+dos+Servidores+da+Unesp/@-22.8972563,-48.4896674,15.83z/data=!4m5!3m4!1s0x94c6d8a42c5681ff:0x373a5b280e09b702!8m2!3d-22.8979077!4d-48.4918289" target="_blank">
                     <section class="navHome-Box3" >                    
                     </section>
                 </a>
@@ -43,10 +44,10 @@
                             <img src="../Img/Icon/usuLogin.svg"/>                            
                             <div class="BoxVOLoginMenu">
                                 <ul>
-                                    <li><a href="LoginVoceOnLine.aspx"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>
-                                    <!--<li><a href="VOnline/Login.aspx"><p><asp:Label ID="lblUsuLogadoX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>-->
+                                    <!--<li><a href="LoginVoceOnLine.aspx"><p><asp:Label ID="lblUsuLogadoX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>-->
+                                    <!--<li><a href="VOnline/Login.aspx"><p><asp:Label ID="lblUsuLogadoXX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>-->
                                     <!--Este é o cara para acessar o Você Online Local!!!! Trocar lblUsuLogadoXXX, por lblUsuLogado-->
-                                    <!--<li><a href="http://asu.no-ip.info/vonline/"><p><asp:Label ID="lblUsuLogadoXXX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a> -->
+                                    <li><a href="http://asu.no-ip.info/vonline/"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>
                                         <ul>                                                                                        
                                             <!--
                                                 <a href="VOnLine/Login.aspx">Você On Line - Local</a>
@@ -75,8 +76,8 @@
                         <li><a href="ContNossaEntidade.aspx?vNE=1">Nossa Entidade</a></li>
                         <li><a href="ContNossaEntidade.aspx?vNE=2">Estatuto Social</a></li>
                         <li><a href="FaleConosco.aspx">Fale conosco</a></li>
-                        <li><a class="voceonlinejs" href="LoginVoceOnLine.aspx">Consultar Seu Saldo</a></li>
-                        <li><a id="voceonlinejs" class="voceonlinejs" href="LoginVoceOnLine.aspx">Você On Line</a></li>
+                        <li><a class="voceonlinejs" href="http://asu.no-ip.info/vonline/">Consultar Seu Saldo</a></li>
+                        <li><a id="voceonlinejs" class="voceonlinejs" href="http://asu.no-ip.info/vonline/">Você On Line</a></li>
                         <li><a id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuHome()">&cross;</a></li>
                         <li id="treeline-icon" class="treeline-icon" onclick="openMenuHome()">&#9776;</li>                        
                     </ul>
@@ -103,7 +104,7 @@
                         </div>
                     </div>                   
                 </section>
-                <section id="darBrinde" runat="server" class="secBrinde" >
+                <section id="darBrinde" runat="server" class="secBrinde"  visible="false">
                     <div class="secBrindeMsg">
                         <div class="secBrindeTexto"> 
                             <p>
@@ -116,18 +117,18 @@
                             </p>
                        </div>
                         <div class="secBrindePeriodo">
-                            <p style="text-align: center; font-size: 24px; padding-top: 15px;">
+                            <h1>
                               Não perca tempo, pegue o seu!
-                            </p>
-                            <p style="text-align: center; font-size: 14px;">
+                            </h1>
+                            <h2>
                                 Exclusivo para <b>Associados</b>, não deixe de Participar!
-                            </p>
+                            </h2>
                         </div>
                    </div>
                     <div class="btn_Brinde"> 
                         <div>
                             <asp:LinkButton ID="lbtnDesativar" runat="server" Text="Fechar" OnClick="desativarItem"></asp:LinkButton>
-                            <a href="VoceOnLine1.aspx">Eu Quero participar</a>                            
+                            <a href="http://asu.no-ip.info/vonline/">Eu Quero participar</a>                            
                         </div>
                     </div>
                 </section>
@@ -137,13 +138,13 @@
                 <div class="BoxSlider-Interno">
                    <%# montarSlider() %>                    
                     <div class="BoxSlider-VoceOnLine">
-                        <p>Você On Line</p>
+                        <p><a class="BoxSlider-VoceOnLineLink" href="http://asu.no-ip.info/vonline/">Você On Line</a></p>
                         <section class="BoxVOImg">
-                            <a href="VOnLine/Login.aspx">
+                            <a href="http://asu.no-ip.info/vonline/">
                                 <img class="bannerSlider" src="../img/Seu Saldo.jpg" /></a>
-                            <a href="VOnLine/Login.aspx">
+                            <a href="http://asu.no-ip.info/vonline/">
                                 <img class="bannerSlider" src="../img/Sua Venda.jpg" /></a>
-                            <a href="VOnLine/Login.aspx">
+                            <a href="http://asu.no-ip.info/vonline/">
                                 <img class="bannerSlider" src="../img/Seu Extrato.jpg" /></a>
                             <div class="bullets" style="width: 21.5%; height: auto; text-align: center; position: relative; top: 90%;">
                             </div>                            
@@ -422,5 +423,16 @@
             <div class="footerHome-Img"><img src="../Img/Icon/Logo2 Régis-ASU.png" /></div>            
         </footer>
     </main>
+    <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83720917-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </body>
 </html>

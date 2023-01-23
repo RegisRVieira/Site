@@ -96,6 +96,15 @@ namespace Site.Privado
         protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtEstudos;
 
         /// <summary>
+        /// Controle lbtApps.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor lbtApps;
+
+        /// <summary>
         /// Controle lbtTestes.
         /// </summary>
         /// <remarks>

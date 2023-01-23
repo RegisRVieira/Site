@@ -51,6 +51,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblTeste;
 
         /// <summary>
+        /// Controle ddlBuscaPorRamo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBuscaPorRamo;
+
+        /// <summary>
         /// Controle ibtnComercio.
         /// </summary>
         /// <remarks>
@@ -69,13 +78,22 @@ namespace Site
         protected global::System.Web.UI.WebControls.ImageButton ibtnSaude;
 
         /// <summary>
-        /// Controle lblResult.
+        /// Controle lblRetDestaque.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblResult;
+        protected global::System.Web.UI.WebControls.Label lblRetDestaque;
+
+        /// <summary>
+        /// Controle lblRetLogo.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblRetLogo;
 
         /// <summary>
         /// Controle lblMsgErro.

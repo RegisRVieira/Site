@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Você OnLine</title>
     <link rel="stylesheet" href="Css/StyleVoceOnLine.css" />
     <link rel="stylesheet" href="Css/Form-Clean.css" />
@@ -118,6 +118,7 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwAssocExtrato" runat="server">
+
                             <section class="SecPeriodoExtrato">
                                 <div class="BoxDdlPeriodoExtrato defaultTable">
                                     <table class="TabPeridoExtrato">
@@ -183,6 +184,21 @@
                                         border-radius: 8px;
                                         border: 1px solid #f26907;
                                     }
+                                    .msgParticipacao{
+                                        position: absolute;
+                                        top: 80px;
+                                        right: 600px;
+                                        width: 300px; 
+                                        min-height: 50px; 
+                                        background-color: #fef3ec;
+                                        border-radius: 8px;
+                                        border: 1px solid #f26907;
+                                    }
+                                    .msgParticipacao {
+                                        padding: 9px;                                        
+                                        font-size: 20px;
+                                        color: #f26907;
+                                    }
                                     .premioTexto{
                                         width: 100%;
                                         height: 200px;
@@ -244,19 +260,25 @@
                                     }
                                     }
                                 </style>
-                                <section id="secPremio" runat="server" class="premiacao" style="">
-                                    <div class="premioTexto">
-                                        <p>Quero Ganhar um Prêmio do Grupo Berimbau!</p>
-                                        <img src="~/Img/Publicidade/Brinde - Berimbau.png" runat="server" />
-                                    </div>
-                                    <div class="premioBotao">
-                                        <asp:Button ID="btnPremio" runat="server" Text="Participar" CssClass="btnPremio" OnClick="gravarBrinde"/>
-                                        <asp:LinkButton ID="lbtnNegar" runat="server" Text="Não, Obrigado" CssClass="btnPremio btnNegarBrinde" OnClick="negarBrinde"></asp:LinkButton>
-                                    </div>
+                                <section  style="">
+                                    <section id="secPremio" runat="server" class="premiacao">
+                                        <div class="premioTexto">
+                                            <p>Quero Ganhar um Prêmio da ASU!</p>
+                                            <img src="~/Img/Publicidade/Brinde - ASU.png" runat="server" />
+                                        </div>
+                                        <div class="premioBotao">
+                                            <asp:Button ID="btnPremio" runat="server" Text="Participar" CssClass="btnPremio" OnClick="gravarBrinde"/>
+                                            <asp:LinkButton ID="lbtnNegar" runat="server" Text="Não, Obrigado" CssClass="btnPremio btnNegarBrinde" OnClick="negarBrinde"></asp:LinkButton>
+                                        </div>
+                                    </section>
+                                    <section id="secMsg" runat="server" class="desativa_termo">
+                                        <asp:Label ID="lblMsgPremio" runat="server" class=""></asp:Label>
+                                    </section>
                                 </section>
                                 <section id="margemRodape"></section>
                             </section>                            
-                        </asp:View>
+                       
+                            </asp:View>
                         <asp:View ID="vwAssocCartoes" runat="server">
                             <div style="float: left; width: 100%; min-height: 250px;">
                                 <%# metodoCartoesAssoc() %>                                                              
@@ -359,6 +381,16 @@
                                     <input id="btnImprimeCompVenda" type="submit" value="Imprimir" onclick="printBy()"/>
                                     <asp:Button  ID="btnFinalizaVenda" runat="server" Text="Finalizar Venda" OnClick="finalizarVenda" />
                                 </div>
+                                <!-- 24-10-2022: Novo modelo de impressão do Comprovante de Venda -->
+                                <div style="width: 100%; min-height: 50px; background-color: #d8e1f3" >
+                                    <div class="left" style="margin-top: 7px;  margin-left: 5px;">
+                                        <a href="#" onclick="PrintElem('#lblRetorno', 1080, 'Comprovante de Venda <%# Titulo() %>')"><img style="width: 80px;" src="Img/Layout/btImprimir.png" border="0" /></a>
+                                    </div>
+                                    <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
+                                        <p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Comprovante de Venda</p>
+                                    </div>    
+                                </div>
+
                                 <p style="font-size: 20px; color: white; background-color: #7890c2;">Comprovante de Venda</p>
                                 <div style=" margin-bottom: 50px; padding: 8px; border: 1px solid #7890c2; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;">
                                     <div id="printable" class="printable">
@@ -424,11 +456,11 @@
                                                             width: 130px;
                                                             height: auto;
                                                         }
-                                                    </style>
-                                                    <input id="iDataIni" runat="server" type="date" />
+                                                    </style>                                                    
+                                                    <asp:TextBox ID="iDataIni" runat="server" type="date"></asp:TextBox>
                                                 </td>
-                                                <td class="tdPeridoExtratoAno">
-                                                    <input id="iDataFin" runat="server" type="date" />
+                                                <td class="tdPeridoExtratoAno">                                                    
+                                                    <asp:TextBox ID="iDataFin" runat="server" type="date"></asp:TextBox>
                                                 </td>
                                                 <td>
                                                     <asp:Button ID="btnGerarData" runat="server" Text="Visualizar Período" OnClick="montarRelEntrega" />                                                    

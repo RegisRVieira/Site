@@ -69,13 +69,13 @@ namespace Site.VOnLine
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl termo;
 
         /// <summary>
-        /// Controle btnDesativaTermo.
+        /// Controle btnLiberaAcessoVO.
         /// </summary>
         /// <remarks>
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDesativaTermo;
+        protected global::System.Web.UI.WebControls.Button btnLiberaAcessoVO;
 
         /// <summary>
         /// Controle lblMsg.

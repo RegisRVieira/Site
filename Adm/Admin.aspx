@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Adm/Adm.Master" CodeBehind="Admin.aspx.cs" Inherits="Site.Adm.Admin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/Adm/Adm.Master" ValidateRequest="false" CodeBehind="Admin.aspx.cs" Inherits="Site.Adm.Admin" %>
 
 <asp:Content ID="cDBHeader" runat="server" ContentPlaceHolderID="cpHeader">
 </asp:Content>
@@ -232,7 +232,119 @@
                     </asp:View>
                     <asp:View ID="vwGvCofig" runat="server">
                         <div>
-                            <p>Em Análise, aguarde...</p>
+                            <style>
+                                .BTN1{
+                                    margin: 2px;
+                                    width: 200px;
+                                    min-height: 10px;
+                                    padding: 5px;
+                                    font-size: 1em;
+                                    text-decoration: none;
+                                    color: #f26907;
+                                    background-color: #22396f;
+                                    border-radius: 6px;
+                                    display: inline-block;
+                                }
+                                .BTN1:hover{
+                                     background-color: #f26907;
+                                     color: #22396f;
+                                }
+                                .titConfig{
+                                    margin: 0;
+                                    width: 99.5%;
+                                    padding: 1px;
+                                    background-color: #808080;
+                                    color: white;
+                                    font-size: 20px;
+                                    text-align: center;
+                                }
+                            </style>
+                            <div style="width: 15%; float: left;">
+                                <asp:LinkButton ID="lbtConfigTermo" runat="server" Text="Config: Termo" CssClass="BTN1" OnClick="btnGridConfigTermo"></asp:LinkButton>
+                                <asp:LinkButton ID="lbtTermo" runat="server" Text="Termo de Privaciadde" CssClass="BTN1" OnClick="btnGridTermo"></asp:LinkButton>
+                                <asp:LinkButton ID="lbtConfigBrinde" runat="server" Text="Config: Prêmio" CssClass="BTN1" OnClick="btnGridConfigBrinde"></asp:LinkButton>
+                                <asp:LinkButton ID="lbtBrinde" runat="server" Text="Prêmios" CssClass="BTN1" OnClick="btnGridBrinde"></asp:LinkButton>
+                            </div>
+                            <div style="width: 75%; min-height: 10px; float: left; margin-left: 10px;">
+                                <asp:MultiView ID="mwGridConfig" runat="server">
+                                    <asp:View ID="vwConfigTermo" runat="server">
+                                        <p class="titConfig">Configuração Termo de Provacidade</p>                                        
+                                        <asp:GridView ID="gvConfigTermo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="4" AllowPaging="True" OnPageIndexChanging="paginarGvConfigTermo" OnSelectedIndexChanged="selecionarRegistroGvConfigTermo">
+                                            <AlternatingRowStyle BackColor="White" />
+                                            <Columns>
+                                                <asp:CommandField ShowSelectButton="True" />
+                                            </Columns>
+                                            <EditRowStyle BackColor="#7C6F57" />
+                                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#E3EAEB" />
+                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                        </asp:GridView>
+                                    </asp:View>
+                                    <asp:View ID="vwTermo" runat="server">
+                                        <p class="titConfig">Termo de Privacidade</p>                                        
+                                        <asp:GridView ID="gvTermo" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="4" AllowPaging="True" OnPageIndexChanging="paginarGvTermo" OnSelectedIndexChanged="selecionarRegistroGvTermo">
+                                            <AlternatingRowStyle BackColor="White" />
+                                            <Columns>
+                                                <asp:CommandField ShowSelectButton="True" />
+                                            </Columns>
+                                            <EditRowStyle BackColor="#7C6F57" />
+                                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#E3EAEB" />
+                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                        </asp:GridView>
+                                    </asp:View>
+                                    <asp:view ID="vwConfigBrinde" runat="server">
+                                        <p class="titConfig">Configuração Brinde</p>
+                                        <asp:GridView ID="gvConfigBrinde" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="4" AllowPaging="True" OnPageIndexChanging="paginarGvConfigBrinde" OnSelectedIndexChanged="selecionarRegistroGvConfigBrinde">
+                                            <AlternatingRowStyle BackColor="White" />
+                                            <Columns>
+                                                <asp:CommandField ShowSelectButton="True" />
+                                            </Columns>
+                                            <EditRowStyle BackColor="#7C6F57" />
+                                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#E3EAEB" />
+                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                        </asp:GridView>
+                                    </asp:view>
+                                    <asp:View ID="vwBrinde" runat="server">
+                                        <p class="titConfig">Prêmios</p>
+                                        <asp:GridView ID="gvPremios" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="4" AllowPaging="True" OnPageIndexChanging="paginarGvBrinde" OnSelectedIndexChanged="selecionarRegistroGvBrinde">
+                                            <AlternatingRowStyle BackColor="White" />
+                                            <Columns>
+                                                <asp:CommandField ShowSelectButton="True" />
+                                            </Columns>
+                                            <EditRowStyle BackColor="#7C6F57" />
+                                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                                            <RowStyle BackColor="#E3EAEB" />
+                                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                                        </asp:GridView>
+                                    </asp:View>
+                                </asp:MultiView>
+                            </div>
                         </div>
                     </asp:View>
                 </asp:MultiView>
@@ -343,9 +455,44 @@
                             </asp:MultiView>
                             <asp:Button ib="btnEditarImagens" runat="server" Text="Editar" OnClick="editarImagem" />
                         </asp:View>
-                        <asp:View ID="vwFormConfig" runat="server">
+                        <asp:View ID="vwFormConfig" runat="server">                            
                             <div>
-                                <p>Em Anãlise, tenha paciência...</p>
+                                <style>
+                                    .CaixaTexto1{
+                                        margin: 5px;
+                                        margin-left: 25px;
+
+                                        width: 90%;
+                                        min-height: 110px;
+                                    }
+                                </style>                                
+                            <asp:MultiView ID="mwConfiguracoes" runat="server">                                
+                                <asp:View ID="vwFormConfigTermo" runat="server">
+                                    <p class="titConfig">Cadastro: Config. Termo de Privacidade</p>
+                                    <asp:Label ID="lblConfigTermo" runat="server"></asp:Label>
+                                    <select id="stEmpresaConfigTermo" runat="server"></select>
+                                    <textarea id="taTextConfigTermo" runat="server" class="CaixaTexto1" placeholder="Texto Resumido"></textarea>
+                                    <textarea id="taText2ConfigTermo" runat="server" class="CaixaTexto1"  placeholder="Texto Completo"></textarea>
+                                    <input id="iDtIni_ConfigTermo" runat="server" type="date" />
+                                    <input id="iDtFim_ConfigTermo" runat="server" type="date" />
+                                    <label id="iMotCancela"></label>                                    
+                                    <asp:Button ID="btnCadConfigTermo" runat="server" Text="Cadastrar" OnClick="cadastrarConfigTermo" />
+                                    <asp:Button ID="btnEditConfigTermo" runat="server" Text="Editar" OnClick="editarConfigTermo" />                                    
+                                    <asp:Button ID="btnExcConfigTermo" runat="server" Text="Excluir" OnClick="excluirConfigTermo" />
+                                </asp:View>
+                                <asp:View ID="vwFormTermo" runat="server">
+                                    <p class="titConfig"> Termo</p>
+                                    <asp:Label ID="lblTermo" runat="server"></asp:Label>
+                                </asp:View>
+                                <asp:View ID="vwFormConfigBrinde" runat="server">
+                                    <p class="titConfig">Config. Brinde</p>
+                                    <asp:Label ID="lblConfigBrind" runat="server"></asp:Label>
+                                </asp:View>
+                                <asp:View ID="vwFormBrinde" runat="server">
+                                    <p class="titConfig">Brinde</p>
+                                    <asp:Label ID="lblBrinde" runat="server"></asp:Label>
+                                </asp:View>
+                            </asp:MultiView>                                
                             </div>
                         </asp:View>
                     </asp:MultiView>
