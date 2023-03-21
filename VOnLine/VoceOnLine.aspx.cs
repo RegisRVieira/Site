@@ -957,9 +957,16 @@ namespace Site.VoceOnLine
                     xRet += "</tr>";
                     xRet += "<tr>";
                     xRet += "<td style='font-size: 26px;'>" + Apoio.limiteAssociado().ToString("C2") + "</td>";
-                    if (Apoio.SaldoAssociado() > 0)
+                    if (Apoio.bloqueioAssociado() == "Liberado")
                     {
-                        xRet += "<td style='font-size: 34px;'>" + Apoio.SaldoAssociado().ToString("C2") + "</td>";
+                        if (Apoio.SaldoAssociado() > 0)
+                        {
+                            xRet += "<td style='font-size: 34px;'>" + Apoio.SaldoAssociado().ToString("C2") + "</td>";                            
+                        }
+                        else
+                        {
+                            xRet += "<td style='font-size: 34px;'>" + "R$ 0.00" + "</td>";
+                        }
                     }
                     else
                     {
@@ -1414,7 +1421,7 @@ namespace Site.VoceOnLine
                 ObjDbExtPre.Left = leftPre;
                 ObjDbExtPre.Condicao = condicaoPre;
 
-                //MessageBox.Show(camposPre + tabelaPre + leftPre + condicaoPre);
+                //MessageBox.Show("SELECT" + camposPre + "FROM" + tabelaPre + leftPre + condicaoPre);
 
                 DataTable dadosPre = ObjDbExtPre.RetCampos();
 
@@ -1484,7 +1491,7 @@ namespace Site.VoceOnLine
                        " .relEntrega tbody tr:nth-child(odd) { /*Altera a cor da linha*/" +
                        " background-color: #ebf0f9;" +
                        " background-color: #d8e1f3; }" +
-                       " .relEntTitulo {height: 25px; width: 100 %; text - align:left; font-size: 16px;}" + 
+                       " .relEntTitulo {height: 25px; width: 100 %; text-align:left; font-size: 16px;}" + 
                        "</style> ";
 
 
@@ -1495,7 +1502,7 @@ namespace Site.VoceOnLine
                     xRet += "<div >";                    
                     xRet += "<div Class='relEntTitulo' >" + dadosPos.Rows[0]["conveniado"] + "</div>";
                     //xRet += "<div Class='relEntTitulo' >" + "Período Selecionado: " + Calendar_ini + " à " + Calendar_fin + "</div>";
-                    xRet += "<div Class='relEntTitulo' >" + "Período Selecionado: " +Convert.ToDateTime(Calendar_ini).ToString("dd-MM-yyyy") + " à " + Convert.ToDateTime(Calendar_fin).ToString("dd-MM-yyyy") + "</div>";                    
+                    xRet += "<div Class='relEntTitulo' >" + "Período Selecionado: " + Convert.ToDateTime(Calendar_ini).ToString("dd-MM-yyyy") + " à " + Convert.ToDateTime(Calendar_fin).ToString("dd-MM-yyyy") + "</div>";
                     xRet += "<div>";
                     //xRet += "<asp:label ID='lblPeriodo' Visible='true' >" + lblPeriodo.Text + "</asp:label>";
                     xRet += "</div>";
@@ -1516,8 +1523,8 @@ namespace Site.VoceOnLine
                     xRet += "</tr>";
                     xRet += "</thead>";
                     xRet += "<tfoot>"; //Footer
-                    xRet += "<td colspan='5' class='right'>" + "Total: " + "</td>";
-                    xRet += "<td colspan='2'>" + Convert.ToDecimal(gastos).ToString("C2") + " " + "</td>";
+                    xRet += "<td colspan='5' style='font-size: 20px; text-align: right; margin-right: 10px;'>" + "Total: " + "</td>";
+                    xRet += "<td colspan='2' class='right' style='font-size: 22px;'>" + Convert.ToDecimal(gastos).ToString("C2") + " " + "</td>";
                     xRet += "</tfoot>";
                     xRet += "<tbody>"; //Corpo
                     for (int i = 0; i < nLinhasPos; i++)
@@ -1613,54 +1620,7 @@ namespace Site.VoceOnLine
 
                     xRet += "<tbody>";
 
-                    /* 
-                     * * * * Cria duas linhas com 5 coluna, para exibir os dados * * * * *
-                    xRet += "<tr>";
-                    if (totParc1 > 0)
-                    {                        
-                        xRet += "<td>" + "Parcela 1: " + Convert.ToDecimal(totParc1).ToString("C2") + "</td>";                        
-                    }
-                    if (totParc2 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 2: R$ " + Convert.ToDecimal(totParc2).ToString("C2") + "</td>";
-                        
-                    }
-                    if (totParc3 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 3: R$ " + Convert.ToDecimal(totParc3).ToString("C2") + "</td>";
-                    }
-                    if (totParc4 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 4: R$ " + Convert.ToDecimal(totParc4).ToString("C2") + "</td>";
-                    }
-                    if (totParc5 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 5: R$ " + Convert.ToDecimal(totParc5).ToString("C2") + "</td>";
-                    }
-                    xRet += "</tr>";
-                    xRet += "<tr>";
-                    if (totParc6 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 6: R$ " + Convert.ToDecimal(totParc6).ToString("C2") + "</td>";
-                    }
-                    if (totParc7 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 7: R$ " + Convert.ToDecimal(totParc7).ToString("C2") + "</td>";
-                    }
-                    if (totParc8 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 8: R$ " + Convert.ToDecimal(totParc8).ToString("C2") + "</td>";
-                    }
-                    if (totParc9 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 9: R$ " + Convert.ToDecimal(totParc9).ToString("C2") + "</td>";
-                    }
-                    if (totParc10 > 0)
-                    {
-                        xRet += "<td>" + "Parcela 10: R$ " + Convert.ToDecimal(totParc10).ToString("C2") + "</td>";
-                    }
-                    xRet += "</tr>";
-                    */
+                   
                     //Cria duas colunas com 5 linhas, para exibir as parcelas
                     xRet += "<tr>";
                     if (totParc1 > 0)
@@ -1741,8 +1701,9 @@ namespace Site.VoceOnLine
                     gastosPre = dadosPre.Rows[0]["gastosPre"].ToString();
 
                     xRet_Pre += "<div >";
-                    xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + dadosPos.Rows[0]["conveniado"] + "</div>";
-                    xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + Calendar_ini + " à " + Calendar_fin + "</div>";
+                    xRet_Pre += "<div Class='relEntTitulo'>" + dadosPos.Rows[0]["conveniado"] + "</div>";                    
+                    xRet_Pre += "<div Class='relEntTitulo'>" + "Período Selecionado: " + Convert.ToDateTime(Calendar_ini).ToString("dd-MM-yyyy") + " à " + Convert.ToDateTime(Calendar_fin).ToString("dd-MM-yyyy") + "</div>";
+                    //xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + Calendar_ini + " à " + Calendar_fin + "</div>";
                     xRet_Pre += "<section Class='relEntrega'>";
                     xRet_Pre += "<table>";
                     xRet_Pre += "<caption>"; //Caption
@@ -1760,8 +1721,8 @@ namespace Site.VoceOnLine
                     xRet_Pre += "</tr>";
                     xRet_Pre += "</thead>";
                     xRet_Pre += "<tfoot>"; //Footer
-                    xRet_Pre += "<td colspan='5' class='right'>" + "Total: " + "</td>";
-                    xRet_Pre += "<td colspan='2'>" + Convert.ToDecimal(gastosPre).ToString("C2") + " " + "</td>";
+                    xRet_Pre += "<td colspan='5' style='font-size: 20px; text-align: right; margin-right: 10px;'>" + "Total: " + "</td>";
+                    xRet_Pre += "<td colspan='2' style='font-size: 22px; text-align: right;'>" + (Convert.ToDecimal(gastosPre) * -1).ToString("C2") + " " + "</td>";
                     xRet_Pre += "</tfoot>";
                     xRet_Pre += "<tbody>"; //Corpo
                     for (int i = 0; i < nLinhasPre; i++)
@@ -2129,7 +2090,8 @@ namespace Site.VoceOnLine
                     xRet += "<thead>"; //Head
                     xRet += "<tr>";
                     xRet += "<td colspan='4'>" + dadosPos.Rows[0]["conveniado"] + "</td>";
-                    xRet += "<td colspan='3'>" + " Período: " + ddlMesExtratoConv.Text + "/" + ddlAnoExtratoConv.SelectedValue + "</td>";
+                    //xRet += "<td colspan='3'>" + " Período: " + ddlMesExtratoConv.Text + "/" + ddlAnoExtratoConv.SelectedValue + "</td>";
+                    xRet += "<td colspan='3'>" + " Período: " + Convert.ToDateTime(Apoio.dtDataInicio().Substring(1, (Apoio.dtDataInicio().Length - 2))).ToString("dd/MM/yyyy") + " á " + Convert.ToDateTime(Apoio.dtDataFim().Substring(1, (Apoio.dtDataFim().Length - 2))).ToString("dd/MM/yyyy") + "</td>";
                     xRet += "</tr>";
                     xRet += "<tr>";
                     xRet += "<td>" + "Momento" + "</td>";
@@ -2142,8 +2104,8 @@ namespace Site.VoceOnLine
                     xRet += "</tr>";
                     xRet += "</thead>";
                     xRet += "<tfoot>"; //Footer
-                    xRet += "<td colspan='5' class='right'>" + "Total: " + "</td>";
-                    xRet += "<td colspan='2'>" + " R$: " + Apoio.vendasConvenio(iDAcesso.Substring(0, (tCampo - 2)), iDAcesso) + "</td>";
+                    xRet += "<td colspan='5' style='font-size: 20px; text-align: right; margin-right: 10px;'>" + "Total: " + "</td>";
+                    xRet += "<td colspan='2' style='font-size: 22px; text-align: right;'>" + Apoio.vendasConvenio(iDAcesso.Substring(0, (tCampo - 2)), iDAcesso).ToString("C2") + "</td>";
                     xRet += "</tfoot>";
                     xRet += "<tbody>"; //Corpo
                     for (int i = 0; i < nLinhasPos; i++)
@@ -2215,7 +2177,7 @@ namespace Site.VoceOnLine
 
             //Gera Dados para Pré Pago
 
-            string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT  SUM(m.qtde) AS gastosPre FROM cgc_movime AS m  WHERE (m.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS (SELECT NULL FROM coconven AS c WHERE c.idconven = m.CONV_ORIGID AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.vencimento BETWEEN '2021-4-20' AND '2021-5-19') AS gastosPre ";
+            string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT  SUM(m.qtde) AS gastosPre FROM cgc_movime AS m  WHERE (m.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS (SELECT NULL FROM coconven AS c WHERE c.idconven = m.CONV_ORIGID AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.vencimento BETWEEN " + Apoio.Periodo() + ") AS gastosPre ";
             //string camposPre = " mov.IDSEQ AS autorizacao, mov.CNSCADMOM AS Momento, mov.vencimento, contr.UUIDCONTRATO, CONCAT_WS('', mov.PARCELA, '/', mov.PARCTOT) AS ParcelaDesc, mov.QTDE AS Valor, car.NUMCARTAO, assoc.TITULAR AS Titular, asdep.NOME AS Dependente, unid.DESCRICAO AS Unidade, dpto.DESCRICAO AS Departamento, mov.convenio, conv.NOME AS ConvenioNome, tp.DESCRICAO AS TipoMov, (SELECT  SUM(m.qtde) AS gastosPre FROM cgc_movime AS m  WHERE (m.conv_origid = '" + iDAcesso.Substring(0, (tCampo - 2)) + "' OR EXISTS (SELECT NULL FROM coconven AS c WHERE c.idconven = m.CONV_ORIGID AND c.cnpj_cpf = '" + iDAcesso + "')) AND m.vencimento BETWEEN '"+ Apoio.Periodo() + "') AS gastosPre ";
             string tabelaPre = " CGC_MOVIME  AS mov ";
             string leftPre = " LEFT OUTER JOIN CGC_TPMOVIME tp ON tp.CODTIPO = mov.TPMOVIME " +
@@ -2238,7 +2200,7 @@ namespace Site.VoceOnLine
 
             if (ObjDbExtPre.MsgErro == "")
             {
-                //MessageBox.Show(camposPre + tabelaPre + leftPre + condicaoPre);
+                //MessageBox.Show("SELECT" + camposPre  + " FROM " + tabelaPre + leftPre + condicaoPre);
 
                 DataTable dadosPre = ObjDbExtPre.RetCampos();
                 int nLinhasPre = dadosPre.Rows.Count;
@@ -2271,7 +2233,8 @@ namespace Site.VoceOnLine
                     xRet += "<thead>"; //Head
                     xRet += "<tr>";
                     xRet += "<td colspan='3'>" + dadosPre.Rows[0]["ConvenioNome"] + "</td>";
-                    xRet += "<td colspan='2'>" + " Período: " + ddlMesExtratoConv.Text + "/" + ddlAnoExtratoConv.SelectedValue + "</td>";
+                    //xRet += "<td colspan='2'>" + " Período: " + ddlMesExtratoConv.Text + "/" + ddlAnoExtratoConv.SelectedValue + "</td>";
+                    xRet += "<td colspan='2'>" + " Período: " + Convert.ToDateTime(Apoio.dtDataInicio().Substring(1, (Apoio.dtDataInicio().Length - 2))).ToString("dd/MM/yyyy") + " á " + Convert.ToDateTime(Apoio.dtDataFim().Substring(1, (Apoio.dtDataFim().Length - 2))).ToString("dd/MM/yyyy") + "</td>";
                     xRet += "</tr>";
                     xRet += "<tr>";
                     xRet += "<td>" + "Momento" + "</td>";
@@ -2299,8 +2262,8 @@ namespace Site.VoceOnLine
                     }
                     xRet += "</tbody>";
                     xRet += "<tfoot>"; //Footer
-                    xRet += "<td colspan='4' class='right'>" + "Total: " + "</td>";
-                    xRet += "<td colspan='2'>" + " R$: " + dadosPre.Rows[0]["gastosPre"].ToString() + " " + "</td>";
+                    xRet += "<td colspan='4' style='font-size: 20px; text-align: right; margin-right: 10px;'>" + "Total: " + "</td>";                    
+                    xRet += "<td colspan='2' class='right' style='font-size: 22px;'>" + Convert.ToDecimal(gastosPre).ToString("C2") + " " + "</td>";
                     xRet += "</tfoot>";
                     xRet += "</table>";
                     //  xRet += "</div>";
@@ -2319,7 +2282,7 @@ namespace Site.VoceOnLine
             {
                 xRet += "Erro Pré Pago:" + ObjDbExtPre.MsgErro;
             }
-            //lblExtratoConvenioPre.Text = xRet;
+            lblExtratoConvenioPre.Text = xRet;
         }
 
         /* - - - Botões - - - */
@@ -3116,6 +3079,7 @@ namespace Site.VoceOnLine
                 VendaArq_envio = "" + System.IO.Path.Combine(pathDocumento, cArq_tit);
 
                 //MessageBox.Show("Venda enviada para Processamento, aguarde");
+                //MessageBox.Show(VendaArq_envio);
 
                 iNumCartao.Value = String.Empty;
                 iValorVenda.Value = String.Empty;

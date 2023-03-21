@@ -18,7 +18,10 @@
     </nav>
     <main class="corpoContMateria">        
         <div class="montaMateria">            
-            <div><%# montarContMateria() %></div>
+            <div><asp:Label ID="lblMateria" runat="server"> <%# montarContMateria() %></asp:Label></div>
+            <div class="left" style="margin-top: 7px;  margin-left: 5px;">                                            
+                <a href="#" onclick="PrintElem('#lblMateria', 1080, 'Extrato do Associado')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp    <br />                                            
+            </div>
         </div>        
         <div class="public-lateral">
             <%# montarListaMaterias() %>

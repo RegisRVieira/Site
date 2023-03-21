@@ -505,7 +505,8 @@
                     <p><b>Artigo 76</b> – As eleições para Conselho Fiscal terão inscrições individuais para concorrer ao pleito, devendo os candidatos protocolar as mesmas na secretaria da entidade.</p>
                     <p><b>Artigo 77</b> – As chapas que concorrerão à Diretoria Executiva e os candidatos ao Conselho Fiscal deverão inscrever-se na Secretaria da Associação, obedecendo-se ao calendário eleitoral previamente determinado e divulgado.</p>
                     <p><b>Artigo 78</b> – As inscrições terão um período de 5 (cinco) dias úteis e as eleições serão realizadas após 15 (quinze) dias do encerramento das inscrições.</p>
-                    <p><b>Artigo 79</b> – A Secretaria da entidade deverá divulgar o Edital das Eleições através da imprensa escrita, além da fixação em murais da ASU, com antecedência mínima de 30 (trinta) dias da realização da mesma, estabelecendo data, horário e locais de votação.</p>
+                    <p><b>Artigo 79</b> – <span style="text-decoration:line-through;"> A Secretaria da entidade deverá divulgar o Edital das Eleições através da imprensa escrita, além da fixação em murais da ASU, com antecedência mínima de 30 (trinta) dias da realização da mesma, estabelecendo data, horário e locais de votação.</span></p>
+                    <p><mark> – Para o inicio do processo eleitoral, a secretaria da entidade deverá divulgar o Edital das Eleições através da imprensa escrita ou virtual, sitio,  redes sociais ou em murais mantidos pela ASU, com antecedência mínima de 30 (trinta) dias da sua realização, fixando a data e horário das inscrições.</mark></p>
                     <p><b>Artigo 80</b> – Se houver necessidade, a Associação poderá determinar mais de um local de votação ou urna itinerante.</p>
                     <p><b>Artigo 81</b> – A votação será secreta, não se permitindo o voto por procuração.</p>
                     <p><b>Artigo 82</b> – A ASU escolherá, de comum acordo com as chapas inscritas, a Comissão Eleitoral, que será composta por 01(um) presidente, 01(um) secretário e 03 (três) membros responsáveis pelas eleições e apuração logo após o pleito.</p>
@@ -515,17 +516,29 @@
 
                     <p><b>Artigo 84</b> – No caso de mais de uma chapa inscrita, a cédula eleitoral obedecerá rigorosamente à ordem de inscrição protocolada.</p>
                     <p><b>Artigo 85</b> – Na cédula eleitoral para a escolha do Conselho Fiscal, a seqüência de nomes será obedecida rigorosamente à ordem de inscrição protocolada.</p>
-                    <p><b>Artigo 86</b> – O processo eleitoral só será legítimo se o número de votantes atingir 20% (vinte por cento) do total de associados em situação regular junto à Associação no dia das eleições.</p>
-                    <p>§ 1º – Se atendidos os requisitos estabelecidos no caput deste artigo, a chapa que obtiver o maior número de votos será proclamada eleita.</p>
-                    <p>§ 2º - Caso o número de votantes não atinja o quorum estabelecido no caput deste artigo, será convocada nova eleição a ser realizada em até 15 dias após o pleito.</p>
+                    <p><b>Artigo 86</b> – <span style="text-decoration:line-through;">O processo eleitoral só será legítimo se o número de votantes atingir 20% (vinte por cento) do total de associados em situação regular junto à Associação no dia das eleições.</span></p>
+                    <p><span style="text-decoration:line-through;">§ 1º – Se atendidos os requisitos estabelecidos no caput deste artigo, a chapa que obtiver o maior número de votos será proclamada eleita.</span></p>
+                    <p><span style="text-decoration:line-through;">§ 2º - Caso o número de votantes não atinja o quorum estabelecido no caput deste artigo, será convocada nova eleição a ser realizada em até 15 dias após o pleito.</span></p>
 
-                    <p><b>Artigo 87</b> – No caso de uma única chapa concorrente, para que a mesma seja proclamada vencedora deverá:-</p>
-                        <ul>
+                    <p><span><mark> - Havendo processo eleitoral para escolha dos membros da  Diretoria Executiva e/ou conselho fiscal, será eleita aquela que obtiver a maioria simples  dos votos dos eleitores aptos a votarem. </mark></span></p>
+                    <p><span><mark>§ 1º - Entende-se como eleitor apto a votar em todo e qualquer processo eleitoral ou assembleia, o associado que se encontra regular junto a entidade e que atenda o artigo 17, VI e artigo 93 do estatuto</mark></span></p>
+                    <p><span><mark>§ 2º - Caso haja empate, será eleita o (a) concorrente cujo presidente tenha a sua inscrição mais antiga junto a entidade. Persistindo o empate, o concorrente mais velho.</mark></span></p>
+                    <p><span><mark>§ 3º - Aplica-se os critérios do § 2º, para a eleição do Conselho Fiscal; </mark></span></p><br />
+
+                    <p><b>Artigo 87</b> – <span style="text-decoration: line-through;"> No caso de uma única chapa concorrente, para que a mesma seja proclamada vencedora deverá: </span></p>
+                        <ul style="text-decoration: line-through;">
                             <li>I-	atender ao estabelecido no artigo anterior;</li>
                             <li>II-	ter seus votos obtidos  suplantado a somatória dos votos nulos e brancos.</li>
                         </ul>
+                    <p> - <mark> No caso de uma única inscrição para concorrer ás eleições,  não se realizará  o processo  eleitoral, proclamando a chapa como vencedora, dando posse aos seus membros à Diretoria Executiva ou Conselho Fiscal. </mark></p>
+                    <br />
 
-                    <p><b>Artigo 88</b> – Em caso de empate, a Diretoria Executiva da ASU marcará novas eleições após 15 (quinze) dias úteis, sendo que somente as chapas empatadas com maior número de votos concorrerão ao novo pleito, não havendo necessidade de novas inscrições.</p>
+                    <p><b>Artigo 88</b> – <span style="text-decoration: line-through;"> Em caso de empate, a Diretoria Executiva da ASU marcará novas eleições após 15 (quinze) dias úteis, sendo que somente as chapas empatadas com maior número de votos concorrerão ao novo pleito, não havendo necessidade de novas inscrições.</span></p>
+
+                    <p><mark>§ 2º - do artigo 86</mark></p>
+                    <br />
+
+
                     <p><b>Artigo 89</b> – Nas apurações, serão considerados votos nulos aqueles que contiverem toda e qualquer adulteração e voto em branco quando a cédula permanecer intacta.</p>
                     <p><b>Artigo 90</b> – A Comissão Eleitoral realizará a rubrica em todas as cédulas, devendo no momento da votação manter em seu domínio a lista de assinaturas.</p>
                     <p><b>Artigo 91</b> – No momento de votar, o associado deverá apresentar qualquer documento de identificação pessoal com foto.</p>
@@ -576,6 +589,12 @@
 
                     <p>NEILSON CASSIMIRO DA SILVA</p>
                     <p>Presidente da Comissão de Revisão do Estatuto</p>
+                </div>
+                <div>
+                    <br /><br />
+                    <span style="background-color: yellow; width: 5px; height: 5px;"></span>
+                    <p style="background-color:yellow; width: 90px; color: #bbbbba; text-align: center;">Legenda</p>
+                    <p>Alterações aprovadas em assembleia, dia 12/12/2022.</p>
                 </div>
             </div>
 

@@ -366,6 +366,35 @@ namespace Site.App_Code
 
         //# # # # # # # # # # # # Fim Operações com Data # # # # # # # # # # # #
 
+        public string bloqueioAssociado()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string xRet = "";
+
+            string query = " SELECT idassoc, titular, bloqueio, IF(bloqueio IS NULL, 'Liberado', 'Bloqueado') AS bloq_status, bloq_tip, bloq_mot FROM associa " +
+                " WHERE cnscanmom IS NULL " +
+                " AND idassoc in ('" + IdAssoc + "')";
+
+            ObjDados.Query = query;
+
+            //xRet = ObjDados.Query;
+
+            DataTable dados = ObjDados.RetQuery();
+            try
+            {
+                if (dados.Rows.Count > 0)
+                {
+                    xRet = dados.Rows[0]["bloq_status"].ToString();
+                }
+            }
+            catch (Exception e) {
+                xRet = e.Message;
+            }            
+
+            return xRet;
+        }
+
         public double GastosAssociado()
         {
             BLL ObjDados = new BLL(conectVegas);

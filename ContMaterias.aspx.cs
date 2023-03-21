@@ -128,10 +128,11 @@ namespace Site
                     {                        
                         ValidaImagens++;                        
                     }
-                }                
+                }
 
                 //Se houver Publicidade, exibe-a. Do contrário, exibe uma imagem padrão.
-                if (ValidaImagens > 0)
+                //if (ValidaImagens > 0)
+                if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
                     {
@@ -152,7 +153,8 @@ namespace Site
                 xRet += "<p>" + dadosQuery.Rows[0]["titulo"] + "</p>";
 
 
-                if (ValidaImagens > 0)
+                //if (ValidaImagens > 0)
+                if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
@@ -174,7 +176,8 @@ namespace Site
                 //Introdução
                 xRet += "<section class='introducao texto'>";
                 xRet += "<p>" + dadosQuery.Rows[0]["introducao"] + "</p>";
-                if (ValidaImagens > 0)
+                //if (ValidaImagens > 0)
+                if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
@@ -195,7 +198,7 @@ namespace Site
 
                 //Contexto
                 xRet += "<section class='contexto texto'>";
-                if (ValidaImagens > 0)
+                if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
@@ -217,7 +220,7 @@ namespace Site
 
                 //Complemento
                 xRet += "<section class='complemento texto'>";
-                if (ValidaImagens > 0)
+                if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
@@ -240,7 +243,8 @@ namespace Site
 
                 //Conclusão
                 xRet += "<section class='conclusao texto'>";
-                if (ValidaImagens > 0)
+                //if (ValidaImagens > 0)
+                if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {

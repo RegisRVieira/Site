@@ -420,7 +420,7 @@ namespace Site
             ObjDados.Query = query;
             DataTable dados = ObjDados.RetQuery();
             string valida = "";
-            
+                
             if (dados.Rows.Count > 0)
             {
                 valida = dados.Rows[0]["saldo"].ToString();
