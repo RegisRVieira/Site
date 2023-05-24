@@ -56,7 +56,7 @@
                                         </div>
                                         <div style="width: 40%; float: left;">
                                             <div>
-                                                <asp:LinkButton CssClass="Botao1" ID="lbtnMostrarMesa" runat="server" Text="Ver esta Mesa" OnClick="verMesa"></asp:LinkButton>
+                                                <asp:LinkButton CssClass="Botao1" ID="lbtnMostrarMesa" runat="server" Text="Ver esta Mesa" OnClick="irParaMesa"></asp:LinkButton>
                                             </div>
                                         </div>
                                     </div>                                    
@@ -65,7 +65,7 @@
                             </section>
                             <section style=" width: 50%; min-height: 350px; border: 2px solid #f26907; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; margin: 0 auto;">
                                 <p style="width: 100%; text-align: center; font-size: 24px; font-weight: 700; clear: both;">Consultar Mesa</p>
-                                <asp:DropDownList ID="ddlVerMesa" runat="server" AutoPostBack="true" OnSelectedIndexChanged="consultarMesa"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlVerMesa" runat="server" AutoPostBack="true" OnSelectedIndexChanged="consultarMesa"></asp:DropDownList>                                
                                 <asp:Label ID="lblConsultaMesa" runat="server"></asp:Label>
                             </section>                          
                     </asp:View>
@@ -74,7 +74,23 @@
                             <section class="relTopo">
                                 <style>
                                     /*#lbtRelPartipa, #lbtRelDias {*/
+
+                                    x. {
+                                    background-color: #d5d4d4
+                                    }
                                 </style>
+
+                                <style>
+                                .ddRel{
+                                    width: 100%;
+                                    min-height: 35px;
+                                    color: #f26907;
+                                    border: 1px solid #fbb888;
+                                    font-size: 30px;
+                                    text-align: center;
+                                }
+                                </style>                                
+                                <asp:DropDownList ID="ddlRelatorios" runat="server" CssClass="ddRel"></asp:DropDownList>
                                 <p>Relatórios</p>
                                 <asp:Label ID="lblTituloEvento" runat="server"></asp:Label>
 

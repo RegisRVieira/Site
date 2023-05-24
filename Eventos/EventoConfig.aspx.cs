@@ -267,13 +267,20 @@ namespace Site.Eventos
             ObjValida.Campo = campos;
             ObjValida.Condicao = condicao;
 
+            MessageBox.Show("Evento: " + stEvento.Value);
+            MessageBox.Show("Ambiente: " + stAmbiente.Value);
+
+
             DataTable valida = ObjDados.RetCampos();
             DataTable dados = ObjDados.RetQuery();
 
             int checaMesas = 0;
-            int numInicio = (Convert.ToInt32(iMesaNumIni.Value));
+                int numInicio = (Convert.ToInt32(iMesaNumIni.Value));
             int qtdNumeros = Convert.ToInt32(iMesaNumFin.Value);
             int nLocalizacao = (numInicio - 1);
+
+            MessageBox.Show("Início : " + numInicio );
+            MessageBox.Show("Fim : " + qtdNumeros );
 
 
             if (ObjValida.MsgErro == "")

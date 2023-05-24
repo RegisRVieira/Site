@@ -615,7 +615,8 @@ namespace Site
             string campos = " i.id, i.codtipo AS TipoImg, c.Cod_tipo AS TipoCont, i.cod_destaque, i.titulo, i.path_img, i.fonte, i.autor, i.hint, c.dt_publini, c.dt_publfim, c.id, c.cod_menu,  c.cod_categoria, c.titulo ";
             string tabela = " st_imagens AS i ";
             string left = " INNER JOIN st_conteudo AS c ON c.id = i.id_conteudo ";
-            string condicao = " WHERE i.codtipo IN ('B100' ) AND c.Cod_tipo = 'BOX100' ORDER BY c.id DESC LIMIT " + limitBox100 + " ";
+            //string condicao = " WHERE i.codtipo IN ('B100' ) AND c.Cod_tipo = 'BOX100' ORDER BY c.id DESC LIMIT " + limitBox100 + " ";
+            string condicao = " WHERE i.codtipo IN ('B100' ) AND c.Cod_tipo = 'BOX100' ORDER BY c.id DESC ";
 
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;

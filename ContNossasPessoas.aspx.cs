@@ -55,6 +55,8 @@ namespace Site
 
             DataTable dados = ObjDbASU.RetCampos();
 
+            //MessageBox.Show("SELECT " + ObjDbASU.Campo + " FROM  " + ObjDbASU.Tabela + "  " + ObjDbASU.Left + "  " + ObjDbASU.Condicao);
+
             int contador = dados.Rows.Count;
 
 

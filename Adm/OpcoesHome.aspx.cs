@@ -507,18 +507,25 @@ namespace Site.Adm
 
         public void cadastrarContB100(object sender, EventArgs e)
         {
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-
             BLL ObjDados = new BLL(conectSite);
-            BLL ObjValida = new BLL(conectSite);
 
             DateTime dt_ini = DateTime.Now;
             DateTime dt_fin = DateTime.Now;
+            
+            string FinalizaPublicacao = "";
+            
+            iB100PubIniConteudo.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
+            
+            if (!String.IsNullOrEmpty(iB100PubFimConteudo.Value))
+            {
+                iB100PubFimConteudo.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
 
-            iB33PubIniConteudo.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
-            iB33PubFimConteudo.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
+                FinalizaPublicacao = "'" + iB100PubFimConteudo.Value + "',";
+            }
+            else
+            {
+                FinalizaPublicacao = "" + "NULL" + ",";
+            }
 
             string tabela = " st_conteudo ";
             string campos = " cod_tipo, titulo, introducao, dt_publIni, dt_PublFim, dt_cad ";
@@ -528,7 +535,7 @@ namespace Site.Adm
                                            "'" + iB100Titulo.Value + "'," +
                                            "'" + taB100Introducao.Value + "'," +
                                            "'" + iB100PubIniConteudo.Value + "'," +
-                                           "'" + iB100PubFimConteudo.Value + "'," +
+                                           "'" + FinalizaPublicacao + "'," +
                                            "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'");
             //Dados para Inserção
             ObjDados.Tabela = tabela;
@@ -557,10 +564,6 @@ namespace Site.Adm
 
             //MessageBox.Show("INSERT INTO" + tabela + "(" + campos + ")" + " VALUES(" + valores + ")");
 
-            //Dados para Validação
-            ObjValida.Tabela = tabela;
-            ObjValida.Campo = campoID;
-            ObjValida.Condicao = condicao;
         }
 
         public void proporcaoImgMateria(object sender, EventArgs e)
@@ -1141,9 +1144,6 @@ namespace Site.Adm
         {
 
             string xRet = "";
-#pragma warning disable CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
-            string xImg = "";
-#pragma warning restore CS0219 // A variável "xImg" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);
@@ -1333,7 +1333,6 @@ namespace Site.Adm
                 {
                     lblMsg.Text = "Erro Original:" + ObjDados.MsgErro;
                 }
-
             }
             else
             {

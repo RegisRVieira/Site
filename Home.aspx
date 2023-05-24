@@ -47,7 +47,7 @@
                                     <!--<li><a href="LoginVoceOnLine.aspx"><p><asp:Label ID="lblUsuLogadoX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>-->
                                     <!--<li><a href="VOnline/Login.aspx"><p><asp:Label ID="lblUsuLogadoXX" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>-->
                                     <!--Este é o cara para acessar o Você Online Local!!!! Trocar lblUsuLogadoXXX, por lblUsuLogado-->
-                                    <li><a href="http://asu.no-ip.info/vonline/"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>
+                                    <li><a href="https://vendas.asu.com.br/vonline/"><p><asp:Label ID="lblUsuLogado" runat="server" CssClass="lblUsuLogado"></asp:Label></p></a>
                                         <ul>                                                                                        
                                             <!--
                                                 <a href="VOnLine/Login.aspx">Você On Line - Local</a>
@@ -76,8 +76,8 @@
                         <li><a href="ContNossaEntidade.aspx?vNE=1">Nossa Entidade</a></li>
                         <li><a href="ContNossaEntidade.aspx?vNE=2">Estatuto Social</a></li>
                         <li><a href="FaleConosco.aspx">Fale conosco</a></li>
-                        <li><a class="voceonlinejs" href="http://asu.no-ip.info/vonline/">Consultar Seu Saldo</a></li>
-                        <li><a id="voceonlinejs" class="voceonlinejs" href="http://asu.no-ip.info/vonline/">Você On Line</a></li>
+                        <li><a class="voceonlinejs" href="https://vendas.asu.com.br/vonline/">Consultar Seu Saldo</a></li>
+                        <li><a id="voceonlinejs" class="voceonlinejs" href="https://vendas.asu.com.br/vonline/">Você On Line</a></li>
                         <li><a id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuHome()">&cross;</a></li>
                         <li id="treeline-icon" class="treeline-icon" onclick="openMenuHome()">&#9776;</li>                        
                     </ul>
@@ -128,7 +128,7 @@
                     <div class="btn_Brinde"> 
                         <div>
                             <asp:LinkButton ID="lbtnDesativar" runat="server" Text="Fechar" OnClick="desativarItem"></asp:LinkButton>
-                            <a href="http://asu.no-ip.info/vonline/">Eu Quero participar</a>                            
+                            <a href="https://vendas.asu.com.br/vonline/">Eu Quero participar</a>                            
                         </div>
                     </div>
                 </section>
@@ -138,13 +138,13 @@
                 <div class="BoxSlider-Interno">
                    <%# montarSlider() %>                    
                     <div class="BoxSlider-VoceOnLine">
-                        <p><a class="BoxSlider-VoceOnLineLink" href="http://asu.no-ip.info/vonline/">Você On Line</a></p>
+                        <p><a class="BoxSlider-VoceOnLineLink" href="https://vendas.asu.com.br/vonline/">Você On Line</a></p>
                         <section class="BoxVOImg">
-                            <a href="http://asu.no-ip.info/vonline/">
+                            <a href="https://vendas.asu.com.br/vonline/">
                                 <img class="bannerSlider" src="../img/Seu Saldo.jpg" /></a>
-                            <a href="http://asu.no-ip.info/vonline/">
+                            <a href="https://vendas.asu.com.br/vonline/">
                                 <img class="bannerSlider" src="../img/Sua Venda.jpg" /></a>
-                            <a href="http://asu.no-ip.info/vonline/">
+                            <a href="https://vendas.asu.com.br/vonline/">
                                 <img class="bannerSlider" src="../img/Seu Extrato.jpg" /></a>
                             <div class="bullets" style="width: 21.5%; height: auto; text-align: center; position: relative; top: 90%;">
                             </div>                            

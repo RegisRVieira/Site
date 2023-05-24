@@ -168,6 +168,8 @@ namespace Site.Privado
             ObjDados.Query = query;
             DataTable dados = ObjDados.RetQuery();
 
+            MessageBox.Show(query);
+
             //##Validação tido de cartão            
             if (String.IsNullOrEmpty(ObjValida.MsgErro))
             {
@@ -319,11 +321,12 @@ namespace Site.Privado
             return widht.ToString();
         }
         */
+
         public String MontarExtrato()
         {
             string xRet = "Request Form";
 
-            xRet += requestForm();
+            //xRet += requestForm();
 
 
             return xRet;

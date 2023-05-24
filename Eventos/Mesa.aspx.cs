@@ -97,9 +97,9 @@ namespace Site.Eventos
             BLL ObjDados = new BLL(conectSite);
 
             string xRet = "";
-#pragma warning disable CS0219 // A variável "xMesa" é atribuída, mas seu valor nunca é usado
+
             string xMesa = "";
-#pragma warning restore CS0219 // A variável "xMesa" é atribuída, mas seu valor nunca é usado
+
 
             /*string query = " SELECT * FROM _e_localizacao AS l " +
                            " INNER JOIN _e_evento AS e ON e.id = l.id_evento " +
@@ -107,7 +107,9 @@ namespace Site.Eventos
 
             string query = " SELECT * FROM e_localizacao AS l " +
                            " INNER JOIN e_evento AS e ON e.id = l.id_evento " +
-                           " WHERE id_evento = '" + nEvento +  "' AND l.n_mesa = '" + nMesa + "'";
+                           " WHERE id_evento = '" + nEvento +  "' AND l.n_mesa = '" + nMesa + "'" +
+                           " AND l.id_evento = '" + nEvento + "' " +
+                           " AND l.id_ambiente = '" + nAmbiente + "' ";
 
             /*string qDados = " SELECT n_local, p.nome, e.descricao, a.titulo, p.unidade FROM e_pessoas AS p " +
                             " INNER JOIN  _e_evento AS e ON p.id_evento = e.id " +
@@ -120,7 +122,9 @@ namespace Site.Eventos
             string qDados = " SELECT n_local, p.nome, e.descricao, a.titulo, p.unidade FROM e_pessoas AS p " +
                             " INNER JOIN  e_evento AS e ON p.id_evento = e.id " +
                             " INNER JOIN e_ambiente AS a ON a.id = p.id_ambiente " +
-                            " WHERE n_local = '" + nMesa + "' AND p.canmom IS NULL";
+                            " WHERE n_local = '" + nMesa + "' AND p.canmom IS NULL"+
+                            " AND p.id_evento = '" + nEvento + "' " +
+                            " AND p.id_ambiente = '" + nAmbiente + "' ";
 
 
             ObjDados.Query = qDados;
@@ -344,6 +348,7 @@ namespace Site.Eventos
             BLL ObjValida = new BLL(conectSite);
 
             string Mesa = Request.QueryString["mesa"];
+            string idEvento = Request.QueryString["evento"];
 
             if (Mesa != "id")
             {
@@ -352,7 +357,7 @@ namespace Site.Eventos
 
             //string query = " SELECT n_cadeiras FROM _e_localizacao" +
             string query = " SELECT n_cadeiras FROM e_localizacao" +
-                           " WHERE n_mesa = '" + nMesa + "'";
+                           " WHERE n_mesa = '" + nMesa + "' AND id_evento ='" + idEvento + "'";
 
             ObjValida.Query = query;
 
@@ -379,29 +384,23 @@ namespace Site.Eventos
             BLL ObjValida = new BLL(conectSite);
 
             string Mesa = Request.QueryString["mesa"];
+            string idEvento = Request.QueryString["evento"];
 
             if (Mesa != "id")
             {
                 nMesa = Convert.ToInt32(Mesa);
             }
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";            
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
-            /*string query = " SELECT * FROM _e_pessoas AS p " +
-                                 " INNER JOIN _e_evento AS e ON p.id_evento = e.id " +
-                                 //" INNER JOIN _e_localizacao AS l ON p.id_localizacao = l.id" +
-                                 " INNER JOIN _e_localizacao AS l ON p.n_local = l.n_mesa " +
-                                 " WHERE l.n_mesa = '" + nMesa + "'";*/
+            string xRet = "";
 
-            string query = " SELECT * FROM e_pessoas AS p " +
-                                 " INNER JOIN e_evento AS e ON p.id_evento = e.id " +                                 
-                                 " INNER JOIN e_localizacao AS l ON p.n_local = l.n_mesa " +
-                                 " WHERE l.n_mesa = '" + nMesa + "' AND p.canmom IS NULL";
+            string query = " SELECT * FROM e_pessoas AS p " +                                 
+                                 " WHERE p.n_local = '" + nMesa + "' AND p.canmom IS NULL AND id_evento = '" + idEvento  + "'";
 
             ObjValida.Query = query;
 
             DataTable dados = ObjValida.RetQuery();
+
+            //MessageBox.Show(query);
 
             int ocupacao = 0;
             int contar = 0;
@@ -601,7 +600,8 @@ namespace Site.Eventos
             DataTable pessoas = ObjDados.RetCampos();
 
             string _ObjDados = "INSERT INTO " + tabela + "(" + campos + ")" + " VALUES " + valores;
-            
+
+            //MessageBox.Show(_ObjDados);
 
             string lista = "";
 
@@ -629,7 +629,7 @@ namespace Site.Eventos
             DataTable valida = ObjValida.RetQuery();
 
             //ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM _e_localizacao WHERE n_mesa = '" + nMesa + "' ";
-            ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM e_localizacao WHERE n_mesa = '" + nMesa + "' ";
+            ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM e_localizacao WHERE n_mesa = '" + nMesa + "' AND id_evento ='" + nEvento + "'";
 
             DataTable dOcupacao = ObjOcupacao.RetQuery();
             
@@ -639,6 +639,9 @@ namespace Site.Eventos
 
             int xCadeiras = nCadeiras(Convert.ToInt32(nMesa));
             int xOcupacao = mOcupacao(Convert.ToInt32(nMesa));
+
+            //MessageBox.Show(xCadeiras.ToString());
+            //MessageBox.Show(xOcupacao.ToString());            
 
             if (Convert.ToInt32(iIdade.Value) <= 17 || String.IsNullOrEmpty(iIdade.Value))
             {
@@ -658,6 +661,7 @@ namespace Site.Eventos
                     {
                         try
                         {
+                            
                             if (xOcupacao <= xCadeiras)
                             {
                                 //###########################################AQUI########################################
@@ -856,7 +860,8 @@ namespace Site.Eventos
             DataTable valida = ObjValida.RetQuery();
 
         //# Checa Ocupação da Mesa para Validar inserção do registro
-            ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM e_localizacao WHERE n_mesa = '" + nMesa + "' ";
+            //ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM e_localizacao WHERE n_mesa = '" + nMesa + "' ";
+            ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM e_localizacao WHERE n_mesa = '" + nMesa + "' AND id_evento ='" + nEvento + "'";
             DataTable dOcupacao = ObjOcupacao.RetQuery();
 
 
@@ -916,10 +921,9 @@ namespace Site.Eventos
 
                                 }
                                 //######### Verifica Ocupação da Mesa  ##########
-
-
-                                //MessageBox.Show("Número de Cadeiras: " + nCadeiras(nMesa).ToString());
-                                //MessageBox.Show("Ocupação: " + mOcupacao(nMesa).ToString());
+                                
+                                //MessageBox.Show("Número de Cadeiras: " + nCadeiras(Convert.ToInt32(nMesa)).ToString());
+                                //MessageBox.Show("Ocupação: " + mOcupacao(Convert.ToInt32(nMesa)).ToString());
 
 
                                 if (mOcupacao(Convert.ToInt32(nMesa)) == nCadeiras(Convert.ToInt32(nMesa)))
@@ -937,8 +941,7 @@ namespace Site.Eventos
                                     //popularCadMesa();
                                 }
                                 else
-                                {
-
+                                {                                   
                                     //lblOcupacao.Text = "Há, " + xOcupacao.ToString() + ",Pessoas nesta Mesa " + xCadeiras;                
 
                                     lblMsg.Text = "Gravado com Sucesso! Há, " + mOcupacao(Convert.ToInt32(nMesa)).ToString() + " pessoas nesta Mesa!";
@@ -1127,7 +1130,7 @@ namespace Site.Eventos
                     string cChave_usuario = "000000000";
                     string cNome_usuario = "                                        ";
                     //string cObserva = "VENDA PELO SITE               ";
-                    string cObserva = "FESTA FIM DE ANO              ";
+                    string cObserva = "ARRAIA DO DAP                 ";
                     string cCpf = "              ";
                     string cSaldo = "00000000000000";
                     string cSenha = "" + iSenhaVenda.Value.Replace("'", "");
@@ -1345,7 +1348,8 @@ namespace Site.Eventos
                     cArquivo_mostra += "<table style='font-size: 10px; font-weight: 700;'>";
                     cArquivo_mostra += "<thead style='vertical-align:bottom' >";
                     cArquivo_mostra += "<tr style = 'height:auto;' >";
-                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano" + cObserva + "</td>";
+                    //cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano" + cObserva + "</td>";
+                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Arraia do DAP         " + cObserva + "</td>";
                     cArquivo_mostra += "</tr>";
                     cArquivo_mostra += "<tr>";
                     cArquivo_mostra += "<td colspan='2' class='cvTopico' >Via da ASU</td>";
@@ -1390,7 +1394,8 @@ namespace Site.Eventos
                     cArquivo_mostra += "<tr><td colspan='2' class='cvTopico'> - - - - - - - - - - - </td></tr>";
                     cArquivo_mostra += "<tr style = 'height:auto;' >";
                     /**/
-                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano</td>";
+                    //cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano</td>";
+                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Arraia do DAP         </td>";
                     cArquivo_mostra += "</tr>";
                     cArquivo_mostra += "<tr>";
                     cArquivo_mostra += "<td colspan='2' class='cvTopico' >Via do Associado</td>";

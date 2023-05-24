@@ -25,7 +25,7 @@ namespace Site.Eventos
                 mostrarLogado();
                 ativarBoasVindas();
                 popularCadAmbiente();
-                //capturarIdEvento();                
+                //capturarIdEvento();
             }
 
             //MessageBox.Show("IdEvento: " + IdEvento);
@@ -69,8 +69,8 @@ namespace Site.Eventos
             popularDdlVerMesa();
             popularCadEvento();
             popularCadMesa();
+            //capturarIdEvento();
             //popularCadAmbiente();
-
         }
 
         protected void ativarCadastro(object sender, EventArgs e)
@@ -81,12 +81,12 @@ namespace Site.Eventos
             popularCadEvento();
             popularCadMesa();
             //popularCadAmbiente();
-
         }
         protected void ativarRelatorios(object sender, EventArgs e)
         {
             mwConteudo.ActiveViewIndex = 2;
             lblListaRelaorios.Text = String.Empty;
+            popularstRelatorios();
         }
         protected void ativarManutencao(object sender, EventArgs e)
         {
@@ -98,11 +98,12 @@ namespace Site.Eventos
 
         protected void popularCadEvento()
         {
+            //Popula Select se a data do evento ainda não for maior que a data do evento
             BLL ObjDados = new BLL(conectSite);
 
             string campos = " * ";            
             string tabela = " e_evento ";
-            string condicao = "WHERE cod_status = 'ATI'";
+            string condicao = "WHERE cod_status = 'ATI' AND DATE_FORMAT(dtevento, '%Y-%m-%d') >= CURDATE()";
 
             ObjDados.Campo = campos;
             ObjDados.Tabela = tabela;
@@ -115,11 +116,12 @@ namespace Site.Eventos
         }
         protected void popularddlEvento()
         {
+            //Popula DDL em manutenção, para selecionar evento a ser procurado
             BLL ObjDados = new BLL(conectSite);
 
             string campos = " * ";
             string tabela = " e_evento ";
-            string condicao = "WHERE cod_status = 'ATI'";
+            string condicao = "WHERE cod_status = 'ATI' AND DATE_FORMAT(dtevento, '%Y-%m-%d') >= CURDATE()";
 
             ObjDados.Campo = campos;
             ObjDados.Tabela = tabela;
@@ -131,6 +133,22 @@ namespace Site.Eventos
             ddlEvento.DataBind();
         }
 
+        protected void popularstRelatorios()
+        {
+            //Select para escolher o ento a ser exibido no Relatório
+            BLL ObjDados = new BLL(conectSite);
+
+            string query = "SELECT * FROM e_evento ORDER BY id DESC";
+            ObjDados.Query = query; 
+
+            ddlRelatorios.DataSource = ObjDados.RetQuery();
+            ddlRelatorios.DataValueField = "id";
+            ddlRelatorios.DataTextField = "descricao";
+            ddlRelatorios.DataBind();
+
+
+        }
+
         protected int nCadeiras(int nMesa)
         {//Verifica ocupação da Mesa
             BLL ObjValida = new BLL(conectSite);
@@ -140,8 +158,11 @@ namespace Site.Eventos
                 nMesa = Convert.ToInt32(stBuscaMesa.SelectedValue);
             }
 
-            string query = " SELECT n_cadeiras FROM e_localizacao" +
+            string query_bk = " SELECT n_cadeiras FROM e_localizacao" +
                            " WHERE n_mesa = '" + nMesa + "'";
+
+            string query = " SELECT id_evento, id_ambiente, n_cadeiras FROM e_localizacao" +
+                           " WHERE id_evento = " + stEventoCadParticipante.Value + "  AND id_ambiente = " + stEventoCadAmbiente.Value + " AND n_mesa = " + nMesa ;
 
             ObjValida.Query = query;
 
@@ -171,19 +192,25 @@ namespace Site.Eventos
             {
                 nMesa = Convert.ToInt32(stBuscaMesa.SelectedValue);
             }
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
+            /*
             string query = " SELECT * FROM e_pessoas AS p " +
                                  " INNER JOIN e_evento AS e ON p.id_evento = e.id " +
                                  //" INNER JOIN _e_localizacao AS l ON p.id_localizacao = l.id" +
                                  " INNER JOIN e_localizacao AS l ON p.n_local = l.n_mesa " +
                                  " WHERE l.n_mesa = '" + nMesa + "' AND p.canmom IS NULL  ";
+            */
+
+            string query = " SELECT * FROM e_pessoas AS p " +
+                           " WHERE p.id_evento = '" + stEventoCadParticipante.Value + "' " +
+                           " AND p.id_ambiente = '" + stEventoCadAmbiente.Value + "' " +
+                           " AND p.n_local = '" + stBuscaMesa.SelectedValue + "' AND canmom IS NULL";
+                                    
+            //" WHERE id_evento = " + stEventoCadParticipante.Value + "  AND id_ambiente = " + stEventoCadAmbiente.Value + " AND n_mesa = " + nMesa ;
 
             ObjValida.Query = query;
 
-            DataTable dados = ObjValida.RetQuery();
+            DataTable dados = ObjValida.RetQuery();            
 
             int ocupacao = 0;
             int contar = 0;
@@ -246,6 +273,8 @@ namespace Site.Eventos
         protected void checaOcupacaoMesa(object sender, EventArgs e)
         {
             string Mesa = Request.QueryString["mesa"];
+
+            //string Mesa = stBuscaMesa.SelectedValue;
             int nMesa = Convert.ToInt32(Mesa);
 
             if (checaMesa() == 0)
@@ -261,11 +290,11 @@ namespace Site.Eventos
             }
             else
             {
-                lblOcupacao.Text = "Há, " + checaMesa() + ",lugar(es) vagos!";
+                lblOcupacao.Text = "Há, " + checaMesa() + ",lugar(es) vago(s)!";
             }
         }
 
-        protected void verMesa()
+        protected void mostrarIntegrantesMesa()
         {
             //string nMesa = Request.QueryString["mesa"];
             string nMesa = ddlVerMesa.SelectedValue;
@@ -276,16 +305,20 @@ namespace Site.Eventos
             BLL ObjMesa = new BLL(conectSite);
             BLL ObjDados = new BLL(conectSite);
 
-            string xRet = "";            
+            string xRet = "";
 
             string query = " SELECT * FROM e_localizacao AS l " +
                            " INNER JOIN e_evento AS e ON e.id = l.id_evento " +
-                           " WHERE l.n_mesa = '" + nMesa + "'";
+                           " WHERE l.n_mesa = '" + nMesa + "'            " +
+                           " AND l.id_evento = '" + stEventoCadParticipante.Value + "' " +
+                           " AND l.id_ambiente = '" + stEventoCadAmbiente.Value + "' ";
 
             string qDados = " SELECT n_local, p.nome, e.descricao, a.titulo, p.unidade FROM e_pessoas AS p " +
                             " INNER JOIN  e_evento AS e ON p.id_evento = e.id " +
                             " INNER JOIN e_ambiente AS a ON a.id = p.id_ambiente " +
-                            " WHERE n_local = '" + nMesa + "' AND p.canmom IS NULL  ";
+                            " WHERE n_local = '" + nMesa + "' AND p.canmom IS NULL  " +
+                            " AND p.id_evento = '" + stEventoCadParticipante.Value + "' " +
+                            " AND p.id_ambiente = '" + stEventoCadAmbiente.Value + "' ";
 
             ObjDados.Query = qDados;
             ObjMesa.Query = query;
@@ -294,10 +327,11 @@ namespace Site.Eventos
             DataTable mesa = ObjMesa.RetQuery();
 
             //MessageBox.Show(query);
+            //MessageBox.Show("Dados: " + qDados);
 
             try
             {
-                if (mesa.Rows.Count > 0)
+                if (!String.IsNullOrEmpty(dados.Rows.Count.ToString()))
                 {
                     xRet += "<style>.lista{font-size: 14px;" +
                            " margin: 0; padding: 0; text-align:left; display: inline-block;}</style>";
@@ -326,7 +360,8 @@ namespace Site.Eventos
                 }
                 else
                 {
-                    lblConsultaMesa.Text = "Não há registro! Você precisa Selecionar uma Mesa!";
+                    //lblConsultaMesa.Text = "Não há registro! Você precisa Selecionar uma Mesa!";
+                    lblConsultaMesa.Text = "A mesa está vazia!";
                 }
             }
             catch (Exception e)
@@ -340,7 +375,7 @@ namespace Site.Eventos
 
             //lblConsultaMesa.Text = consultarMesa();
 
-            verMesa();
+            mostrarIntegrantesMesa();
         }
         protected void popularCadAmbiente()
         {
@@ -410,7 +445,9 @@ namespace Site.Eventos
         {
             BLL ObjDados = new BLL(conectSite);
 
-            capturarIdEvento();
+            string idEventoMesa = capturarIdEvento();
+
+            //MessageBox.Show(idEventoMesa);
 
             //MessageBox.Show("popularDdlVerMesa " + capturarIdEvento());
 
@@ -419,8 +456,13 @@ namespace Site.Eventos
                            " UNION" +
                            " SELECT id, id_evento, id_ambiente, n_mesa, n_cadeiras, descricao, 2 AS ordem" +
                            " FROM e_localizacao " +
+                           " WHERE id_evento = '" + "3" + "'";
                            //" WHERE id_evento = '" + IdEvento + "'";
-                           " WHERE id_evento = '" + "2" + "'";
+            
+            //" WHERE id_evento = '" + stEventoCadParticipante.Value + "'";
+            
+            //MessageBox.Show("Capturado: " + capturarIdEvento().ToString());
+            //MessageBox.Show("DDL: " + stEventoCadParticipante.Value);
 
 
             //" WHERE id_ambiente = '" + IdEvento + "' AND ocupacao IS NULL ";
@@ -438,8 +480,9 @@ namespace Site.Eventos
             ddlVerMesa.DataTextField = "n_mesa";
             ddlVerMesa.DataBind();
 
-        }
-        protected void verMesa(object sender, EventArgs e)
+        }       
+
+        protected void irParaMesa(object sender, EventArgs e)
         {
             string nMesa = stBuscaMesa.SelectedValue;
             string nAmbiente = stEventoCadAmbiente.Value;
@@ -450,8 +493,14 @@ namespace Site.Eventos
             //xRet += "<a href='ContMaterias.aspx?IDContMat=" + IdMat + "' >";
             //Response.Redirect("Mesa.aspx?mesa=" + nMesa + ", _blank");
 
-            Response.Redirect("Mesa.aspx?evento=" + nEvento + "&mesa=" + nMesa + "&ambiente=" + nAmbiente);
-
+            if (stBuscaMesa.SelectedValue == "Selecionar")
+            {
+                lblMsg.Text = "Você Precisa Selecionar Uma Mesa!";
+            }
+            else
+            {
+                Response.Redirect("Mesa.aspx?evento=" + nEvento + "&mesa=" + nMesa + "&ambiente=" + nAmbiente);
+            }
         }
 
         protected void paginarGwParticipante(object sender, GridViewPageEventArgs e)
@@ -638,10 +687,10 @@ namespace Site.Eventos
             
             BLL ObjCadeiras = new BLL(conectSite);
 
-            string IdEvent = ddlEvento.SelectedValue;
-#pragma warning disable CS0219 // A variável "query" é atribuída, mas seu valor nunca é usado
-            string query = "";
-#pragma warning restore CS0219 // A variável "query" é atribuída, mas seu valor nunca é usado
+            string IdEvent = ddlRelatorios.SelectedValue;
+
+            //MessageBox.Show(IdEvent.ToString());
+            //string query = "";
             /* query = " SELECT * " +
                            " FROM e_localizacao AS l" +
                            " LEFT JOIN e_pessoas AS p ON l.n_mesa = p.n_local " +
@@ -650,7 +699,7 @@ namespace Site.Eventos
                            " WHERE l.id_evento = '" + IdEvent + "' AND l.id IS NOT NULL ORDER BY l.n_mesa";
             */            
             
-            string queryParticipantes = " SELECT * FROM e_pessoas WHERE id_evento = '2' AND canmom IS NULL ORDER BY nome";
+            string queryParticipantes = " SELECT * FROM e_pessoas WHERE id_evento = '" + IdEvent + "' AND canmom IS NULL ORDER BY nome";
             
             ObjCadeiras.Query = queryParticipantes;
             
@@ -775,56 +824,69 @@ namespace Site.Eventos
         {
             BLL ObjDados = new BLL(conectSite);
 
+            string IdEvent = ddlRelatorios.SelectedValue;
+
+            //MessageBox.Show(IdEvent.ToString());
+
             string xRet = "";
 
             //string query = " SELECT EXTRACT(DAY FROM (cadmom)) AS dia, EXTRACT(MONTH FROM (cadmom)) AS Mes, EXTRACT(YEAR FROM (cadmom)) AS ano, COUNT(cod_tipopessoa) AS entregues FROM e_pessoas " +
             string query = " SELECT CONCAT(EXTRACT(DAY FROM (cadmom)),'/' , EXTRACT(MONTH FROM (cadmom)), '/', EXTRACT(YEAR FROM (cadmom))) AS Dia, COUNT(cod_tipopessoa) AS entregues, " +
-                           " (SELECT COUNT(nome) FROM e_pessoas WHERE id_evento ='2' AND canmom IS NULL) AS Qtde " +
+                           " (SELECT COUNT(nome) FROM e_pessoas WHERE id_evento ='" + IdEvent + "' AND canmom IS NULL) AS Qtde " +
                            " FROM e_pessoas " +
-                           " WHERE id_evento = '2' AND canmom IS NULL " +
+                           " WHERE id_evento = '" + IdEvent + "' AND canmom IS NULL " +
                            " GROUP BY EXTRACT(DAY FROM(cadmom))  ";
             
             ObjDados.Query = query;
 
             DataTable dados = ObjDados.RetQuery();
 
-            //MessageBox.Show(dados.Rows.Count.ToString());
+            //MessageBox.Show(dados.Rows.Count.ToString());    
 
-            xRet += "<section>";
-            xRet += "<table>";
-            xRet += "<caption> Entrega de Convites </caption>";
-            xRet += "<thead>";
-            xRet += "<tr>";
-            xRet += "<td>";
-            xRet += "Data";
-            xRet += "</td>";
-            xRet += "<td>";
-            xRet += "Quantidade";
-            xRet += "</td>";
-            xRet += "</thead>";
-            xRet += "<tbody>";
-                                 
-            for (int i = 0; i < dados.Rows.Count; i++) 
+            if (dados.Rows.Count>0)
             {
+                xRet += "<section>";
+                xRet += "<table>";
+                xRet += "<caption> Entrega de Convites </caption>";
+                xRet += "<thead>";
                 xRet += "<tr>";
                 xRet += "<td>";
-                xRet += dados.Rows[i]["dia"].ToString();
-                xRet += "</td>";            
-                xRet += "<td>";
-                xRet += dados.Rows[i]["entregues"].ToString();
+                xRet += "Data";
                 xRet += "</td>";
+                xRet += "<td>";
+                xRet += "Quantidade";
+                xRet += "</td>";
+                xRet += "</thead>";
+                xRet += "<tbody>";
+
+                for (int i = 0; i < dados.Rows.Count; i++)
+                {
+                    xRet += "<tr>";
+                    xRet += "<td>";
+                    xRet += dados.Rows[i]["dia"].ToString();
+                    xRet += "</td>";
+                    xRet += "<td>";
+                    xRet += dados.Rows[i]["entregues"].ToString();
+                    xRet += "</td>";
+                    xRet += "</tr>";
+                }
+                xRet += "<tr>";
+                xRet += "<td>" + "Total" + "</td>";
+                if (dados.Rows.Count > 0)
+                {
+                    xRet += "<td>" + dados.Rows[0]["Qtde"].ToString() + "</td>";
+                }
                 xRet += "</tr>";
+                xRet += "</tbody>";
+                xRet += "</table>";
+                xRet += "</section>";
             }
-            xRet += "<tr>";
-            xRet += "<td>" + "Total" + "</td>";
-            if (dados.Rows.Count > 0)
+            else
             {
-                xRet += "<td>" + dados.Rows[0]["Qtde"].ToString() + "</td>";
+                xRet+="Não há dados para ser exibido";
             }
-            xRet += "</tr>";
-            xRet += "</tbody>";
-            xRet += "</table>";
-            xRet += "</section>";
+
+            
 
             secRelatorios.Attributes["class"] = "exibir";
 
@@ -837,13 +899,17 @@ namespace Site.Eventos
             BLL ObjMesas = new BLL(conectSite);
             BLL ObjCadeiras = new BLL(conectSite);
 
+            string IdEvent = ddlRelatorios.SelectedValue;
+
+            //MessageBox.Show(IdEvent.ToString());
+
             string mesas = " SELECT * FROM e_localizacao ";
             //string cadeiras = " SELECT * FROM e_pessoas WHERE id_evento = '2'";
             
-            string cadeiras = " SELECT id_evento, id_ambiente, n_mesa AS n_local, '' AS  cod_tipopessoa,  n_cadeiras, '' AS nome, '' AS nometitular FROM e_localizacao " +
+            string cadeiras = " SELECT id_evento, id_ambiente, n_mesa AS n_local, '' AS  cod_tipopessoa,  n_cadeiras, '' AS nome, '' AS nometitular FROM e_localizacao WHERE id_evento = '" + IdEvent + "'" +
                 " UNION " +
                 " SELECT id_evento, id_ambiente, n_local, cod_tipopessoa, '' AS n_cadeiras, nome, nometitular FROM e_pessoas " +
-                " WHERE id_evento = '2' AND canmom IS NULL ORDER BY n_local, nome, n_cadeiras DESC";
+                " WHERE id_evento = '" + IdEvent + "' AND canmom IS NULL ORDER BY n_local, nome, n_cadeiras DESC";
             
             string xRet = "";
             

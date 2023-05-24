@@ -102,7 +102,8 @@ namespace Site.Eventos
 
             string xRet = "";
 
-            ObjDados.Campo = " e.id, t.cod AS Cod_Tipo, s.cod AS Cod_Status, e.descricao AS Descricao, e.detalhe AS Detalhe, e.dtInicio AS Inicio, e.dtfim AS Fim, t.descricao AS Tipo, s.descricao AS Status  ";
+            //ObjDados.Campo = " e.id, t.cod AS Cod_Tipo, s.cod AS Cod_Status, e.descricao AS Descricao, e.detalhe AS Detalhe, e.dtInicio AS Inicio, e.dtfim AS Fim, t.descricao AS Tipo, s.descricao AS Status  ";
+            ObjDados.Campo = " e.id, t.cod AS Cod_Tipo, s.cod AS Cod_Status, e.descricao AS Descricao, e.detalhe AS Detalhe, t.descricao AS Tipo, s.descricao AS Status  ";
             ObjDados.Tabela = " e_evento AS e ";
             ObjDados.Left = " INNER JOIN e_tipo AS t ON t.cod = e.cod_tipo" +
                             " INNER JOIN e_status AS s ON s.cod = e.cod_status";

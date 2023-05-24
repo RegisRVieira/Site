@@ -20,13 +20,183 @@ namespace Site
 
         }
         //Processo para testar Consulta de Saldo do Novo Modelo de Crédito, com liberação do Saldo após pagamento
+
+        protected void consultarSaldoNovo(object sender, EventArgs e)
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string idAssoc = iIdAssoc.Value;
+            string xRet = "";
+
+            string Dt_Inicio = tbDtIni.Text;
+            string Dt_Fim = tbDtFim.Text;
+
+            var moment = DateTime.Now;
+
+
+            var ano = ((moment.Year) + 1);
+            var m = (moment.Month);
+            var mes = "";
+
+            if (m < 10)
+            {
+                mes = "0" + m;
+            }
+            else
+            {
+                mes = "" + m;
+            }
+
+            string query = " SELECT a.idassoc AS Id, a.titular,  a.credmodelo AS Modelo, a.credito AS Credito, " +
+                " (SELECT SUM((m.valor) * -1) FROM comovime AS m WHERE m.associado IN('" + idAssoc + "') AND m.cnscanmom IS NULL AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "') AS GastosDoMes, " +
+                " (SELECT SUM((m.valor) * -1) FROM comovime AS m WHERE m.associado IN('" + idAssoc + "')  AND m.cnscanmom IS NULL AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + ano + "-" + mes + "-19" + "') AS GostosTotais, " +
+                " (SELECT IF(SUM((m.valor) + a.credito) > 0, (SUM(m.valor) + a.credito), 0) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado  WHERE a.idassoc IN('" + idAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL  AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "') AS Saldo, " +
+                " (SELECT(SUM(m.valor) + a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado = '" + idAssoc + "' AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + ano + "-" + mes + "-19" + "' AND m.cnscanmom IS NULL) AS SaldoNovo, " +
+                " (SELECT valor FROM assocdeb WHERE associado IN ('" + idAssoc + "') AND tipo IN ('RETBB', 'RETBAN', 'PAGEST') AND dtvencim = '2023-03-19') AS Pagamento, " +
+                " (SELECT (valor * -1) FROM assocdeb WHERE associado IN ('" + idAssoc +  "') AND tipo IN ('FECHAM') AND dtvencim = '2023-03-19') AS Compras, " +
+                " (SELECT  IF(d.valor IS NULL, (SUM(m.valor) + (a.credito)), (SUM(m.valor) + (a.credito) + (d.valor * -1))) " +
+                " FROM comovime AS m " +
+                " INNER JOIN associa AS a ON a.idassoc = m.associado " +
+                " INNER JOIN assocdeb AS d ON d.associado = m.associado " +
+                " WHERE m.associado = '" + idAssoc + "' AND m.vencimento BETWEEN '2023-03-20' AND '2024-04-19' AND m.cnscanmom IS NULL " +
+                " AND d.dtvencim = '2023-03-19' AND d.tipo  IN('fecham')) AS SaldoComPagamento, " +
+                " (SELECT  IF(d.valor IS NULL, (SUM(m.valor) + (a.credito)), (SUM(m.valor) + (a.credito) + d.valor)) " +
+                " FROM comovime AS m " +
+                " INNER JOIN associa AS a ON a.idassoc = m.associado " +
+                " INNER JOIN assocdeb AS d ON d.associado = m.associado " +
+                " WHERE m.associado = '" + idAssoc + "' AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + ano + "-" + mes + "-19" + "' AND m.cnscanmom IS NULL " +
+                " AND d.dtvencim = '" + "2023-03-19" + "' AND d.tipo  IN('RETBB', 'RETBAN', 'PAGEST')) AS SaldoNovonovo FROM comovime AS m " +
+                " INNER JOIN associa AS a ON a.idassoc = m.associado " +
+                " WHERE a.idassoc IN('" + idAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL GROUP BY a.idassoc ";
+
+            ObjDados.Query = query;
+
+            //MessageBox.Show(query);
+
+            DataTable dados = ObjDados.RetQuery();
+
+            try {
+
+                if (String.IsNullOrEmpty(iIdAssoc.Value))
+                {
+                    xRet += "Preencha o Campo com a ID do Associado!";
+                }
+                else
+                {//73,50 VAZ
+                    xRet += "<style>";
+                    xRet += " table, th, td {";
+                    xRet += "border-bottom: 1px solid;" +
+                            "text-align: left}";
+                    xRet += "</style>";
+                    xRet += "<div>";
+                        xRet += "<h2> Consulta de Saldo por Modelo de cartão</h2>";
+                        xRet += "<table>";
+                        xRet += "<caption> Consulta de Saldo</caption>";
+                        xRet += "<tbody>";                    
+                        xRet += "<tr>";
+                        xRet += "<th>Id</th>";
+                        xRet += "<td>" + dados.Rows[0]["Id"].ToString() + "</td>";
+                        xRet += "<td></td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Nome</th>";
+                        xRet += "<td>" + dados.Rows[0]["titular"].ToString() + "</td>";
+                        xRet += "<td></td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Modelo de Crédito</th>";
+                        if (dados.Rows[0]["modelo"].ToString() == "VLPARCE")
+                        {
+                            xRet += "<td>" + "Modelo Atual" + "</td>";
+                        }
+                        else
+                        {
+                            xRet += "<td>" + "Novo Modelo" + "</td>";
+                        }
+                    
+                        xRet += "<td></td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Crédito</th>";
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["credito"]).ToString("C2") + "</td>";
+                        xRet += "<td></td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Gastos do Mês</th>";
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["GastosDoMes"]).ToString("C2") + "</td>";
+                        xRet += "<td></td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Total de Gastos no Cartão</th>";
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["GostosTotais"]).ToString("C2") + "</td>";
+                        xRet += "<td></td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Saldo (Atual)</th>";
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["Saldo"]).ToString("C2") + "</td>";
+                        xRet += "<td>Saldo do Modelo Atual</td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Saldo (Novo)</th>";
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["SaldoNovo"]).ToString("C2") + "</td>";
+                        xRet += "<td>Saldo Do Novo Modelo de Crédito</td>";
+                        xRet += "</tr>";
+                        xRet += "<tr>";
+                        xRet += "<th>Saldo (Pós Pagamento)</th>";                    
+                    if (String.IsNullOrEmpty(dados.Rows[0]["Pagamento"].ToString()))
+                    {
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["SaldoNovo"]).ToString("C2") + ", Não houve Pagamento!" + "</td>";
+                    }
+                    else
+                    {
+                        xRet += "<td>" + Convert.ToDouble(dados.Rows[0]["SaldoComPagamento"]).ToString("C2") + "</td>";
+                    }
+                        xRet += "<td>Saldo Com Condição de Pagamento</td>";
+                        xRet += "</tr>";
+                        xRet += "</tbody>";
+                        xRet += "</table>";
+                    xRet += "</div>";
+                        
+
+                }
+
+            }
+            catch (Exception x)
+            {
+                xRet += x.Message;
+            }
+
+            lblMsg.Text = xRet;
+
+        }
         protected void consultarSaldo(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectVegas);
 
-
-
             string idAssoc = iIdAssoc.Value;
+
+            string Dt_Inicio = tbDtIni.Text;
+            string Dt_Fim = tbDtFim.Text;
+                        
+
+            var moment = DateTime.Now;
+            
+
+            var ano = ((moment.Year) + 1);
+            var m = (moment.Month);
+            var mes = "";
+
+            if (m < 10)
+            {
+                mes = "0" + m;
+            }
+            else
+            {
+                mes = "" + m;
+            }
+
+            
+            //MessageBox.Show(mes.ToString());
 
             string xRet = "";
 
@@ -41,28 +211,33 @@ namespace Site
               " FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado " +
               " WHERE a.idassoc IN('" + idAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL " +
               " AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2022-12-20' AND '2023-01-19', m.vencimento BETWEEN '2022-12-20' AND '2023-12-19') GROUP BY a.idassoc "*/
-
+            
             string query = " SELECT a.idassoc, a.titular,  " +
-                           "(SELECT IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND m.vencimento BETWEEN '2022-12-20' AND '2023-12-19' AND m.cnscanmom IS NULL) AS TotalGastos, " +
-                           "(SELECT IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND m.vencimento BETWEEN '2022-12-20' AND '2023-01-19' AND m.cnscanmom IS NULL) AS Extrato, " +
+                           "(SELECT IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + ano + "-" + mes + "-19" + "' AND m.cnscanmom IS NULL) AS TotalGastos, " +
+                           "(SELECT IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "' AND m.cnscanmom IS NULL) AS Extrato, " +
                            //" (SELECT IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) AS Extrato FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2022-12-20' AND '2023-01-19', m.vencimento BETWEEN '2022-12-20' AND '2023-12-19')) AS TotalGastos, " +
                            //" (SELECT IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) AS Extrato FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2022-12-20' AND '2023-01-19', m.vencimento BETWEEN '2022-12-20' AND '2023-01-19')) AS Extrato, " +
                            " a.credmodelo AS ModCredito, a.credito AS Credito, " +
                            " (SELECT SUM(valor) FROM comovime WHERE associado = a.idassoc AND m.cnscanmom IS NULL AND DATA BETWEEN '2022-12-20' AND '2023-01-19') AS Compras, " +
-                           " IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = a.idassoc AND m.DATA BETWEEN '2022-12-20' AND '2023-01-19') = 0, a.credito, (SUM(m.valor) + a.credito)) AS Saldo, " +
+                           " IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = a.idassoc AND m.DATA BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "') = 0, a.credito, (SUM(m.valor) + a.credito)) AS Saldo, " +
 
-                           " (IFNULL((SELECT IF(SUM(m.valor) IS NULL, 0, (SUM(m.valor)*-1)) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND m.vencimento BETWEEN '2022-12-20' AND '2023-01-19' AND m.cnscanmom IS NULL), 0) + " +
-                           " (IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = '" + idAssoc + "' AND m.DATA BETWEEN '2022-12-20' AND '2023-01-19') = 0, a.credito, (SUM(m.valor) + a.credito))  ) ) AS SaldoNovoModelo,  " +
-                           " IF((SELECT valor FROM assocdeb WHERE tipo  IN('RETBB', 'RETBAN', 'PAGEST') AND associado = '" + idAssoc + "' AND cnscanmom IS NULL AND dtvencim = '2022-12-19') IS NULL, 0, (SELECT valor FROM assocdeb WHERE tipo IN('RETBB', 'RETBAN', 'PAGEST') AND cnscanmom IS NULL AND associado = a.idassoc AND dtvencim = '2022-12-19') ) AS Pagamento, " +                           
-                           " (SELECT SUM(valor) FROM assocdeb WHERE tipo  IN ('FECHAM', 'DEBANT') AND associado = '" + idAssoc + "' AND cnscanmom IS NULL AND dtvencim = '2022-12-19') AS SumarizaMovimentacao," +
+                           " (IFNULL((SELECT IF(SUM(m.valor) IS NULL, 0, (SUM(m.valor)*-1)) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE associado IN('" + idAssoc + "') AND m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "' AND m.cnscanmom IS NULL), 0) + " +
+                           " (IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = '" + idAssoc + "' AND m.DATA BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "') = 0, a.credito, (SUM(m.valor) + a.credito))  ) ) AS SaldoNovoModelo,  " +
+                           " IF((SELECT valor FROM assocdeb WHERE tipo  IN('RETBB', 'RETBAN', 'PAGEST') AND associado = '" + idAssoc + "' AND cnscanmom IS NULL AND dtvencim = '" + Dt_Fim + "') IS NULL, 0, (SELECT valor FROM assocdeb WHERE tipo IN('RETBB', 'RETBAN', 'PAGEST') AND cnscanmom IS NULL AND associado = a.idassoc AND dtvencim = '" + ano + (Convert.ToInt32(mes)-1).ToString() + "-19" + "') ) AS Pagamento, " +                           
+                           " (SELECT SUM(valor) FROM assocdeb WHERE tipo  IN ('FECHAM', 'DEBANT') AND associado = '" + idAssoc + "' AND cnscanmom IS NULL AND dtvencim = '" + moment.Year + "-" + ((moment.Month) - 1) + "-19" + "') AS SumarizaMovimentacao," +
                            " (SELECT SUM(valor) AS Debito FROM assocdeb WHERE associado = '" + idAssoc + "' AND cnscanmom IS NULL) AS Debito,  " +
-                           " (SELECT SUM(valor) AS Debito FROM assocdeb WHERE associado = a.idassoc AND cnscanmom IS NULL AND dtvencim = '2022-12-19') AS DebitoComPeriodo " +
+                           " (SELECT SUM(valor) AS Debito FROM assocdeb WHERE associado = a.idassoc AND cnscanmom IS NULL AND dtvencim = '" + moment.Year + "-" + ((moment.Month)-1)     + "-19" + "') AS DebitoComPeriodo " +
                            " FROM comovime AS m " +
                            " INNER JOIN associa AS a ON a.idassoc = m.associado " +
                            " WHERE a.idassoc IN('" + idAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL " +
-                           " AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2022-12-20' AND '2023-01-19', m.vencimento BETWEEN '2022-12-20' AND '2023-12-19') GROUP BY a.idassoc ";
+                           " AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "', m.vencimento BETWEEN '" + Dt_Inicio + "' AND '" + Dt_Fim + "') GROUP BY a.idassoc ";
+            
             // 2747, 735, 5289
+
+   
             ObjDados.Query = query;
+
+            //MessageBox.Show(query);
 
             DataTable dados = ObjDados.RetQuery();
 

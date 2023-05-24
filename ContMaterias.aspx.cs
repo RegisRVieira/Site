@@ -110,6 +110,8 @@ namespace Site
 
                 ObjDados.Query = query;
 
+                //MessageBox.Show(idContMat);
+
                 DataTable dadosQuery = ObjDados.RetQuery();
 
                 //Testar integridade das Querys
@@ -119,7 +121,7 @@ namespace Site
                 //Publicidade da Matéria
                 xRet += "<section class='publicidade' >";
                 //xRet += "Query: " + ObjDados.Query.ToString();                
-                int ValidaImagens = 0;
+                int ValidaImagens = 0;  
 
                 //## Checa se há Publicidade cadastrada
                 for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
@@ -198,6 +200,8 @@ namespace Site
 
                 //Contexto
                 xRet += "<section class='contexto texto'>";
+                xRet += "<p>" + dadosQuery.Rows[0]["conteudo"] + "</p>";
+
                 if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
@@ -215,11 +219,13 @@ namespace Site
                         }
                     }
                 }
-                xRet += "<p>" + dadosQuery.Rows[0]["conteudo"] + "</p>";
+                
                 xRet += "</section>";
 
                 //Complemento
                 xRet += "<section class='complemento texto'>";
+                xRet += "<p>" + dadosQuery.Rows[0]["complemento"] + "</p>";
+
                 if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
@@ -237,12 +243,14 @@ namespace Site
                         }
                     }
                 }
-                xRet += "<section class='complemento texto'>";                
-                xRet += "<p>" + dadosQuery.Rows[0]["complemento"] + "</p>";
+                //xRet += "<section class='complemento texto'>";                
+                
                 xRet += "</section>";
 
                 //Conclusão
                 xRet += "<section class='conclusao texto'>";
+                xRet += "<p>" + dadosQuery.Rows[0]["conclusao"] + "</p>";
+
                 //if (ValidaImagens > 0)
                 if (dadosQuery.Rows.Count > 0)
                 {
@@ -261,7 +269,7 @@ namespace Site
                         }
                     }
                 }               
-                xRet += "<p>" + dadosQuery.Rows[0]["conclusao"] + "</p>";
+                
                 xRet += "</section>";
             }
             else

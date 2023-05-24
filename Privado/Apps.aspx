@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Apps.aspx.cs" Inherits="Site.Privado.Apps" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Apps.aspx.cs" Inherits="Site.Privado.Apps" ValidateRequest="true" %>
 
 <!DOCTYPE html>
 

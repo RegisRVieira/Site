@@ -25,6 +25,13 @@
         </div>        
         <div class="public-lateral">
             <%# montarListaMaterias() %>
+            
+            <a href="ContMaterias_Todas.aspx" style="">
+            <div style="width: 100%; height: 50px; border: solid 1px #ffd800; margin-top: 20px;">
+                <p style="text-align: center; width: 100%; margin:0; padding: 0; margin-top: 8px; padding-top: 9px;">
+                Veja todas as Matérias...
+                </p>
+            </div></a>
             <!--
                 <section>
                 <a href="FaleConosco.aspx">
@@ -78,5 +85,16 @@
         <div class="footerHome-Img">
             <img src="../Img/Icon/Logo2 Régis-ASU.png" /></div>
     </footer>
+    <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83720917-1', 'auto');
+        ga('send', 'pageview');
+    </script>
 </body>
 </html>
