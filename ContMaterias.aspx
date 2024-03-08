@@ -4,34 +4,49 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Acesse o site da ASU" />
+    <meta property="og:description" content="Veja tudo que temos para você" />
+    <meta property="og:image" content="http://www.asu.com.br/img/materia/Img-Compartilhada.png" />
+    <meta property="og:image:height" content="200" />
+    <meta property="og:image:width" content="200" />
+    <meta property="og:url" content="https://www.asu.com.br" />
+
     <title>Matérias</title>
-     <link rel="stylesheet" href="Css/Global.css" />
+    <link rel="stylesheet" href="Css/Global.css" />
     <link rel="stylesheet" href="Css/Global-Fluido.css" />
     <script src="Js/Apoio.js"></script>
     <script src="Js/jQuery 3.4.1.js"></script>
 </head>
 <body>
     <nav class="navHome-Internas">
-        <p><a href="http://www.asu.com.br/Home.aspx">
-            <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a></p>
+        <p>
+            <a href="http://www.asu.com.br/Home.aspx">
+                <img class="navHome-Internas-Img" src="Img/Logo ASU-White-Espaçado.png" /></a>
+        </p>
     </nav>
-    <main class="corpoContMateria">        
+    <main class="corpoContMateria">
         <div class="montaMateria">            
-            <div><asp:Label ID="lblMateria" runat="server"> <%# montarContMateria() %></asp:Label></div>
-            <div class="left" style="margin-top: 7px;  margin-left: 5px;">                                            
-                <a href="#" onclick="PrintElem('#lblMateria', 1080, 'Extrato do Associado')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp    <br />                                            
+            <div>
+                <asp:Label ID="lblMateria" runat="server"> <%# montarContMateria() %></asp:Label></div>
+            <div class="left" style="margin-top: 7px; margin-left: 5px;">
+                <a href="#" onclick="PrintElem('#lblMateria', 1080, 'Extrato do Associado')">
+                    <img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp   
+                <br />
             </div>
-        </div>        
+        </div>
         <div class="public-lateral">
             <%# montarListaMaterias() %>
-            
+
             <a href="ContMaterias_Todas.aspx" style="">
-            <div style="width: 100%; height: 50px; border: solid 1px #ffd800; margin-top: 20px;">
-                <p style="text-align: center; width: 100%; margin:0; padding: 0; margin-top: 8px; padding-top: 9px;">
-                Veja todas as Matérias...
-                </p>
-            </div></a>
+                <div style="width: 100%; height: 50px; border: solid 1px #ffd800; margin-top: 20px;">
+                    <p style="text-align: center; width: 100%; margin: 0; padding: 0; margin-top: 8px; padding-top: 9px;">
+                        Veja todas as Matérias...
+                    </p>
+                </div>
+            </a>
             <!--
                 <section>
                 <a href="FaleConosco.aspx">
@@ -83,7 +98,8 @@
             </address>
         </div>
         <div class="footerHome-Img">
-            <img src="../Img/Icon/Logo2 Régis-ASU.png" /></div>
+            <img src="../Img/Icon/Logo2 Régis-ASU.png" />
+        </div>
     </footer>
     <script>
             (function (i, s, o, g, r, a, m) {

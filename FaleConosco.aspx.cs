@@ -19,6 +19,10 @@ namespace Site
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                ativarFormFaleConosco();
+            }
 
             this.DataBind();
         }
@@ -29,6 +33,19 @@ namespace Site
             Response.Redirect("Home.aspx");
         }
 
+        protected void ativarFormFaleConosco()
+        {
+            mwFalecosnosco.ActiveViewIndex = 0;
+        }
+        protected void ativarConcluido()
+        {
+            mwFalecosnosco.ActiveViewIndex = 1;
+        }
+
+        protected void voltarHome(object sender, EventArgs e)
+        {
+            Response.Redirect("home.aspx");
+        }
         protected void EMailFaleConosco(object sender, EventArgs e)
         {
             BLL ObjEmail = new BLL(conectSite);
@@ -50,12 +67,7 @@ namespace Site
             else
             {
                 lblResultado.Text =  ObjEmail.MsgErro.ToString();
-            }
-            
-
-            //xRet += "< input runat = 'server' type = 'radio' id = " + dados.Rows[i]["ID"] +
-            //        " name = 'destino' value = " + dados.Rows[i]["ID"] + "checked= '' > " + dados.Rows[i]["descricao"] + "< br >";
-
+            }                        
 
             string agora = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + " às " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
 
@@ -75,196 +87,271 @@ namespace Site
 
             //Credenciais de acesso
             //credenciais.UserName = "dinhorod@gmail.com";
-            credenciais.UserName = "reginaldo@asu.com.br";
-            credenciais.Password = "c142795";
+            credenciais.UserName = "postmaster@asu.com.br";
+            credenciais.Password = "Asu#1969";
             cliente.Credentials = credenciais;
 
             //Dados para Envio do e-mail
             string para = " ";
+            string cc = " ";
+
             MailMessage Msg = new MailMessage();
+            MailMessage To = new MailMessage();
 
 
             string xMsg = "";
-            /*
-            xMsg += "<table>";
-            xMsg += "<caption style='font-size: 1.4em; color: #22396f;'>" + "Fale Conosco" + "</caption>";
-            xMsg += "<thead style='margin: 0; padding: 0; width: 300px; height: 100px; background-color: #bbb;'>";
-            xMsg += "<tr style='color: #f26907;'>" + "Olá, " + enviar_nome.Value + "</tr>";
-            xMsg += "<tr style:'margin: 0; padding: 0;'>" + "Telefone: " + enviar_telefone.Value + "</tr>";
-            xMsg += "<tr style:'margin: 0; padding: 0;'>" + "E-mail: " + enviar_email.Value + "</tr>";
-            xMsg += "<thead>";
-            xMsg += "<tbody  style='margin: 0; padding: 0; margin-top: 20px; width: 500px; height: 600px;'>";
-            xMsg += "<tr>";
-            xMsg += "<td style:'margin: 0; padding: 0;>" + corpo_mensagem.Value + "</td>";
-            xMsg += "</tr>";
-            xMsg += "</tbody>";
-            xMsg += "</table>";
+            string destino = "";
+
+            if (destino_atendimento.Checked)
+            {
+                destino = destino_atendimento.Value;
+                //para = "reginaldo@asu.com.br, regis@asu.com.br";
+                //para = "reginaldo@asu.com.br";
+                para = "atendimento@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_convenio.Checked)
+            {
+                destino = destino_convenio.Value;
+                para = "convenios@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_financeiro.Checked)
+            {
+                destino = destino_financeiro.Value;
+                para = "tesouraria@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_jornal.Checked)
+            {
+                destino = destino_jornal.Value;
+                para = "jornal@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_juridico.Checked)
+            {
+                destino = destino_juridico.Value;
+                para = "juridico@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_secretaria.Checked)
+            {
+                destino = destino_secretaria.Value;
+                para = "secretaria@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+
+            xMsg += "<fieldset style='width: 600px;'>";
+            xMsg += "<div style='margin: 0; padding: 0; width: 600px; min-height: 100px; background-color: #F0F0F0;'>";
+            xMsg += "<p style='font-size: 1.4em; color: #22396f;'>" + "Fale Conosco: " + destino + "</p>";
+
+            /*Testes
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Enviado por: " + "Nome" + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Telefone: " + "(14) 9-9696 8565" + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "E-mail: " + "fulano@domino.com.br" + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Empresa: " + "Empresa" + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Momento: "+ agora + "</p> ";
+            xMsg += "</div>";
+            xMsg += "<div style='margin-top: 20px; width: 500px; min-height: 200px;'>";
+            xMsg += "<p style = 'margin: 0; padding: 0; margin-top: 20px;' > " + "Assunto: " + "Assunto" + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Corpo da Mensagem" + "</p>";
             */
 
-            xMsg += "<fieldset style='width: 600px; background-color: #f26907; '>";
-            xMsg += "<div style='margin: 0; padding: 0; width: 300px; height: 100px; background-color: #bbb;'>";
-            xMsg += "<p style='font-size: 1.4em; color: #22396f;'>" + "Fale Conosco" + "</p>";
-            xMsg += "<p style='margin: 0; padding: 0;'>" + "Olá, " + enviar_nome.Value + "</p>";
-            xMsg += "<p style='margin: 0; padding: 0;'>" + enviar_telefone.Value + "</p>";
-            xMsg += "<p style='margin: 0; padding: 0;'>" + enviar_email.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Enviado por: " + enviar_nome.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Telefone: " + enviar_telefone.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "E-mail: " + enviar_email.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Empresa: " + enviar_empresa.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Momento: " + agora + "</p> ";
             xMsg += "</div>";
-            xMsg += "<div style='margin-top: 20px; width: 500px; height: 600px;'>";
-            xMsg += "<p style='margin: 0; padding: 0;'>" + corpo_mensagem.Value.ToString() + "</p>";
-            xMsg += "<h1 style='color: red' >" + "Você Acaba de Receber o Primeiro e-mail enviado pelo Fale Conosco do novo Site da ASU" + "</h1> " + agora;
+            xMsg += "<div style='margin-top: 20px; width: 500px; min-height: 200px;'>";
+            xMsg += "<p style = 'margin: 0; padding: 0; margin-top: 20px;' > " + "Assunto: " + enviar_assunto.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + corpo_mensagem.Value.ToString() + "</p>";                        
             xMsg += "</div>";
             xMsg += "</fieldset>";
+          
 
-            //Pegar valor do Radio posicionado
-            if (destino_atendimento.Checked || destino_convenio.Checked || destino_financeiro.Checked || destino_juridico.Checked || destino_secretaria.Checked || destino_jornal.Checked)
-            {
-                if (destino_atendimento.Checked)
-                {
-                    for (int i = 0; i < linha; i++)
-                    {
-                        if (dados.Rows[i]["id"].ToString() == "1")
-                        {
-                            xRet += " " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"];
-                            //para = "atendimento@asu.com.br";
-                            //para = dados.Rows[i]["email"].ToString();
-                            para = "reginaldo@asu.com.br";
-
-                            Msg.IsBodyHtml = true;
-                            Msg.From = new MailAddress(para);
-                            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
-                            Msg.Body = xMsg;
-
-                            MessageBox.Show("Atendimento" + " ---- " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"]);
-                        }
-                    }
-                }
-                if (destino_convenio.Checked)
-                {
-                    for (int i = 0; i < linha; i++)
-                    {
-                        if (dados.Rows[i]["id"].ToString() == "2")
-                        {
-                            xRet += " " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"];
-                            //para = "convenios@asu.com.br";
-                            //para = dados.Rows[i]["email"].ToString();
-                            para = "reginaldo@asu.com.br";
-
-                            Msg.IsBodyHtml = true;
-                            Msg.From = new MailAddress(para);
-                            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
-                            Msg.Body = xMsg;
-
-                            MessageBox.Show("Convênio Selecionado, Parabéns!!!" + " ---- " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"]);
-                        }
-                    }
-                }
-                if (destino_financeiro.Checked)
-                {
-                    for (int i = 0; i < linha; i++)
-                    {
-                        if (dados.Rows[i]["id"].ToString() == "3")
-                        {
-                            xRet += " " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"];
-                            //para = "tesouraria@asu.com.br";
-                            //para = dados.Rows[i]["email"].ToString();
-                            para = "reginaldo@asu.com.br";
-
-                            Msg.IsBodyHtml = true;
-                            Msg.From = new MailAddress(para);
-                            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
-                            Msg.Body = xMsg;
-
-                            MessageBox.Show("Financeiro Selecionado, Envie sua mensagem!!!" + " ---- " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"]);
-
-                        }
-                    }
-                }
-                if (destino_juridico.Checked)
-                {
-                    for (int i = 0; i < linha; i++)
-                    {
-                        if (dados.Rows[i]["id"].ToString() == "4")
-                        {
-                            //para = "juridico@asu.com.br";
-                            para = "reginaldo@asu.com.br";
-                            //para = dados.Rows[i]["email"].ToString();
-                            xRet += " " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"];
-
-                            Msg.IsBodyHtml = true;
-                            Msg.From = new MailAddress(para);
-                            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
-                            Msg.Body = xMsg;
-
-                            MessageBox.Show("Juridico Selecionado, Pergunte ao advogado!!!" + " ---- " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"]);
-                        }
-                    }
-                }
-                if (destino_secretaria.Checked)
-                {
-                    for (int i = 0; i < linha; i++)
-                    {
-                        if (dados.Rows[i]["id"].ToString() == "5")
-                        {
-                            //para = "secretaria@asu.com.br";
-                            para = "reginaldo@asu.com.br";
-                            //para = dados.Rows[i]["email"].ToString();
-                            xRet += " " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"];
-
-                            Msg.IsBodyHtml = true;
-                            Msg.From = new MailAddress(para);
-                            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
-                            Msg.Body = xMsg;
-
-                            MessageBox.Show("Secretaria Selecionado, O que você precisa???" + " ---- " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"]);
-
-                        }
-                    }
-                }
-                if (destino_jornal.Checked)
-                {
-                    for (int i = 0; i < linha; i++)
-                    {
-                        if (dados.Rows[i]["id"].ToString() == "6")
-                        {
-                            //para = "jornal@asu.com.br";
-                            para = "reginaldo@asu.com.br";
-                            //para = dados.Rows[i]["email"].ToString();
-                            xRet += " " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"];
-
-                            Msg.IsBodyHtml = true;
-                            Msg.From = new MailAddress(para);
-                            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
-                            Msg.Body = xMsg;
-
-                            MessageBox.Show("Jornal Selecionado, Pode ler!!!" + " ---- " + dados.Rows[i]["id"] + " - " + dados.Rows[i]["email"] + " - " + dados.Rows[i]["descricao"]);
-
-                        }
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("É necessário selecionar um Destino!");
-            }
-
+            Msg.IsBodyHtml = true;
+            Msg.From = new MailAddress(para);                        
+            Msg.Subject = "Assunto: " + enviar_assunto.Value.ToString();
+            Msg.Body = xMsg;
             Msg.To.Add(para);
+
+            
+            To.IsBodyHtml = true;
+            To.From = new MailAddress(cc);
+            To.Subject = "Assunto: " + enviar_assunto.Value.ToString();
+            To.Body = xMsg;            
+            To.To.Add(cc);
+
+
 
             //Enviar Mensagem
             try
             {
                 cliente.Send(Msg);
-                lblResultado.Text = "Sua mensagem foi enviada com sucesso!!! " + agora;
-                MessageBox.Show("Sua mensagem foi enviada com sucesso!!! " + agora);
+                cliente.Send(To);
+                lblResultado.Text = "<p>Sua mensagem foi enviada com sucesso!!! </p><br>" +"<p>" +  agora + "</p>";
+                //MessageBox.Show("Sua mensagem foi enviada com sucesso!!! " + agora);
+
+                ativarConcluido();
 
             }
             catch (Exception ex)
             {
-                lblResultado.Text = "Ocorreu problemas no envio da sua mensagem" + ex;
+                lblResultado.Text = "Erro no envio da sua mensagem: " + ex;
+                ativarConcluido();
             }
-            finally { cliente.Dispose(); }
-            lblResultado.Text = "Enviado para: " + para;
+            finally 
+            { 
+                cliente.Dispose(); 
+            }
+            
+            //lblMsg.Text = "Enviado para: " + para;
+            /*
             lblFalta.Text = "1 - Formatar o Corpo da Mensagem (Formatação HTML)" +
-                            "2 - Ajustar Método de captura do e-mail. Buscar e-mail na base de dados";
+                            "2 - Ajustar Método de captura do e-mail. Buscar e-mail na base de dados";*/
         }
+
+        protected void enviarEmailFaleConosco(object sender, EventArgs e)
+        {//Processo concluído e Testado em: 06-09-2023                        
+            string agora = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + " às " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+            
+            //Dados para Envio do e-mail
+            string para = " ";
+            string cc = " ";                                    
+            
+            string xMsg = "";
+            string destino = "";
+
+            string assunto = enviar_assunto.Value.ToString();
+
+            if (destino_atendimento.Checked)
+            {
+                destino = destino_atendimento.Value;
+                //para = "reginaldo@asu.com.br, regis@asu.com.br";
+                //para = "reginaldo@asu.com.br";
+                para = "atendimento@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_convenio.Checked)
+            {
+                destino = destino_convenio.Value;
+                //para = "reginaldo@asu.com.br";
+                para = "convenios@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_financeiro.Checked)
+            {
+                destino = destino_financeiro.Value;
+                para = "tesouraria@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_jornal.Checked)
+            {
+                destino = destino_jornal.Value;
+                para = "jornal@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_juridico.Checked)
+            {
+                destino = destino_juridico.Value;
+                para = "juridico@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+            if (destino_secretaria.Checked)
+            {
+                destino = destino_secretaria.Value;
+                para = "secretaria@asu.com.br";
+                cc = "informatica@asu.com.br";
+            }
+
+            xMsg += "<fieldset style='width: 600px;'>";
+            xMsg += "<div style='margin: 0; padding: 0; width: 600px; min-height: 100px; background-color: #F0F0F0;'>";
+            xMsg += "<p style='font-size: 1.4em; color: #22396f;'>" + "Fale Conosco: " + destino + "</p>";            
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Enviado por: " + enviar_nome.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Telefone: " + enviar_telefone.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "E-mail: " + enviar_email.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Empresa: " + enviar_empresa.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + "Momento: " + agora + "</p> ";
+            xMsg += "</div>";
+            xMsg += "<div style='margin-top: 20px; width: 500px; min-height: 200px;'>";
+            xMsg += "<p style = 'margin: 0; padding: 0; margin-top: 20px;' > " + "Assunto: " + enviar_assunto.Value + "</p>";
+            xMsg += "<p style='margin: 0; padding: 0;'>" + corpo_mensagem.Value.ToString() + "</p>";
+            xMsg += "</div>";
+            xMsg += "</fieldset>";
+
+            EnviarEmail(para, cc, assunto, xMsg);
+            
+        }
+        protected String EnviarEmail(string para, string cc, string assunto, string msg)
+        {//Método concluído e Testado em: 06-09-2023
+            string agora = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + " às " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+
+            string retorno = "";
+
+            SmtpClient cliente = new SmtpClient();
+            NetworkCredential credenciais = new NetworkCredential();
+
+            //Configurar Cliente            
+            cliente.Host = "smtp.asu.com.br";
+            cliente.Port = 587;
+            cliente.EnableSsl = true;
+            cliente.DeliveryMethod = SmtpDeliveryMethod.Network;
+            cliente.UseDefaultCredentials = false;
+
+            //Libera envio de e-mail validando certificados
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+
+            //Credenciais de acesso            
+            credenciais.UserName = "postmaster@asu.com.br";
+            credenciais.Password = "Asu#1969";
+            cliente.Credentials = credenciais;
+
+            //Dados para Envio do e-mail
+            MailMessage Msg = new MailMessage();
+            MailMessage To = new MailMessage();
+       
+            Msg.IsBodyHtml = true;
+            Msg.From = new MailAddress(para);
+            Msg.Subject = "Assunto: " + assunto;
+            Msg.Body = msg;
+            Msg.To.Add(para);
+
+
+            To.IsBodyHtml = true;
+            To.From = new MailAddress(cc);
+            To.Subject = "Assunto: " + assunto;
+            To.Body = msg;
+            To.To.Add(cc);
+
+
+
+            //Enviar Mensagem
+            try
+            {
+                cliente.Send(Msg);
+                cliente.Send(To);
+                retorno = "<p>Sua mensagem foi enviada com sucesso!!! </p><br>" + "<p>" + agora + "</p>";
+                //MessageBox.Show("Sua mensagem foi enviada com sucesso!!! " + agora);
+
+                ativarConcluido();
+
+            }
+            catch (Exception ex)
+            {
+                retorno = "Erro no envio da sua mensagem: " + ex;
+                ativarConcluido();
+            }
+            finally
+            {
+                cliente.Dispose();
+            }
+            
+            lblResultado.Text = retorno;
+
+            return lblResultado.Text;
+
+        }//EnviarEmail
 
 
     }//FIM

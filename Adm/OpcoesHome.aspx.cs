@@ -31,12 +31,21 @@ namespace Site.Adm
             this.DataBind();
         }
 
+        public void checarSessao()
+        {
+            string identifica = "";
+
+            if (Session["LoginUsuario"] == null)
+            {                
+                Response.Redirect("Admin.aspx");
+            }
+            
+        }//checarSessao
         public void ativaViews(int ativa)
         {
             mwGridOpcoesHome.ActiveViewIndex = ativa;
             mwFormOpcoesHome.ActiveViewIndex = ativa;
         }
-
         public void ativarSlider(object sender, EventArgs e)
         {
             ativaViews(0);
@@ -60,9 +69,11 @@ namespace Site.Adm
             popularMatImgTipo();
             popularCampoConteudo();
         }
-        public void ativarVwPublicidade(object sender, EventArgs e)
+        public void ativarVwEventos(object sender, EventArgs e)
         {
             ativaViews(4);
+            popularImgEventos();
+            carregarGvEventos();
         }
         public void ativarVwPublicidade2(object sender, EventArgs e)
         {
@@ -76,7 +87,6 @@ namespace Site.Adm
         {
             ativaViews(7);
         }
-
         public void popularImgTipo()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -121,6 +131,19 @@ namespace Site.Adm
             stMatImgCampoConteudo.DataTextField = "descricao";
             stMatImgCampoConteudo.DataBind();
         }
+        public void popularImgEventos()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string query = " SELECT cod, titulo, 1 AS ordem FROM st_img_tipo " +
+                           " WHERE cod = 'EVEN' ";
+            ObjDados.Query = query;
+
+            slImgEventos.DataSource = ObjDados.RetQuery();
+            slImgEventos.DataValueField = "cod";
+            slImgEventos.DataTextField = "titulo";
+            slImgEventos.DataBind();
+        }
         public void popularMatImgTipo()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -151,7 +174,6 @@ namespace Site.Adm
             gvOpcoesHome.DataBind();
         */
         }
-
         public void paginarBox33(object sender, GridViewPageEventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -186,6 +208,17 @@ namespace Site.Adm
             gvMateria.PageIndex = e.NewPageIndex;
             gvMateria.DataBind();
         }
+        public void paginarEventos(object sender, GridViewPageEventArgs e)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            ObjDados.Campo = " * ";
+            ObjDados.Tabela = " st_conteudo ";
+
+            gvEventos.DataSource = ObjDados.RetCampos();
+            gvEventos.PageIndex = e.NewPageIndex;
+            gvEventos.DataBind();
+        }
         public void selecionarRegistroGvMateria(object sender, EventArgs e)
         {
             carregarGvMateria();
@@ -212,8 +245,34 @@ namespace Site.Adm
                 iMatTitulo.Value = string.Join("", iMatTitulo.Value.ToCharArray().Where(char.IsLetterOrDigit));
             }
 
-        }       
+        }
+        public void selecionarRegistroGvEventos(object sender, EventArgs e)
+        {
+            carregarGvEventos();
 
+            //string x = gvMateria.SelectedRow.Cells[1].Text;
+            //MessageBox.Show("Clicou!!!" + x);
+
+            lblIdEvento.Text = gvEventos.SelectedRow.Cells[1].Text;
+            iEventoTitulo.Value = gvEventos.SelectedRow.Cells[2].Text;
+            taDescEvento.Value = gvEventos.SelectedRow.Cells[3].Text;
+            taLocalEvento.Value = gvEventos.SelectedRow.Cells[4].Text;
+            taMapaEvento.Value = gvEventos.SelectedRow.Cells[5].Text;
+            taHorarioEvento.Value = gvEventos.SelectedRow.Cells[6].Text;
+
+            string titulo = iEventoTitulo.Value;
+
+            bool existeCaracterEspecial = Regex.IsMatch(titulo, (@"[!#$%&'()*+,-./:;?@[\\\]_`{|}~]"));
+
+            if (existeCaracterEspecial)
+            {
+                //Verifica existência de caracteres especiais.
+                int o = iEventoTitulo.Value.Count(p => !char.IsLetterOrDigit(p));
+                //Remove caracteres especiais. 
+                iEventoTitulo.Value = string.Join("", iEventoTitulo.Value.ToCharArray().Where(char.IsLetterOrDigit));
+            }
+
+        }
         public void capturarConteudoId(object sender, EventArgs e)
         {
             var id = gvSlider.SelectedRow.Cells[1].Text;
@@ -229,7 +288,6 @@ namespace Site.Adm
 
             //gvConteudo.DeleteRow(i);
         }
-
         protected void carregarData(object sender, EventArgs e)
         {
             int periodo = Convert.ToInt32(iDuracaoPub.Value);
@@ -253,11 +311,13 @@ namespace Site.Adm
             iB100PubIniConteudo.Value = hoje.ToString("yyyy-MM-dd");
             iB100PubFimConteudo.Value = DateTime.Now.AddDays(periodoB100).ToString("yyyyy-MM-dd");
 
+            iDataEvento.Value = hoje.ToString("yyyy-MM-dd");
+            iDataFimEvento.Value = DateTime.Now.AddDays(periodoB100).ToString("yyyyy-MM-dd");
+
             iMatPubIni.Value = hoje.ToString("yyyy-MM-dd");
             
 
         }
-
         public void carregarGvMateria()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -270,6 +330,18 @@ namespace Site.Adm
             gvMateria.DataBind();
         }
 
+        public void carregarGvEventos()
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            ObjDados.Campo = " id, titulo, introducao, complemento, conclusao, dt_PublIni, dt_PublFim  ";
+            ObjDados.Tabela = " st_conteudo ";
+            ObjDados.Condicao = " ORDER BY id DESC LIMIT 1";
+
+            gvEventos.DataSource = ObjDados.RetCampos();
+            gvEventos.DataBind();
+        }
+        
         public void carregarGvSlider()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -309,7 +381,6 @@ namespace Site.Adm
 
             //MessageBox.Show("SELECT " +campos + " FROM "+ tabela + left +  condicao);
         }
-
         public void carregarGvBox33()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -389,13 +460,8 @@ namespace Site.Adm
 
             iPublFimConteudo.Value = periodo.ToString("yyyy-MM-dd");
         }
-
         public void cadastrarContSlider(object sender, EventArgs e)
-        {
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-
+        {            
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
 
@@ -445,13 +511,8 @@ namespace Site.Adm
             ObjValida.Campo = campoID;
             ObjValida.Condicao = condicao;
         }
-
         public void cadastrarContB33(object sender, EventArgs e)
         {
-
-#pragma warning disable CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
-            string xRet = "";
-#pragma warning restore CS0219 // A variável "xRet" é atribuída, mas seu valor nunca é usado
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
@@ -504,7 +565,6 @@ namespace Site.Adm
             ObjValida.Campo = campoID;
             ObjValida.Condicao = condicao;
         }
-
         public void cadastrarContB100(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -565,7 +625,6 @@ namespace Site.Adm
             //MessageBox.Show("INSERT INTO" + tabela + "(" + campos + ")" + " VALUES(" + valores + ")");
 
         }
-
         public void proporcaoImgMateria(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectSite);
@@ -608,9 +667,10 @@ namespace Site.Adm
 
 
         }
-
         public void cadastrarMateria(object sender, EventArgs e)
-        {            
+        {
+            checarSessao();
+
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
 
@@ -702,7 +762,86 @@ namespace Site.Adm
 
             carregarGvMateria();
         }
+        public void cadastrarEvento(object sender, EventArgs e)
+        {            
+            checarSessao();
 
+            BLL ObjDados = new BLL(conectSite);
+            BLL ObjValida = new BLL(conectSite);
+
+            DateTime dt_ini = DateTime.Now;
+            DateTime dt_fin = DateTime.Now;
+
+
+            //iDataEvento.Value = dt_ini.ToString("yyyy-MM-dd HH:mm:ss");
+
+            string FinalizaPublicacao = "";
+
+            if (!String.IsNullOrEmpty(iDataFimEvento.Value))
+            {
+                //iDataFimEvento.Value = dt_fin.ToString("yyyy-MM-dd HH:mm:ss");
+
+                FinalizaPublicacao = "'" + iDataFimEvento.Value + "',";
+            }
+            else
+            {
+                FinalizaPublicacao = "" + "NULL" + ",";
+            }
+
+            //MessageBox.Show(iMatPubFim.Value);
+
+            string tabela = " st_conteudo ";
+            string campos = " cod_tipo, cod_categoria, cod_menu, titulo, introducao, conteudo, complemento, conclusao, dt_publIni, dt_PublFim, id_empresa, dt_cad, cadMom, cadUsu  ";
+            string campoID = " * ";
+            string condicao = " ORDER BY id DESC LIMIT 1 ";
+            string valores = String.Format("'" + "EVEN" + "'," +
+                                           "'" + "EVE" + "'," +
+                                           "'" + "NEN" + "'," +
+                                           "'" + iEventoTitulo.Value + "'," +
+                                           "'" + taDescEvento.Value.ToString() + "'," +
+                                           "'" + taLocalEvento.Value + "'," +
+                                           "'" + taMapaEvento.Value + "'," +
+                                           "'" + taHorarioEvento.Value + "'," +                                           
+                                           "'" + iDataEvento.Value + "'," +
+                                           //"'" + iMatPubFim.Value + "'," +
+                                           FinalizaPublicacao +
+                                           "'" + 1 + "'," +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                           "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "'," +
+                                           "'" + Session["LoginUsuario"].ToString() + "'");
+
+
+
+            //Dados para Inserção
+            ObjDados.Tabela = tabela;
+            ObjDados.Campo = campos;
+            ObjDados.Valores = valores;
+
+            //MessageBox.Show("INSERT INTO" + tabela + "(" + campos + ")" + " VALUES(" + valores + ")");
+
+
+            if (!String.IsNullOrEmpty(iEventoTitulo.Value))
+            {
+                ObjDados.InsertRegistro(tabela, campos, valores);
+
+                iEventoTitulo.Focus();
+                lblMsg.Text = "Evento Cadastrado com Sucesso!";
+                //lblMsg.Text = "Estamos testando! Gravação 'Desativada'! Descomente a linha 558 de Gravação após os testes...";
+
+                iValidaEvento.Value = "Validado";
+
+                btnCadEvento.Enabled = false;
+            }
+            else
+            {
+                iEventoTitulo.Value = String.Empty;
+                taDescEvento.Value = String.Empty;
+
+                lblMsg.Text = "É preciso preencher os Dados!!!";
+                iEventoTitulo.Focus();
+            }
+
+        }//cadastrarEvento
         public void checarTamanhoImg(object sender, EventArgs e) //Criado para testar a validação do tamanho do arquivo - 18-08-2021
         {
             AmbientProperties ObjAm = new AmbientProperties();
@@ -1150,7 +1289,7 @@ namespace Site.Adm
             BLL ObjValida = new BLL(conectSite);
             DAL ObjDal = new DAL(conectSite);
 
-            iB100Valida.Visible = false;
+            iB100Valida.Visible = false;    
 
 
             if (!String.IsNullOrEmpty(iB100Valida.Value))
@@ -1347,8 +1486,7 @@ namespace Site.Adm
 
             BLL ObjDados = new BLL(conectSite);
             BLL ObjImg = new BLL(conectSite);
-            BLL ObjValida = new BLL(conectSite);
-            DAL ObjDal = new DAL(conectSite);
+            BLL ObjValida = new BLL(conectSite);            
 
             iMatValida.Visible = false;
 
@@ -1389,7 +1527,7 @@ namespace Site.Adm
                                     caminho = Server.MapPath(@"~/Img/Materia/").Replace(@"\", "/");
                                     caminho2 = ("/Img/Materia/").Replace(@"\", "/");
                                     arquivo = fuMatImg.FileName;
-                                    string path = caminho.Replace(@"\", "/");
+                                    string path = caminho.Replace(@"\", "/");   
 
                                     if (System.IO.File.Exists(caminho + arquivo))
                                     {
@@ -1424,7 +1562,7 @@ namespace Site.Adm
                                         }
                                         else
                                         {
-                                            MessageBox.Show("* " + dadosID.Rows.Count);
+                                            //MessageBox.Show("* " + dadosID.Rows.Count);
                                         }
 
                                         //MessageBox.Show("Quant.: " + contador + " ID: " + IDConteudo);                                        
@@ -1434,7 +1572,7 @@ namespace Site.Adm
                                         stMatImgTipo.DataValueField = "cod";
 
                                         string tabela = " st_imagens ";
-                                        string campos = " id_conteudo, codtipo, cod_destaque, cod_campoconteudo, cod_alinhamento, titulo, descritivo, fonte, autor, hint, cadmom, cadusu, path_img, id_empresa";
+                                        string campos = " id_conteudo, codtipo, cod_destaque, cod_campoconteudo, cod_alinhamento, titulo, descritivo, fonte, autor, hint, figcaption, cadmom, cadusu, path_img, id_empresa";
                                         string condicao = " WHERE id = '" + IDConteudo + "'";
                                         string valores = String.Format("'" + IDConteudo + "'," +
                                                                        "'" + stMatImgTipo.Value + "'," +                                                                       
@@ -1446,6 +1584,7 @@ namespace Site.Adm
                                                                        "'" + iMatImgFonte.Value + "'," +
                                                                        "'" + iMatImgAutor.Value + "'," +
                                                                        "'" + iMatImgHint.Value + "'," +
+                                                                       "'" + iMatImgCaption.Value + "'," +
                                                                        "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
                                                                        "'" + Session["LoginUsuario"].ToString() + "', " +
                                                                        "'" + caminho2 + arquivo + "', " +
@@ -1564,6 +1703,260 @@ namespace Site.Adm
             }
             //carregarGvTipo();
         }
+        public void inserirImgEventos(object sender, EventArgs e)
+        {            
+            string Msg = "";
+
+            string caminho = Server.MapPath(@"~/Img/Materia/").Replace(@"\", "/");//Indica caminho completo, até a raiz. Utilizado para validar a existência do Arquivo.
+            string path = ("/Img/Eventos/").Replace(@"\", "/"); //Utilizado para grava no DB o caminho a ser "resgatado" pelo HTML
+
+
+            double tArquivo = fuImgEventos.PostedFile.ContentLength; // Tamanho do Arquivo
+            string nArquivo = fuImgEventos.FileName; // Nome do Arquivo
+            string tpArquivo = fuImgEventos.PostedFile.ContentType; //Tipo do arquivo
+            string existe = fuImgEventos.HasFile.ToString(); // Valida existência do arquivo
+
+            tArquivo = (tArquivo / 1024) / 1024;
+
+            
+
+            //Variáveis envias por Parâmetro 
+            string codtipo = slImgEventos.Value;
+            string cod_destaque = "EVEN";
+            string cod_campoconteudo = "NEN";
+            string cod_alinhamento = "NEN";
+            string titulo = "";
+            string descritivo = "";            
+            string fonte = iImgFontEventos.Value;
+            string autor = iImgAutorEvenos.Value;
+            string hint = iImgHintEventos.Value;
+            string figcaption = iImgCaptionEventos.Value;
+            string link = iImgLinkEventos.Value;
+            string path_img = path + nArquivo;
+
+
+            //Checa se arquivo exite e GRAVA
+
+            //MessageBox.Show("O Arquivo: " + nArquivo + ", tem: " + tArquivo + ", este arquivo é do tipo: " + tpArquivo + " - " + existe);
+
+            if (fuImgEventos.HasFile) {//Valida se o arquivo está carregado no file UpDate para Gravação
+                if (System.IO.File.Exists(caminho + nArquivo))
+                {
+                    Msg = "Arquivo " + nArquivo + " já existe. Tente enviar com outro nome! " + path + nArquivo + "\n" + " #: " + caminho + nArquivo;                    
+                }
+                else
+                {
+                    if (tpArquivo == "image/jpeg" || tpArquivo == "image/png" || tpArquivo == "image/gif")
+                    {
+                        if (tArquivo < 4500000)//Checa tamanho do Artquivo
+                        {
+                            if (System.IO.File.Exists(caminho + nArquivo))//Checa se Imagem Existe
+                            {
+                                Msg = "Arquivo já existe. Tente enviar com outro nome!";
+
+                            }
+                            else
+                            {//Grava Imagem                               
+                                //Msg = "Arquivo foi salvo!!! " + caminho + nArquivo;
+                                //Envia Parametros pra Gravar dados no DB
+                                try
+                                {
+                                    fuImgEventos.PostedFile.SaveAs(caminho + nArquivo);
+                                    cadastrarImagem(codtipo, cod_destaque, cod_campoconteudo, cod_alinhamento, titulo, descritivo, fonte, autor, hint, figcaption, link, path_img, tArquivo, nArquivo, tpArquivo, existe);
+
+                                    btnCadEvento.Enabled = true;
+
+                                    Msg = "Cadastrado com Sucesso!";
+                                }
+                                catch (Exception ex)
+                                {
+                                    Msg = ex.ToString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Msg = "Imagem maior que o permitido: " + (tArquivo / 1024) / 1024 + "MB, máximo de 4.5MB";
+                        }
+                    }
+                    else
+                    {
+                        Msg = "Tipo de arquivo não suportado. Apenas Arquivos: JPG, PNG e GIF, são aceitos! ";
+                    }                   
+                }
+            }
+            else
+            {
+                Msg = "Você precisa escolher um arquivo do Tipo IMG para continuar!";
+            }
+
+            lblMsg.Text = Msg;
+
+            //MessageBox.Show(Msg);
+                
+                //System.IO.File ObjImg = new System.IO.File;
+
+                      
+
+            //MessageBox.Show(cadastrarImagem(codtipo, cod_destaque, cod_campoconteudo, cod_alinhamento, titulo, descritivo, fonte, autor, hint, figcaption, link, path_img,tArquivo, nArquivo,tpArquivo, existe));
+
+        }
+
+        protected String cadastrarImagem(string codtipo, string cod_destaque, string cod_campoconteudo, 
+                                         string cod_alinhamento, string titulo, string descritivo, string fonte, 
+                                         string autor, string hint, string figcaption, string link, string path_img,
+                                         double tamanhoArquivo, string nomeArquivo, string tipoArquivo, string exist)
+        {
+            
+            string xRet = "";
+
+            BLL ObjDados = new BLL(conectSite);
+            BLL ObjImg = new BLL(conectSite);
+            BLL ObjValida = new BLL(conectSite);
+                        
+            //iValidaEvento.Value = "Valido"; //Inserido para realizar testes com o Cadsstro das Imagens
+
+            string x = "Entrou aqui: ";
+
+            string Msg = "";
+
+            //MessageBox.Show(x);            
+
+            if (!String.IsNullOrEmpty(iValidaEvento.Value))
+            {
+                x += "Entrou na Validação!!";
+
+                //MessageBox.Show(x);
+
+                if (ObjDados.MsgErro == "")
+                {
+                    x += "Não houve MSG de Erro";
+
+                    //MessageBox.Show(x);
+
+                    // # Captura ID para Cadastrar Imagens # 
+                    string tConteudo = " st_conteudo ";
+                    string campoID = " * ";
+                    string condConteudo = " ORDER BY id DESC LIMIT 1 ";
+                    //Dados para Validação
+
+                    ObjValida.Tabela = tConteudo;
+                    ObjValida.Campo = campoID;
+                    ObjValida.Condicao = condConteudo;
+
+                    string IDConteudo = "";
+                    DataTable dadosID = ObjValida.RetCampos();
+                    //int contador = 0;
+
+                    //MessageBox.Show(" SELECT " + ObjValida.Campo + " FROM " + ObjValida.Tabela + " " + ObjValida.Condicao);
+
+
+                    if (dadosID.Rows.Count > 0)
+                    {
+                        IDConteudo = dadosID.Rows[0]["ID"].ToString();
+
+                        x += " Valida tem registro: " + IDConteudo;
+                    }
+                    else
+                    {
+                        //MessageBox.Show("* " + dadosID.Rows.Count);
+
+                        x += " Valida não tem Conteúdo!";
+                    }
+
+                    //MessageBox.Show(x);
+
+                    
+
+                    string tabela = " st_imagens ";
+                    string campos = " id_conteudo, codtipo, cod_destaque, cod_campoconteudo, cod_alinhamento, titulo, descritivo, fonte, autor, hint, figcaption, cadmom, cadusu, path_img, id_empresa";
+                    string condicao = " WHERE id = '" + IDConteudo + "'";
+                    string valores = String.Format("'" + IDConteudo + "'," +
+                                                   "'" + codtipo + "'," +
+                                                   "'" + cod_destaque + "'," +
+                                                   "'" + cod_campoconteudo + "'," +
+                                                   "'" + cod_alinhamento + "'," +
+                                                   "'" + titulo + "'," +
+                                                   "'" + descritivo + "'," +
+                                                   "'" + fonte + "'," +
+                                                   "'" + autor + "'," +
+                                                   "'" + hint + "'," +
+                                                   "'" + figcaption + "'," +
+                                                   "'" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                                                   "'" + Session["LoginUsuario"].ToString() + "', " +
+                                                   "'" + path_img + "', " +
+                                                   "'" + 1 + "'");
+
+                    ObjDados.Tabela = tabela;
+                    ObjDados.Campo = campos;
+                    ObjDados.Condicao = condicao;
+
+                    DataTable dados = ObjDados.RetCampos();
+                    int nLinhas = dados.Rows.Count;
+                    iEventoTitulo.Focus();                
+
+                    ObjDados.InsertRegistro(tabela, campos, valores);
+                                        
+                    x += "INSERT INTO " + tabela + "\n" + "(" + campos + ")" + "\n" + "VALUES (" + valores + ")";
+
+                    //MessageBox.Show(x);
+
+                    Msg += "Cadastrado com Sucesso!";
+
+                    //MessageBox.Show(Msg );                    
+
+                    if (dadosID.Rows.Count > 0) // Executa se houver retorno de registro
+                    {
+                        mwImgEventos.ActiveViewIndex = 0;
+                        //lbMatDados.Items.Add(xRet);
+
+                        ObjImg.Tabela = " st_imagens ";
+                        ObjImg.Campo = " * ";
+                        ObjImg.Condicao = " WHERE id_conteudo = '" + IDConteudo + "' ORDER BY id DESC";
+
+                        DataTable iDados = ObjImg.RetCampos();
+
+                        int iNlinhas = iDados.Rows.Count; //Validar. Checar se existe registro pra contar
+
+
+                        //lblDados.Text = lblDados.Text + xRet + "\n"; //Esse cara foi pensado para criar várias linhas de INSERT
+
+                        xRet += "<div style='margin: 2px auto; margin-bottom: 5px; font.size: 10px, border: 1px solid #666;  width: 90%; height: 15px; display: inline-block; ; color: #22396f; '>";
+                        xRet += "<div style='width: 150px; display: inline-block;'>" + "Título" + "</div>" + "<div style='width: 150px; display: inline-block;'>" + "Descritivo" + "</div> " + "<div style='width: 150px; display: inline-block;'>" + "Path" + "</div>";
+                        xRet += "</div>";
+                        for (int i = 0; i < iNlinhas; i++)
+                        {                      
+                            xRet += "<div style='margin: 2px auto; margin-bottom: 5px; font.size: 10px, border: 1px solid #666;  width: 90%; height: 40px; display: inline-block; ; color: #7688b4; '>";
+                            xRet += "<div style='width: 150px; font.size: 8px; display: inline-block;'>" + iDados.Rows[i]["titulo"] + "</div>";
+                            xRet += "<div style='width: 300px; font.size: 8px; display: inline-block;'>" + iDados.Rows[i]["descritivo"] + "</div>";
+                            xRet += "<div style='width: 100px; font.size: 8px; display: inline-block;'>" + iDados.Rows[i]["path_img"] + "</div>";
+                            xRet += "<div style='width: 50px; font.size: 8px; display: inline-block;'>" + "<img style='width: 40px' src =" + "'.." + iDados.Rows[i]["path_img"].ToString() + "'" + "/>" + "</div>";                            
+                            xRet += "</div>";
+
+                            //MessageBox.Show(xRet += "<img style='width: 100px' src =" + "'../.." + dados.Rows[i]["path_img"] +"'" + "/>");
+                        }
+
+                    }
+                }
+                else
+                {
+                    Msg = "Erro Original:" + ObjDados.MsgErro;
+                }
+            }
+            else
+            {
+                Msg = "É necessário que os dados do Conteúdo estejam preeenchidos! Preencha os Dados para prosseguir!!!";
+                iEventoTitulo.Focus();
+
+            }//carregarGvTipo();
+
+            lblMsg.Text = Msg;
+
+            //MessageBox.Show("Chegou até o Final: " + Msg);
+
+            return lblMsg.Text;
+
+        }//cadastrarImagem
 
         /*FIM*/
     }

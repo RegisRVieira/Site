@@ -219,7 +219,7 @@ namespace Site.Eventos
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stEvento;
+        protected global::System.Web.UI.WebControls.DropDownList stEvento;
 
         /// <summary>
         /// Controle stAmbiente.
@@ -228,7 +228,7 @@ namespace Site.Eventos
         /// Campo gerado automaticamente.
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlSelect stAmbiente;
+        protected global::System.Web.UI.WebControls.DropDownList stAmbiente;
 
         /// <summary>
         /// Controle iMesasDescricao.

@@ -1,0 +1,385 @@
+﻿html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+.corpoEventos {
+    width: 100%;
+    min-height: 900px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+
+.intercao {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 0;
+    min-height: 60px;
+    background-color: #e2e1e1;
+}
+
+.headerEvent {
+    width: 100%;
+    min-height: 72px;
+    background-color: #22396f;
+    margin-bottom: 2px;
+}
+
+
+.headerEventImg {
+    width: 110px;    
+    min-height: 10px;    /*Remover esses 2*/
+    float: left;
+    margin-top: 5px;
+    
+}
+
+    .headerEventImg img {
+        width: 100px;
+        height: auto;
+        margin-top: 15px;
+    }
+
+.headerEventText {
+    width: 300px;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    color: #f26907;
+    float: left;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: white;
+}
+
+@media(max-width: 1000px){
+    .headerEvent{
+        min-height: 105px;
+    }
+    .headerEventImg img{
+        width: 130px;
+    }
+    .headerEventText{
+        font-size: 1.3em;
+        padding: 0;
+        margin: 0;        
+        padding-left: 20px;
+        padding-top: 10px;
+    }
+
+}
+
+  /*Lista dos Eventos*/
+.listEvents {
+    width: 93.7%;
+    min-width: 300px;
+    min-height: 43px;
+    margin: 0 auto;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-right: 5%;
+    border-top: 2px solid #22396f;
+    border-bottom: 3px solid #22396f;
+}
+
+.listEventsSec {
+    overflow: auto;
+    white-space: nowrap;
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+    .listEventsSec a {
+        display: inline-block;
+        margin: 2px;
+        padding-right: 5%;
+        white-space: nowrap;
+        min-width: 60px;
+        min-height: 20px;
+        border-top: 1px solid #f26907;
+        border-bottom: 2px solid #f26907;
+        margin-right: 15px;
+        background-color: #fc9e59;
+        padding-left: 10px;
+        text-decoration: none;
+    }
+
+/*
+.listEventsSec {
+    width: 1070px;
+    min-height: 43px;
+    border-left: 1px solid #22396f;
+    border-right: 1px solid #22396f;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    background-color: #f0f2f5;       
+}*/
+
+.listEventsSecBox {
+    margin: 2px;
+    padding-right: 5%;
+    white-space: nowrap;    
+    float: left;
+    min-width: 60px;
+    min-height: 20px;
+    border-top: 1px solid #f26907;
+    border-bottom: 2px solid #f26907;
+    margin-right: 15px;
+    background-color: #fc9e59;
+    padding-left: 10px;        
+}
+
+.list-p1 {
+    font-size: 2em;
+    float: left;
+    margin: 0;
+    padding: 0;
+    color: #22396f;
+}
+
+.list-p2 {
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    color: #22396f;
+}
+
+.list-p3 {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #22396f;
+}
+
+
+/*Box da publicação*/
+.publicacao {
+    width: 680px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    min-height: 81px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #d5d3d3;
+    border-radius: 6px;
+    background-color: white;
+    
+}
+
+.pubTop {
+    width: auto;
+    min-height: 60px;
+    padding-left: 20px;
+}
+
+    .pubTop p {
+        margin: 0;
+        padding: 0;
+    }
+
+.pubText {
+}
+
+    .pubText p {
+        margin: 0;
+        padding: 0;
+        background-color: #d5d3d3;
+        background-color: #f0f2f5;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+
+.pubImg {
+    width: 496px;
+    min-height: 20px;    
+    margin: 0 auto;
+}
+
+    .pubImg img {
+        margin: 0 auto;        
+        width: 496px;
+        height: auto;        
+    }
+
+.pub-p1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+.pub-p2{
+    font-size: 16px;
+}
+
+.localImg {
+    width: 12px;
+}
+
+/*Interação: Like*/
+
+.like {
+    width: 52px;
+    min-height: 30px;
+    padding-top: 6px;
+    margin-left: 10px;
+}
+
+/*# Redes Sociais*/
+.redesSociais{
+    width: 100px;
+    height: 30px;    
+    position: absolute;
+    margin-top: 10px;        
+}
+.redesSociais span{
+    padding: 0;
+    padding-top: 3px;
+    margin: 0px;
+    font-size: 14px;
+    font-family: 'Segoe UI Variable Display';
+    color: #22396f;    
+}
+
+
+
+.navHome-Box2 {
+    float: left;
+    width: 30px;
+    height: 30px;
+    /*margin-left: -1px;*/
+    /*border: 1px solid #8ba1d3;*/
+    box-sizing: border-box;
+    /*border-top: 2px solid #8ba1d3;*/
+    background-image: url(../Img/Icon/Icon-Face-Site.png);
+    background-image: url(../Img/Icon/Icon-Face-Oficial.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px;
+    background-position-y: 3px;
+    float: right;
+}
+
+    .navHome-Box2:hover {
+        /*background-image: url(../Img/Icon/Icon-Face-Oficial.png);*/                
+    }
+
+.navHome-Box5 {
+    float: left;
+    width: 30px;
+    height: 30px;
+    /*border: 1px solid #8ba1d3;*/
+    box-sizing: border-box;
+    /*border-top: 2px solid #8ba1d3;*/
+    background-image: url(../Img/Icon/whatsapp.svg);
+    background-image: url(../Img/Icon/whatsapp2.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    background-position-y: 5px;
+    float: right;
+}
+
+    .navHome-Box5:hover {
+        /*background-image: url(../Img/Icon/whatsapp2.svg);*/
+        
+    }
+.redes-Insta {
+    float: left;
+    width: 30px;
+    height: 30px;
+    /*border: 1px solid #8ba1d3;*/
+    box-sizing: border-box;
+    /*border-top: 2px solid #8ba1d3;*/
+    background-image: url(../Img/Icon/instagram2.png);
+    background-image: url(../Img/Icon/instagram.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    background-position-y: 5px;
+    float: right;
+}
+
+    .redes-Insta:hover {
+        /*background-image: url(../Img/Icon/instagram.png);*/
+        
+    }
+
+@media(max-width: 1000px) {
+
+/* # # # # Redes Sociais # # # # */
+    .redesSociais {        
+        margin-top: 150px;
+        width: 70px;
+    }
+
+    .navHome-Box2 {
+        width: 70px;
+        height: 70px;
+        background-size: 65px;        
+    }
+    .navHome-Box5 {
+        width: 70px;
+        height: 70px;
+        background-size: 60px;        
+    }
+    .redes-Insta {
+        width: 70px;
+        height: 70px;
+        background-size: 65px;        
+    }
+
+/* # # # # Box Publicação # # # # */
+    .localImg{
+        width: 27px;
+    }
+    .pubImg {
+        width: 100%
+    }
+
+        .pubImg img {
+            width: 100%;            
+        }
+
+    .pub-p1 {
+        font-size: 45px;
+    }
+
+    .pub-p2 {
+        font-size: 30px;
+    }
+
+    .pubText p {        
+        font-size: 22px;
+    }
+
+
+ /* # # # # Lista dos Eventos # # # # */
+    .listEventsSec {
+        width: 95%;        
+    }
+    
+    .listEventsSecBox {
+        padding-right: 6%;
+        
+    }
+
+    .list-p1 {
+        font-size: 3em;
+    }
+
+    .list-p2 {
+        font-size: 1.5em;
+    }
+
+    .list-p3 {
+        font-size: 1.5em;
+    }
+
+
+}

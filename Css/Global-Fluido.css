@@ -182,12 +182,14 @@ html, body{
     float: right;    
     height: auto;    
     position: absolute;
+
 }
 .navlista ul {
     padding: 0;    
     margin: 0px;
     height: auto;                    
-    margin-top: 0px;
+    margin-top: 0px;    
+    z-index: -1;
 }
 
 .navlista li a{    
@@ -201,6 +203,7 @@ html, body{
     background-color: #44356f;
     background-color: #22396f;
     border-bottom: 1px solid #cac0e5;
+    /**/
 }
 
 .navbarra {
@@ -819,15 +822,24 @@ float: none;
     font-size: 1.8em;    
     height: 98px;            
 }
+.footerVc {
+    font-size: 1.8em;    
+    height: 198px;            
+}
 .footerHome-Dados{
     margin-top: 20px;    
-    width: 85%;
+    width: 85%;        
 }
 .footerHome-Img{
     width: 15%;
 }
 
 .footerHome img{
+    width: 80px;
+    margin-top: 25px;    
+}
+
+.footerVc img{
     width: 80px;
     margin-top: 25px;    
 }

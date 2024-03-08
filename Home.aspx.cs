@@ -284,7 +284,7 @@ namespace Site
                 }
                 else
                 {
-                    usuario = Session["LoginConvenio"].ToString();
+                    usuario = Session["LoginUsuario"].ToString();
                 }
 
                 string primeiroNome = usuario.Split(' ').FirstOrDefault();
@@ -589,7 +589,7 @@ namespace Site
                     xRet += "<p>Próximos Eventos</p>";
                     xRet += "</div>";
                     xRet += "<div id = '' class='botaoSaibaMais'>";
-                    xRet += "<a href = 'ContASU.aspx' > Saiba Mais</a>";
+                    xRet += "<a href = 'PaginaEventos.aspx' > Saiba Mais</a>";
                     xRet += "</div>";
                     xRet += "</section>";
                     xRet += "</section>";

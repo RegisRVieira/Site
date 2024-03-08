@@ -20,8 +20,7 @@ namespace Site.Eventos
             if (!Page.IsPostBack)
             {
                 popularddlEventoTipo();
-                popularddlListaEventos();
-                popularddlEventoAmbiente();
+                //popularddlListaEventos();                
                 mostrarLogado();
             }
         }
@@ -70,6 +69,8 @@ namespace Site.Eventos
         protected void ativarMesas(object sender, EventArgs e)
         {
             ativarViwes(2);
+            popularddlListaEventos();                
+            
         }
         protected void ativarFinanceiro(object sender, EventArgs e)
         {
@@ -101,9 +102,7 @@ namespace Site.Eventos
             string campos = " * ";
             //string tabela = " _e_evento ";
             string tabela = " e_evento ";
-#pragma warning disable CS0219 // A variável "condicao" é atribuída, mas seu valor nunca é usado
             string condicao = "WHERE cod_status = 'ATI'";
-#pragma warning restore CS0219 // A variável "condicao" é atribuída, mas seu valor nunca é usado
 
             ObjDados.Campo = campos;
             ObjDados.Tabela = tabela;
@@ -113,45 +112,60 @@ namespace Site.Eventos
             stFinanEvento.DataTextField = "descricao";
             stFinanEvento.DataBind();
         }
-        protected void popularddlEventoAmbiente()
-        {
+
+        protected void identificarEvento(object sender, EventArgs e)
+        {          
+            string evento = stEvento.SelectedValue.ToString();
+
+            //MessageBox.Show(evento);
+
             BLL ObjDados = new BLL(conectSite);
 
-            string campos = " * ";
-            //string tabela = " _e_ambiente ";
-            string tabela = " e_ambiente ";
 
-            ObjDados.Campo = campos;
-            ObjDados.Tabela = tabela;
+            string query = " SELECT  * FROM  e_ambiente " +
+                           " WHERE id_evento = '" + evento + "' ";
 
-            stAmbiente.DataSource = ObjDados.RetCampos();
+            ObjDados.Query = query;
+
+            stAmbiente.DataSource = ObjDados.RetQuery();
             stAmbiente.DataValueField = "id";
             stAmbiente.DataTextField = "Titulo";
-            stAmbiente.DataBind();
-        }
+            stAmbiente.DataBind();            
 
+
+        }
+        
         protected void popularddlListaEventos()
         {
             BLL ObjDados = new BLL(conectSite);
-
-            string campos = " * ";
-            //string tabela = " _e_evento ";
-            string tabela = " e_evento ";
-            string condicao = "WHERE cod_status = 'ATI'";
-
-            ObjDados.Campo = campos;
-            ObjDados.Tabela = tabela;
-            ObjDados.Condicao = condicao;
-
-            ddlListaEventos.DataSource = ObjDados.RetCampos();
+            BLL ObjEvento = new BLL(conectSite);
+                        
+            string query = " SELECT * FROM e_evento " +
+                           " WHERE CURDATE() <= dtevento ";
+             
+            ObjDados.Query = query;
+            //# Carrega dados para o DDL do Ambiente
+            ddlListaEventos.DataSource = ObjDados.RetQuery();
             ddlListaEventos.DataValueField = "id";
             ddlListaEventos.DataTextField = "descricao";
             ddlListaEventos.DataBind();
-            //# Mesas
-            stEvento.DataSource = ObjDados.RetCampos();
+            
+            //# Carrega dados para as Mesas
+            stEvento.DataSource = ObjDados.RetQuery();
             stEvento.DataValueField = "id";
             stEvento.DataTextField = "descricao";
             stEvento.DataBind();
+
+            //Popular DDL Ambientes do Evento
+            string query2 = " SELECT  * FROM  e_ambiente " +
+                           " WHERE id_evento = '" + stEvento.SelectedValue +  "'";
+
+            ObjEvento.Query = query2;
+
+            stAmbiente.DataSource = ObjEvento.RetQuery();
+            stAmbiente.DataValueField = "id";
+            stAmbiente.DataTextField = "Titulo";
+            stAmbiente.DataBind();
 
         }
         protected void gravarEvento(object sender, EventArgs e)
@@ -253,6 +267,9 @@ namespace Site.Eventos
             BLL ObjDados = new BLL(conectSite);
             BLL ObjValida = new BLL(conectSite);
             //string tabela = " _e_localizacao ";
+
+            string msgRetorno = "";
+
             string tabela = " e_localizacao ";
             string campos = " id_evento, id_ambiente, n_mesa, n_cadeiras, Descricao, Detalhe, CadMom, CadUsu ";
             string valores = "";
@@ -262,107 +279,151 @@ namespace Site.Eventos
             ObjDados.Tabela = tabela;
             ObjDados.Campo = campos;
             ObjDados.Valores = valores;
+            
             //#Validação
             ObjValida.Tabela = tabela;
             ObjValida.Campo = campos;
             ObjValida.Condicao = condicao;
 
-            MessageBox.Show("Evento: " + stEvento.Value);
-            MessageBox.Show("Ambiente: " + stAmbiente.Value);
+            //lblMsg.Text = "Você selecionou o Evento: " + stEvento.Value + ", tem certeza?";
+            //lblMsg.Text = "Ambiente: " + stAmbiente.Value + ", tenha certeza antes de continuar!";
 
 
-            DataTable valida = ObjDados.RetCampos();
-            DataTable dados = ObjDados.RetQuery();
+            DataTable valida = ObjDados.RetCampos();            
 
             int checaMesas = 0;
-                int numInicio = (Convert.ToInt32(iMesaNumIni.Value));
-            int qtdNumeros = Convert.ToInt32(iMesaNumFin.Value);
-            int nLocalizacao = (numInicio - 1);
 
-            MessageBox.Show("Início : " + numInicio );
-            MessageBox.Show("Fim : " + qtdNumeros );
+            int mesaInicio = 0;
+            int mesaFinal = 0;
+            int nLocalizacao = (mesaInicio - 1);
+            int qtdMesas = 0;
 
-
-            if (ObjValida.MsgErro == "")
+            //#Checa se Campos foram preenchido e estancia valor na variável correspondente.
+            if (!String.IsNullOrEmpty(iMesaNumIni.Value))
             {
-                MessageBox.Show("Valida: " + valida.Rows.Count.ToString());
+                mesaInicio = (Convert.ToInt32(iMesaNumIni.Value));
             }
             else
             {
-                MessageBox.Show(ObjValida.MsgErro);
+                iMesaNumIni.Value = "Preencha este Campo!";                
+            }
+            if (!String.IsNullOrEmpty(iMesaNumFin.Value))
+            {
+                mesaFinal= (Convert.ToInt32(iMesaNumFin.Value));
+            }
+            else
+            {            
+                iMesaNumFin.Value = "Preencha este Campo!";
+            }
+            if (String.IsNullOrEmpty(iMesaCadeiras.Value))
+            {                            
+                iMesaCadeiras.Value = "Preencha este Campo!";
             }
 
+            //MessageBox.Show("Início : " + mesaInicio);
+            //MessageBox.Show("Fim : " + mesaFinal);
 
-            if (ObjValida.MsgErro == "")
+            //Calcula a quantidade de Mesas a ser cadastrada.
+            qtdMesas = ((mesaFinal) - (mesaInicio - 1));
+
+            //MessageBox.Show("Será cadastrado: " + qtdMesas + " Mesas");
+
+            
+            if (mesaFinal >= mesaInicio)
             {
-                if (valida.Rows.Count > 0)
+                //Checar Validade do Intervalo de Mesa.Ou seja, mesa final não pode ser menor do que a mesa início
+                //#Caso a mesa final seja menor que a inicial, não permite prosseguir
+
+                if (ObjValida.MsgErro == "")
                 {
-                    for (int i = 0; i < valida.Rows.Count; i++)
-                    {//Checar o Evento ####################################
-                        if (valida.Rows[i]["id_evento"].ToString() == stEvento.Value)
-                        {
-                            if (valida.Rows[i]["n_mesa"].ToString() == iMesaNumIni.Value || valida.Rows[i]["n_mesa"].ToString() == iMesaNumFin.Value)
+                    if (valida.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < valida.Rows.Count; i++)
+                        {//Checar o Evento ####################################
+                            if (valida.Rows[i]["id_evento"].ToString() == stEvento.SelectedValue)
                             {
-                                checaMesas++;
+                                if (valida.Rows[i]["n_mesa"].ToString() == iMesaNumIni.Value || valida.Rows[i]["n_mesa"].ToString() == iMesaNumFin.Value)
+                                {
+                                    checaMesas++;
+                                }
                             }
                         }
-                    }
-                }//Valida: Checa se a mesa a ser inserida já está cadastrada
+                    }//Valida: Checa se a mesa a ser inserida já está cadastrada
 
-                if (checaMesas > 0)//Se a Mesa já estiver cadastrada, dá Msg dizendo que não pode. Caso contrário, cadastra
-                {
-                    lblMsg.Text = "Não é possivel Cadastrar, pois já existe mesas com essa numeração.";
+                    int contador = (mesaInicio - 1);
+
+                    if (checaMesas > 0)//Se a Mesa já estiver cadastrada, dá Msg dizendo que não pode. Caso contrário, cadastra
+                    {
+                        msgRetorno += "Não é possivel Cadastrar, pois já existe mesas com essa numeração.";
+                    }
+                    else
+                    {
+
+                        for (int i = 0; i < qtdMesas; i++)
+                        {
+                            contador++;
+                            nLocalizacao++;
+
+                            //MessageBox.Show(contador.ToString());                        
+
+                            if (i < (qtdMesas - 1))
+                            {
+                                valores += String.Format("('" + stEvento.SelectedValue + "'," +
+                                                        "'" + stAmbiente.SelectedValue + "'," +
+                                                        "" + contador + "," +
+                                                        "" + iMesaCadeiras.Value + "," +
+                                                        "'" + iMesasDescricao.Value + "'," +
+                                                        "'" + iMesasObserva.Value + "'," +
+                                                        "'" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "'," +
+                                                        "'" + Session["LoginEventos"].ToString() + "')," + "\n");
+                            }
+                            else
+                            {
+                                valores += String.Format("('" + stEvento.SelectedValue + "'," +
+                                                       "'" + stAmbiente.SelectedValue + "'," +
+                                                       "" + contador + "," +
+                                                        "" + iMesaCadeiras.Value + "," +
+                                                       "'" + iMesasDescricao.Value + "'," +
+                                                       "'" + iMesasObserva.Value + "'," +
+                                                       "'" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "'," +
+                                                       "'" + Session["LoginEventos"].ToString() + "')" + "\n");
+                            }
+                            //lblNumSorteio.Text += i.ToString();
+                        }
+
+                        //# Inserir dados no DB                    
+                        try
+                        {
+                            ObjDados.InsertEmLote(tabela, campos, valores);
+                            msgRetorno += " Gravado com Sucesso!!!";
+                        }
+                        catch (Exception x)
+                        {
+                            msgRetorno = x.Message;
+                        }
+                        //MessageBox.Show(tabela + " * " + campos + " * " + valores);
+
+
+
+                        //MessageBox.Show("INSERT INTO " + tabela + " (" + campos + ") " + " VALUES " + valores);
+                    }
+
                 }
                 else
                 {
-                    for (int i = 0; i < qtdNumeros; i++)
-                    {
-                        nLocalizacao++;
-                        numInicio++;
-
-                        if (i < (qtdNumeros - 1))
-                        {                            
-                            valores += String.Format("('" + stEvento.Value + "'," +
-                                                    "'" + stAmbiente.Value + "'," +
-                                                    "" + (numInicio + 1) + "," +
-                                                    "" + iMesaCadeiras.Value + "," +
-                                                    "'" + iMesasDescricao.Value + "'," +
-                                                    "'" + iMesasObserva.Value + "'," +
-                                                    "'" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "'," +
-                                                    "'" + Session["LoginEventos"].ToString() + "')," + "\n");
-                        }
-                        else
-                        {
-                            valores += String.Format("('" + stEvento.Value + "'," +
-                                                   "'" + stAmbiente.Value + "'," +
-                                                   "" + (numInicio + 1) + "," +
-                                                    "" + iMesaCadeiras.Value + "," +
-                                                   "'" + iMesasDescricao.Value + "'," +
-                                                   "'" + iMesasObserva.Value + "'," +
-                                                   "'" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + "'," +
-                                                   "'" + Session["LoginEventos"].ToString() + "')" + "\n");
-                        }
-                        //lblNumSorteio.Text += i.ToString();
-                    }
-
-                    //# Inserir dados no DB
-
-                    //ObjDados.InsertEmLote(tabela, campos, valores);
-                    MessageBox.Show(tabela + " * " + campos + " * " + valores);
-
-                    MessageBox.Show("Gravou!!!");
-
-                    //MessageBox.Show("INSERT INTO " + tabela + " (" + campos + ") " + " VALUES " + valores);
+                    msgRetorno = "Erro: " + ObjValida.MsgErro;
                 }
-
             }
             else
             {
-                lblMsg.Text = "Erro: " + ObjValida.MsgErro;
+                msgRetorno = "Intervalo de mesa incorreto! É necessário que a mesa final seja maior que a mesa inicial.";
+
             }
 
+            lblMsg.Text = msgRetorno;
 
         }//gravarMesas
 
+        
     }//Fim class
 }

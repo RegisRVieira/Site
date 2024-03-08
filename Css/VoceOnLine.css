@@ -1,0 +1,751 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #e8e8e8;
+}
+
+
+/*# # #  CSS para Pesquisa # # # */
+
+.corpoPesquisa{
+    width: 600px;
+    min-height: 200px;
+    background-color: #3873b7;
+}
+.divPergunta{
+    width: 500px;
+    min-height: 200px;
+    margin: 0 auto;
+    background-color: #89c0e8;
+}
+.divResposta{
+    width: 500px;
+    min-height: 200px;
+    margin: 0 auto;
+    background-color: #d4eaca;
+}
+
+/*# # #  Fim - CSS para Pesquisa # # # */
+
+
+
+
+
+/*### CSS Comum ###*/
+
+.secFormDados {
+    width: 600px;
+    min-height: 925px auto;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    background-color: #c0e0f7;
+}
+
+    .secFormDados input {
+        margin: 2px;
+        display: inline-block;
+        width: 99%;
+        min-height: 25px;
+    }
+
+.secCorpo {
+    margin: 0;
+    padding: 0;            
+    width: 100%;
+    min-height: 900px;    
+    
+}
+.secMeio {
+    margin: 0 auto;
+    width: 80%;
+    min-height: 600px;    
+    margin-bottom: 200px;
+}
+
+.secRodape {
+    margin: 0 auto;
+    width: 100%;
+    min-height: 88px;
+}
+
+.divPublicidade {
+    margin: 0 auto;
+    width: 800px;
+    min-height: 300px;
+}
+
+    .divPublicidade img {
+        width: 100%;
+        margin-top: 2px;
+        border-radius: 12px;
+    }
+
+.divPublicidadeTitulo {
+    margin: 0 auto;
+    width: 800px;
+    min-height: 20px;
+}
+
+    .divPublicidadeTitulo p {
+        margin-left: 30px;
+        font-size: 1.2em;
+        font-weight: 700;
+        color: #808080;
+    }
+/*## Senha do Associado ##*/
+.secSenhaAssoc {
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 55%;
+    border: 2px solid #cfcfcf;    
+}
+
+    .secSenhaAssoc p {
+        margin-top: 5px;
+        color: #22396f;
+        text-align: center;
+        font-size: 2em;
+    }
+
+    .secSenhaAssoc input {
+        margin: 2px;
+        display: inline-block;
+        width: 99%;
+        min-height: 45px;
+        padding-left: 10px;
+    }
+
+        .secSenhaAssoc input[type=submit] {
+            width: 200px;
+            min-height: 50px;
+            text-align: center;
+            background-color: #0094ff;
+            cursor: pointer;
+            border-radius: 6px;
+            color: white;
+            font-weight: 700;
+        }
+
+            .secSenhaAssoc input[type=submit]:hover {
+                background-color: #89c0e8;
+                color: #0094ff;
+            }
+
+.btnSenhaAssoc {
+    width: 202px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;    
+}
+
+/*Botões*/
+
+.botaoUm input[type=submit] {
+    width: 200px;
+    min-height: 50px;
+    text-align: center;
+    background-color: #22396f;
+    cursor: pointer;
+    border-radius: 6px;
+    color: white;
+    font-weight: 700;
+}
+
+    .botaoUm input[type=submit]:hover {
+        background-color: #89c0e8;
+        color: #22396f;
+    }
+
+/*Fim Botões*/
+
+.divSenhaAssoc {
+    margin: 0 auto;
+    width: 850px;
+    min-height: 20px;
+}
+
+.divInputSenha {
+    width: 500px;
+    min-height: 20px;
+    margin: 0 auto;
+}
+/*## Fim - Senha do Associado ##*/
+
+
+/*### Fim Associado ###*/
+
+/*### Convênio ###*/
+
+.compVendaOff {
+    display: none;
+}
+
+.compVendaOn {
+    display: inline-block;
+}
+
+.corpoFormVenda {
+    width: 571px;
+    margin: 0 auto;
+    
+}
+
+.form-guia {
+    width: 570px;
+    border: 1px solid #ddd;
+    margin: 5px auto;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: white;    
+}
+
+    .form-guia h1 {
+        font-size: 3.5em;
+        text-align: center;
+        color: #22396f;        
+        margin: 20px 0 15px 0;
+    }
+
+    .form-guia input[type=text], input[type=password], select {
+        width: 98%;
+        min-height: 50px;
+        border-radius: 6px;
+        margin: 2px;
+        font-size: 1.5em;
+        color: #7890c2;
+        padding: 20px 0 20px 0;
+        padding-left: 10px;
+    }
+
+    .form-guia select {
+        font-size: 2.3em;
+        width: 500px;
+        min-height: 50px;
+        border-radius: 6px;
+        margin: 2px;
+    }
+
+.lbtVender {
+    width: 200px;
+    min-height: 50px;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+    .lbtVender p {
+        padding: 17px 0 17px 0;
+        border-radius: 8px;
+        background-color: #3873b7;
+        color: white;
+        font-size: 1.2em;
+    }
+
+        .lbtVender p:hover {
+            background-color: #22396f;
+            color: #3873b7;
+        }
+
+.lbtFinalizarVenda {
+    width: 100%;
+    min-height: 50px;
+    margin: 0 auto;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+    .lbtFinalizarVenda p {
+        padding: 17px 0 17px 0;
+        border-radius: 8px;
+        background-color: #3873b7;
+        color: white;
+        font-size: 1.2em;
+    }
+
+        .lbtFinalizarVenda p:hover {
+            background-color: #22396f;
+            color: #3873b7;
+        }
+
+.btnCompVenda {
+    margin: 10px 0 60px 0;
+    width: 400px;
+}
+
+.imprimirCompVenda {
+    margin-bottom: 50px;
+    padding: 8px;
+    border: 1px solid #7890c2;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    width: 100%;
+}
+
+.compVenda {
+    margin: 0 auto;
+    width: 150px;
+    height: 60px;
+    margin-top: 20px;
+    margin-left: 0px;
+}
+
+    .compVenda table {
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+.tdTitulo {
+    width: 35%;
+    text-align: right;
+}
+
+.tdDados {
+    width: 40%;
+    text-align: left;
+}
+.BoxDdlPeriodoExtrat{
+    background-color: green;
+}
+
+
+/*Extratos*/
+@media (max-width: 1000px) {
+    .ddlVcOnLine {
+        font-size: 4.5em;
+        width: 95%;
+    }
+
+    .SecPeriodoExtrato {
+    }
+
+    .TabPeridoExtrato {
+        width: 92%;
+    }
+
+    .BtnPeriodoExtrato {
+        width: 95%;
+        font-size: 12px;
+    }
+
+    .tdPeridoExtratoAno {
+        width: 20%;
+    }
+
+    .tdPeridoExtratoMes {
+        width: 40%;
+    }
+
+    .BtnGerarPDfAssoc {
+        width: 35%;
+        margin-bottom: 10px;
+    }
+
+/*Fim - Extratos*/
+
+/*Formulário de Venda*/
+    .corpoFormVenda {
+        width: 800px;
+        margin-top: 200px;        
+    }
+
+    .form-guia {
+        width: 100%;
+    }
+
+        .form-guia input[type=text], input[type=password], select {
+            width: 98%;
+            min-height: 70px;
+            padding: 30px 0 30px 15px;
+            margin: 4px;
+            font-size: 2.5em;
+        }
+
+        .form-guia select {
+            font-size: 3em;
+            width: 725px;
+            min-height: 70px;
+            margin: 4px;
+        }
+
+    .lbtVender {
+        width: 300px;
+        min-height: 70px;        
+    }
+
+        .lbtVender p {
+            border-top: 8px;
+            font-size: 2.5em;
+            padding: 30px 0 30px 0;
+        }
+
+/*Fim - Formulário de Venda*/
+
+
+    .divPublicidade{
+        width: 950px;
+        
+    }
+    .divPublicidade img{
+        
+    }
+    .divPublicidadeTitulo {        
+        width: 950px;        
+    }
+
+        .divPublicidadeTitulo p {            
+            font-size: 1.8em;            
+        }
+    .secMeio {             
+     width: 100%;
+    }
+    .secCorpo {
+        min-height: 1900px;      
+        width: 100%;
+
+    }
+
+}
+
+.secTopo {
+    margin: 0 auto;
+    width: 100%;
+    min-height: 200px;
+    /*background-color: #8e2626;*/
+}
+
+.secTopoDados {
+    width: 100%;
+    min-height: 80px;
+    background-color: #1c2435;
+}
+
+.divLogado {
+    width: 80%;
+    min-height: 10px;
+    margin: 0 auto;    
+}
+
+    .divLogado p {
+        margin-left: 30px;
+        padding: 5px 0px 5px 0px;
+        color: white;
+        font-weight: 700;
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+.msgAniversario {
+    width: 100%;        
+    margin-bottom: 5px;
+}
+.divAniver {
+    width: 550px;
+    min-height: 200px;
+    margin: 0 auto;
+    /*font-family: 'Noto Serif', serif;*/
+    /*font-family: 'Hind Siliguri', sans-serif;*/
+    font-family: 'Lobster', sans-serif;
+    font-size: 1.1em;
+    padding: 15px 0 15px 0;
+    border-left: 1px solid #808080;
+    border-right: 1px solid #808080;
+    background-color: #FAFAFA;
+}
+    .divAniver p, li {
+        color: #595959;
+    }
+
+
+
+@media(max-width: 1000px) {
+    .divAniver{
+    font-size: 1.5em;
+    width: 750px;
+    }
+}
+
+
+.divSaldo {
+    margin: 0 auto;
+    width: 80%;
+    min-height: 10px;
+    
+}
+
+    .divSaldo p {
+        margin-left: 50px;
+        padding: 10px 0 10px 0;
+        color: white;
+        font-weight: 700;
+        font-size: 1.5em;
+    }
+
+
+.divTopoDados {
+    width: 80%;
+    min-height: 80px;
+    float: left;
+    
+}
+
+.divSair {
+    margin-top: 25px;
+    width: 30px;
+    min-height: 40px;
+    float: left;
+}
+
+.divSairImg {
+    width: 25px;
+    min-height: 25px;
+}
+
+    .divSairImg img {
+        width: 100%;
+    }
+
+.divSairTxt {
+}
+
+    .divSairTxt p {
+        text-align: center;
+        font-weight: 700;
+        padding: 0;
+        font-size: 12px;
+        color: white;
+    }
+
+.cxSaldo {
+    float: left;
+    margin: 1px;
+    min-width: 30px;
+    min-height: 20px;    
+
+}
+.margin {
+    padding-top: 4px;
+    padding-left: 20px;
+}
+
+
+.divOpcoes {
+    overflow: auto;
+    white-space: nowrap;
+    width: 605px;
+    min-height: 225px;
+    margin: 0 auto;
+    padding-top: 10px;           
+}
+.divOpcoesConv {
+    overflow: auto;
+    white-space: nowrap;
+    width: 625px;
+    min-height: 125px;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+.divOpcoesFunc {
+    width: 630px;
+}
+
+.opcoes {
+    display: inline-table;
+    margin: 2px;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #808080;
+    background-color: white;    
+    white-space: normal;
+}
+
+    .opcoes:hover {
+        background-color: #d4eaca;
+    }
+
+.imgOpcoes {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+    .imgOpcoes img {
+        width: 100%;
+    }
+
+.txtOpcoes {
+    width: 100%;
+    margin-top: 7px;
+}
+
+    .txtOpcoes p {
+        margin: 0;
+        padding: 2px 0;
+        text-align: center;
+        color: #808080;        
+    }
+    
+    @media(max-width: 1000px){
+        /*Área do Topo, nome e Saldo*/
+        .secTopoDados {            
+            min-height: 100px;
+            
+        }
+        .divTopoDados {
+
+            min-height: 90px;
+
+        }
+
+        .divLogado {            
+            
+        }
+
+            .divLogado p {
+                font-size: 1.5em;
+            }
+
+        .cxSaldo {
+               
+        }
+
+        .margin {
+            padding-top: 8px;
+        }
+
+        .divSaldo {
+            
+        }
+
+            .divSaldo p {                
+                font-size: 2em;
+            }        
+
+        .divSair {
+            margin-top: 15px;            
+            width: 75px;
+            min-height: 50px;            
+        }
+
+        .divSairImg {
+            width: 35px;
+            min-height: 35px;        
+            margin-left: 20px;
+        }
+
+            .divSairImg img {
+                
+            }
+
+        .divSairTxt {
+        }
+
+            .divSairTxt p {                
+                font-size: 1.7em;
+                /*text-align: left;
+                padding-left: 10px;*/
+                
+            }
+       
+        /*Fim - Área do Topo, nome e Saldo*/
+
+        /*Área de Botões*/
+        .divOpcoes {
+            width: 805px;
+            min-height: 305px;
+        }        
+
+        .divOpcoesConv {
+            width: 835px;
+            min-height: 160px;              
+        }
+
+        .divOpcoesFunc {
+            width: 835px;            
+        }
+
+        .opcoes {            
+            width: 135px;
+            height: 135px;  
+        }
+
+            .opcoes:hover {
+                background-color: #d4eaca;
+            }
+
+        .imgOpcoes {
+            width: 60px;
+            height: 60px;            
+        }
+
+            .imgOpcoes img {
+                
+            }
+
+        .txtOpcoes {
+            width: 100%;
+            margin-top: 7px;
+        }
+
+            .txtOpcoes p {
+                font-size: 1.3em;
+                font-weight: 700;
+            }
+
+        /*Área: Dados*/
+        .secFormDados {
+            width: 800px;        
+            margin-top: 30px;            
+        }
+
+            .secFormDados input {                
+                font-size: 1.5em;
+                padding: 10px 0 10px 15px;
+            }
+        /*Fim - Área: Dados*/
+        
+        /*Rodapé - Botões*/
+
+        .secRodape {
+            
+            
+        }
+        /*Fim - Rodapé - Botões*/
+
+        .secSenhaAssoc {
+            margin: 0 auto;
+            margin-top: 160px;
+            width: 90%;
+            border: 2px solid #cfcfcf;
+        }
+            .secSenhaAssoc input {
+                margin: 2px;
+                margin-top: 15px;
+                display: inline-block;
+                width: 99%;
+                min-height: 95px;
+                padding-left: 10px;
+            }
+                .secSenhaAssoc input[type=submit] {
+                   width: auto;
+                   min-height: auto;
+                   padding-top: 20px;
+                   padding-bottom: 20px;
+                   padding-left: 20px;
+                   padding-right: 20px;
+                   font-size: 2em;
+                }
+
+    }
+    
+
+.left {
+    float: left;
+}
+
+.oculto {
+    display: none;
+    background-color: yellow;
+}
+.visivel{
+    display: block;
+}
+

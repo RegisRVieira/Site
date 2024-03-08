@@ -13,6 +13,7 @@ using Site.App_Code;
 using System.Configuration;
 #pragma warning restore CS0105 // A diretiva using para "System.Configuration" apareceu anteriormente neste namespace
 using System.Net;
+using System.Net.Mail;
 
 namespace Site.App_Code
 {
@@ -39,7 +40,7 @@ namespace Site.App_Code
         //Associado
         public string IdAssoc { get; set; }
         public string IdConv { get; set; }
-
+        public string retorno { get; set; }//Utilizada para Gerar retorno de Msgs para explodir na tela pelo Java
         public String hora()
         {
             string hora = "";
@@ -299,24 +300,38 @@ namespace Site.App_Code
             string mes = DateTime.Now.ToString("MM");
             string ano = DateTime.Now.Year.ToString();
 
-            //Chaca Janeiro
-            if (mes == "01")
+            if (Convert.ToInt32(mes) < 12)
             {
-                if (Convert.ToInt32(dia) >= 20)
+                //Chaca Janeiro
+                if (mes == "01")
                 {
-                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    if (Convert.ToInt32(dia) >= 20)
+                    {
+                        periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    }
+                    else
+                    {
+                        periodo += "'" + ano + "-" + mes + "-19'";
+                    }
                 }
                 else
                 {
-                    periodo += "'" + ano + "-" + mes + "-19'";
+
+                    if (Convert.ToInt32(dia) >= 20)
+                    {
+                        periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    }
+                    else
+                    {
+                        periodo += "'" + ano + "-" + mes + "-19'";
+                    }
                 }
             }
             else
             {
-
                 if (Convert.ToInt32(dia) >= 20)
                 {
-                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes)).ToString().PadLeft(2, '0') + "-19'";
                 }
                 else
                 {
@@ -336,24 +351,38 @@ namespace Site.App_Code
             string mes = DateTime.Now.ToString("MM");
             string ano = DateTime.Now.Year.ToString();
 
-            //Chaca Janeiro
-            if (mes == "01")
+            if (Convert.ToInt32(mes) < 12)
             {
-                if (Convert.ToInt32(dia) >= 20)
+                //Chaca Janeiro
+                if (mes == "01")
                 {
-                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    if (Convert.ToInt32(dia) >= 20)
+                    {
+                        periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    }
+                    else
+                    {
+                        periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+                    }
                 }
                 else
                 {
-                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+
+                    if (Convert.ToInt32(dia) >= 20)
+                    {
+                        periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    }
+                    else
+                    {
+                        periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+                    }
                 }
             }
             else
             {
-
                 if (Convert.ToInt32(dia) >= 20)
                 {
-                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes)).ToString().PadLeft(2, '0') + "-19'";
                 }
                 else
                 {
@@ -394,6 +423,36 @@ namespace Site.App_Code
 
             return xRet;
         }
+
+        public string bloqueioAssociadoComParametro(string id)
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string xRet = "";
+
+            string query = " SELECT idassoc, titular, bloqueio, IF(bloqueio IS NULL, 'Liberado', 'Bloqueado') AS bloq_status, bloq_tip, bloq_mot FROM associa " +
+                " WHERE cnscanmom IS NULL " +
+                " AND idassoc in ('" + id + "')";
+
+            ObjDados.Query = query;
+
+            //xRet = ObjDados.Query;
+
+            DataTable dados = ObjDados.RetQuery();
+            try
+            {
+                if (dados.Rows.Count > 0)
+                {
+                    xRet = dados.Rows[0]["bloq_status"].ToString();
+                }
+            }
+            catch (Exception e)
+            {
+                xRet = e.Message;
+            }
+
+            return xRet;
+        }//bloqueioAssociadoComParametro
 
         public double GastosAssociado()
         {
@@ -703,24 +762,6 @@ namespace Site.App_Code
         {
             BLL ObjDados = new BLL(conectVegas);
 
-            string q = "SELECT a.idassoc, a.titular,  SUM(m.valor) AS gastos, a.credmodelo, a.credito," +
-                " (SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '2022-12-20' AND '2023-01-19') AS compras," +
-                //" IF((SELECT SUM(valor) FROM comovime WHERE associado = '" + IdAssoc + "' AND DATA BETWEEN '2022-12-20' AND '2023-01-19') IS NULL, (SUM(m.valor) + a.credito), (SUM(m.valor) + a.credito)) AS Saldo" +
-                " IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito ) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = '" + IdAssoc + "' AND m.DATA BETWEEN '2022-12-20' AND '2023-01-19') = 0, a.credito, (SUM(m.valor) + a.credito)) as Saldo " +
-                " FROM comovime AS m" +
-                " INNER JOIN associa AS a ON a.idassoc = m.associado" +
-                " WHERE idassoc IN('" + IdAssoc + "') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL" +                
-                " AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2022-12-20' AND '2023-01-19', m.vencimento BETWEEN '2022-12-20' AND '2023-12-19')";
-
-            string queryXXX = "SELECT a.idassoc, a.titular,  IF(SUM(m.valor) IS NULL, 0, SUM(m.valor)) AS gastos, a.credmodelo, a.credito, " +
-                "(SELECT SUM(valor) FROM comovime WHERE associado = a.idassoc AND DATA BETWEEN '2023-01-20' AND '2023-02-19') AS compras, " +
-                "IF((SELECT IF(SUM(m.valor) IS NULL, 0, a.credito) FROM comovime AS m INNER JOIN associa AS a ON a.idassoc = m.associado WHERE m.associado = '" + IdAssoc + "' AND m.DATA BETWEEN '2023-01-20' AND '2023-02-19') = 0, a.credito, (SUM(m.valor) + a.credito)) AS Saldo,  " +
-                "(SELECT SUM(valor) AS Debito FROM assocdeb WHERE associado = a.idassoc AND cnscanmom IS NULL) as Debito " +
-                "FROM comovime AS m " +
-                "INNER JOIN associa AS a ON a.idassoc = m.associado " +
-                "WHERE a.idassoc IN('"+ IdAssoc +"') AND a.cnscanmom IS NULL AND m.cnscanmom IS NULL " +
-                "AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN '2023-01-20' AND '2023-02-19', m.vencimento BETWEEN '2023-01-20' AND '2023-12-19')";
-
             string query = " SELECT titular, credito, " +
                            " (SELECT IF(m.valor IS NOT NULL, (SUM(m.valor) + a.credito), SUM(m.valor))" +
                            " FROM comovime AS m" +
@@ -732,14 +773,15 @@ namespace Site.App_Code
                            " FROM associa" +
                            " WHERE idassoc IN('" + IdAssoc + "')AND cnscanmom IS NULL";
 
-
             ObjDados.Query = query;
+
             DataTable dados = ObjDados.RetQuery();           
 
             double saldo = 0;
 
+            /*
             string valida = dados.Rows[0]["saldo"].ToString();
-
+            
             if (String.IsNullOrEmpty(valida))
             {
                 saldo = Convert.ToDouble(dados.Rows[0]["credito"].ToString());
@@ -748,28 +790,111 @@ namespace Site.App_Code
             {
                 saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
             }
-            /*
-            if (dados.Rows.Count > 0)
+            */
+
+            if (String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
             {
-                if (!String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
-                {
-                    saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
-                }
-                else
-                {
-                    saldo = 0.00;
-                }
+                saldo = Convert.ToDouble(dados.Rows[0]["credito"].ToString());
             }
             else
             {
-                saldo = 0.00;
+                saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
             }
-            */
+            
 
             //return query;
             return saldo;
 
         }
+
+        public String msgJava(string msgErro)
+        {
+            string msgJava = "";
+
+            msgJava += "<script>" +
+                        "function verMsgJava() {" +
+                            "   var msg = '" + msgErro + "')" +
+                            "Alert(msg);" +
+                            //"event.preventDefault();" +
+                            "}" +
+                            "verMsgJava();" +
+                            "</script>";
+            return msgJava;
+        }
+        public double SaldoAssociadoComParametro(string id)
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string query = " SELECT titular, credito, " +
+                           " (SELECT IF(m.valor IS NOT NULL, (SUM(m.valor) + a.credito), SUM(m.valor))" +
+                           " FROM comovime AS m" +
+                           "  LEFT JOIN associa AS a ON a.idassoc = m.associado" +
+                           " WHERE a.idassoc IN('" + id + "')" +
+                           "  AND a.cnscanmom IS NULL" +
+                           "  AND m.cnscanmom IS NULL" +
+                           "  AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN " + dtIni_Saldo() + " AND " + DtFim_Saldo() + ", m.vencimento BETWEEN " + dtIni_Saldo() + " AND " + DtFim_SaldoNovoCartao() + ")) as Saldo " +                           
+                           " FROM associa" +
+                           " WHERE idassoc IN('" + id + "')AND cnscanmom IS NULL";
+
+            ObjDados.Query = query;
+
+            DataTable dados = ObjDados.RetQuery();
+
+            double saldo = 0;
+
+            /*
+            string valida = dados.Rows[0]["saldo"].ToString();
+            
+            if (String.IsNullOrEmpty(valida))
+            {
+                saldo = Convert.ToDouble(dados.Rows[0]["credito"].ToString());
+            }
+            else
+            {
+                saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+            }
+            */
+
+            string xRet = "";
+            string msgErro = "";
+
+
+            try
+            {
+                if (String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
+                {
+                    saldo = Convert.ToDouble(dados.Rows[0]["credito"].ToString());
+                    msgJava("Crédito");
+                }
+                else
+                {
+                    saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());                    
+                    msgJava("Saldo");
+                }
+
+                
+                return saldo;
+            }
+            catch (Exception e)
+            {
+                msgErro = "Erro Original:" + e.Message;
+
+                msgJava(msgErro);
+
+                /*xRet += "function verSaldo() {" +
+                        "   var msg = " + msgErro + ")" +
+                        "Alert(msg);" +
+                        "event.preventDefault();}";
+                */
+                return 0.00;
+            }
+
+            return 0.00;
+
+            //return query;
+
+
+        }//SaldoAssociado
         public double SaldoAssociado_Original()
         {
             BLL ObjDados = new BLL(conectVegas);
@@ -1019,7 +1144,7 @@ namespace Site.App_Code
             ObjDados.Tabela = tabela;
             ObjDados.Condicao = condicao;
 
-            DataTable dados = ObjDados.RetCampos();
+            DataTable dados = ObjDados.RetCampos();            
 
             string xRet = "";
             try
@@ -1032,24 +1157,64 @@ namespace Site.App_Code
 
                         for (int i = 0; i < dados.Rows.Count; i++)
                         {
-                            //if (dados.Rows[i]["aniversario"].ToString() != "")
-
-
-                            //xRet += "<p style='width: 350px; min-height: 10px; border: 1px solid #f26907; text-align: center; color: #f26907 '>" + " Todos: " + dados.Rows[i]["nome"].ToString() + ", " + dados.Rows[i]["aniversario"].ToString() + "</p>";
-
+                            string nome = "";  
+                            int indexOf = 0;
                             if (dados.Rows[i]["aniversario"].ToString() == "Aniversariante")
                             {
                                 if (dados.Rows[i]["grau"].ToString() == "Dependente")
                                 {
-                                    xRet += "<div class='aniversario'>"; //
-                                    xRet += "<p>" + "Hoje é o aniversário do seu dependente: " + dados.Rows[i]["nome"].ToString() + ". " + "\n" + "Desejamos Muitas felicidades e realizações. " + "</p>";
+                                    nome = dados.Rows[i]["nome"].ToString(); 
+                                    indexOf = dados.Rows[i]["nome"].ToString().IndexOf(" ");
+                                    xRet += "<div class='divAniver'>";
+                                    xRet += "<div class='aniversario'>";                     
+                                    xRet += "<p style='width: 100%; margin-left: 20px; min-height: 10px; text-align: left; color: #595959'>" + "Hoje é o dia do seu dependente: " + nome.Substring(0, indexOf) + ". " + "\n" + "</p>";
                                     xRet += "</div>";
+                                    xRet += "<ul>";
+                                    xRet += "<p>É com muita Satisfação e Alegria que estamos aqui para lhe Desejar:</p>";
+                                    xRet += "<br />";
+                                    xRet += "<li>Feliz aniversário.</li>";
+                                    xRet += "<li>Muitas felicidades.</li>";
+                                    xRet += "<li>Toda sorte do mundo.</li>";
+                                    xRet += "<li>Que o amor nunca esteja longe.</li>";
+                                    xRet += "<li>Que as provações sejam fáceis.</li>";
+                                    xRet += "<li>E que os prazeres sejam longos.</li>";
+                                    xRet += "<li>Que a vida passe,<br />";
+                                    xRet += " mas fique sempre algo<br />";
+                                    xRet += " que não tem preço.</li>";
+                                    xRet += "<li>E assim nada tenha<br />";
+                                    xRet += " nem fim, nem começo.</li>";
+                                    xRet += "</ul>";
+                                    xRet += "<div id = 'btnVerMsgAniversario' style= 'width: 30px; min-height: 30px; float: right; margin-right: 30px; margin-top: -30px;' >";
+                                    xRet += "<input type= 'image' src='../Img/icon/Icon-Mostrar2.png' width='25' height='25' onclick= 'ocultar()' /></div >";
+                                    xRet += "</div >";                                    
                                 }
                                 else
                                 {
-                                    xRet += "<div class='aniversario'>";
-                                    xRet += "<p style='width: 100%; min-height: 10px; text-align: left; color: #f26907 '>" + "Parabéns " + dados.Rows[i]["nome"].ToString() + ", hoje é o seu dia! Muitas Felicidades e Realizações. " + "</p>";
+                                    nome = dados.Rows[i]["nome"].ToString();
+                                    indexOf = dados.Rows[i]["nome"].ToString().IndexOf(" ");
+
+                                    xRet += "<div class='divAniver'>";
+                                    xRet += "<div class='aniversario'>";                                    
+                                    xRet += "<p style='width: 100%; margin-left: 20px; min-height: 10px; text-align: left; color: #595959'>" + nome.Substring(0, indexOf) + ", hoje é o seu dia!" + "</p>";
                                     xRet += "</div>";
+                                    xRet += "<ul>";
+                                    xRet += "<p>É com muita Satisfação e Alegria que estamos aqui para lhe Desejar:</p>";
+                                    xRet += "<br />";
+                                    xRet += "<li>Feliz aniversário.</li>";
+                                    xRet += "<li>Muitas felicidades.</li>";
+                                    xRet += "<li>Toda sorte do mundo.</li>";
+                                    xRet += "<li>Que o amor nunca esteja longe.</li>";
+                                    xRet += "<li>Que as provações sejam fáceis.</li>";
+                                    xRet += "<li>E que os prazeres sejam longos.</li>";
+                                    xRet += "<li>Que a vida passe,<br />";
+                                    xRet += " mas fique sempre algo<br />";
+                                    xRet += " que não tem preço.</li>";
+                                    xRet += "<li>E assim nada tenha<br />";
+                                    xRet += " nem fim, nem começo.</li>";
+                                    xRet += "</ul>";
+                                    xRet += "<div id = 'btnVerMsgAniversario' style= 'width: 30px; min-height: 30px; float: right; margin-right: 30px; margin-top: -30px;' >";
+                                    xRet += "<input type= 'image' src='../Img/icon/Icon-Mostrar2.png' width='25' height='25' onclick= 'ocultar()' /></div >";
+                                    xRet += "</div >";
                                 }
                             }
                             else
@@ -1153,8 +1318,73 @@ namespace Site.App_Code
 
             //return xArq;
         }
+                
+        public String EnviarEmail(string para, string cc, string assunto, string msg)
+        {//Método concluído e Testado em: 06-09-2023
+            string agora = DateTime.Now.Day + "/" + DateTime.Now.Month + "/" + DateTime.Now.Year + " às " + DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+                        
+            SmtpClient cliente = new SmtpClient();
+            NetworkCredential credenciais = new NetworkCredential();
+
+            //Configurar Cliente            
+            cliente.Host = "smtp.asu.com.br";
+            cliente.Port = 587;
+            cliente.EnableSsl = true;
+            cliente.DeliveryMethod = SmtpDeliveryMethod.Network;
+            cliente.UseDefaultCredentials = false;
+
+            //Libera envio de e-mail validando certificados
+            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+            //Credenciais de acesso            
+            credenciais.UserName = "postmaster@asu.com.br";
+            credenciais.Password = "Asu#1969";
+            cliente.Credentials = credenciais;
+
+            //Dados para Envio do e-mail
+            MailMessage Msg = new MailMessage();
+            MailMessage To = new MailMessage();
+
+            Msg.IsBodyHtml = true;
+            Msg.From = new MailAddress(para);
+            Msg.Subject = "Assunto: " + assunto;
+            Msg.Body = msg;
+            Msg.To.Add(para);
+
+            To.IsBodyHtml = true;
+            To.From = new MailAddress(cc);
+            To.Subject = "Assunto: " + assunto;
+            To.Body = msg;
+            To.To.Add(cc);
 
 
+
+            //Enviar Mensagem
+            try
+            {
+                cliente.Send(Msg);
+                cliente.Send(To);
+
+                retorno = "Sua mensagem foi enviada com sucesso!!! " + agora;
+
+            }
+            catch (Exception ex)
+            {
+                retorno = "Erro: " + ex.Message;
+            }
+
+            //lblResultado.Text = retorno;
+
+            return null;
+
+        }//EnviarEmail
+        public String retornaMsg()
+        {
+            string retorno = "Foi";
+            
+            return retorno;
+        }
 
     }//class Apoio
 }

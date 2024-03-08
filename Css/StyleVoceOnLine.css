@@ -27,10 +27,10 @@
     /*border: 1px groove #f26907;*/
 }
     .aniversario p {
-        width: 100%; 
-        min-height: 10px; 
-        text-align: left; 
-        color: #f26907
+        width: 100%;
+        min-height: 10px;
+        text-align: left;
+        color: #595959;
     }
 
 @media ( max-width: 1000px) {
@@ -67,16 +67,19 @@
 
 
 .SecPeriodoExtrato {
-    min-height: 900px;
+    width: 950px;
+    margin: 0 auto;    
+    min-height: 200px;        
 }
 
 .BoxDdlPeriodoExtrato {
-    width: 99%; 
-    font-size: 0.8em;           
+    width: 99%;     
+    font-size: 0.8em;                   
 }
 .TabPeridoExtrato {
-    width: 53.7%;  
-    width:300px;
+    width: 93.7%;  
+    width:550px;
+
 }
 .BtnPeriodoExtrato{ 
     
@@ -86,6 +89,20 @@
     height: 50px;
     float: left
 }
+
+.ddlVcOnLine {
+    font-size: 2.2em;    
+    padding: 5px;
+    height: 10px;
+}
+.tdPeridoExtratoAno {
+    width: 25%;    
+}
+
+.tdPeridoExtratoMes {
+    width: 40%;
+}
+
 @media (max-width: 1000px) {
     .ddlVcOnLine {
         font-size: 4.5em;        
@@ -198,7 +215,7 @@
 }
 
 /* - - - - Formulário : Dados Cadastrais - - - - */
-
+/*
 .secFormDados {
     width: 60%;
     max-height: 840px;
@@ -208,7 +225,7 @@
     padding: 10px;
     overflow: scroll;    
 }
-
+*/
 .titFormCad {    
     font-size: 1.5em;
     font-family: 'Futura Md BT';

@@ -66,7 +66,7 @@ namespace Site.Eventos
         {
             mwConteudo.ActiveViewIndex = 1;
             lblListaRelaorios.Text = String.Empty;
-            popularDdlVerMesa();
+            //popularDdlVerMesa();
             popularCadEvento();
             popularCadMesa();
             //capturarIdEvento();
@@ -77,7 +77,7 @@ namespace Site.Eventos
         {
             mwConteudo.ActiveViewIndex = 1;
             lblListaRelaorios.Text = String.Empty;
-            popularDdlVerMesa();
+            //popularDdlVerMesa();
             popularCadEvento();
             popularCadMesa();
             //popularCadAmbiente();
@@ -409,6 +409,7 @@ namespace Site.Eventos
         protected void popularCadMesa()
         {
             BLL ObjDados = new BLL(conectSite);
+            BLL ObjLista = new BLL(conectSite);
 
             capturarIdEvento();
 
@@ -419,28 +420,43 @@ namespace Site.Eventos
                            " UNION" +
                            " SELECT id, id_evento, id_ambiente, n_mesa, n_cadeiras, descricao, 2 AS ordem" +
                            " FROM e_localizacao " +
-                           " WHERE id_evento = '" + IdEvento + "' AND ocupacao IS NULL ";
+                           " WHERE id_evento = '" + IdEvento + "' AND ocupacao IS NULL ORDER BY n_mesa *1, n_mesa ASC";
+
+            string query2 = " SELECT 'id' AS id, 'id_evento' AS id_evento, 'id_ambi' AS id_ambiente, 'Selecionar' AS n_mesa, 'n_cadeiras' AS n_cadeiras, 'descricao' AS descricao, 1 AS ordem " +
+                           " FROM e_status LIMIT 1" +
+                           " UNION" +
+                           " SELECT id, id_evento, id_ambiente, n_mesa, n_cadeiras, descricao, 2 AS ordem" +
+                           " FROM e_localizacao " +
+                           " WHERE id_evento = '" + IdEvento + "' ORDER BY n_mesa *1, n_mesa ASC";
 
             //MessageBox.Show("Ambiente: " + stEventoCadAmbiente.Value + " # popularCadMesa()");
 
             //MessageBox.Show(query + " # popularCadMesa()");
 
             ObjDados.Query = query;
+            ObjLista.Query = query2;
 
-            DataTable dados = ObjDados.RetQuery();
+            DataTable dados = ObjDados.RetQuery();            
 
             if (dados.Rows.Count > 0)
-            {
+            {                
                 stBuscaMesa.DataSource = ObjDados.RetQuery();
                 stBuscaMesa.DataValueField = "n_mesa";
                 stBuscaMesa.DataTextField = "n_mesa";
-                stBuscaMesa.DataBind();
+                stBuscaMesa.DataBind();                
             }
             else
             {
                 lblMsg.Text = "Não há lugares Cadastrado neste Ambiente";
             }
+
+            ddlVerMesa.DataSource = ObjLista.RetQuery();
+            ddlVerMesa.DataValueField = "n_mesa";
+            ddlVerMesa.DataTextField = "n_mesa";
+            ddlVerMesa.DataBind();
+
         }
+        /*
         protected void popularDdlVerMesa()
         {
             BLL ObjDados = new BLL(conectSite);
@@ -456,7 +472,7 @@ namespace Site.Eventos
                            " UNION" +
                            " SELECT id, id_evento, id_ambiente, n_mesa, n_cadeiras, descricao, 2 AS ordem" +
                            " FROM e_localizacao " +
-                           " WHERE id_evento = '" + "3" + "'";
+                           " WHERE id_evento = '" + "4" + "' ORDER BY n_mesa * 1, n_mesa ASC";
                            //" WHERE id_evento = '" + IdEvento + "'";
             
             //" WHERE id_evento = '" + stEventoCadParticipante.Value + "'";
@@ -481,6 +497,7 @@ namespace Site.Eventos
             ddlVerMesa.DataBind();
 
         }       
+        */
 
         protected void irParaMesa(object sender, EventArgs e)
         {

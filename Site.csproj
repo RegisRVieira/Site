@@ -192,10 +192,12 @@
     <Content Include="Css\Global-Fluido.css" />
     <Content Include="Css\StyleEventos.css" />
     <Content Include="Css\StyleHome.css" />
+    <Content Include="Css\StylePagEventos.css" />
     <Content Include="Css\StyleVoceOnLine.css" />
     <Content Include="Css\Table-Extrato.css" />
     <Content Include="Css\TableStyles.css" />
     <Content Include="Css\tsStyle.css" />
+    <Content Include="Css\VoceOnLine.css" />
     <Content Include="Default.aspx" />
     <Content Include="DPDFConverterService\DynamicPDF.Converter.Service.exe" />
     <Content Include="DPDFConverterService\ReadMe.txt" />
@@ -221,8 +223,11 @@
     <Content Include="LayOuts\LayOut-Home.aspx" />
     <Content Include="LoginVoceOnLine.aspx" />
     <Content Include="MontaGuia.aspx" />
+    <Content Include="PaginaEventos.aspx" />
     <Content Include="Pessoal.aspx" />
     <Content Include="Privado\Adm.aspx" />
+    <Content Include="Privado\Agenda.aspx" />
+    <Content Include="Privado\Agenda_Ficha.aspx" />
     <Content Include="Privado\Apps.aspx" />
     <Content Include="Privado\Cadastro.aspx" />
     <Content Include="Privado\Default.aspx" />
@@ -236,6 +241,7 @@
     <Content Include="Privado\testesGravarHtml.aspx" />
     <Content Include="Privado\tsHome.aspx" />
     <Content Include="Privado\tsSorteio.aspx" />
+    <Content Include="PropostaConvenio.aspx" />
     <Content Include="testPdf.aspx" />
     <Content Include="test_Extrato.aspx" />
     <Content Include="VoceOnLine1.aspx" />
@@ -245,7 +251,13 @@
     <Content Include="VOnLine\js\Script2.js" />
     <Content Include="VOnLine\js\Scripts.js" />
     <Content Include="VOnLine\Login.aspx" />
+    <Content Include="VOnLine\LoginNLayout.aspx" />
+    <Content Include="VOnLine\NovoLayout.aspx" />
+    <Content Include="VOnLine\Pesquisa.aspx" />
+    <Content Include="VOnLine\ReimprimeCupom.aspx" />
+    <Content Include="VOnLine\Testes.aspx" />
     <Content Include="VOnLine\VoceOnLine.aspx" />
+    <Content Include="VOnLine\VoceOnLine_New.aspx" />
     <Content Include="Web-BK.config" />
     <Content Include="Web.config" />
     <Content Include="DPDFConverterService\DynamicPDF.Converter.Service.exe.config" />
@@ -477,6 +489,34 @@
     <Compile Include="App_Code\Apoio.cs" />
     <Compile Include="App_Code\DAL.cs" />
     <Compile Include="App_Code\BLL.cs" />
+    <Compile Include="Privado\Agenda.aspx.cs">
+      <DependentUpon>Agenda.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Agenda.aspx.designer.cs">
+      <DependentUpon>Agenda.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Privado\Agenda_Ficha.aspx.cs">
+      <DependentUpon>Agenda_Ficha.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Privado\Agenda_Ficha.aspx.designer.cs">
+      <DependentUpon>Agenda_Ficha.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\Testes.aspx.cs">
+      <DependentUpon>Testes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\Testes.aspx.designer.cs">
+      <DependentUpon>Testes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\VoceOnLine_New.aspx.cs">
+      <DependentUpon>VoceOnLine_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\VoceOnLine_New.aspx.designer.cs">
+      <DependentUpon>VoceOnLine_New.aspx</DependentUpon>
+    </Compile>
     <Content Include="App_Code\Venda.cs" />
     <Compile Include="CompVenda.aspx.cs">
       <DependentUpon>CompVenda.aspx</DependentUpon>
@@ -665,6 +705,13 @@
     <Compile Include="MontaGuia.aspx.designer.cs">
       <DependentUpon>MontaGuia.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PaginaEventos.aspx.cs">
+      <DependentUpon>PaginaEventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginaEventos.aspx.designer.cs">
+      <DependentUpon>PaginaEventos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pessoal.aspx.cs">
       <DependentUpon>Pessoal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -771,6 +818,13 @@
       <DependentUpon>tsSorteio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropostaConvenio.aspx.cs">
+      <DependentUpon>PropostaConvenio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PropostaConvenio.aspx.designer.cs">
+      <DependentUpon>PropostaConvenio.aspx</DependentUpon>
+    </Compile>
     <Compile Include="testPdf.aspx.cs">
       <DependentUpon>testPdf.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -805,6 +859,34 @@
     </Compile>
     <Compile Include="VOnLine\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\LoginNLayout.aspx.cs">
+      <DependentUpon>LoginNLayout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\LoginNLayout.aspx.designer.cs">
+      <DependentUpon>LoginNLayout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\NovoLayout.aspx.cs">
+      <DependentUpon>NovoLayout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\NovoLayout.aspx.designer.cs">
+      <DependentUpon>NovoLayout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\Pesquisa.aspx.cs">
+      <DependentUpon>Pesquisa.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\Pesquisa.aspx.designer.cs">
+      <DependentUpon>Pesquisa.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VOnLine\ReimprimeCupom.aspx.cs">
+      <DependentUpon>ReimprimeCupom.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VOnLine\ReimprimeCupom.aspx.designer.cs">
+      <DependentUpon>ReimprimeCupom.aspx</DependentUpon>
     </Compile>
     <Compile Include="VOnLine\VoceOnLine.aspx.cs">
       <DependentUpon>VoceOnLine.aspx</DependentUpon>

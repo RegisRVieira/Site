@@ -42,6 +42,24 @@ namespace Site
         protected global::System.Web.UI.WebControls.LinkButton lbtDeslogar;
 
         /// <summary>
+        /// Controle mwFalecosnosco.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.MultiView mwFalecosnosco;
+
+        /// <summary>
+        /// Controle vwFormulario.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwFormulario;
+
+        /// <summary>
         /// Controle enviar_nome.
         /// </summary>
         /// <remarks>
@@ -168,6 +186,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.Button btnFaleConosco;
 
         /// <summary>
+        /// Controle vwConcluido.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.View vwConcluido;
+
+        /// <summary>
         /// Controle lblResultado.
         /// </summary>
         /// <remarks>
@@ -177,6 +204,15 @@ namespace Site
         protected global::System.Web.UI.WebControls.Label lblResultado;
 
         /// <summary>
+        /// Controle lblMsg.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMsg;
+
+        /// <summary>
         /// Controle lblFalta.
         /// </summary>
         /// <remarks>
@@ -184,5 +220,14 @@ namespace Site
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblFalta;
+
+        /// <summary>
+        /// Controle lbtconcluir.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtconcluir;
     }
 }

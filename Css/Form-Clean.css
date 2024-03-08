@@ -381,7 +381,7 @@ input[id=btnBuscar]:hover {
     margin-top: 20px;
 }
 
-input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], input[id=iNumCartao], input[id=iNome], input[id=btnLogar] {
+input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], input[id=iSenhaVenda], input[id=iNumCartao], input[id=iNome], input[id=btnLogar] {
     margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -390,10 +390,10 @@ input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], inp
     color: #22396f;
 }
 
-input[id=iCpf]:hover, input[id=iSenha]:hover{
-    color: #22396f;
-    border: 1px solid #999;
-}
+    input[id=iCpf]:hover, input[id=iSenha]:hover, input[id=iSenhaVenda]:hover {
+        color: #22396f;
+        border: 1px solid #999;
+    }
 
 input[id=btnLogin], input[id=btnLogar] {
     width: 93%;
@@ -407,7 +407,19 @@ input[id=btnLogin], input[id=btnLogar] {
 
 /* # # # Login # # # */
 
+input[id=isenhavenda2]{
+    padding: 40px 10px;
+    width: 60%;
+    background-color: red;
+}
+
 @media( max-width: 1000px) {
+
+    input[id=isenhavenda2] {
+        
+        width: 40%;
+        background-color: yellow;
+    }
 
 #vcLogin {
     width: 82%;
@@ -418,11 +430,12 @@ input[id=btnLogin], input[id=btnLogar] {
     font-size: 4em
 }
 
-input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], input[id=iNumCartao] {
-    padding: 30px 5px 30px 5px;
-    font-size: 3em;
-    width: 90%;
-}
+    input[id=iCpf], input[id=iSenha], input[id=btnLogin], input[id=iValorVenda], input[id=iSenhaVenda], input[id=iNumCartao] {
+        padding: 30px 5px 30px 5px;
+        font-size: 3em;
+        width: 90%;
+        
+    }    
 
 #stParcelas {
     width: 200px;
@@ -534,13 +547,13 @@ select {
 #iNumCartao, #iValorVenda, #iSenhaVenda {
     height: 60px;
     font-size: 1.5em;
-    width: 102%;
+    width: 102%;    
 }
     #iNumCartao:hover, #iValorVenda:hover, #iSenhaVenda:hover {
         font-size: 2.5em;
         background-color: #F0F0F0;
     }
-
+    
 #btnVender{
     border-radius: 6PX;
     font-size: 20PX;

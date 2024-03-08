@@ -105,6 +105,24 @@ namespace Site.VoceOnLine
         protected global::System.Web.UI.WebControls.LinkButton lbtAlteraSenha;
 
         /// <summary>
+        /// Controle btnPainelEventos.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnPainelEventos;
+
+        /// <summary>
+        /// Controle lbtIrEventos.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtIrEventos;
+
+        /// <summary>
         /// Controle lbtFazerLogof.
         /// </summary>
         /// <remarks>
@@ -195,6 +213,15 @@ namespace Site.VoceOnLine
         protected global::System.Web.UI.WebControls.LinkButton lbtOfertas;
 
         /// <summary>
+        /// Controle lbtReimprimir.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtReimprimir;
+
+        /// <summary>
         /// Controle lbtSair.
         /// </summary>
         /// <remarks>
@@ -202,6 +229,24 @@ namespace Site.VoceOnLine
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbtSair;
+
+        /// <summary>
+        /// Controle divPesquisa.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPesquisa;
+
+        /// <summary>
+        /// Controle btnPesquisa.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton btnPesquisa;
 
         /// <summary>
         /// Controle mwContAssoc.
@@ -526,15 +571,6 @@ namespace Site.VoceOnLine
         /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLogof;
-
-        /// <summary>
-        /// Controle btnPdfAssoc.
-        /// </summary>
-        /// <remarks>
-        /// Campo gerado automaticamente.
-        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPdfAssoc;
 
         /// <summary>
         /// Controle lblExtratoPdf.

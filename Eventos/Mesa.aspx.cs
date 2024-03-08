@@ -623,10 +623,14 @@ namespace Site.Eventos
             ObjValida.Condicao = " WHERE idassoc = '" + lblIdAssoc.Text + "'";
 
             //ObjValida.Query = " SELECT * FROM _e_pessoas " +
-            ObjValida.Query = " SELECT * FROM e_pessoas " +                              
+            string query = " SELECT * FROM e_pessoas " +                              
                               " WHERE idassoc = '" + lblIdAssoc.Text + "' AND nome = '" +iNome.Value + "' AND id_evento = '" + nEvento + "' AND canmom IS NULL";
-
+            
+            ObjValida.Query = query;
+            
             DataTable valida = ObjValida.RetQuery();
+
+            //MessageBox.Show(query);
 
             //ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM _e_localizacao WHERE n_mesa = '" + nMesa + "' ";
             ObjOcupacao.Query = " SELECT n_mesa, ocupacao FROM e_localizacao WHERE n_mesa = '" + nMesa + "' AND id_evento ='" + nEvento + "'";
@@ -655,7 +659,7 @@ namespace Site.Eventos
                 {
                     if (valida.Rows.Count > 0)
                     {
-                        lblMsg.Text = "Esse Associado:" + valida.Rows[0]["nome"] + ", já está cadastrado na Festa. Na mesa: " + valida.Rows[0]["n_local"].ToString();
+                        lblMsg.Text = "Esse Associado:" + valida.Rows[0]["nome"] + ", já está cadastrado na Festa. Na mesa: " + valida.Rows[0]["n_local"].ToString();                        
                     }
                     else
                     {
@@ -854,8 +858,10 @@ namespace Site.Eventos
             //#Checar se o associado já está cadastrado na Festa            
 
             //ObjValida.Query = " SELECT * FROM _e_pessoas " +
-            ObjValida.Query = " SELECT * FROM e_pessoas " +                              
-                              " WHERE idassoc = '" + lblIdAssocConvidado.Text + "' AND nome = '"+ iNomeConvidado.Value + "' AND canmom IS NULL";
+            string query = " SELECT * FROM e_pessoas " +
+                              " WHERE idassoc = '" + lblIdAssocConvidado.Text + "' AND nome = '" + iNomeConvidado.Value + "' AND id_evento = '" + nEvento + "' AND canmom IS NULL";
+
+            ObjValida.Query = query;            
 
             DataTable valida = ObjValida.RetQuery();
 
@@ -1130,7 +1136,7 @@ namespace Site.Eventos
                     string cChave_usuario = "000000000";
                     string cNome_usuario = "                                        ";
                     //string cObserva = "VENDA PELO SITE               ";
-                    string cObserva = "ARRAIA DO DAP                 ";
+                    string cObserva = "Festa de Fim de Ano DAP       ";
                     string cCpf = "              ";
                     string cSaldo = "00000000000000";
                     string cSenha = "" + iSenhaVenda.Value.Replace("'", "");
@@ -1349,7 +1355,7 @@ namespace Site.Eventos
                     cArquivo_mostra += "<thead style='vertical-align:bottom' >";
                     cArquivo_mostra += "<tr style = 'height:auto;' >";
                     //cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano" + cObserva + "</td>";
-                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Arraia do DAP         " + cObserva + "</td>";
+                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano" + cObserva + "</td>";
                     cArquivo_mostra += "</tr>";
                     cArquivo_mostra += "<tr>";
                     cArquivo_mostra += "<td colspan='2' class='cvTopico' >Via da ASU</td>";
@@ -1395,7 +1401,7 @@ namespace Site.Eventos
                     cArquivo_mostra += "<tr style = 'height:auto;' >";
                     /**/
                     //cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano</td>";
-                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Arraia do DAP         </td>";
+                    cArquivo_mostra += "<td colspan='2' class='cvTopico' >Comprovante Festa de Fim de Ano</td>";
                     cArquivo_mostra += "</tr>";
                     cArquivo_mostra += "<tr>";
                     cArquivo_mostra += "<td colspan='2' class='cvTopico' >Via do Associado</td>";

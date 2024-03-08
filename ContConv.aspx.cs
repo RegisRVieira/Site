@@ -40,6 +40,10 @@ namespace Site
         {
             mwConvenios.ActiveViewIndex = 2;
         }
+        protected void ativarProposta(object sender, EventArgs e)
+        {
+            mwConvenios.ActiveViewIndex = 3;
+        }
 
         public String montaParaConvenios(int ID) //30-03-2021
         {
@@ -193,7 +197,7 @@ namespace Site
             return xRet;
         }
 
-
+        
 
     }/*Fim*/
 }

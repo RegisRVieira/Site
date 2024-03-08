@@ -12,7 +12,7 @@ namespace Site.App_Code
 {
     public class DAL
     {
-        /* - - - - ASU - - - -*/
+        /* - - - - Conexão - - - -*/
         public string server = "";
         public string database = "";
         public string port = "";

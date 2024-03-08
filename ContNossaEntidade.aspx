@@ -19,8 +19,8 @@
                     <asp:LinkButton ID="lbAuxilioFuneral" runat="server" Text="Regimento Auxilio Funeral" OnClick="nossoRegimento"></asp:LinkButton></li>
                 <li>
                     <asp:LinkButton ID="lbBalancete" runat="server" Text="Prestação de Contas" OnClick="nossoBalancete"></asp:LinkButton></li>
-                <li>
-                    <asp:LinkButton ID="lbJornal" runat="server" Text="Jornal" OnClick="nossoJornal"></asp:LinkButton></li>
+                <!--<li>
+                    <asp:LinkButton ID="lbJornal" runat="server" Text="Jornal" OnClick="nossoJornal"></asp:LinkButton></li>-->
                 <li id="treeline-icon" class="treeline-icon" onclick="AcessarNossaEntidade()">&#9776;</li>
                 <li id="treeline-NossaEntidade" class="treeline-closeicon" onclick="FecharNossaEntidade() ">&cross;</li>
             </ul>

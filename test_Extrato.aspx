@@ -42,6 +42,22 @@
             <asp:Button ID="btnEvoluirPeriodo" runat="server" Text="Evolução do período" OnClick="evoluirPerioro" />
             <asp:Label ID="lblMsgPeriodo" runat="server"></asp:Label>
         </div>
+
+        <div>
+            <p>Saldo</p>
+            <input id="iIdAssoc" type="text" runat="server" placeholder="Id Associado" value="2747" />
+            <asp:Button ID="btnSaldo" runat="server" Text="Saldo" OnClick="retornaSaldo"/>
+            <asp:Label ID="lblSaldo" runat="server"></asp:Label>
+        </div>
+        <div>
+            <p>Enviar E-mail</p>
+            <input id="iPara" runat="server" type="text" value="reginaldo@asu.com.br" />
+            <input id="iCopia" runat="server" type="text" value="regis@asu.com.br" />
+            <input id="iAssunto" runat="server" type="text" value="Assunto" />
+            <input id="iDados" runat="server" type="text" value="Dados" />
+            <asp:Button ID="btnEnviarEmail" runat="server" Text="Enviar E-mail" OnClick="enviarEmail"/>            
+        </div>
+        <asp:Label ID="Label1" runat="server"></asp:Label>
     </form>
 </body>
 </html>

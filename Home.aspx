@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="ASU, Associação, Unesp" />
     <meta http-equiv="refresh" content="300" />
     <title>ASU - Associação dos Servidores da Unesp</title>
     <link  rel="stylesheet" href="Css/Global.css"/>
@@ -76,7 +77,8 @@
                         <li><a href="ContNossaEntidade.aspx?vNE=1">Nossa Entidade</a></li>
                         <li><a href="ContNossaEntidade.aspx?vNE=2">Estatuto Social</a></li>
                         <li><a href="FaleConosco.aspx">Fale conosco</a></li>
-                        <li><a class="voceonlinejs" href="https://vendas.asu.com.br/vonline/">Consultar Seu Saldo</a></li>
+                        <!--<li><a class="voceonlinejs" href="https://vendas.asu.com.br/vonline/">Consultar Seu Saldo</a></li>    -->                    
+                        <li><a class="voceonlinejs " style="display: block" href="MontaGuia.aspx">Guia de Convênios</a></li>
                         <li><a id="voceonlinejs" class="voceonlinejs" href="https://vendas.asu.com.br/vonline/">Você On Line</a></li>
                         <li><a id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuHome()">&cross;</a></li>
                         <li id="treeline-icon" class="treeline-icon" onclick="openMenuHome()">&#9776;</li>                        
@@ -198,7 +200,7 @@
                     <div class="HomeMateria">
                         <div class="HomeMateria-Guia">
                             <div class="HomeMateria-Guia-Tit">
-                                <p>Guia de Convênios</p>
+                                <p><a href="MontaGuia.aspx" style="text-decoration: none; color: #22396f">Guia de Convênios</a></p>
                             </div>
                             <div class="HomeMateria-Guia-Img">
                                 <a href="MontaGuia.aspx">
@@ -413,11 +415,12 @@
         </form>
         <footer class="footerHome">                   
             <div class="footerHome-Dados">
-            <small>&reg; 1969 -
-                <script type="text/javascript">document.write(agora.getFullYear() + ". Todos os direitos reservados")</script>
+            <small>
+                Associação dos Servidores da Unesp 50.805.704/0001-00 
             </small>
-            <address>
-                <script type="text/javascript">document.write(ano + " Anos")</script>
+            <address>1969 -
+                <script type="text/javascript">document.write(agora.getFullYear())</script>
+                <script type="text/javascript">document.write(" - " + ano + " Anos." + "&#169;" + " Todos os direitos reservados")</script>
             </address>
             </div>
             <div class="footerHome-Img"><img src="../Img/Icon/Logo2 Régis-ASU.png" /></div>            

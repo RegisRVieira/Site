@@ -21,6 +21,179 @@ namespace Site
             this.DataBind();
         }
 
+    
+        public String carregarImgMateria(string campo, string tipo)
+        {
+            BLL ObjDados = new BLL(conectSite);
+
+            string idContMat = Request.QueryString["IDContMat"];
+            string xRet = " ";
+
+        
+                string query = "";
+
+                query = " SELECT c.*, i.*, ali.descricao AS alinha  FROM st_imagens AS i " +
+                        " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
+                        " LEFT JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod " +
+                        " WHERE c.id = '" + idContMat + "' ";
+
+                ObjDados.Query = query;                
+
+                DataTable dadosQuery = ObjDados.RetQuery();
+
+            if (String.IsNullOrEmpty(ObjDados.MsgErro))
+            {
+                if (dadosQuery.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
+                    {
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == campo && dadosQuery.Rows[i]["codtipo"].ToString() != tipo)
+                        {
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
+                            {
+                                xRet += "<div class='matImg'>";
+                                xRet += "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />";
+                                    if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["figcaption"].ToString()))
+                                    {
+                                        xRet += "<figcaption style = 'font-size: 11px;' >" + dadosQuery.Rows[i]["figcaption"].ToString() + " </figcaption >";
+                                    }
+                                xRet += "</div>";
+                            }
+                            else
+                            {
+                                xRet += "<div class='matImg'>";
+                                xRet += "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />";
+                                    if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["figcaption"].ToString()))
+                                    {
+                                        xRet += "<figcaption style = 'font-size: 11px;' >" + dadosQuery.Rows[i]["figcaption"].ToString() + " </figcaption >";
+                                    }
+                                xRet += "</div>";
+
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                xRet += "Erro: " + ObjDados.MsgErro;
+            }
+
+           
+
+                return xRet;
+        }
+        public String montarGaleria( string localImg)
+        {
+            //tipoConteudo = "GAL";
+
+            BLL ObjDados = new BLL(conectSite);
+
+            string idContMat = Request.QueryString["IDContMat"];
+
+            string xRet = " ";
+
+            int temGaleria = 0;
+
+            if (String.IsNullOrEmpty(ObjDados.MsgErro))
+            {
+                string query = "";
+
+                query = " SELECT c.*, i.*, ali.descricao AS alinha, i.id AS idImg  FROM st_imagens AS i " +
+                        " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
+                        " LEFT JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod " +
+                        " WHERE c.id = '" + idContMat + "' AND i.codtipo = 'GAL' ";
+
+                ObjDados.Query = query;
+
+                //MessageBox.Show(idContMat);
+
+                DataTable dadosQuery = ObjDados.RetQuery();
+
+                //Testar integridade das Querys
+                //MessageBox.Show("Conteudo: " + "SELECT " + ObjDbASU.Campo + "  FROM " + ObjDbASU.Tabela + " " + ObjDbASU.Condicao);
+                //MessageBox.Show("Imagens: " + "SELECT " + ObjDbImg.Campo + " FROM " + ObjDbImg.Tabela + ObjDbImg.Left + " " + ObjDbImg.Condicao);
+
+
+
+                //## Checa se há Imagens cadastradas
+                for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
+                {
+                    if (dadosQuery.Rows[i]["codtipo"].ToString() == "GAL" && dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == localImg)
+                    {
+                        temGaleria++;
+                    }
+                }
+                xRet += "<style>" +
+                    "   .galeriaMateria {" +
+                    "       width: 950px;" +
+                    "       min-height: 300px;" +
+                    "       margin: 2px;" +
+                    //"       background-color: red;" +
+                    "  }" +
+                    "    .titGal{" +
+                    "       text-align:left;" +
+                    "       font-size:10px; " +
+                    "       color: #808080;" +
+                    "  }" +
+                    "   .imgGaleria{" +
+                    "       float: left; " +
+                    "       width: 300px; " +
+                    "       min-height: 200px; " +
+                    "       margin: 5px; " +
+                    "       border: 1px solid #f26907;" +
+                    "  }" +
+                    "   .imgGaleria img{" +
+                    "       width: 300px" +
+                    "  }" +
+                    " @media( max-width: 1000px) {" +
+                    "   .imgGaleria{" +
+                    "       float: none; " +
+                    "       margin: 0 auto; " +                    
+                    "       margin-top: 5px; " +                    
+                    "       margin-bottom: 5px; " +                    
+                    "       width: 700px; " +
+                    "  }" +
+                    "   .imgGaleria img{" +
+                    "       width: 700px" +
+                    "  }" +
+                    "}" +//@media
+                    "</style> ";
+                //Exibir Fotas na Galeria
+                if (temGaleria > 0)
+                //if (dadosQuery.Rows.Count > 0)
+                {
+                    int imgInt = 0;
+                    xRet += "<section class='galeriaMateria' >";
+                    xRet += "<p class='titGal'> " + "Galeria" + "</p>";
+                    for (int i = 0; i<temGaleria; i++)
+                    {                                               
+                            imgInt++;                            
+                            
+                            xRet += "<div class='imgGaleria'>";
+                            xRet += "<img " + "' src='" + dadosQuery.Rows[i]["path_img"] + "'" + ">";
+                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["figcaption"].ToString()))//Criar Campo CAPTION, para inserir comentário na Imagem
+                            {
+                                xRet += "<figcaption style = 'font-size: 11px;' >" + dadosQuery.Rows[i]["figcaption"].ToString() + " </figcaption >";
+                            }
+                            xRet += "</div>";
+                            
+                    }
+                    xRet += "</section>";
+                }
+                else
+                {
+                    //xRet += "Não há imagens na Galeria";
+                }
+            }
+            else
+            {
+                xRet += "Erro: " + ObjDados.MsgErro;
+            }           
+
+            return xRet;
+        }
+        
         public String montarListaMaterias()
         {
             BLL ObjDbASU = new BLL(conectSite);
@@ -102,10 +275,10 @@ namespace Site
             if (String.IsNullOrEmpty(ObjDados.MsgErro))
             {
                 string query = "";
-              
+
                 query = " SELECT c.*, i.*, ali.descricao AS alinha  FROM st_imagens AS i " +
                         " INNER JOIN st_conteudo AS c ON i.id_conteudo = c.id " +
-                        " INNER JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod " +
+                        " LEFT JOIN st_imgalinhamento AS ali ON i.cod_alinhamento = ali.cod " +
                         " WHERE c.id = '" + idContMat + "' ";
 
                 ObjDados.Query = query;
@@ -118,83 +291,61 @@ namespace Site
                 //MessageBox.Show("Conteudo: " + "SELECT " + ObjDbASU.Campo + "  FROM " + ObjDbASU.Tabela + " " + ObjDbASU.Condicao);
                 //MessageBox.Show("Imagens: " + "SELECT " + ObjDbImg.Campo + " FROM " + ObjDbImg.Tabela + ObjDbImg.Left + " " + ObjDbImg.Condicao);
 
-                //Publicidade da Matéria
-                xRet += "<section class='publicidade' >";
-                //xRet += "Query: " + ObjDados.Query.ToString();                
-                int ValidaImagens = 0;  
+                int temPropaganda = 0;
+                int temGaleria = 0;
 
-                //## Checa se há Publicidade cadastrada
+                //## Checa se há Imagens cadastradas
                 for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
-                {                                        
+                {
                     if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICPROP")
-                    {                        
-                        ValidaImagens++;                        
+                    {
+                        temPropaganda++;
+                    }
+                    if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "GAL")
+                    {
+                        temGaleria++;
                     }
                 }
 
-                //Se houver Publicidade, exibe-a. Do contrário, exibe uma imagem padrão.
-                //if (ValidaImagens > 0)
-                if (dadosQuery.Rows.Count > 0)
+                //Publicidade da Matéria
+                xRet += "<section class='publicidade' >";
+                //xRet += "Query: " + ObjDados.Query.ToString();                                
+
+                if (temPropaganda > 0)//Se houver Publicidade, exibe-a. Do contrário, exibe uma imagem padrão.
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++) //Varre o DB para encontrar imgs, se houver ele "mostra"
                     {
                         if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICPROP")
                         {
                             xRet += "<img ' src='" + dadosQuery.Rows[i]["path_img"] + "' />";
-                        }                        
+                        }
                     }
                 }
                 else
                 {
                     xRet += "<img src='../Img/Banner Publicidade Materia2.jpg' />";
                 }
+
+
                 xRet += "</section>";
 
                 //Titulo da Matéria
                 xRet += "<section class='titulo'>";
                 xRet += "<p>" + dadosQuery.Rows[0]["titulo"] + "</p>";
-
-
-                //if (ValidaImagens > 0)
-                if (dadosQuery.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
-                    {
-                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICTIT")
-                        {
-                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                            else
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                        }
-                    }
-                }
+                
+                xRet+= carregarImgMateria("ICTIT", "GAL");
+                
                 xRet += "</section>";
 
                 //Introdução
                 xRet += "<section class='introducao texto'>";
                 xRet += "<p>" + dadosQuery.Rows[0]["introducao"] + "</p>";
-                //if (ValidaImagens > 0)
-                if (dadosQuery.Rows.Count > 0)
+
+                xRet += carregarImgMateria("ICINT", "GAL");                
+
+                if (!String.IsNullOrEmpty(montarGaleria("ICINT")))
                 {
-                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
-                    {
-                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICINT")
-                        {
-                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float: " + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                            else
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                        }
-                    }
+                    xRet += montarGaleria("ICINT");
                 }
                 xRet += "</section>";
 
@@ -202,74 +353,71 @@ namespace Site
                 xRet += "<section class='contexto texto'>";
                 xRet += "<p>" + dadosQuery.Rows[0]["conteudo"] + "</p>";
 
+                xRet += carregarImgMateria("ICCON", "GAL");
+
+                /*
                 if (dadosQuery.Rows.Count > 0)
                 {
                     for (int i = 0; i < dadosQuery.Rows.Count; i++)
                     {
-                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCON")
-                        {
+                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCON" && dadosQuery.Rows[i]["codtipo"].ToString() != "GAL")
+                        {                            
                             if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
                             {
-                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                                xRet += "<div class='matImg'>";
+                                xRet += "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />";
+                                if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["figcaption"].ToString()))
+                                {
+                                    xRet += "<figcaption style = 'font-size: 11px;' >" + dadosQuery.Rows[i]["figcaption"].ToString() + " </figcaption >";
+                                }
+                                xRet += "</div>";
                             }
                             else
                             {
-                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
+                                xRet += "<div class='matImg'>";
+                                xRet += "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />";
+                                if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["figcaption"].ToString()))
+                                {
+                                    xRet += "<figcaption style = 'font-size: 11px;' >" + dadosQuery.Rows[i]["figcaption"].ToString() + " </figcaption >";
+                                }
+                                xRet += "</div>";
+
                             }
                         }
                     }
                 }
-                
+                */
+
+                if (!String.IsNullOrEmpty(montarGaleria("ICCON")))
+                {
+                    xRet += montarGaleria("ICCON");
+                }
                 xRet += "</section>";
 
                 //Complemento
                 xRet += "<section class='complemento texto'>";
                 xRet += "<p>" + dadosQuery.Rows[0]["complemento"] + "</p>";
 
-                if (dadosQuery.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
-                    {
-                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCOM")
-                        {
-                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                            else
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                        }
-                    }
-                }
-                //xRet += "<section class='complemento texto'>";                
+                //Carrega Imagens 
+                xRet += carregarImgMateria("ICCOM", "GAL");                
                 
+                //Carrega Galeria de Imagens
+                if (!String.IsNullOrEmpty(montarGaleria("ICCOM")))
+                {
+                    xRet += montarGaleria("ICCOM");
+                }
                 xRet += "</section>";
 
                 //Conclusão
                 xRet += "<section class='conclusao texto'>";
                 xRet += "<p>" + dadosQuery.Rows[0]["conclusao"] + "</p>";
-
-                //if (ValidaImagens > 0)
-                if (dadosQuery.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dadosQuery.Rows.Count; i++)
-                    {
-                        if (dadosQuery.Rows[i]["cod_campoconteudo"].ToString() == "ICCONC")
-                        {
-                            if (!String.IsNullOrEmpty(dadosQuery.Rows[i]["alinha"].ToString()))
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float:" + dadosQuery.Rows[i]["alinha"].ToString() + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                            else
-                            {
-                                xRet += "<div class='matImg'>" + "<img style='float: " + "center" + "' src='" + dadosQuery.Rows[i]["path_img"] + "' />" + "</div>";
-                            }
-                        }
-                    }
-                }               
                 
+                xRet+= carregarImgMateria("ICCONC", "GAL");                                
+                
+                if (!String.IsNullOrEmpty(montarGaleria("ICCONC")))
+                {
+                    xRet += montarGaleria("ICCONC");
+                }
                 xRet += "</section>";
             }
             else

@@ -52,7 +52,7 @@
                         <li>
                             <asp:LinkButton ID="lbtMateria" runat="server" Text="Matéria" OnClick="ativarVwMateria"></asp:LinkButton></li>
                         <li>
-                            <asp:LinkButton ID="lbtConteudo" runat="server" Text="Publicidade" OnClick="ativarVwPublicidade"></asp:LinkButton></li>
+                            <asp:LinkButton ID="lbtConteudo" runat="server" Text="Eventos" OnClick="ativarVwEventos"></asp:LinkButton></li>
                     </ul>
                 </div>
             </div>
@@ -66,6 +66,7 @@
                             <AlternatingRowStyle BackColor="White" />
                             <Columns>
                                 <asp:CommandField ShowSelectButton="True" />
+                                <asp:BoundField />
                             </Columns>
                             <EditRowStyle BackColor="#7C6F57" />
                             <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
@@ -137,11 +138,27 @@
                             <SortedDescendingHeaderStyle BackColor="#15524A" />
                         </asp:GridView>
                     </asp:View>
-                    <asp:View ID="vwGridConteudo" runat="server">
-                        <h1 class="topform">Publicidade</h1>
+                    <asp:View ID="vwGridEventos" runat="server">
+                        <h1 class="topform">Eventos</h1>
+                        <asp:GridView ID="gvEventos" runat="server" CellPadding="2" ForeColor="#333333" GridLines="None" Width="99.5%" PageSize="2" AllowPaging="True" OnPageIndexChanging="paginarEventos" OnSelectedIndexChanged="selecionarRegistroGvEventos">
+                            <AlternatingRowStyle BackColor="White" />
+                            <Columns>
+                                <asp:CommandField ShowSelectButton="True" />
+                            </Columns>
+                            <EditRowStyle BackColor="#7C6F57" />
+                            <FooterStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="#22396f" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
+                            <RowStyle BackColor="#E3EAEB" />
+                            <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />
+                            <SortedAscendingCellStyle BackColor="#F8FAFA" />
+                            <SortedAscendingHeaderStyle BackColor="#246B61" />
+                            <SortedDescendingCellStyle BackColor="#D4DFE1" />
+                            <SortedDescendingHeaderStyle BackColor="#15524A" />
+                        </asp:GridView>
                     </asp:View>
                     <asp:View ID="vwGridPublicidade" runat="server">
-                        <h1 class="topform">Publicidade2</h1>
+                        <h1 class="topform">Publicidade</h1>
                     </asp:View>
                     <asp:View ID="vwGridGuiaDestaque" runat="server">
                         <h1 class="topform">Guia Destaque</h1>
@@ -330,6 +347,7 @@
                                 <input id="iMatImgFonte" runat="server" type="text" placeholder="Fonte da Imagem" />
                                 <input id="iMatImgAutor" runat="server" type="text" placeholder="Autor da Imagem" />
                                 <input id="iMatImgHint" runat="server" type="text" placeholder="Hint" />
+                                <input id="iMatImgCaption" runat="server" type="text" placeholder="fgCaption" />
                                 <input id="iMatImgLink" runat="server" type="text" placeholder="Link" />
                                 <asp:MultiView ID="mwImgMat" runat="server">
                                     <asp:View ID="vwImgMat" runat="server">
@@ -343,8 +361,48 @@
                             </section>
 
                         </asp:View>
-                        <asp:View ID="vwFormConteudo" runat="server">
-                            <h1>Conteudo</h1>
+                        <asp:View ID="vwFormEventos" runat="server">
+                            <h1>Eventos</h1>
+                            <asp:Label ID="lblIdEvento" runat="server" Visible="false"></asp:Label>
+                            <input id="iEventoTitulo" runat="server" type="text" placeholder="Título" />
+                            <textarea id="taDescEvento" runat="server" placeholder="Descrição do Evento" class="alturainput"></textarea>                            
+                            <textarea id="taLocalEvento" runat="server" placeholder="Local" class="alturainput"></textarea>
+                            <textarea id="taMapaEvento" runat="server" placeholder="Insira o link do Local do Evento" class="alturainput"></textarea>
+                            <textarea id="taHorarioEvento" runat="server" placeholder="Horário: 19:00" class="alturainput"></textarea>
+                            <input id="iValidaEvento" type="text" runat="server" visible="false" />
+                            <div class="intervaloDatas">
+                                <div>
+                                    <asp:Label ID="lblDataEvento" runat="server" CssClass="labelinpdate">Data do Evento</asp:Label>
+                                    <input id="iDataEvento" runat="server" type="date" oninit="carregarData" />
+                                </div>       
+                                <div>
+                                    <asp:Label ID="Label1" runat="server" CssClass="labelinpdate"> Data Final</asp:Label>
+                                    <input id="iDataFimEvento" runat="server" type="date" oninit="carregarData" />
+                                </div>
+                            </div>
+                            <div>
+                                <asp:Button ID="btnCadEvento" runat="server" Text="Cadastrar" OnClick="cadastrarEvento" />
+                            </div>
+                            <br />
+                            <h1 style="width: 100%; background: gray; font-size: 28px; color: #cccaca;">Imagens</h1>
+                            <section>                                
+                                <label class="labelinpdate">Imagem</label>
+                                <select id="slImgEventos" runat="server" class="slTipo"></select>                                
+                                <input id="iImgFontEventos" runat="server" type="text" placeholder="Fonte da Imagem" />
+                                <input id="iImgAutorEvenos" runat="server" type="text" placeholder="Autor da Imagem" />
+                                <input id="iImgHintEventos" runat="server" type="text" placeholder="Hint" />    
+                                <input id="iImgCaptionEventos" runat="server" type="text" placeholder="fgCaption" />
+                                <input id="iImgLinkEventos" runat="server" type="text" placeholder="Link" />
+                                <asp:MultiView ID="mwImgEventos" runat="server">
+                                    <asp:View ID="vwImgEventos" runat="server">
+                                        <asp:Label ID="lblBoxEvento" runat="server"></asp:Label>                                        
+                                    </asp:View>
+                                </asp:MultiView>
+                                <asp:FileUpload ID="fuImgEventos" runat="server" AllowMultiple="true" />                                
+                                <br />
+                                <asp:Button ID="Button2" runat="server" Text="Inserir Imagem" OnClick="inserirImgEventos" />
+                            </section>
+
                         </asp:View>
                         <asp:View ID="vwFormPublicidade" runat="server">
                             <h1>Publicidade</h1>

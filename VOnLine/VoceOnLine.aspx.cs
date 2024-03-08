@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
+using System.Web.UI.WebControls;
 using System.Data;
 using System.Configuration;
 using System.Windows;
@@ -21,6 +22,8 @@ using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
 using System.Drawing;
+
+
 
 namespace Site.VoceOnLine
 {
@@ -49,8 +52,70 @@ namespace Site.VoceOnLine
                 desativaBrinde();
                 carregarData();
                 identificarTamanhoTela();
+                participacaoPesquisa();
             }
             this.DataBind();
+        }
+
+        public void participacaoPesquisa()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+            BLL ObjPesquisa = new BLL(conectVegas);
+
+            string codAcesso = Session["CodAcesso"].ToString();
+            //int tCampo = codAcesso.Length; 
+            string query = "";
+
+            string queryPesquisa = " SELECT * FROM pesquisa " +
+                                   " WHERE datainicial <= CURDATE() AND datafinal >= CURDATE()";
+
+            ObjPesquisa.Query = queryPesquisa;
+            DataTable dadosPesquisa = ObjPesquisa.RetQuery();
+
+            if (dadosPesquisa.Rows.Count > 0)
+            {
+                //Checa se é Associadfo ou conveniado, e para quem a pesquisa está "aberta"
+                if (tipoUsuarioLogado(codAcesso) == "Associado")
+                {
+                    //MessageBox.Show("Associado");
+
+                    query = " SELECT * FROM PES_RESPOSTAS " +
+                            " WHERE associado = '" + Session["IdAssoc"].ToString() + "'" +
+                            //" AND idpesquisa = '" + "ID Pesquisa" + "'";
+                            " AND idpesquisa = '" + "1" + "'";
+
+                    //MessageBox.Show(Session["IdAssoc"].ToString());
+                }
+                else
+                {
+                    //MessageBox.Show("Conveniado");
+
+                    query = " SELECT * FROM PES_RESPOSTAS " +
+                            " WHERE convenio = '" + codAcesso.Substring(0, (codAcesso.Length - 2)) + "'" +
+                            //" AND idpesquisa = '" + "ID Pesquisa" + "'";
+                            " AND idpesquisa = '" + "1" + "'";
+
+                    //MessageBox.Show(codAcesso.Substring(0, (codAcesso.Length - 2)));
+                }
+
+                ObjDados.Query = query;
+                DataTable dados = ObjDados.RetQuery();
+
+                //MessageBox.Show(dados.Rows.Count.ToString());
+
+                if (ObjDados.MsgErro == "")
+                {
+                    if (dados.Rows.Count > 0)
+                    {
+                        divPesquisa.Attributes["class"] = "Desativa";
+                    }
+                }
+                else
+                {
+                    lblMsg.Text = "Deu pau:" + ObjDados.MsgErro;
+                }
+            }
+                   
         }
         public Double identificarTamanhoTela()
         {
@@ -216,7 +281,7 @@ namespace Site.VoceOnLine
             }
             else
             {
-                usuario = Session["LoginConvenio"].ToString();
+                usuario = Session["LoginIdConvenio"].ToString();
             }
 
             string tabela = " st_termo_privacidade "; //Tabela
@@ -290,7 +355,7 @@ namespace Site.VoceOnLine
             }
             else
             {
-                usuario = Session["LoginConvenio"].ToString();
+                usuario = Session["LoginIdConvenio"].ToString();
             }
             string primeiroNome = usuario.Split(' ').FirstOrDefault();
             string primeiraLetra = usuario.Split(' ').FirstOrDefault();
@@ -311,6 +376,26 @@ namespace Site.VoceOnLine
 
             //return xRet;
         }//usuarioLogado
+
+        public String tipoUsuarioLogado(string checa)
+        {
+            string codAcesso = Session["CodAcesso"].ToString();
+
+            int tCampo = checa.Length;
+            string usuario = "";
+
+            if (tCampo == 9 || tCampo == 11)
+            {
+                usuario = "Associado";
+            }
+            else
+            {
+                usuario = "Conveniado";
+            }
+
+            return usuario;
+
+        }//tipoUsuarioLogado
 
         public void checarSessao()
         {
@@ -435,8 +520,19 @@ namespace Site.VoceOnLine
         public void ativarConvOfertas(object sender, EventArgs e)
         {
             mwContConv.ActiveViewIndex = 7;
-        }
+        }        
+        public void ativarConvReimpressao(object sender, EventArgs e)
+        {
+            //mwContConv.ActiveViewIndex = 8;
+            string Url = "<script type=”text/javascript”>" +
+                         " function x(){" +
+                         "    Window.open(“ReimprimeCupom.aspx, _Blanc”);}" +
+                         "</ script > ";
 
+
+            Response.Redirect("ReimprimeCupom.aspx");
+            
+        }
 
         public void buscarCepAssoc(object sender, EventArgs e)
         {
@@ -779,7 +875,7 @@ namespace Site.VoceOnLine
                 }
             }
 
-        }
+        }//atualizaDdlExtrato
 
         /*
                  protected String tamanhoTela() {
@@ -809,12 +905,167 @@ namespace Site.VoceOnLine
             return widht;
         }
 
+        /*#############Teste Saldo ############*/
+
+        protected String dtIni_Saldo()
+        {
+            string periodo = "";
+
+            string hoje = DateTime.Now.ToString("dd-MM-yyyy");
+            string dia = DateTime.Now.Day.ToString();
+            string mes = DateTime.Now.ToString("MM");
+            string ano = DateTime.Now.Year.ToString();
+
+            //Chaca Janeiro
+            if (mes == "01")
+            {
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + mes + "-20'";
+                }
+                else
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) - 1) + "-" + "12" + "-20'";
+                }
+            }
+            else
+            {
+
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + mes + "-20'";
+                }
+                else
+                {
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) - 1).ToString().PadLeft(2, '0') + "-20'";
+                }
+            }
+
+            return periodo;
+        }//Início_Saldo
+
+        protected String DtFim_Saldo()
+        {
+            string periodo = "";
+
+            string hoje = DateTime.Now.ToString("dd-MM-yyyy");
+            string dia = DateTime.Now.Day.ToString();
+            string mes = DateTime.Now.ToString("MM");
+            string ano = DateTime.Now.Year.ToString();
+
+            //Chaca Janeiro
+            if (mes == "01")
+            {
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + ano + "-" + mes + "-19'";
+                }
+            }
+            else
+            {
+
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + ano + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + ano + "-" + mes + "-19'";
+                }
+            }
+
+            return periodo;
+        }//Fim_Saldo
+
+        protected String DtFim_SaldoNovoCartao()
+        {
+            string periodo = "";
+
+            string hoje = DateTime.Now.ToString("dd-MM-yyyy");
+            string dia = DateTime.Now.Day.ToString();
+            string mes = DateTime.Now.ToString("MM");
+            string ano = DateTime.Now.Year.ToString();
+
+            //Chaca Janeiro
+            if (mes == "01")
+            {
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+                }
+            }
+            else
+            {
+
+                if (Convert.ToInt32(dia) >= 20)
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + (Convert.ToInt32(mes) + 1).ToString().PadLeft(2, '0') + "-19'";
+                }
+                else
+                {
+                    periodo += "'" + (Convert.ToInt32(ano) + 1).ToString() + "-" + mes + "-19'";
+                }
+            }
+
+            return periodo;
+        }//FimSaldoNovoCartao
+        public double SaldoAssociado()
+        {
+            BLL ObjDados = new BLL(conectVegas);
+            
+            string IdAssoc = Session["IdAssoc"].ToString();
+
+            string query = " SELECT titular, credito, " +
+                           " (SELECT IF(m.valor IS NOT NULL, (SUM(m.valor) + a.credito), SUM(m.valor))" +
+                           " FROM comovime AS m" +
+                           "  LEFT JOIN associa AS a ON a.idassoc = m.associado" +
+                           " WHERE a.idassoc IN('" + IdAssoc + "')" +
+                           "  AND a.cnscanmom IS NULL" +
+                           "  AND m.cnscanmom IS NULL" +
+                           "  AND IF(a.credmodelo IN('vlparce'), m.vencimento BETWEEN " + dtIni_Saldo() + " AND " + DtFim_Saldo() + ", m.vencimento BETWEEN " + dtIni_Saldo() + " AND " + DtFim_SaldoNovoCartao() + ")) as Saldo " +
+                           " FROM associa" +
+                           " WHERE idassoc IN('" + IdAssoc + "')AND cnscanmom IS NULL";
+
+            ObjDados.Query = query;
+
+            DataTable dados = ObjDados.RetQuery();
+
+            double saldo = 0;
+
+
+            if (String.IsNullOrEmpty(dados.Rows[0]["saldo"].ToString()))
+            {
+                saldo = Convert.ToDouble(dados.Rows[0]["credito"].ToString());
+            }
+            else
+            {
+                saldo = Convert.ToDouble(dados.Rows[0]["saldo"].ToString());
+            }
+
+
+            //return query;
+            return saldo;
+
+        }
+
+        /**/
+
         public String extratoAssociado()
         {
             checarSessao();                        
 
             BLL ObjDbASU = new BLL(conectVegas);
-            Apoio Apoio = new Apoio();            
+            Apoio Apoio = new Apoio();
+
+            //MessageBox.Show(SaldoAssociado());
 
             string xRet = "";
             string xPdf = "";
@@ -829,12 +1080,15 @@ namespace Site.VoceOnLine
             string IdAssoc = "";
 
             string inicio = Apoio.dtDataInicio().Substring(1, (Apoio.dtDataInicio().Length - 2));
-
+            
 
             if (tCampo == 9 || tCampo == 11)
             {
                 IdAssoc = Session["IdAssoc"].ToString();
             }
+
+            identificarFuncionarios(IdAssoc);//Parei aqui, colocar a ID do ASSOciado
+
             DateTime agora = DateTime.Now;
             DateTime mesInicio = DateTime.Now.AddMonths(-1);
             DateTime mestFim = DateTime.Now;
@@ -852,7 +1106,7 @@ namespace Site.VoceOnLine
                                    " AND deb.dtvencim BETWEEN " + Apoio.dtDataInicio() + " AND " + Apoio.dtDataFim() + " AND deb.cnscanmom IS NULL " +
                                    " UNION " +
                                    " SELECT a.credmodelo, c.idmovime AS id, EXTRACT(DAY FROM c.data) AS dia, c.convenio, co.nome AS conveniado, c.associado, a.titular, c.depcartao AS cartao, c.dependen, d.nome AS comprador, c.valor, c.vencimento, c.data, c.parcela, c.parctot, c.cnscadmom, a.credito, " +
-                                   " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='2747' AND vencimento BETWEEN '2022-10-20' AND '2022-11-19' AND c.cnscanmom IS NULL LIMIT 1) AS gastos, '0.00' AS debitos   " +
+                                   " (SELECT SUM(valor) FROM comovime AS c INNER JOIN associa AS a ON a.idassoc = c.associado INNER JOIN asdepen AS d ON c.dependen = d.iddepen WHERE c.associado='" + IdAssoc + "' AND vencimento BETWEEN '2022-10-20' AND '2022-11-19' AND c.cnscanmom IS NULL LIMIT 1) AS gastos, '0.00' AS debitos   " +
                                    " FROM comovime AS c" +
                                    " INNER JOIN coconven AS co ON co.idconven = c.convenio " +
                                    " INNER JOIN associa AS a ON c.associado = a.idassoc " +
@@ -861,7 +1115,7 @@ namespace Site.VoceOnLine
 
                     ObjDbASU.Query = query;
 
-
+                        
                     //MessageBox.Show("Do Extrato: " + iDAcesso.Substring(0,(tCampo- 2)));
 
 
@@ -957,6 +1211,7 @@ namespace Site.VoceOnLine
                     xRet += "</tr>";
                     xRet += "<tr>";
                     xRet += "<td style='font-size: 26px;'>" + Apoio.limiteAssociado().ToString("C2") + "</td>";
+                    //Exibe o Saldo apenas se o associado nao estiver Bloqueado
                     if (Apoio.bloqueioAssociado() == "Liberado")
                     {
                         if (Apoio.SaldoAssociado() > 0)
@@ -1448,7 +1703,7 @@ namespace Site.VoceOnLine
                        " border-right: none; " +
                        " padding: 5px 18px 2px 18px; " +
                        " font-size: .9em;" +
-                       " /*font-size: 11px;*/" +
+                       " /*font-size: 11px;*/" +    
                        " font-weight: 300;" +
                        //" background-color: red; " +
                        " }" +
@@ -1698,10 +1953,20 @@ namespace Site.VoceOnLine
 
                 if (nLinhasPre > 0)
                 {
-                    gastosPre = dadosPre.Rows[0]["gastosPre"].ToString();
+                    if (!String.IsNullOrEmpty(dadosPre.Rows[0]["gastosPre"].ToString()))
+                    {
+                        gastosPre = dadosPre.Rows[0]["gastosPre"].ToString();
+                    }
+                    else
+                    {
+                        gastosPre = "0,00";
+                    }
 
                     xRet_Pre += "<div >";
-                    xRet_Pre += "<div Class='relEntTitulo'>" + dadosPos.Rows[0]["conveniado"] + "</div>";                    
+                    if (!String.IsNullOrEmpty(dadosPre.Rows[0]["convenionome"].ToString()))
+                    {
+                        xRet_Pre += "<div Class='relEntTitulo'>" + dadosPre.Rows[0]["convenionome"] + "</div>";
+                    }
                     xRet_Pre += "<div Class='relEntTitulo'>" + "Período Selecionado: " + Convert.ToDateTime(Calendar_ini).ToString("dd-MM-yyyy") + " à " + Convert.ToDateTime(Calendar_fin).ToString("dd-MM-yyyy") + "</div>";
                     //xRet_Pre += "<div style='height: 25px; width:100%; text-align:left;'>" + "Período Selecionado: " + Calendar_ini + " à " + Calendar_fin + "</div>";
                     xRet_Pre += "<section Class='relEntrega'>";
@@ -1778,7 +2043,7 @@ namespace Site.VoceOnLine
             //retRelEntregaPre.Attributes["class"] = "mostrarCampos";
 
             //MessageBox.Show(xRet);
-        }
+        }//montarRelEntrega
 
         public void montarRelMensal()
         {
@@ -1938,7 +2203,7 @@ namespace Site.VoceOnLine
 
             lblFaturaMensal.Text = xRet + xTab;
 
-        }
+        }//montarRelMensal
 
         public void montarExtratoConv()
         {
@@ -2144,7 +2409,7 @@ namespace Site.VoceOnLine
             lblExtratoConvenio.Text = xRet;
 
             //return xRet;
-        }
+        }//montarExtratoConv
 
         public void montarExtratoPreConv()
         {
@@ -2283,7 +2548,7 @@ namespace Site.VoceOnLine
                 xRet += "Erro Pré Pago:" + ObjDbExtPre.MsgErro;
             }
             lblExtratoConvenioPre.Text = xRet;
-        }
+        }//montarExtratoPreConv
 
         /* - - - Botões - - - */
 
@@ -3734,6 +3999,7 @@ namespace Site.VoceOnLine
 
         /* - - - Fim Processo de Venda - - - */
 
+        /*
         protected void gerarPdfExtratoAssoc(object sender, EventArgs e)
         {
             BLL ObjDados = new BLL(conectVegas);
@@ -3881,7 +4147,7 @@ namespace Site.VoceOnLine
 
             doc.Close();
 
-            /*Exibir Arquivos no Diretório*/
+            //Exibir Arquivos no Diretório
             //DirectoryInfo diretorio = new DirectoryInfo(@"K:\Projetos\Web\Site\Site\Downloads");
             DirectoryInfo diretorio = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\Downloads\");
 
@@ -3910,7 +4176,7 @@ namespace Site.VoceOnLine
 
 
         }//gerarPdfExtratoAssoc
-
+        */
 
         public void executarTest(object sender, EventArgs e)
         {
@@ -3953,6 +4219,43 @@ namespace Site.VoceOnLine
 
             return xArq;
         }
+        
         /* - - - Fim Processo de Venda - - - */
-    }
+
+        //Metodo para exibir botão de acesso à Página Eventos. Criado: 08/08/2023
+        public String identificarFuncionarios(string idFunc)
+        {
+            BLL ObjDados = new BLL(conectVegas);
+
+            string query = " SELECT idassoc, titular FROM associa" +
+                           " WHERE categoria = '4' AND idassoc = '" + idFunc + "'";
+
+            ObjDados.Query = query;
+
+            DataTable dados = ObjDados.RetQuery();
+
+            string xRet = "";
+
+            if (dados.Rows.Count > 0)
+            {
+                return btnPainelEventos.Attributes["class"] = "ativa_termo";
+            }
+
+            return null;
+        }
+
+        public void irParaEventos(object sender, EventArgs e)
+        {
+            //Redireciona para a Página de Eventos. Criado: 08/08/2023
+            Response.Redirect("../Eventos/eLogin.aspx");
+        }         
+        
+        public void irParaPesquisa(object sender, EventArgs e)
+        {
+            Response.Redirect("Pesquisa.aspx");
+        }
+
+
+
+    }//Fim
 }

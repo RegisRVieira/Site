@@ -49,6 +49,7 @@
                                     <li><asp:LinkButton ID="lbtExtratoSocio" runat="server" Text="Extrato" OnClick="ativarAssocExtrato"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtCartoes" runat="server" Text="Cartões" OnClick="ativarAssocCartoes"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtAlteraSenha" runat="server" Text="Alterar Senha" OnClick="ativarAssocSenha"></asp:LinkButton></li>
+                                    <span id="btnPainelEventos" runat="server" class="desativa_termo"><li><asp:LinkButton ID="lbtIrEventos" runat="server" Text="Painel de Eventos" OnClick="irParaEventos"></asp:LinkButton></li></span>
                                     <li><asp:LinkButton ID="lbtFazerLogof" runat="server" Text-="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
@@ -66,6 +67,7 @@
                                     <li><asp:LinkButton ID="lbtASenhaConvenio" runat="server" Text="Alterar Senha" OnClick="ativarConvSenha"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtDownloads" runat="server" Text="Downloads" OnClick="ativarConvDownloads"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtOfertas" runat="server" Text="Ofertas" OnClick="ativarConvOfertas"></asp:LinkButton></li>
+                                    <li><asp:LinkButton ID="lbtReimprimir" runat="server" Text="Reimpressão de Venda" OnClick="ativarConvReimpressao"></asp:LinkButton></li>
                                     <li><asp:LinkButton ID="lbtSair" runat="server" Text="Sair" OnClick="fazerLogof"></asp:LinkButton></li>
                                     <li id="treeline-icon" class="treeline-icon" onclick="openMenuFlutua()">&#9776;</li>
                                     <li id="treeline-closeicon" class="treeline-closeicon" onclick="closeMenuFlutua()">&cross;</li>
@@ -76,6 +78,65 @@
                 </div>
             </div>
             <div class="conteudo" >
+                <style>
+                    .divPesquisa{
+                        width: 80%;
+                        min-height: 60px;
+                        margin: 0 auto;
+                        background-color: #f3f3f3;
+                    }
+                    .Desativa{
+                        display:none;
+                    }
+                    .left{
+                        float: left;
+                    }
+                    .divTextPesquisa{
+                        width: 80%;
+                        min-height: 60px;
+                        
+                    }
+                    .divTextPesquisa p{
+                        text-align: right;
+                        padding: 16px 10px 10px 0;
+                        font-size: 1.5em;
+                        color: #f26907;
+                    }
+                    .divBtnPesquisa{
+                        width: 19%;
+                        min-height: 60px;
+                        
+                    }
+                    .divBtnPesquisa a{
+                        background-color: #f26907;
+                        color: #fef3ec;
+                        padding: 10px 20px;
+                        border-radius: 7px;
+                    }
+                    .divBtnPesquisa a:hover{
+                        background-color: #fef3ec;
+                        color: #f26907;
+                        border: 1px solid #f26907;
+                    }
+                    .btnPosicao{
+                        margin-top: 20px;
+                        width: 100%;
+                        min-height: 20px;
+                        
+                    }
+                </style>
+
+                <div id="divPesquisa" runat="server" class="divPesquisa">
+                    <div class="divTextPesquisa left" ><p> Olá, gostariamos da sua opnião. Responda nossa pesquisa!</p></div>
+                    
+                    <div class="divBtnPesquisa left">
+                        <div class="btnPosicao">
+                            <asp:LinkButton ID="btnPesquisa" runat="server" Text="Click para Participar" OnClick="irParaPesquisa"></asp:LinkButton>
+                        </div>
+                    </div>
+                    
+
+                </div>
                 <div class="contassoc">
                     <asp:MultiView ID="mwContAssoc" runat="server">
                         <asp:View ID="vwAssocDados" runat="server">
@@ -119,7 +180,7 @@
                             </div>
                         </asp:View>
                         <asp:View ID="vwAssocExtrato" runat="server">
-                                 <section class="SecPeriodoExtrato">
+                            <section class="SecPeriodoExtrato">
                                 <div class="BoxDdlPeriodoExtrato defaultTable">
                                     <table class="TabPeridoExtrato">
                                         <caption>Período</caption>
@@ -142,13 +203,13 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="tdPeridoExtratoAno">
-                                                    <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server" CssClass="ddlVcOnLine">                                                        
-                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
-                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                    <asp:DropDownList ID="ddlAnoExtratoAssoc" runat="server" CssClass="ddlVcOnLine">                                                                                                                                                                        
                                                         <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
                                                         <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
                                                         <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
                                                         <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
+                                                        <asp:ListItem Value="2024" Text="2024"></asp:ListItem>
+                                                        <asp:ListItem Value="2025" Text="2025"></asp:ListItem>
                                                     </asp:DropDownList></td>
                                                 <td>
                                                     <div class="BtnPeriodoExtrato">                                                        
@@ -166,8 +227,7 @@
                                 <div style="width: 77.8%;">
                                     <asp:Label ID="lblRetExtratoAssoc" runat="server" ><%# extratoAssociado() %></asp:Label>                                    
                                     <!-- <asp:Button ID="btnLogof" runat="server" Text="Sair" OnClick="fazerLogof" /> -->
-                                    <div class="BtnGerarPDfAssoc">
-                                    <!--<asp:Button ID="btnPdfAssoc" runat="server" Text="Extrato PDF" OnClick="gerarPdfExtratoAssoc" />-->
+                                    <div class="BtnGerarPDfAssoc">                                    
                                         <div class="left" style="margin-top: 7px;  margin-left: 5px;">                                            
                                             <a href="#" onclick="PrintElem('#lblRetExtratoAssoc', 1080, 'Extrato do Associado')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp    <br />                                            
                                         </div>
@@ -180,111 +240,121 @@
                                         <asp:Label ID="lblArquivos" runat="server"></asp:Label>
                                     </div>
                                     <style>
-                                        .xxx{
-                                                width: 300px;
-                                                height: 100px;
-                                                background-color: #f26907;
-                                            }
+                                        .xxx {
+                                            width: 300px;
+                                            height: 100px;
+                                            background-color: #f26907;
+                                        }
                                     </style>
                                     <asp:Label ID="lblTestaTermo" runat="server" CssClass="xxx"></asp:Label>
                                 </div>
                                 <style>
-                                    .premiacao{
+                                    .premiacao {
                                         position: absolute;
                                         top: 80px;
                                         right: 600px;
-                                        width: 300px; 
-                                        min-height: 250px; 
+                                        width: 300px;
+                                        min-height: 250px;
                                         background-color: #fef3ec;
                                         border-radius: 8px;
                                         border: 1px solid #f26907;
                                     }
-                                    .msgParticipacao{
+
+                                    .msgParticipacao {
                                         position: absolute;
                                         top: 80px;
                                         right: 20px;
-                                        width: 300px; 
-                                        min-height: 50px; 
+                                        width: 300px;
+                                        min-height: 50px;
                                         background-color: #fef3ec;
                                         border-radius: 8px;
                                         border: 1px solid #f26907;
-                                        
-                                        
                                     }
+
                                     @media(max-width: 1000px) {
-                                    .msgParticipacao{
-                                        position: sticky;
-                                        top: 184px;
-                                        right: 0px;
-                                        width: 90%;   
-                                        min-height: 0px;
-                                        margin-bottom: 120px;
+                                        .msgParticipacao {
+                                            position: sticky;
+                                            top: 184px;
+                                            right: 0px;
+                                            width: 90%;
+                                            min-height: 0px;
+                                            margin-bottom: 120px;
+                                        }
                                     }
-                                    }
+
                                     .msgParticipacao {
-                                        padding: 9px;                                        
+                                        padding: 9px;
                                         font-size: 20px;
                                         color: #f26907;
                                     }
-                                    .premioTexto{
+
+                                    .premioTexto {
                                         width: 100%;
                                         height: 200px;
-                                        padding: 10px 5px 0 5px;                                        
+                                        padding: 10px 5px 0 5px;
                                         font-size: 1.5em;
                                     }
-                                    .premioTexto img{
-                                        margin-top: 5px;
-                                        width: 140px;
-                                    }
-                                    .premioBotao{
+
+                                        .premioTexto img {
+                                            margin-top: 5px;
+                                            width: 140px;
+                                        }
+
+                                    .premioBotao {
                                         margin: 0 auto;
-                                        margin-top: 5px;                                        
+                                        margin-top: 5px;
                                         width: 60%;
-                                        min-height: 40px;                                        
+                                        min-height: 40px;
                                     }
-                                    .btnPremio{                                        
-                                        border-radius: 12px;                                        
+
+                                    .btnPremio {
+                                        border-radius: 12px;
                                         font-weight: 900;
                                         font-size: 1.2em;
                                         font-family: 'Book Antiqua';
                                         padding: 6px;
-                                        
                                     }
-                                    .btnNegarBrinde{
+
+                                    .btnNegarBrinde {
                                         display: none;
                                     }
-                                    @media(max-width: 1000px){
-                                     .premiacao{
-                                        top: 190px;
-                                        right: 7%;
-                                        width: 700px; 
-                                        min-height: 360px; 
-                                        background-color: #fef3ec;
-                                        border-radius: 8px;
-                                        border: 1px solid #f26907;
-                                    }
-                                    .premioTexto{
-                                        width: 98%;
-                                        font-size: 1.8em;                                        
-                                    }
-                                    .premioTexto img{
-                                        margin-top: 5px;
-                                        width: 140px;
-                                    }
-                                    .premioBotao{                                                                                                               
-                                        width: 98%;
-                                        margin-left: 50%;
-                                        min-height: 40px;                                                                                
-                                    }
-                                    .btnPremio{                                        
-                                        font-size: 1.2em;                                        
-                                        padding: 6px;                                        
-                                        
-                                    }   
-                                    .btnNegarBrinde{
-                                        font-size: 2em;
-                                        display: inline;                                        
-                                    }
+
+                                    @media(max-width: 1000px) {
+                                        .premiacao {
+                                            top: 190px;
+                                            right: 7%;
+                                            width: 700px;
+                                            min-height: 360px;
+                                            background-color: #fef3ec;
+                                            border-radius: 8px;
+                                            border: 1px solid #f26907;
+                                        }
+
+                                        .premioTexto {
+                                            width: 98%;
+                                            font-size: 1.8em;
+                                        }
+
+                                            .premioTexto img {
+                                                margin-top: 5px;
+                                                width: 140px;
+                                            }
+
+                                        .premioBotao {
+                                            width: 98%;
+                                            margin-left: 50%;
+                                            min-height: 40px;
+                                        }
+
+                                        .btnPremio {
+                                            font-size: 1.2em;
+                                            padding: 6px;
+                                        }
+
+                                        .btnNegarBrinde {
+                                            font-size: 2em;
+                                            display: inline;
+                                        }
                                     }
                                 </style>
                                 <section  style="">
@@ -398,10 +468,8 @@
                                 </div>
                                 <!-- 24-10-2022: Novo modelo de impressão do Comprovante de Venda -->
                                 <div style="width: 100%; min-height: 50px; background-color: #d8e1f3" >
-                                    <div class="left" style="margin-top: 7px;  margin-left: 5px;">
-                                        <!--<a href="#" onclick="PrintElem('#lblRetorno', 1080, 'Comprovante de Venda < %# Titulo() %>')"><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>-->
-                                        <a href="#" onclick="PrintElem('#lblRetorno', 1080, 'Comprovante de Venda <%# Titulo() %>')"><span>Opção 1:</span><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp
-                                        <a href="#" onclick="PrintComprovante('#lblRetorno', 360, 'Comprovante de Venda <%# Titulo() %>')"><span>Opção 2:</span><img style="width: 40px;" src="../Img/Layout/btImprimir-3.png" border="0" /></a>                                        
+                                    <div class="left" style="margin-top: 7px;  margin-left: 5px;">                                        
+                                        <a href="#" onclick="PrintElem('#lblRetorno', 370, 'Comprovante de Venda <%# Titulo() %>')"><span></span><img style="width: 80px;" src="../Img/Layout/btImprimir.png" border="0" /></a>&nbsp                                        
                                     </div>
                                     <div style="margin-left: 5px; width: 79%; min-height: 20px; float: left;">
                                         <!--<p style="text-align: center; color: #22396f; font-size: 20px; padding-top: 14px; " >Comprovante de Venda</p>-->
@@ -473,7 +541,8 @@
                                                             width: 130px;
                                                             height: auto;
                                                         }
-                                                        .cPeriodo{
+
+                                                        .cPeriodo {
                                                             width: 130px;
                                                             height: auto;
                                                         }
@@ -617,13 +686,13 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="tdPeridoExtratoAno">
-                                                    <asp:DropDownList ID="ddlFatMensalAno" runat="server" CssClass="ddlVcOnLine">                                                        
-                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
-                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                    <asp:DropDownList ID="ddlFatMensalAno" runat="server" CssClass="ddlVcOnLine">                                                                                                                
                                                         <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
                                                         <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
                                                         <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
                                                         <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
+                                                        <asp:ListItem Value="2024" Text="2024"></asp:ListItem>
+                                                        <asp:ListItem Value="2025" Text="2025"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>
@@ -662,13 +731,13 @@
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td class="tdPeridoExtratoAno">
-                                                    <asp:DropDownList ID="ddlAnoExtratoConv" runat="server" CssClass="ddlVcOnLine">                                                        
-                                                        <asp:ListItem Value="2018" Text="2018"></asp:ListItem>
-                                                        <asp:ListItem Value="2019" Text="2019"></asp:ListItem>
+                                                    <asp:DropDownList ID="ddlAnoExtratoConv" runat="server" CssClass="ddlVcOnLine">                                                                                                                
                                                         <asp:ListItem Value="2020" Text="2020"></asp:ListItem>
                                                         <asp:ListItem Value="2021" Text="2021"></asp:ListItem>
                                                         <asp:ListItem Value="2022" Text="2022"></asp:ListItem>
                                                         <asp:ListItem Value="2023" Text="2023"></asp:ListItem>
+                                                        <asp:ListItem Value="2024" Text="2024"></asp:ListItem>
+                                                        <asp:ListItem Value="2025" Text="2025"></asp:ListItem>
                                                     </asp:DropDownList>
                                                 </td>
                                                 <td>
@@ -737,7 +806,7 @@
             </main>
     </form>
     <script>       
-        atualizaDataRelEntrega();        
+        atualizaDataRelEntrega();
     </script>
      <script>
          (function (i, s, o, g, r, a, m) {

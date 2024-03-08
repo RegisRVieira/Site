@@ -158,14 +158,14 @@
                         </div>
                     </asp:View>
                     <asp:View ID="vwMesas" runat="server">
-                        <p>Mesas</p>
-                        <select id="stEvento" runat="server"></select>
-                        <select id="stAmbiente" runat="server"></select>
+                        <p>Mesas</p>                        
+                        <asp:DropDownList ID="stEvento" runat="server" OnSelectedIndexChanged="identificarEvento" AutoPostBack="true"></asp:DropDownList>
+                        <asp:DropDownList ID="stAmbiente" runat="server"></asp:DropDownList>                        
                         <input id="iMesasDescricao" runat="server" type="text" placeholder="Descrição" />                        
-                        <textarea ID="iMesasObserva" runat="server" placeholder="Observação"></textarea>
-                        <input id="iMesaNumIni" runat="server" type="text" placeholder="001" />
-                        <input id="iMesaNumFin" runat="server" type="text" placeholder="100" />
-                        <input id="iMesaCadeiras" runat="server" type="text" placeholder="Número de Cadeiras" maxlength="2"/>
+                        <textarea id="iMesasObserva" runat="server" placeholder="Observação"></textarea>
+                        <input id="iMesaNumIni" runat="server" type="text" placeholder="001" required=""/>
+                        <input id="iMesaNumFin" runat="server" type="text" placeholder="100" required=""/>
+                        <input id="iMesaCadeiras" runat="server" type="text" placeholder="Número de Cadeiras" maxlength="2" required=""/>
                         <div class="botaoUm">
                             <asp:LinkButton ID="lbtnGravarMesas" runat="server" Text="Gravar" OnClick="gravarMesas"></asp:LinkButton>
                         </div>
@@ -175,12 +175,10 @@
                         <select id="stFinanEvento" runat="server"></select>
                         <input id="iCustoTitular" runat="server" placeholder="Custo do Assciado" />
                         <input id="iCustoDependente" runat="server" placeholder="Custo do Dependente" />
-                        <input id="iCustoConvidado" runat="server" placeholder="Custo do Titular" />
-                        
+                        <input id="iCustoConvidado" runat="server" placeholder="Custo do Titular" />                        
                     </asp:View>
                 </asp:MultiView>
-            </section>        
-            
+            </section>            
             <asp:Label ID="lblMsg" runat="server"></asp:Label>
          <section>
             <div style="width: 280px; float: right;">
